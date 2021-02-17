@@ -26,11 +26,18 @@ class HomeController extends Controller
     {
         $user_role = auth()->user()->role;
         //dd($user_role);
+
+        //developer
         if ($user_role == "1") {
-            return view('home');
+            return view('developer.home'); 
         }
+        //investor
+        else if ($user_role == "2") {
+            return view('investor.home'); 
+        }
+        //admin
         else{
-            return view('nav');
+            return view('investor.home');
         }
         
     }
