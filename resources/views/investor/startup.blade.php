@@ -1,6 +1,5 @@
 @extends('layouts.inv')
 
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -15,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged as investor!') }}
+                    {{ __('You are logged as investor and open startup!') }}
                 </div>
             </div>
         </div>

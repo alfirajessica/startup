@@ -3,7 +3,7 @@
     <div id="app">
         <div class="container ">
             <header class="blog-header fixed-top">
-                <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm px-4">
+                <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm px-4">
                     <div class="container">
                         <a class="navbar-brand" href="{{ url('/') }}">
                             {{ config('app.name', 'Startup') }}
@@ -15,12 +15,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <!-- Left Side Of Navbar -->
                             <ul class="navbar-nav mr-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Produk</a>
-                                </li>
-                                <li class="nav-item">
-                                <a class="nav-link" href="#">Event</a>
-                                </li>
+        
                             </ul>
         
                             <!-- Right Side Of Navbar -->
@@ -68,14 +63,10 @@
                 @include('units.product')          
         </div>
 
-        <main class="py-4">
-            @yield('content')
-            {{-- @yield('content')  ini home --}}
+        <main>         
         </main>
 
         @include('units.footer')
     </div>
 </body>
 </html>
-
-
