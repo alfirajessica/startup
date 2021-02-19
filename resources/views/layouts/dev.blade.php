@@ -16,10 +16,10 @@
                             <!-- Left Side Of Navbar -->
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Produk</a>
+                                    <a class="nav-link" href="{{ route('event') }}">{{ __('Event') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="#">Event</a>
+                                    <a class="nav-link" href="{{ route('valuation') }}">{{ __('Valuation Tools') }}</a>
                                 </li>
                             </ul>
         
@@ -45,6 +45,24 @@
                                         </a>
         
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{{ route('event') }}">
+                                                {{ __('Daftar Produk') }}
+                                            </a>
+
+                                            <a class="dropdown-item" href="">
+                                                {{ __('Riwayat Review dan Rating') }}
+                                            </a>
+
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="">
+                                                {{ __('Laporan') }}
+                                            </a>
+                                            <a class="dropdown-item" href="{{ route('akun') }}">
+                                                {{ __('Pengaturan Akun') }}
+                                            </a>
+
+                                            <div class="dropdown-divider"></div>
+
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                                 document.getElementById('logout-form').submit();">
@@ -62,10 +80,16 @@
                     </div>
                     
                 </nav> 
+
+                @if (Route::currentRouteName() == "event")
+                    @include('units.category')
+                @endif
+                @if (Route::currentRouteName() == "home")
+                    @include('units.jumbotron')
+                @endif
+
                 </header>
-                @include('units.jumbotron')
-                @include('units.category')
-                @include('units.product')          
+                       
         </div>
 
         <main class="py-4">
@@ -73,8 +97,9 @@
             {{-- @yield('content')  ini home --}}
         </main>
 
-        @include('units.footer')
+        
     </div>
+    @include('units.footer')
 </body>
 </html>
 

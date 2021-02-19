@@ -1,0 +1,17 @@
+Global :
+
+Investor :
+1. Fitur Event
+  - nama event
+  - deskrpsi event
+  - jadwal (hari, jam)
+  - pilih offline atau online
+    -> jika offline, input lokasi
+    -> jika online, input link presentasi
+  - waktu pendaftaran dibuka dan ditutup
+  - kontak yang dihubungi
+  - gambar untuk pendukung event
+
+Developer
+1. Pengaturan Akun
+  

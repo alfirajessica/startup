@@ -15,7 +15,22 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <!-- Left Side Of Navbar -->
                             <ul class="navbar-nav mr-auto">
-        
+                                {{-- @if (Auth::user()->role == "1")
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('startup') }}">{{ __('Startup') }}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('event') }}">{{ __('Event') }}</a>
+                                    </li>
+                                @endif
+                                @if (Auth::user()->role == "2")
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Produk</a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link" href="#">Event</a>
+                                </li>
+                                @endif --}}
                             </ul>
         
                             <!-- Right Side Of Navbar -->

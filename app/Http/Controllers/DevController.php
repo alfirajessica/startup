@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class InvController extends Controller
+class DevController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -22,18 +22,15 @@ class InvController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function event()
+    public function produk()
     {
-        return view('investor.event');
-    }
-
-    public function startup()
-    {
-        return view('investor.startup');
+        return view('developer.produk');
     }
 
     public function akun()
     {
-        return view('investor.akun');
+        return view('developer.akun');
     }
+
+    
 }

@@ -19,8 +19,9 @@
                                     <a class="nav-link" href="{{ route('startup') }}">{{ __('Startup') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ route('event') }}">{{ __('Event') }}</a>
+                                    <a class="nav-link" href="{{ route('valuation') }}">{{ __('Valuation Tools') }}</a>
                                 </li>
+                                
                             </ul>
         
                             <!-- Right Side Of Navbar -->
@@ -45,6 +46,27 @@
                                         </a>
         
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{{ route('event') }}">
+                                                {{ __('Buat Event') }}
+                                            </a>
+
+                                            <a class="dropdown-item" href="">
+                                                {{ __('List Investasi') }}
+                                            </a>
+
+                                            <a class="dropdown-item" href="">
+                                                {{ __('Riwayat Review dan Rating') }}
+                                            </a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="">
+                                                {{ __('Laporan') }}
+                                            </a>
+
+                                            <a class="dropdown-item" href="{{ route('akun') }}">
+                                                {{ __('Pengaturan Akun') }}
+                                            </a>
+
+                                            <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                                 onclick="event.preventDefault();
                                                                 document.getElementById('logout-form').submit();">
