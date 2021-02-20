@@ -45,7 +45,7 @@
                                         </a>
         
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('event') }}">
+                                            <a class="dropdown-item" href="{{ route('dev.product') }}">
                                                 {{ __('Daftar Produk') }}
                                             </a>
 
@@ -57,7 +57,7 @@
                                             <a class="dropdown-item" href="">
                                                 {{ __('Laporan') }}
                                             </a>
-                                            <a class="dropdown-item" href="{{ route('akun') }}">
+                                            <a class="dropdown-item" href="{{ route('dev.akun') }}">
                                                 {{ __('Pengaturan Akun') }}
                                             </a>
 
@@ -81,14 +81,21 @@
                     
                 </nav> 
 
+                @if (Route::currentRouteName() == "home")
+                    @include('units.category')
+                @endif
                 @if (Route::currentRouteName() == "event")
                     @include('units.category')
                 @endif
+                </header>
+                
                 @if (Route::currentRouteName() == "home")
                     @include('units.jumbotron')
                 @endif
 
-                </header>
+                @if (Route::currentRouteName() == "event")
+                    
+                @endif
                        
         </div>
 

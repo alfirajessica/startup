@@ -8,9 +8,9 @@
         </div>
         <div class="col-md-6 py-4">
             <div class="card-body">
-                <h2 class="text-center"> Login </h2>
+                <h2 class="text-center"> Admin Login </h2>
                 <br>
-                <form method="POST" action="{{ route('login') }}">
+                <form method="POST" action="{{ route('admin.login.submit') }}">
                     @csrf
 
                     <div class="form-group row">

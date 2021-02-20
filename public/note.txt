@@ -1,7 +1,32 @@
 Global :
+GANTI NAMA -> CONFIG - APP
+
+1. Register
+  => nama
+  => email
+  => password + konfirmasi password [hide and show pass]
+  => pilih role
+  => link : ke halaman login
+
+2. login
+  => email
+  => password [hide andd show pass]
+  => link : ke halaman Register
+  => link : lupa password 
 
 Investor :
-1. Fitur Event
+1. Pengaturan Akun
+  - Profil
+    => email [disabed, terisi] 
+    => nama [terisi]
+    => deskripsi Investor
+    => kontak yang dapat dihubungi [nomor telepon]
+  - Password
+    => password lama [hidden: password]
+      kondisi : password baru
+                konfirmasi password baru
+
+2. Fitur Event
   - nama event
   - deskrpsi event
   - jadwal (hari, jam)
@@ -14,4 +39,17 @@ Investor :
 
 Developer
 1. Pengaturan Akun
-  
+  - Profil
+    => email developer [akan ditampilkan email terdaftar saat ini]
+    => nama developer/startup [akan ditampilkan nama terdaftar]
+    => deskripsi startup
+    => tim
+    => keuntungan
+    => produk yang didevelop
+    => target pasar
+    => kontak yang dapat dihubungi [nomor telepon]
+  - Password
+    => password lama [hidden: password]
+      kondisi : password baru
+                konfirmasi password baru
+      

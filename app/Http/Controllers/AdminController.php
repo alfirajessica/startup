@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DevController extends Controller
+class AdminController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -14,7 +14,7 @@ class DevController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -22,15 +22,8 @@ class DevController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function product()
+    public function index()
     {
-        return view('developer.product');
+        return view('admin');
     }
-
-    public function akun()
-    {
-        return view('developer.akun');
-    }
-
-    
 }

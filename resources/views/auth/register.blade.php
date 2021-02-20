@@ -45,8 +45,15 @@
                         <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
             
                         <div class="col-md-6">
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-            
+                            <div class="input-group mb-3">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" aria-describedby="basic-addon1">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon1">
+                                    <i class="fa fa-eye-slash" onclick="show()" id="i_slash" style="display:block;"></i>
+                                    <i class="fa fa-eye" id="i_eye" style="display:none;" onclick="hide()"></i>
+                                  </span>
+                                </div>  
+                            </div>
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -59,7 +66,15 @@
                         <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
             
                         <div class="col-md-6">
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            <div class="input-group mb-3">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" aria-describedby="basic-addon2">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text" id="basic-addon2">
+                                    <i class="fa fa-eye-slash" onclick="show2()" id="i_slash2" style="display:block;"></i>
+                                    <i class="fa fa-eye" id="i_eye2" style="display:none;" onclick="hide2()"></i>
+                                  </span>
+                                </div>  
+                            </div>
                         </div>
                     </div>
             
@@ -99,6 +114,32 @@
         </div>
     </div>
 </div>
+
+<script>
+    function show() {
+        $("#password").attr("type", "text");
+        $("#i_eye").attr("style", "display:block");
+        $("#i_slash").attr("style", "display:none");
+    }
+      
+    function hide() {
+        $("#password").attr("type", "password");
+        $("#i_eye").attr("style", "display:none");
+        $("#i_slash").attr("style", "display:block");
+    }
+
+    function show2() {
+        $("#password-confirm").attr("type", "text");
+        $("#i_eye2").attr("style", "display:block");
+        $("#i_slash2").attr("style", "display:none");
+    }
+      
+    function hide2() {
+        $("#password-confirm").attr("type", "password");
+        $("#i_eye2").attr("style", "display:none");
+        $("#i_slash2").attr("style", "display:block");
+    }
+</script>
 @endsection
 
 
