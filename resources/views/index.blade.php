@@ -79,6 +79,10 @@
         </div>
 
         <main>         
+            <div class="panel-body">
+                @component('components.who')
+                @endcomponent
+            </div>
         </main>
 
         @include('units.footer')

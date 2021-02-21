@@ -10,7 +10,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ValuationToolsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\AdminLoginController;
-
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,15 +30,18 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-//Route::get('/admin', [AdminController::class, 'index'])->name('home');
+Route::post('/users/logout', [LoginController::class, 'userLogout'])->name('users.logout');
 
-
+ 
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
 
     Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
     
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+
+    Route::get('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+    Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 });
 
 

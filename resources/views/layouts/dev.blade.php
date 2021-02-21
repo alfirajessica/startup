@@ -69,7 +69,7 @@
                                                 {{ __('Logout') }}
                                             </a>
         
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                            <form id="logout-form" action="{{ route('users.logout') }}" method="POST" class="d-none">
                                                 @csrf
                                             </form>
                                         </div>
@@ -100,7 +100,12 @@
         </div>
 
         <main class="py-4">
-            @yield('content')
+            <div class="panel-body">
+                @component('components.who')
+                @endcomponent
+            </div>
+
+            {{-- @yield('content') --}}
             {{-- @yield('content')  ini home --}}
         </main>
 
