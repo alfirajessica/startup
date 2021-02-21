@@ -1,3 +1,6 @@
+akun gmail : startups.invs@gmail.com
+password : startupin
+
 Global :
 GANTI NAMA -> CONFIG - APP
 

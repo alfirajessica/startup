@@ -12,6 +12,9 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\LoginController;
 
+use App\Http\Controllers\Auth\AdminForgotPasswordController;
+use App\Http\Controllers\Auth\AdminResetPasswordController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,8 +43,17 @@ Route::prefix('admin')->group(function () {
     
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+    //Route::get('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
+
+    // Password reset routes
+    Route::post('/password/email', [AdminForgotPasswordController::class, 'sendResetLinkEmail'])->name('admin.password.email');
+
+    Route::get('/password/reset', [AdminForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');
+
+    Route::post('/password/reset', [AdminResetPasswordController::class, 'reset']);
+
+    Route::get('/password/reset/{token}', [AdminResetPasswordController::class, 'showResetForm'])->name('admin.password.reset');
 });
 
 
