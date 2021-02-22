@@ -82,11 +82,11 @@
                         
                     @endif
                      --}}
-                    @if (Route::has('register'))
+                    {{-- @if (Route::has('register'))
                     <div class="form-group row">
                         <a class="col-md-8 col-form-label text-md-right" href="{{ route('register') }}">{{ __('Belum Punya Akun? Register Disini') }}</a>
                     </div>
-                    @endif
+                    @endif --}}
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

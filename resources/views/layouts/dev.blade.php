@@ -1,4 +1,5 @@
 @extends('head')
+<link href="/css/blog.css" rel="stylesheet">
 <body>
     <div id="app">
         <div class="container ">
@@ -100,12 +101,12 @@
         </div>
 
         <main class="py-4">
-            <div class="panel-body">
+            {{-- <div class="panel-body">
                 @component('components.who')
                 @endcomponent
-            </div>
+            </div> --}}
 
-            {{-- @yield('content') --}}
+            @yield('content')
             {{-- @yield('content')  ini home --}}
         </main>
 
