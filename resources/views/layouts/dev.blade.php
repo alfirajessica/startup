@@ -47,10 +47,14 @@
         
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                             <a class="dropdown-item" href="{{ route('dev.product') }}">
-                                                {{ __('Daftar Produk') }}
+                                                {{ __('Daftarkan Produk') }}
                                             </a>
 
-                                            <a class="dropdown-item" href="">
+                                            <a class="dropdown-item" href="{{ route('dev.product') }}">
+                                                {{ __('Produk Saya') }}
+                                            </a>
+
+                                            <a class="dropdown-item" href="{{ route('dev.review') }}">
                                                 {{ __('Riwayat Review dan Rating') }}
                                             </a>
 

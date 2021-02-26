@@ -32,5 +32,10 @@ class DevController extends Controller
         return view('developer.akun');
     }
 
+    public function review()
+    {
+        return view('developer.review');
+    }
+
     
 }

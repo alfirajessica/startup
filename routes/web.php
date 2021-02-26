@@ -54,6 +54,17 @@ Route::prefix('admin')->group(function () {
     Route::post('/password/reset', [AdminResetPasswordController::class, 'reset']);
 
     Route::get('/password/reset/{token}', [AdminResetPasswordController::class, 'showResetForm'])->name('admin.password.reset');
+   
+    //pengaturan akun
+    Route::get('/akun', [AdminController::class, 'akun'])->name('admin.akun');
+
+    //pengguna - developer
+    Route::get('/dev/daftarDeveloper', [AdminController::class, 'listdev'])->name('admin.dev.listDev');
+    Route::get('/dev/produkDeveloper', [AdminController::class, 'produkdev'])->name('admin.dev.produkDev');
+
+    //pengguna - investor
+    Route::get('/dev/daftarInvestor', [AdminController::class, 'listinv'])->name('admin.inv.listInv');
+    Route::get('/dev/transaksiInvestor', [AdminController::class, 'transaksiinv'])->name('admin.inv.transaksiInv');
 });
 
 
@@ -63,11 +74,13 @@ Route::get('/valuation', [ValuationToolsController::class, 'valuation'])->name('
 //INVESTOR
 Route::get('/inv/akun', [InvController::class, 'akun'])->name('inv.akun');
 Route::get('/event', [InvController::class, 'event'])->name('event');
-Route::get('/startup', [InvController::class, 'startup'])->name('startup');
+Route::get('/inv/startup', [InvController::class, 'startup'])->name('inv.startup');
+Route::get('/inv/detailstartup', [InvController::class, 'detailstartup'])->name('detailstartup');
 
 //Developer
 Route::get('/dev/akun', [DevController::class, 'akun'])->name('dev.akun');
 Route::get('/dev/product', [DevController::class, 'product'])->name('dev.product');
+Route::get('/dev/review', [DevController::class, 'review'])->name('dev.review');
 
 
 

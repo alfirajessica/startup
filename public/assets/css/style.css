@@ -1007,7 +1007,7 @@ aside.left-panel {
   min-height: 100%;
   padding: 0 25px;
   vertical-align: top;
-  width: 200px;
+  width: 280px;
   -webkit-transition:width 0.3s ease;
   transition: width 0.3s ease; }
 
@@ -2346,7 +2346,7 @@ header .form-inline {
 @media (max-width: 1024px) {
   aside.left-panel {
     padding: 0 20px;
-    width: 160px; }
+    width: 200px; }
   .navbar .navbar-nav li > a .menu-icon {
     width: 30px; }
   .navbar .navbar-nav li.menu-item-has-children .sub-menu {

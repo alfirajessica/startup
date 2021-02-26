@@ -17,6 +17,24 @@ GANTI NAMA -> CONFIG - APP
   => link : ke halaman Register
   => link : lupa password 
 
+
+Admin
+1. Pengaturan Akun
+  - Profil
+    => email [disabed, terisi] 
+    => nama [terisi]
+  - Password
+    => password lama [hidden: password]
+      kondisi : password baru
+                konfirmasi password baru
+
+2. Developer
+    - Daftar Developer
+     => datatables list developer 
+        /id, nama, email, aksi
+    - Produk
+     => datatables list produk terdaftar pada website
+
 Investor :
 1. Pengaturan Akun
   - Profil
@@ -55,4 +73,4 @@ Developer
     => password lama [hidden: password]
       kondisi : password baru
                 konfirmasi password baru
-      
+

@@ -17,7 +17,7 @@
                             <!-- Left Side Of Navbar -->
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('startup') }}">{{ __('Startup') }}</a>
+                                    <a class="nav-link" href="{{ route('inv.startup') }}">{{ __('Startup') }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('valuation') }}">{{ __('Valuation Tools') }}</a>
@@ -95,10 +95,13 @@
                 
                 @if (Route::currentRouteName() == "home")
                     @include('units.jumbotron')
+                    @include('units.product')
+                    {{-- @include('units.carousel') --}}
                 @endif
 
                 @if (Route::currentRouteName() == "startup")
-                    @include('units.product')
+                    {{-- @include('units.jumbotron') --}}
+                    
                 @endif
 
                 @if (Route::currentRouteName() == "event")

@@ -1,6 +1,6 @@
 
 
-<div class="nav-scroller py-2 mb-2 bg-white">
+<div class="nav-scroller py-2 mb-2 bg-primary text-white">
     <nav class="nav d-flex justify-content-center">
       <a class="p-2 text-muted" href="#">World</a>
       <a class="p-2 text-muted" href="#">U.S.</a>

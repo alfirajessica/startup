@@ -32,6 +32,10 @@ class InvController extends Controller
         return view('investor.startup');
     }
 
+    public function detailstartup(){
+        return view('investor.detailstartup');
+    }
+
     public function akun()
     {
         return view('investor.akun');

@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card shadow"> <!-- card shadow --> 
-                  ini dashboard 
+                  List Investor
                 </div>
 
             </div>
