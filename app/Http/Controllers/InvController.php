@@ -27,6 +27,10 @@ class InvController extends Controller
         return view('investor.event');
     }
 
+    public function buatEvent(){
+        $user_role = auth()->user()->id;
+    }
+
     public function startup()
     {
         return view('investor.startup');

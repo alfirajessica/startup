@@ -63,7 +63,7 @@ Investor :
   - Tampilan produk [semua kategori]
     => Jika melihat detail produk maka akan diarahkan ke "detailstartup"
     => Yang ditampilkan adalah : 
-        //Deskripsi produk : Gambar, Nama, Tentang, deskripsi lengkap, financial
+        //Deskripsi produk : Gambar, Nama, Tentang, deskripsi lengkap, financial, comment/rating
         //Pemilik produk [startupnya]
         //tombol "Investasikan"
   - Sort by (mengurutkan produk)

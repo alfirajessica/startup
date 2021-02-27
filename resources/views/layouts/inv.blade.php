@@ -85,8 +85,11 @@
                     </div>
                     
                 </nav> 
-                @if (Route::currentRouteName() == "home" || Route::currentRouteName() == "detailstartup")
+                @if (Route::currentRouteName() == "home")
                     @include('units.category')
+                @endif
+                @if (Route::currentRouteName() == "detailstartup")
+                    @include('investor.detailStartup.listing')
                 @endif
                 @if (Route::currentRouteName() == "startup")
                     @include('units.category')

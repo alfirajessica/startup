@@ -34,107 +34,20 @@
               <div class="tab-content" id="myTabContent">
                   <!-- profile -->
                   <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                    <div class="row">
-                        <div class="col md-6">
-
-                            <div class="form-group">
-                                <label for="nama_event">Nama Event</label>
-                                <input type="text" class="form-control" id="nama_event" aria-describedby="nama_eventHelp" placeholder="Masukkan Nama Event">
-                                <small id="nama_eventHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleTextarea">Deskripsi Event</label>
-                                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="jadwal_event">Jadwal Event</label>
-                                <input type="date" class="form-control" id="jadwal_event" aria-describedby="jadwal_eventHelp">
-                                <small id="jadwal_eventHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleSelect1">Example select</label>
-                                <select class="form-control" id="exampleSelect1">
-                                  <option>Online</option>
-                                  <option>Offline</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="link_event">Link Event</label>
-                                <input type="text" class="form-control" id="link_event" aria-describedby="link_eventHelp" placeholder="Masukkan Link Event">
-                                <small id="link_eventHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exampleSelect1">Lokasi</label>
-                                <select class="form-control" id="exampleSelect1">
-                                  <option>--</option>
-                                  
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="col md-6">
-                            <div class="form-group">
-                                <label for="jadwal_event">Pendaftaran dibuka</label>
-                                <input type="date" class="form-control" id="jadwal_event" aria-describedby="jadwal_eventHelp">
-                                <small id="jadwal_eventHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="jadwal_event">Pendaftaran Ditutup</label>
-                                <input type="date" class="form-control" id="jadwal_event" aria-describedby="jadwal_eventHelp">
-                                <small id="jadwal_eventHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                            </div>
-
-                            <div class="input-group">
-                                <div class="custom-file">
-                                  <input type="file" class="custom-file-input" id="inputGroupFile04">
-                                  <label class="custom-file-label" for="inputGroupFile04">Choose file</label>
-                                </div>
-                                <div class="input-group-append">
-                                  <button class="btn btn-outline-secondary" type="button">Button</button>
-                                </div>
-                              </div>
-                        </div>
-                    </div>
+                      @include('investor.event.buatEvent')
                   </div>
                   <!-- end of profile -->
       
                   <!-- password -->
                   <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                      <div class="row">
-                          <div class="col">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover" width="100%" id="table_pegawai">
-                                  <thead>
-                                      <tr>
-                                          <th>#ID</th>
-                                          <th>Nama</th>
-                                          <th>Email</th>
-                                          <th>Aksi</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody></tbody>
-                                </table>
-                              <!-- AKHIR TABLE -->
-                              </div>
-                          </div>
-                      </div>
+                    @include('investor.event.listEvent')
                   </div> <!-- end of lihat daftar event -->
               </div> <!-- end of tab content -->
             </div> <!--end of card body -->
             </div>
           </div>
           <!-- end card -->
-
-          
         </div>
-
-        
       </div>
 </div>
 
