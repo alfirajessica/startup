@@ -37,8 +37,8 @@
     background:#efefef;
     height:50%;
     border-radius:0 0 5px 5px;
-    position: relative;
-    z-index: 9999;
+    position: inherit;
+    /* z-index: 9999; */
   }
   .profile-card-3 .card-content::before {
       content: '';
@@ -54,7 +54,7 @@
   .profile-card-3 .profile {
     border-radius: 50%;
     position: absolute;
-    bottom: 50%;
+    bottom: 60%;
     left: 50%;
     max-width: 100px;
     opacity: 1;
@@ -62,7 +62,7 @@
     border: 2px solid rgba(255, 255, 255, 1);
     -webkit-transform: translate(-50%, 0%);
     transform: translate(-50%, 0%);
-    z-index:99999;
+    /* z-index:99999; */
     overflow: hidden;
   }
   .profile-card-3 h2 {

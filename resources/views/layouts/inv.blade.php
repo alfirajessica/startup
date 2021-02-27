@@ -47,7 +47,7 @@
                                         </a>
         
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('event') }}">
+                                            <a class="dropdown-item" href="{{ route('inv.event') }}">
                                                 {{ __('Buat Event') }}
                                             </a>
 
@@ -85,7 +85,7 @@
                     </div>
                     
                 </nav> 
-                @if (Route::currentRouteName() == "home")
+                @if (Route::currentRouteName() == "home" || Route::currentRouteName() == "detailstartup")
                     @include('units.category')
                 @endif
                 @if (Route::currentRouteName() == "startup")

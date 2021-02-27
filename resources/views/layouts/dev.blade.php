@@ -17,7 +17,7 @@
                             <!-- Left Side Of Navbar -->
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('event') }}">{{ __('Event') }}</a>
+                                    <a class="nav-link" href="{{ route('dev.event') }}">{{ __('Event') }}</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('valuation') }}">{{ __('Valuation Tools') }}</a>
@@ -94,13 +94,6 @@
                 @endif
                 </header>
                 
-                @if (Route::currentRouteName() == "home")
-                    @include('units.jumbotron')
-                @endif
-
-                @if (Route::currentRouteName() == "event")
-                    
-                @endif
                        
         </div>
 

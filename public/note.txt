@@ -35,6 +35,7 @@ Admin
     - Produk
      => datatables list produk terdaftar pada website
 
+---------------------------------------------------------------------------------------
 Investor :
 1. Pengaturan Akun
   - Profil
@@ -58,6 +59,21 @@ Investor :
   - kontak yang dihubungi
   - gambar untuk pendukung event
 
+3. Fitur katalog startup
+  - Tampilan produk [semua kategori]
+    => Jika melihat detail produk maka akan diarahkan ke "detailstartup"
+    => Yang ditampilkan adalah : 
+        //Deskripsi produk : Gambar, Nama, Tentang, deskripsi lengkap, financial
+        //Pemilik produk [startupnya]
+        //tombol "Investasikan"
+  - Sort by (mengurutkan produk)
+    => Baru, Old
+  - Filter by
+    => Cari 
+    => Tipe Produk [kategori]
+    => Umur Produk
+
+---------------------------------------------------------------------------------------
 Developer
 1. Pengaturan Akun
   - Profil
@@ -74,3 +90,32 @@ Developer
       kondisi : password baru
                 konfirmasi password baru
 
+2. Fitur Produk
+  - Daftar Produk Baru
+    => nama produk
+    => tipe produk [kategori akan berdasarkan yg ada pada db]
+    => Umur produk [kalender]
+    => Domain produk [link produk]
+    => upload gambar produk
+    => tombol untuk mengisi detail lanjutan
+    >>>>Detail lanjutan
+      => Deskripsi produk anda
+      => Sebutkan siapa saja yang ada didalam tim anda
+      => Alasan kenapa anda membutuhkan Investor
+      => Keuntungan yang akan diperoleh Investor
+      => Sousi yang ditawarkan
+      => Tombol Simpan semua
+  - Produk saya
+    => semua produk yang didaftarkan pada developer tsb
+
+3. Fitur Event
+  - Filter Produk 
+   => Cari
+   => tipe produk
+  - Katalog produk
+    => informasi singkat produk [gambar, deskripsi, online/offline]
+    => tombol Detail event
+    >>>>>Detail Event
+      => Tombol "Daftar event"
+      => informasi pembuat event [informasi investor]
+      => Detail event : gambar, deskripsi, event info [online/offline, lokasi, tanggal dan waktu]

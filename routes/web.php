@@ -73,12 +73,14 @@ Route::get('/valuation', [ValuationToolsController::class, 'valuation'])->name('
 
 //INVESTOR
 Route::get('/inv/akun', [InvController::class, 'akun'])->name('inv.akun');
-Route::get('/event', [InvController::class, 'event'])->name('event');
+Route::get('/inv/event', [InvController::class, 'event'])->name('inv.event');
 Route::get('/inv/startup', [InvController::class, 'startup'])->name('inv.startup');
 Route::get('/inv/detailstartup', [InvController::class, 'detailstartup'])->name('detailstartup');
 
 //Developer
 Route::get('/dev/akun', [DevController::class, 'akun'])->name('dev.akun');
+Route::get('/dev/event', [DevController::class, 'event'])->name('dev.event');
+Route::get('/dev/event/detailsEvent', [DevController::class, 'detailsEvent'])->name('dev.event.detailsEvent');
 Route::get('/dev/product', [DevController::class, 'product'])->name('dev.product');
 Route::get('/dev/review', [DevController::class, 'review'])->name('dev.review');
 

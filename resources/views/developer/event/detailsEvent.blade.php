@@ -1,16 +1,15 @@
-@extends('layouts.inv')
+@extends('layouts.dev')
 
 @section('content')
 <div class="container">
      <!-- card shadow -->
     <div class="row py-4"> <!-- row -->
         {{-- @include('units.jumbotron') --}}
-        <div class="py-4"></div>
     </div>
     <div class="row py-4">
         <div class="py-4"></div>
         <div class="col-md-4 mb-0"><!--col-md-4 -->
-            <button type="button" class="btn btn-primary btn-lg btn-block">Investasikan</button>
+            <button type="button" class="btn btn-primary btn-lg btn-block">Daftar Event</button>
             <hr>
             <div class="card profile-card-3">
                 <div class="background-block">
@@ -23,8 +22,7 @@
                 <h2>Justin Mccoy<small>Designer</small></h3>
                 <div class="icon-block"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"> <i class="fa fa-twitter"></i></a><a href="#"> <i class="fa fa-google-plus"></i></a></div>
                 </div>
-            </div>
-            
+            </div>   
         </div><!--end col-md-4 -->
         
         <div class="col-md-8"> <!--col-md-8 -->
@@ -45,39 +43,15 @@
 
             <div class="card border-0 py-4">
                 <div class="card-body shadow">
-                    <h5>Site Info</h5>
-                    
+                    <h5>Event Info</h5>
+                    <br>
+                    <strong class="d-inline-block mb-2 text-success">[Online/Offline]</strong>
+                    <h6><i class="fas fa-external-link-alt"></i> Online link </h6>
+                    <h6><i class="fas fa-map-marker-alt"></i> Lokasi </h6>
+                    <h6><i class="fas fa-calendar-alt"></i> Tanggal </h6>
+                    <h6><i class="fas fa-clock"></i> Waktu </h6>
                 </div>
-            </div>
-
-            <div class="card border-0 py-2">
-                <div class="card-body shadow">
-                    <h5>About Product</h5>
-                    
-                </div>
-            </div>
-            
-            <div class="card border-0">
-                <div class="card-body shadow">
-                    <h5>Financial</h5>
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover" width="100%" id="table_pegawai">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Revenue</th>
-                                <th>Cost</th>
-                                <th>Profit</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                        </table>
-                    <!-- AKHIR TABLE -->
-                    </div>
-                </div>
-            </div>
-
-            
+            </div>    
         </div><!--end col-md-8 -->
     </div>
 </div>

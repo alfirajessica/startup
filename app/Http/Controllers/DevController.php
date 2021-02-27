@@ -32,6 +32,14 @@ class DevController extends Controller
         return view('developer.akun');
     }
 
+    public function event(){
+        return view('developer.event');
+    }
+
+    public function detailsEvent(){
+        return view('developer.event.detailsEvent');
+    }
+
     public function review()
     {
         return view('developer.review');
