@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHeaderEvents extends Migration
+class CreateHeaderEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -22,7 +22,7 @@ class CreateHeaderEvents extends Migration
             $table->string('link');
             $table->string('location');
             $table->string('event_schedule');
-            $table->string('img');
+            $table->mediumText('image')->nullable();
             $table->string('status');
             $table->timestamps();
         });
