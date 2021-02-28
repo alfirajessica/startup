@@ -134,6 +134,18 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'nama_event' => [
+            'required' => 'Masukkan nama event',
+        ],
+        'desc_event' => [
+            'required' => 'Masukkan deskripsi event',
+        ],
+        'event_held' => [
+            'not_in' => 'Tentukan Event akan diadakan secara online atau offline',
+        ],
+        'jadwal_event' => [
+            'required' => 'Tentukan jadwal event',
+        ],
     ],
 
     /*

@@ -75,6 +75,7 @@ Route::get('/valuation', [ValuationToolsController::class, 'valuation'])->name('
 Route::get('/inv/akun', [InvController::class, 'akun'])->name('inv.akun');
 Route::get('/inv/event', [InvController::class, 'event'])->name('inv.event');
 Route::post('/inv/event', [InvController::class, 'buatEvent'])->name('inv.buatEvent');
+Route::get('/inv/listEvent', [InvController::class, 'listEvent'])->name('inv.listEvent');
 
 Route::get('/inv/startup', [InvController::class, 'startup'])->name('inv.startup');
 Route::get('/inv/detailstartup', [InvController::class, 'detailstartup'])->name('detailstartup');

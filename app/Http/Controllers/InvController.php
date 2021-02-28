@@ -40,8 +40,8 @@ class InvController extends Controller
         $validator = Validator::make($req->all(),[
             'nama_event'=>'required',
             'desc_event'=>'required',
-            'event_held'=>'required',
-            'jadwal_event'=>'required',
+            'event_held'=>'required|not_in:0',
+            'jadwal_event'=>'required|date',
         ]);
 
         //check the request is validated or not
@@ -62,7 +62,7 @@ class InvController extends Controller
             if ($req->hasfile('image')) {
                 $file = $req->file('image');
                 $extension = $file->getClientOriginalExtension();
-                $filename = $req->nama_event.'.'.$extension;
+                $filename = $req->nama_event.$req->jadwal_event.'.'.$extension;
                 $file->move('uploads/event/', $filename);
                 $event->image = $filename;
             }else{
@@ -74,15 +74,38 @@ class InvController extends Controller
             $query = $event->save();
 
             if ($query) {
-                return back()
-                    ->with('success','You have successfully upload image.')
-                    ->with('image',$filename); 
+                // return back()
+                //     ->with('success','You have successfully upload image.')
+                //     ->with('image',$filename); 
 
-                // return response()->json(['status'=>1, 'msg'=>'Event baru berhasil ditambahkan']);
+                return response()->json(['status'=>1, 'msg'=>'Event baru berhasil ditambahkan']);
             }
         }
 
         //return view('investor.event');
+    }
+
+    public function listEvent(Request $req){
+
+        $user = auth()->user();
+        
+        $list_dev = DB::table('header_events')
+                    ->where('user_id', '=', $user->id)
+                    ->get();
+        if($req->ajax()){
+            return datatables()->of($list_dev)
+                            ->addColumn('action', function($data){
+                                $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="far fa-edit"></i> Edit</a>';
+                                $button .= '&nbsp;&nbsp;';
+                                $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';     
+                                return $button;
+                            })
+                            ->rawColumns(['action'])
+                            ->addIndexColumn()
+                            ->make(true);
+        }
+
+        return view('inv.listEvent');
     }
 
     public function startup()

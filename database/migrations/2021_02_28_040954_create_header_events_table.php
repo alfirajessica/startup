@@ -21,7 +21,7 @@ class CreateHeaderEventsTable extends Migration
             $table->string('held');
             $table->string('link');
             $table->string('location');
-            $table->string('event_schedule');
+            $table->date('event_schedule');
             $table->mediumText('image')->nullable();
             $table->string('status');
             $table->timestamps();

@@ -1,16 +1,18 @@
-<form action="{{ route('inv.buatEvent')}}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('inv.buatEvent')}}" method="POST" enctype="multipart/form-data" id="buatEvent">
     @csrf
 <div class="row">
     <div class="col md-6">
         <div class="form-group">
             <label for="nama_event">Nama Event</label>
             <input type="text" class="form-control" name="nama_event" aria-describedby="nama_eventHelp" placeholder="Masukkan Nama Event">
-            <small id="nama_eventHelp" class="form-text text-muted">Masukkan Nama Event Anda</small>
+            <span class="text-danger error-text nama_event_error"></span>
+            {{-- <small id="nama_eventHelp" class="form-text text-muted">Masukkan Nama Event Anda</small> --}}
         </div>
 
         <div class="form-group">
             <label for="desc_event">Deskripsi Event</label>
             <textarea class="form-control" name="desc_event" rows="3"></textarea>
+            <span class="text-danger error-text desc_event_error"></span>
         </div>
 
         <div class="form-group">
@@ -20,12 +22,13 @@
                 <option value="online">Online</option>
                 <option value="offline">Offline</option>
             </select>
+            <span class="text-danger error-text event_held_error"></span>
         </div>
 
         <div class="form-group d-none" id="event_link">
             <label for="link_event">Link Event</label>
             <input type="url" class="form-control" name="link_event" aria-describedby="link_eventHelp" placeholder="Masukkan Link Event">
-            <small id="link_eventHelp" class="form-text text-muted">Masukkan Link Meeting : Meet maupun Zoom</small>
+            {{-- <span class="text-danger error-text link_event_error"></span> --}}
         </div>
 
         <div class="form-group d-none" id="event_lokasi">
@@ -34,6 +37,7 @@
               <option>--</option>
               
             </select>
+
         </div>
 
     </div>
@@ -41,7 +45,7 @@
         <div class="form-group">
             <label for="jadwal_event">Jadwal Event</label>
             <input type="date" class="form-control" name="jadwal_event" aria-describedby="jadwal_eventHelp">
-            <small id="jadwal_eventHelp" class="form-text text-muted">Tentukan Jadwal Event Anda</small>
+            <span class="text-danger error-text jadwal_event_error"></span>
         </div>
 
         {{-- akan di set 1 hari sebelum acara akan ditutup pendaftarannya --}}
@@ -49,11 +53,12 @@
         <div class="input-group">
             <label for="exampleInputFile">File input</label>
             <input type="file" class="form-control-file"  name="image" id="exampleInputFile" aria-describedby="fileHelp" onchange="previewFile(this)">
+            <span class="text-danger error-text image_error"></span>
         </div>
 
         <div class="form-group">
           <a href="#" id="pop">
-            <img id="previewImg" alt="event-image" style="max-width: 250px; margin-top:20px" src="{{asset('images')}}">
+            <img id="previewImg" style="max-width: 250px; margin-top:20px" src="{{asset('images')}}">
         </a>
           
         </div>
@@ -62,7 +67,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <button type="submit" class="btn btn-primary float-right">Submit</button>
+        <button type="submit" class="btn btn-primary float-right">Simpan Event</button>
     </div>
 </div>
 </form>
@@ -91,12 +96,7 @@
 
 
 <script>
-$("#pop").on("click", function() {
-   $('#imagepreview').attr('src', $('#previewImg').attr('src')); // here asign the image to the modal when the user click the enlarge link
-   $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
-});
-
-//lakukan hidden ('d-none') dan show dengan jika event held dipilih salah satu
+//do hide and show if event_held had choosen -- onchange select
 function event_willbe_held() {
     var event_held = $("#will_beheld").val(); 
     console.log(event_held);
@@ -108,9 +108,9 @@ function event_willbe_held() {
         document.querySelector('#event_link').classList.add('d-none');
         document.querySelector('#event_lokasi').classList.remove('d-none');
     }
-    
 }
 
+//to show image what user had choosen in preview
 function previewFile() {
     var file = $("#exampleInputFile").get(0).files[0];
     if (file) {
@@ -121,4 +121,40 @@ function previewFile() {
         reader.readAsDataURL(file);
     }
 }
+
+//show image preview to modal
+$("#pop").on("click", function() {
+    $('#imagepreview').attr('src', $('#previewImg').attr('src')); // here asign the image to the modal when the user click the enlarge link
+    $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+});
+
+//function when user click button --Simpan Event
+$("#buatEvent").on("submit",function (e) {
+    e.preventDefault();
+       
+    $.ajax({
+        url:$(this).attr('action'),
+        method:$(this).attr('method'),
+        data:new FormData(this),
+        processData:false,
+        dataType:'json',
+        contentType:false,
+        beforeSend:function() {
+            $(document).find('span.error-text').text('');
+        },
+        success:function(data) {
+            if (data.status == 0) {
+                $.each(data.error, function (prefix, val) {
+                    $('span.'+prefix+'_error').text(val[0]);
+                });
+            }else{
+                $('#buatEvent')[0].reset();
+                document.querySelector('#event_link, #event_lokasi').classList.add('d-none');
+                $("#previewImg").attr("src", '').hide();
+                alert(data.msg);
+            }
+        }
+    });
+});
+
 </script>
