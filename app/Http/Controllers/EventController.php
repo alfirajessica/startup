@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Validator;
 use App\Models\HeaderEvent;
 use App\Models\User;
+use Carbon\Carbon;
 
 class EventController extends Controller
 {
@@ -171,8 +172,37 @@ class EventController extends Controller
 
     public function deleteEvent($id)
     {
-       
         DB::table("header_events")->delete($id);
     	return response()->json(['success'=>"Berhasil menghapus event", 'tr'=>'tr_'.$id]);
+    }
+
+
+
+    // developer event
+    public function devEvent()
+    {
+        
+        return view('developer.event');
+    }
+
+    public function homeNewEvents(Request $req){
+
+    //     $date = \Carbon\Carbon::today()->subDays(30);
+    //    // $newEvents = User::where('created_at','>=',$date)->get();
+    //     $list_events = DB::table('header_events')
+    //                 ->where('created_at', '=', $date)
+    //                 ->get();
+
+    //     dd($list_events);
+
+        $header_events = DB::table("header_events")
+                   ->whereDate('created_at', '>', Carbon::now()->subDays(30))
+                   ->all();
+        return view('dev.devEvent', $header_events);
+
+        // $user = auth()->user();
+        // $list_events = DB::table('header_events')
+        //             ->where('user_id', '=', $user->id)
+        //             ->get();
     }
 }

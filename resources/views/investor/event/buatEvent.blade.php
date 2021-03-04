@@ -165,6 +165,7 @@ function previewFile() {
         var reader = new FileReader();
         reader.onload = function(){
             $("#previewImg").attr("src", reader.result);
+            console.log(file);
         }
         reader.readAsDataURL(file);
     }

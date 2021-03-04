@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use Validator;
+use App\Models\HeaderEvent;
+use App\Models\User;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -29,7 +35,10 @@ class HomeController extends Controller
 
         //developer
         if ($user_role == "1") {
-            return view('developer.home'); 
+            $header_events['header_events'] = DB::table("header_events")
+                   ->whereDate('created_at', '>', Carbon::now()->subDays(30))
+                   ->get();
+            return view('developer.home', $header_events); 
         }
         //investor
         else if ($user_role == "2") {
@@ -37,6 +46,7 @@ class HomeController extends Controller
         }
         //admin
         else{
+            
             return view('investor.home');
         }
         

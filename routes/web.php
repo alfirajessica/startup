@@ -92,7 +92,10 @@ Route::get('/inv/detailstartup', [InvController::class, 'detailstartup'])->name(
 
 //Developer
 Route::get('/dev/akun', [DevController::class, 'akun'])->name('dev.akun');
+
 Route::get('/dev/event', [DevController::class, 'event'])->name('dev.event');
+//Route::get('/dev/event', [EventController::class, 'homeNewEvents'])->name('dev.homeNewEvents');
+
 Route::get('/dev/event/detailsEvent', [DevController::class, 'detailsEvent'])->name('dev.event.detailsEvent');
 Route::get('/dev/product', [DevController::class, 'product'])->name('dev.product');
 Route::get('/dev/review', [DevController::class, 'review'])->name('dev.review');
