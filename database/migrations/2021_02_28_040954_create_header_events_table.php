@@ -17,11 +17,14 @@ class CreateHeaderEventsTable extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('name');
-            $table->string('desc');
+            $table->text('desc')->nullable();
             $table->string('held');
-            $table->string('link');
-            $table->string('location');
+            $table->string('link')->nullable();
+            $table->bigInteger('province')->nullable();
+            $table->bigInteger('city')->nullable();
+            $table->text('address')->nullable();
             $table->date('event_schedule');
+            $table->time('event_time')->nullable();
             $table->mediumText('image')->nullable();
             $table->string('status');
             $table->timestamps();

@@ -18,5 +18,6 @@ class HeaderEvent extends Model
         'desc',
         'held',
         'event_schedule',
+        'event_time',
     ];
 }

@@ -49,15 +49,27 @@ Investor :
                 konfirmasi password baru
 
 2. Fitur Event
-  - nama event
-  - deskrpsi event
-  - jadwal (hari, jam)
-  - pilih offline atau online
-    -> jika offline, input lokasi
-    -> jika online, input link presentasi
-  - waktu pendaftaran dibuka dan ditutup
-  - kontak yang dihubungi
-  - gambar untuk pendukung event
+  >> Buat Event
+    - nama event
+    - deskrpsi event
+    - pilih offline atau online
+      -> jika offline, pilih provinsi, kota dan masukkan alamat
+      -> jika online, input link meeting
+    - jadwal (hari, jam)
+    - gambar untuk pendukung event
+
+  >> Event saya
+    - ditampilkan list event milik user
+     => Hapus -- hapus event tsb
+     => Ubah/edit    /*belum selesai*/
+       --- kembali mengedit ditampilkan :
+        - nama event
+        - deskrpsi event
+        - pilih offline atau online
+          -> jika offline, pilih provinsi, kota dan masukkan alamat
+          -> jika online, input link meeting
+        - jadwal (hari, jam)
+        - gambar untuk pendukung event
 
 3. Fitur katalog startup
   - Tampilan produk [semua kategori]

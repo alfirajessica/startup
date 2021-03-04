@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvController;
+use App\Http\Controllers\EventController;
+
 use App\Http\Controllers\DevController;
 use App\Http\Controllers\AdminController;
 
@@ -73,9 +75,17 @@ Route::get('/valuation', [ValuationToolsController::class, 'valuation'])->name('
 
 //INVESTOR
 Route::get('/inv/akun', [InvController::class, 'akun'])->name('inv.akun');
-Route::get('/inv/event', [InvController::class, 'event'])->name('inv.event');
-Route::post('/inv/event', [InvController::class, 'buatEvent'])->name('inv.buatEvent');
-Route::get('/inv/listEvent', [InvController::class, 'listEvent'])->name('inv.listEvent');
+
+//investor -- event
+Route::get('/inv/event', [EventController::class, 'event'])->name('inv.event'); //show event view
+Route::post('/inv/event', [EventController::class, 'buatEvent'])->name('inv.buatEvent'); //buat event
+Route::get('/inv/listEvent', [EventController::class, 'listEvent'])->name('inv.listEvent'); //show list event
+Route::get('/cities/{province_id}', [EventController::class, 'getCities']); //get all cities in buat event
+
+Route::get('/inv/listEvent/editEvent/{id}', [EventController::class, 'editEvent'])->name('inv.listEvent.editEvent'); //get all cities in buat event
+Route::get('/inv/listEvent/deleteEvent/{id}', [EventController::class, 'deleteEvent'])->name('inv.listEvent.deleteEvent'); //get all cities in buat event
+//Route::get('/inv/editEvent/{id}', [EventController::class, 'editEvent']);
+
 
 Route::get('/inv/startup', [InvController::class, 'startup'])->name('inv.startup');
 Route::get('/inv/detailstartup', [InvController::class, 'detailstartup'])->name('detailstartup');

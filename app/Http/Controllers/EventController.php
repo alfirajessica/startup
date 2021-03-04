@@ -10,8 +10,7 @@ use Validator;
 use App\Models\HeaderEvent;
 use App\Models\User;
 
-
-class InvController extends Controller
+class EventController extends Controller
 {
     protected $API_KEY = 'b987431dcecfd64bc6a193cdce1ff0bd';
 
@@ -30,7 +29,7 @@ class InvController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    /*public function event()
+    public function event()
     {
         //get Province
         $response = Http::withHeaders([
@@ -141,33 +140,39 @@ class InvController extends Controller
                     ->get();
         if($req->ajax()){
             return datatables()->of($list_dev)
-                    // ->addColumn('action', function($data){
-                    //     $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="far fa-edit"></i> Edit</a>';
-                    //     $button .= '&nbsp;&nbsp;';
-                    //     $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';     
-                    //     return $button;
-                    // })
-                    // ->rawColumns(['action'])
+                    ->addColumn('action', function($data){
+                        $btn = '<a href="javascript:void(0)" data-toggle="collapse" data-target="#collapseExample"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
+   
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
+                        data-toggle="confirmation"
+                        data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
+                        data-btn-ok-class="btn btn-sm btn-danger"
+                        data-btn-cancel-label="Cancel"
+                        data-btn-cancel-icon="fa fa-chevron-circle-left"
+                        data-btn-cancel-class="btn btn-sm btn-default"
+                        data-title="Are you sure you want to delete ?"
+                        data-placement="left" data-singleton="true">Hapus</a>';
+    
+                        return $btn;
+                     })
+                    ->rawColumns(['action'])
                     ->addIndexColumn()
                     ->make(true);
         }
 
         return view('inv.listEvent');
-    }*/
-
-
-
-    public function startup()
-    {
-        return view('investor.startup');
     }
 
-    public function detailstartup(){
-        return view('investor.detailstartup');
+    public function editEvent($id)
+    {
+        $HeaderEvent = HeaderEvent::find($id);
+        return response()->json($HeaderEvent);
     }
 
-    public function akun()
+    public function deleteEvent($id)
     {
-        return view('investor.akun');
+       
+        DB::table("header_events")->delete($id);
+    	return response()->json(['success'=>"Berhasil menghapus event", 'tr'=>'tr_'.$id]);
     }
 }

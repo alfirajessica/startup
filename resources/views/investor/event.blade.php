@@ -40,6 +40,7 @@
       
                   <!-- password -->
                   <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                    @include('investor.event.editEvent')
                     @include('investor.event.listEvent')
                   </div> <!-- end of lihat daftar event -->
               </div> <!-- end of tab content -->
@@ -50,59 +51,5 @@
         </div>
       </div>
 </div>
-
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.js"></script>
-
-
-<script>
-  $(document).ready(function () {
-        //  table1();
-      });
-
-   function table1() {
-     $('#table_pegawai').DataTable({
-               processing: true,
-               serverSide: true, //aktifkan server-side 
-               responsive:true,
-               deferRender:true,
-               aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
-               ajax: {
-                   url: "{{ route('admin.dev.listDev') }}",
-                   type: 'GET'
-               },
-               columns: [{
-                       data: 'id',
-                       name: 'id'
-                   },
-                   {
-                       data: 'name',
-                       name: 'name'
-                   },
-                   {
-                       data: 'email',
-                       name: 'email'
-                   },
-                   
-                   {
-                       data: 'action',
-                       name: 'action'
-                   },
-               ],
-               order: [
-                   [0, 'asc']
-               ]
-           });
-      }
-     
-</script>
 @endsection
 
