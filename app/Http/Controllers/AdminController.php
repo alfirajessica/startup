@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Validator;
 use DataTables;
 use App\Models\User;
-use App\Models\Student;
+use App\Models\CategoryProduct;
+use App\Models\detailCategoryProduct;
 
 class AdminController extends Controller
 {
@@ -34,6 +36,111 @@ class AdminController extends Controller
 
     public function akun(){
         return view('admin.akun');
+    }
+
+    //kategori produk
+    public function categoryProduct(Request $request){
+        $list_category = DB::table('category_products')->get();
+        if($request->ajax()){
+            return datatables()->of($list_category)
+                ->addColumn('action', function($data){
+                    $btn = '<a href="javascript:void(0)" data-toggle="collapse" data-target="#collapseExample"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
+
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
+                    data-toggle="confirmation"
+                    data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
+                    data-btn-ok-class="btn btn-sm btn-danger"
+                    data-btn-cancel-label="Cancel"
+                    data-btn-cancel-icon="fa fa-chevron-circle-left"
+                    data-btn-cancel-class="btn btn-sm btn-default"
+                    data-title="Are you sure you want to delete ?"
+                    data-placement="left" data-singleton="true">Hapus</a>';
+
+                    $btn = $btn. ' <a href="javascript:void(0)" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailKategori">Detail</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('admin.categoryProduct');
+    }
+
+    public function addNewCategoryProduct(Request $req)
+    {
+        // if ($request->has('addCategory')) {
+        //     return response()->json(['status'=>1, 'msg'=>'Kategori baru berhasil ditambahkan']);
+        // }else{
+        //     return response()->json(['status'=>1, 'msg'=>'detail Kategori baru berhasil ditambahkan']);
+        // }
+        //validate request
+        $validator = Validator::make($req->all(),[
+            'category_product'=>'required',
+        ]);
+
+        //check the request is validated or not
+        if (!$validator->passes()) {
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $category = new CategoryProduct;
+            $category->name_category = ucfirst($req->category_product);
+            $category->status = "1";
+            $query = $category->save();
+    
+            if ($query) {
+                return response()->json(['status'=>1, 'msg'=>'Kategori baru berhasil ditambahkan']);
+            }
+        }
+    }
+
+    public function detailCategoryProduct(Request $request, $id){
+
+        $list_detailcategory = DB::table('detail_category_products')->where('category_id', '=', $id)->get();
+        if($request->ajax()){
+            return datatables()->of($list_detailcategory)
+                ->addColumn('action', function($data){
+                    
+                    $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
+                    data-toggle="confirmation"
+                    data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
+                    data-btn-ok-class="btn btn-sm btn-danger"
+                    data-btn-cancel-label="Cancel"
+                    data-btn-cancel-icon="fa fa-chevron-circle-left"
+                    data-btn-cancel-class="btn btn-sm btn-default"
+                    data-title="Are you sure you want to delete ?"
+                    data-placement="left" data-singleton="true">Hapus</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('admin.categoryProduct');
+    }
+
+    public function addNewDetailCategoryProduct(Request $req)
+    {
+        //validate request
+        $validator = Validator::make($req->all(),[
+            'detailcategory_product'=>'required',
+        ]);
+
+        //check the request is validated or not
+        if (!$validator->passes()) {
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $detailcategory = new detailCategoryProduct;
+            $detailcategory->id = $req->categoryID;
+            $detailcategory->name = ucfirst($req->detailcategory_product);
+            $detailcategory->status = "1";
+            $query = $detailcategory->save();
+    
+            if ($query) {
+                return response()->json(['status'=>1, 'msg'=>'Detail Kategori baru berhasil ditambahkan']);
+            }
+        }
     }
 
     //DEVELOPER

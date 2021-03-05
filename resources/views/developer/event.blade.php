@@ -46,12 +46,50 @@
         </div>
         <!-- end row untuk filter-->
         <div class="row">
-            @include('developer.event.listEvents')
+            <section class="pt-2 pb-5">
+                <div class="container">
+                    {{-- row event baru --}}
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                      @foreach ($header_events as $item)
+                      <div class="col py-2">
+                        <div class="card shadow border-0 h-100">
+                          <img
+                            src="/uploads/event/{{$item->image}}"
+                            class="card-img-top"
+                            alt="..."
+                          />
+                          <div class="card-body">
+                            <h5 class="card-title">{{$item->name}}</h5>
+                            <p class="card-text">
+                              {{$item->desc}}
+                            </p>
+                            <a href="{{ route('dev.event.detailsEvent')}}" class="btn btn-primary">Detail Event</a>
+                          </div>
+                        </div>
+                      </div>
+                      @endforeach
+                      </div>
+                      
+                    {{-- end of row event baru --}}
+                    <div class="row py-4">
+                      <div class="col-md-12 d-flex justify-content-center">
+                        {{ $header_events->links() }}
+                      </div>
+                      
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 </div>
-
-
-
-
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+<script>
+$(document).ready(function () {
+
+});
+</script>

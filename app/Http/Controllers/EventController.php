@@ -181,8 +181,8 @@ class EventController extends Controller
     // developer event
     public function devEvent()
     {
-        
-        return view('developer.event');
+        $header_events['header_events'] = DB::table("header_events")->paginate(6);
+        return view('developer.event', $header_events);
     }
 
     public function homeNewEvents(Request $req){

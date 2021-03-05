@@ -50,15 +50,18 @@ Route::prefix('admin')->group(function () {
 
     // Password reset routes
     Route::post('/password/email', [AdminForgotPasswordController::class, 'sendResetLinkEmail'])->name('admin.password.email');
-
     Route::get('/password/reset', [AdminForgotPasswordController::class, 'showLinkRequestForm'])->name('admin.password.request');
-
     Route::post('/password/reset', [AdminResetPasswordController::class, 'reset']);
-
     Route::get('/password/reset/{token}', [AdminResetPasswordController::class, 'showResetForm'])->name('admin.password.reset');
    
     //pengaturan akun
     Route::get('/akun', [AdminController::class, 'akun'])->name('admin.akun');
+
+    //master kategori produk
+    Route::get('/kategoriProduk', [AdminController::class, 'categoryProduct'])->name('admin.categoryProduct');
+    Route::post('/kategoriProduk', [AdminController::class, 'addNewCategoryProduct'])->name('admin.addNewCategoryProduct');
+    Route::get('/kategoriProduk/detailKategori/{id}', [AdminController::class, 'detailCategoryProduct'])->name('admin.categoryProduct.detailKategori');
+    //Route::post('/kategoriProduk', [AdminController::class, 'addNewDetailCategoryProduct'])->name('admin.addNewDetailCategoryProduct');
 
     //pengguna - developer
     Route::get('/dev/daftarDeveloper', [AdminController::class, 'listdev'])->name('admin.dev.listDev');
@@ -68,6 +71,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/dev/daftarInvestor', [AdminController::class, 'listinv'])->name('admin.inv.listInv');
     Route::get('/dev/transaksiInvestor', [AdminController::class, 'transaksiinv'])->name('admin.inv.transaksiInv');
 });
+
 
 
 //valuation tools -- all of can use it
@@ -93,8 +97,9 @@ Route::get('/inv/detailstartup', [InvController::class, 'detailstartup'])->name(
 //Developer
 Route::get('/dev/akun', [DevController::class, 'akun'])->name('dev.akun');
 
-Route::get('/dev/event', [DevController::class, 'event'])->name('dev.event');
-//Route::get('/dev/event', [EventController::class, 'homeNewEvents'])->name('dev.homeNewEvents');
+//event
+Route::get('/dev/event', [EventController::class, 'devEvent'])->name('dev.event');
+
 
 Route::get('/dev/event/detailsEvent', [DevController::class, 'detailsEvent'])->name('dev.event.detailsEvent');
 Route::get('/dev/product', [DevController::class, 'product'])->name('dev.product');
