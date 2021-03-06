@@ -69,18 +69,14 @@ class AdminController extends Controller
 
     public function addNewCategoryProduct(Request $req)
     {
-        // if ($request->has('addCategory')) {
-        //     return response()->json(['status'=>1, 'msg'=>'Kategori baru berhasil ditambahkan']);
-        // }else{
-        //     return response()->json(['status'=>1, 'msg'=>'detail Kategori baru berhasil ditambahkan']);
-        // }
-        //validate request
         $validator = Validator::make($req->all(),[
             'category_product'=>'required',
         ]);
 
         //check the request is validated or not
         if (!$validator->passes()) {
+            $re = 0;
+           // return redirect()->back()->with('alert', 'Deleted!');
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
             $category = new CategoryProduct;
@@ -89,7 +85,89 @@ class AdminController extends Controller
             $query = $category->save();
     
             if ($query) {
-                return response()->json(['status'=>1, 'msg'=>'Kategori baru berhasil ditambahkan']);
+                //return redirect()->back()->with('alert', 'Berhasil tambah kategori baru!');
+                // $re = 1;
+                 return response()->json(['status'=>1, 'msg'=>'Kategori baru berhasil ditambahkan']);
+            }
+        }
+
+        /*$re = 0;
+        if ($req->has('addCategory')) {
+            $validator = Validator::make($req->all(),[
+                'category_product'=>'required',
+            ]);
+    
+            //check the request is validated or not
+            if (!$validator->passes()) {
+                $re = 0;
+               // return redirect()->back()->with('alert', 'Deleted!');
+                return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+            }else{
+                $category = new CategoryProduct;
+                $category->name_category = ucfirst($req->category_product);
+                $category->status = "1";
+                $query = $category->save();
+        
+                if ($query) {
+                    //return redirect()->back()->with('alert', 'Berhasil tambah kategori baru!');
+                    // $re = 1;
+                     return response()->json(['status'=>1, 'msg'=>'Kategori baru berhasil ditambahkan']);
+                }
+            }
+        }
+
+        
+        if ($req->has('addDetail')){
+            $validator = Validator::make($req->all(),[
+                'detailcategory_product'=>'required',
+            ]);
+    
+            //check the request is validated or not
+            if (!$validator->passes()) {
+                $re=0;
+                //return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+            }else{
+                $detailcategory = new detailCategoryProduct;
+                $detailcategory->category_id = $req->categoryID;
+                $detailcategory->name = ucfirst($req->detailcategory_product);
+                $detailcategory->status = "1";
+                $query = $detailcategory->save();
+        
+                if ($query) {
+                    $re = 1;
+                   // return response()->json(['status'=>1, 'msg'=>'Detail Kategori baru berhasil ditambahkan']);
+                }
+            }
+        }
+
+        if ($re == 0) {
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }
+        else if ($re == 1) {
+            return response()->json(['status'=>1, 'msg'=>'berhasil ditambahkan']);
+        }*/
+        
+    }
+
+    public function addNewDetailCategoryProduct(Request $req)
+    {
+        $validator = Validator::make($req->all(),[
+            'detailcategory_product'=>'required',
+        ]);
+
+        //check the request is validated or not
+        if (!$validator->passes()) {
+           // $re=0;
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $detailcategory = new detailCategoryProduct;
+            $detailcategory->category_id = $req->categoryID;
+            $detailcategory->name = ucfirst($req->detailcategory_product);
+            $detailcategory->status = "1";
+            $query = $detailcategory->save();
+    
+            if ($query) {
+                return response()->json(['status'=>1, 'msg'=>'Detail Kategori baru berhasil ditambahkan']);
             }
         }
     }
@@ -120,28 +198,7 @@ class AdminController extends Controller
         return view('admin.categoryProduct');
     }
 
-    public function addNewDetailCategoryProduct(Request $req)
-    {
-        //validate request
-        $validator = Validator::make($req->all(),[
-            'detailcategory_product'=>'required',
-        ]);
-
-        //check the request is validated or not
-        if (!$validator->passes()) {
-            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
-        }else{
-            $detailcategory = new detailCategoryProduct;
-            $detailcategory->id = $req->categoryID;
-            $detailcategory->name = ucfirst($req->detailcategory_product);
-            $detailcategory->status = "1";
-            $query = $detailcategory->save();
     
-            if ($query) {
-                return response()->json(['status'=>1, 'msg'=>'Detail Kategori baru berhasil ditambahkan']);
-            }
-        }
-    }
 
     //DEVELOPER
     public function listdev(Request $request){
@@ -164,16 +221,6 @@ class AdminController extends Controller
         }
 
         return view('admin.dev.listDev');
-
-        //$data['users'] = User::all();
-        //https://www.youtube.com/watch?v=XNFNnIglaeE
-    //     $data['users'] = DB::table('users')
-    //                     ->where('role', '=', 1)
-    //                     ->get();
-    //    return view('admin.dev.listDev', $data);
-
-        //$dataTables->queryBuilder($data)->toJson();
-        //return view('admin.dev.listDev', DataTables::queryBuilder($data)->toJson());
     }
 
     public function produkdev(){

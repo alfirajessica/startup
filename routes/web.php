@@ -59,9 +59,9 @@ Route::prefix('admin')->group(function () {
 
     //master kategori produk
     Route::get('/kategoriProduk', [AdminController::class, 'categoryProduct'])->name('admin.categoryProduct');
-    Route::post('/kategoriProduk', [AdminController::class, 'addNewCategoryProduct'])->name('admin.addNewCategoryProduct');
+    Route::post('/kategoriProduk/new', [AdminController::class, 'addNewCategoryProduct'])->name('admin.addNewCategoryProduct');
     Route::get('/kategoriProduk/detailKategori/{id}', [AdminController::class, 'detailCategoryProduct'])->name('admin.categoryProduct.detailKategori');
-    //Route::post('/kategoriProduk', [AdminController::class, 'addNewDetailCategoryProduct'])->name('admin.addNewDetailCategoryProduct');
+    Route::post('/kategoriProduk/detail', [AdminController::class, 'addNewDetailCategoryProduct'])->name('admin.addNewDetailCategoryProduct');
 
     //pengguna - developer
     Route::get('/dev/daftarDeveloper', [AdminController::class, 'listdev'])->name('admin.dev.listDev');

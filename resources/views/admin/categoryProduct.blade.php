@@ -6,8 +6,14 @@
      <!-- card shadow -->
     <div class="row"> <!-- row untuk header categoryProduct -->
         <div class="col-md-12">
+            @if (session('alert'))
+                <div class="alert alert-success">
+                    {{ session('alert') }}
+                </div>
+            @endif
+
             <div class="card-body shadow">
-                <a data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">+ Tambah Kategori</a>
+                <a data-toggle="modal" data-target="#exampleModal" >+ Tambah Kategori</a>
                 <div class="table-responsive py-2">
                     <table class="table table-bordered table-hover" width="100%" id="table_category">
                     <thead>
@@ -49,66 +55,9 @@
     </div><!-- end of row untuk detail categoryProduct -->
 </div>
 
-{{-- modal tambah kategori --}}
-<form enctype="multipart/form-data" action="{{ route('admin.addNewCategoryProduct') }}" method="POST" id="addNewCategoryProduct">
-@csrf
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Kategori Produk</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          
-            <div class="form-group">
-              <label for="category_product" class="col-form-label">Kateogri Produk:</label>
-              <input type="text" class="form-control" name="category_product">
-              <span class="text-danger error-text category_product_error"></span>
-            </div>
-          
-        </div>
-        <div class="modal-footer">
-          {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-          <button type="submit" class="btn btn-primary" value="addCategory">Tambahkan</button>
-        </div>
-      </div>
-    </div>
-</div>
-{{-- </form> --}}
+@include('admin.category.addCategory')
 
-
-{{-- modal tambah detail per kategori (bidang)--}}
-{{-- <form action="{{ route('admin.addNewdetailCategoryProduct') }}" enctype="multipart/form-data" method="POST" id="detailCategoryProduct">
-@csrf --}}
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Detail Kategori Produk</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <input type="text" id="categoryID" name="categoryID"/>
-            <div class="form-group">
-                <label for="detailcategory_product" class="col-form-label">Kateogri Produk:</label>
-                <input type="text" class="form-control" name="detailcategory_product">
-                <span class="text-danger error-text detailcategory_product_error"></span>
-            </div>
-            
-        </div>
-        <div class="modal-footer">
-            {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
-            <button type="save" class="btn btn-primary" value="addDetail">Tambahkan</button>
-        </div>
-        </div>
-    </div>
-</div>
-</form>
+@include('admin.category.addDetailCategory')
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -118,36 +67,12 @@
 <script type="text/javascript">
 $(document).ready(function () {
     table1();
+    // setTimeout(function(){
+    //    $("div.alert").remove();
+    // }, 5000 ); // 5 secs
 });
 
-//function when user click button --Tambah kategori
-$("#addNewCategoryProduct").on("submit",function (e) {
-    e.preventDefault();
-   
-    $.ajax({
-        url:$(this).attr('action'),
-        method:$(this).attr('method'),
-        data:new FormData(this),
-        processData:false,
-        dataType:'json',
-        contentType:false,
-        beforeSend:function() {
-            $(document).find('span.error-text').text('');
-        },
-        success:function(data) {
-            if (data.status == 0) {
-                $.each(data.error, function (prefix, val) {
-                    $('span.'+prefix+'_error').text(val[0]);
-                });
-            }
-            else{
-                $('#addNewCategoryProduct')[0].reset();
-                $("#addNewCategoryProduct").attr('data-dismis', 'modal');
-                alert(data.msg);
-            }
-        }
-    });
-});
+
 
 function table1() {
     $('#table_category').DataTable({
@@ -243,33 +168,7 @@ function table2(id) {
     });
 }
 
-$("#detailCategoryProduct").on("save",function (e) {
-    e.preventDefault();
-   
-    $.ajax({
-        url:$(this).attr('action'),
-        method:$(this).attr('method'),
-        data:new FormData(this),
-        processData:false,
-        dataType:'json',
-        contentType:false,
-        beforeSend:function() {
-            $(document).find('span.error-text').text('');
-        },
-        success:function(data) {
-            if (data.status == 0) {
-                $.each(data.error, function (prefix, val) {
-                    $('span.'+prefix+'_error').text(val[0]);
-                });
-            }
-            else{
-                $('#detailCategoryProduct')[0].reset();
-                $("#detailCategoryProduct").attr('data-dismis', 'modal');
-                alert(data.msg);
-            }
-        }
-    });
-});
+
 </script>
 
 @endsection
