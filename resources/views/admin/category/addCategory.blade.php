@@ -10,7 +10,13 @@
               </button>
             </div>
             <div class="modal-body">
-              
+                <div id="alert_success" class="alert alert-success d-none">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                </div>
+                <div id="alert_danger" class="alert alert-danger d-none">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                </div>
+
                 <div class="form-group">
                   <label for="category_product" class="col-form-label">Kateogri Produk:</label>
                   <input type="text" class="form-control" name="category_product">
@@ -51,10 +57,21 @@ $("#addNewCategoryProduct").on("submit",function (e) {
                     $('span.'+prefix+'_error').text(val[0]);
                 });
             }
-            else{
+            if (data.status == -1) { 
+                document.querySelector('#alert_danger').classList.remove('d-none');
+                $('#alert_danger').text("Kategori ini telah terdaftar");
                 $('#addNewCategoryProduct')[0].reset();
-                $("#addNewCategoryProduct").attr('data-dismis', 'modal');
-                alert(data.msg);
+
+               
+            }
+            else{
+                
+                 $('#addNewCategoryProduct')[0].reset();
+                 $("#addNewCategoryProduct").attr('data-dismiss','modal');
+                 $('#alert_success').text("Berhasil Tambah Kategori Baru");
+                 document.querySelector('#alert_success').classList.remove('d-none');
+                 table1();
+
             }
         }
     });

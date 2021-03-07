@@ -6,13 +6,8 @@
      <!-- card shadow -->
     <div class="row"> <!-- row untuk header categoryProduct -->
         <div class="col-md-12">
-            @if (session('alert'))
-                <div class="alert alert-success">
-                    {{ session('alert') }}
-                </div>
-            @endif
-
-            <div class="card-body shadow">
+            
+            <div class="card border-0 py-4">
                 <a data-toggle="modal" data-target="#exampleModal" >+ Tambah Kategori</a>
                 <div class="table-responsive py-2">
                     <table class="table table-bordered table-hover" width="100%" id="table_category">
@@ -59,6 +54,7 @@
 
 @include('admin.category.addDetailCategory')
 
+
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -67,15 +63,17 @@
 <script type="text/javascript">
 $(document).ready(function () {
     table1();
-    // setTimeout(function(){
-    //    $("div.alert").remove();
-    // }, 5000 ); // 5 secs
+    setTimeout(function(){
+        document.querySelector('#alert_success').classList.add('d-none');
+        document.querySelector('#alert_danger').classList.add('d-none');
+    }, 5000 ); // 5 secs
 });
 
 
 
 function table1() {
     $('#table_category').DataTable({
+        destroy:true,
         processing: true,
         serverSide: true, //aktifkan server-side 
         responsive:true,
@@ -122,7 +120,41 @@ $('body').on('click', '.detailKategori', function () {
     table2(id);
     $('#categoryID').val(id);
     document.querySelector('#row_detailCategory').classList.remove('d-none');
- });
+});
+
+$('body').on('click', '.deleteKategori', function () {
+    var id = $(this).data("id");
+    confirm("Are You sure want to delete !");
+   
+    $.ajax({
+        type: "get",
+        url: "{{ route('admin.categoryProduct') }}"+'/deleteKategori' + '/' + id,
+        success: function (data) {
+            table1();
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+
+});
+
+$('body').on('click', '.deleteDetailKategori', function () {
+    var id = $(this).data("id");
+    confirm("Are You sure want to delete !");
+   
+    $.ajax({
+        type: "get",
+        url: "{{ route('admin.categoryProduct') }}"+'/deleteDetailKategori' + '/' + id,
+        success: function (data) {
+            table2(id);
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+
+});
 
 //call table_detailcategory which user see the detail of table_category 
 function table2(id) {
@@ -167,8 +199,6 @@ function table2(id) {
         ]
     });
 }
-
-
 </script>
 
 @endsection

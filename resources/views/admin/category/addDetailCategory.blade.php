@@ -31,7 +31,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
 <script type="text/javascript">
-
 $("#addNewDetailCategoryProduct").on("submit",function (e) {
     e.preventDefault();
    
@@ -61,6 +60,4 @@ $("#addNewDetailCategoryProduct").on("submit",function (e) {
         }
     });
 });
-
-
 </script>

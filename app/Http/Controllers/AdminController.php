@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Validator;
 use DataTables;
 use App\Models\User;
@@ -46,7 +47,7 @@ class AdminController extends Controller
                 ->addColumn('action', function($data){
                     $btn = '<a href="javascript:void(0)" data-toggle="collapse" data-target="#collapseExample"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKategori" data-tr="tr_{{$product->id}}"
                     data-toggle="confirmation"
                     data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
                     data-btn-ok-class="btn btn-sm btn-danger"
@@ -73,80 +74,34 @@ class AdminController extends Controller
             'category_product'=>'required',
         ]);
 
-        //check the request is validated or not
         if (!$validator->passes()) {
             $re = 0;
-           // return redirect()->back()->with('alert', 'Deleted!');
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
-            $category = new CategoryProduct;
-            $category->name_category = ucfirst($req->category_product);
-            $category->status = "1";
-            $query = $category->save();
-    
-            if ($query) {
-                //return redirect()->back()->with('alert', 'Berhasil tambah kategori baru!');
-                // $re = 1;
-                 return response()->json(['status'=>1, 'msg'=>'Kategori baru berhasil ditambahkan']);
-            }
-        }
+            
+            //$isExist = CategoryProduct::where('name_category', '=', Input::get('category_product'))->first();
 
-        /*$re = 0;
-        if ($req->has('addCategory')) {
-            $validator = Validator::make($req->all(),[
-                'category_product'=>'required',
-            ]);
-    
-            //check the request is validated or not
-            if (!$validator->passes()) {
-                $re = 0;
-               // return redirect()->back()->with('alert', 'Deleted!');
-                return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
-            }else{
+            $isExist = CategoryProduct::where('name_category','=', $req->category_product)->first();
+            // $isExist = CategoryProduct::select("*")
+            // ->where('name_category', '=', $req->name_category)
+            // ->exists();
+
+            if (CategoryProduct::where('name_category','=', $req->category_product)->exists()) //available
+            {
+                return response()->json(['status'=>-1, 'msg'=>'Kategori telah tersedia']);
+            }
+            if ($isExist == null) {
                 $category = new CategoryProduct;
                 $category->name_category = ucfirst($req->category_product);
                 $category->status = "1";
                 $query = $category->save();
         
                 if ($query) {
-                    //return redirect()->back()->with('alert', 'Berhasil tambah kategori baru!');
-                    // $re = 1;
-                     return response()->json(['status'=>1, 'msg'=>'Kategori baru berhasil ditambahkan']);
+                    return response()->json(['status'=>1, 'msg'=>'Kategori baru berhasil ditambahkan']);
                 }
             }
+           
         }
-
-        
-        if ($req->has('addDetail')){
-            $validator = Validator::make($req->all(),[
-                'detailcategory_product'=>'required',
-            ]);
-    
-            //check the request is validated or not
-            if (!$validator->passes()) {
-                $re=0;
-                //return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
-            }else{
-                $detailcategory = new detailCategoryProduct;
-                $detailcategory->category_id = $req->categoryID;
-                $detailcategory->name = ucfirst($req->detailcategory_product);
-                $detailcategory->status = "1";
-                $query = $detailcategory->save();
-        
-                if ($query) {
-                    $re = 1;
-                   // return response()->json(['status'=>1, 'msg'=>'Detail Kategori baru berhasil ditambahkan']);
-                }
-            }
-        }
-
-        if ($re == 0) {
-            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
-        }
-        else if ($re == 1) {
-            return response()->json(['status'=>1, 'msg'=>'berhasil ditambahkan']);
-        }*/
-        
     }
 
     public function addNewDetailCategoryProduct(Request $req)
@@ -172,6 +127,12 @@ class AdminController extends Controller
         }
     }
 
+    public function deleteCategoryProduct($id)
+    {
+        DB::table("category_products")->delete($id);
+    	return response()->json(['success'=>"Berhasil menghapus kategori", 'tr'=>'tr_'.$id]);
+    }
+
     public function detailCategoryProduct(Request $request, $id){
 
         $list_detailcategory = DB::table('detail_category_products')->where('category_id', '=', $id)->get();
@@ -179,7 +140,7 @@ class AdminController extends Controller
             return datatables()->of($list_detailcategory)
                 ->addColumn('action', function($data){
                     
-                    $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
+                    $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteDetailKategori" data-tr="tr_{{$product->id}}"
                     data-toggle="confirmation"
                     data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
                     data-btn-ok-class="btn btn-sm btn-danger"
@@ -196,6 +157,12 @@ class AdminController extends Controller
                 ->make(true);
         }
         return view('admin.categoryProduct');
+    }
+
+    public function deleteDetailCategoryProduct($id)
+    {
+        DB::table("detail_category_products")->delete($id);
+    	return response()->json(['success'=>"Berhasil menghapus kategori", 'tr'=>'tr_'.$id]);
     }
 
     
