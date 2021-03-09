@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Http;
 use Validator;
 use App\Models\HeaderEvent;
 use App\Models\User;
+use App\Models\CategoryProduct;
+use App\Models\detailCategoryProduct;
 
 
 class InvController extends Controller
@@ -159,7 +161,15 @@ class InvController extends Controller
 
     public function startup()
     {
-        return view('investor.startup');
+        $list_category['list_category'] = DB::table('category_products')->get();
+        return view('investor.startup', $list_category);
+    }
+
+    //filterStartup
+    public function checkbox_categoryHeader()
+    {
+        
+        return view('admin', compact('users', 'roles'));
     }
 
     public function detailstartup(){

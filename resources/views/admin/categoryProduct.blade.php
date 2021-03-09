@@ -8,7 +8,11 @@
         <div class="col-md-12">
             
             <div class="card border-0 py-4">
-                <a data-toggle="modal" data-target="#exampleModal" >+ Tambah Kategori</a>
+                {{-- data-toggle="modal" data-target="#exampleModal"  --}}
+                <a data-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseExample">+ Tambah Kategori</a>
+
+                @include('admin.category.addCategory')
+
                 <div class="table-responsive py-2">
                     <table class="table table-bordered table-hover" width="100%" id="table_category">
                     <thead>
@@ -50,12 +54,13 @@
     </div><!-- end of row untuk detail categoryProduct -->
 </div>
 
-@include('admin.category.addCategory')
+
+@include('admin.category.editCategory')
 
 @include('admin.category.addDetailCategory')
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
+{{-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script>       --}}
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
@@ -124,37 +129,40 @@ $('body').on('click', '.detailKategori', function () {
 
 $('body').on('click', '.deleteKategori', function () {
     var id = $(this).data("id");
-    confirm("Are You sure want to delete !");
-   
-    $.ajax({
-        type: "get",
-        url: "{{ route('admin.categoryProduct') }}"+'/deleteKategori' + '/' + id,
-        success: function (data) {
-            table1();
-        },
-        error: function (data) {
-            console.log('Error:', data);
-        }
-    });
+    var txt;
+    if (confirm("Are You sure want to delete !")) {
+        //txt = "You pressed OK!";
+        $.ajax({
+            type: "get",
+            url: "{{ route('admin.categoryProduct') }}"+'/deleteKategori' + '/' + id,
+            success: function (data) {
+                table1();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+    } else {
+        console.log('You pressed Cancel!');
+    }
 
 });
 
-$('body').on('click', '.deleteDetailKategori', function () {
-    var id = $(this).data("id");
-    confirm("Are You sure want to delete !");
-   
-    $.ajax({
-        type: "get",
-        url: "{{ route('admin.categoryProduct') }}"+'/deleteDetailKategori' + '/' + id,
-        success: function (data) {
-            table2(id);
-        },
-        error: function (data) {
-            console.log('Error:', data);
-        }
-    });
+$('body').on('click', '.editCategory', function () {
+    var id = $(this).data('id');
+    $('#collapseCategory').collapse('show');
 
+    document.querySelector('#addCategory').classList.add('d-none');
+    $.get("{{ route('admin.categoryProduct') }}" +'/editKategori' + '/' + id, function (data) {
+        $('#edit_categoryID').val(id);
+        $('#edit_category_product').val(data.name_category);
+        console.log(data.name_category);
+    })
+
+    //sekarang tinggal atur gimana kalau nnti dia mau update,
+    //tombol modal diubah jadi "Simpan Perubahan Kategori"
 });
+
 
 //call table_detailcategory which user see the detail of table_category 
 function table2(id) {
@@ -199,6 +207,31 @@ function table2(id) {
         ]
     });
 }
+
+$('body').on('click', '.deleteDetailKategori', function () {
+    var id = $(this).data("id");
+    var txt;
+    if (confirm("Are You sure want to delete !")) {
+        //txt = "You pressed OK!";
+        $.ajax({
+        type: "get",
+        url: "{{ route('admin.categoryProduct') }}"+'/deleteDetailKategori' + '/' + id,
+        success: function (data) {
+            table2(id);
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+    } else {
+        console.log('You pressed Cancel!');
+    }
+
+    
+
+});
+
+
 </script>
 
 @endsection

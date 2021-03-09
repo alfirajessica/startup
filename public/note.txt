@@ -35,6 +35,21 @@ Admin
     - Produk
      => datatables list produk terdaftar pada website
 
+3. Produk kategori
+  -> kategori
+    => Tambah
+      >> masukkan nama kategori, ex: Website, Ios App dll
+    => Ubah
+      >> Ubah tampilkan modal 
+    => Hapus
+      >> [akan diubah dengan nonaktifkan]
+    => Lihat detail (menuju detail kategori/bidangnya)
+
+  -> Detail kategori (bidangnya)
+    => tambah detail kategori [tampilan akan diubah ke collapse]
+    => hapus detail kategori [diganti dengan nonaktifkan]
+    
+
 ---------------------------------------------------------------------------------------
 Investor :
 1. Pengaturan Akun

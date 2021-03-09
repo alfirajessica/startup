@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 
 use App\Http\Controllers\DevController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryproductController;
 
 use App\Http\Controllers\ValuationToolsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -58,12 +59,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/akun', [AdminController::class, 'akun'])->name('admin.akun');
 
     //master kategori produk
-    Route::get('/kategoriProduk', [AdminController::class, 'categoryProduct'])->name('admin.categoryProduct');
-    Route::post('/kategoriProduk/new', [AdminController::class, 'addNewCategoryProduct'])->name('admin.addNewCategoryProduct');
-    Route::get('/kategoriProduk/detailKategori/{id}', [AdminController::class, 'detailCategoryProduct'])->name('admin.categoryProduct.detailKategori');
-    Route::post('/kategoriProduk/detail', [AdminController::class, 'addNewDetailCategoryProduct'])->name('admin.addNewDetailCategoryProduct');
-    Route::get('/kategoriProduk/deleteKategori/{id}', [AdminController::class, 'deleteCategoryProduct'])->name('admin.categoryProduct.deleteCategoryProduct');
-    Route::get('/kategoriProduk/deleteDetailKategori/{id}', [AdminController::class, 'deleteDetailCategoryProduct'])->name('admin.categoryProduct.deleteDetailCategoryProduct');
+    Route::get('/kategoriProduk', [CategoryproductController::class, 'categoryProduct'])->name('admin.categoryProduct');
+    Route::post('/kategoriProduk/new', [CategoryproductController::class, 'addNewCategoryProduct'])->name('admin.addNewCategoryProduct');
+    Route::get('/kategoriProduk/detailKategori/{id}', [CategoryproductController::class, 'detailCategoryProduct'])->name('admin.categoryProduct.detailKategori');
+    Route::post('/kategoriProduk/detail', [CategoryproductController::class, 'addNewDetailCategoryProduct'])->name('admin.addNewDetailCategoryProduct');
+    Route::get('/kategoriProduk/deleteKategori/{id}', [CategoryproductController::class, 'deleteCategoryProduct'])->name('admin.categoryProduct.deleteCategoryProduct');
+    Route::get('/kategoriProduk/deleteDetailKategori/{id}', [CategoryproductController::class, 'deleteDetailCategoryProduct'])->name('admin.categoryProduct.deleteDetailCategoryProduct');
+    Route::get('/kategoriProduk/editKategori/{id}', [CategoryproductController::class, 'editCategoryProduct'])->name('admin.categoryProduct.editCategoryProduct');
+    Route::post('/kategoriProduk/updateKategori', [CategoryproductController::class, 'updateCategoryProduct'])->name('admin.updateCategoryProduct');
 
     //pengguna - developer
     Route::get('/dev/daftarDeveloper', [AdminController::class, 'listdev'])->name('admin.dev.listDev');
