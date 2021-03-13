@@ -16,35 +16,35 @@
                 <div class="row">
                     <div class="col md-6">
                         <div class="form-group">
-                            <label for="nama_event">Nama Event</label>
-                            <input type="text" class="form-control" name="nama_event" id="nama_event" aria-describedby="nama_eventHelp" placeholder="Masukkan Nama Event">
-                            <span class="text-danger error-text nama_event_error"></span>
+                            <label for="edit_nama_event">Nama Event</label>
+                            <input type="text" class="form-control" name="edit_nama_event" id="edit_nama_event" aria-describedby="edit_nama_eventHelp" placeholder="Masukkan Nama Event">
+                            <span class="text-danger error-text edit_nama_event_error"></span>
                         </div>
                 
                         <div class="form-group">
-                            <label for="desc_event">Deskripsi Event</label>
-                            <textarea class="form-control" name="desc_event" id="desc_event" rows="3"></textarea>
-                            <span class="text-danger error-text desc_event_error"></span>
+                            <label for="edit_desc_event">Deskripsi Event</label>
+                            <textarea class="form-control" name="edit_desc_event" id="edit_desc_event" rows="3"></textarea>
+                            <span class="text-danger error-text edit_desc_event_error"></span>
                         </div>
                 
                         <div class="form-group">
-                            <label for="event_held">Event akan diadakan secara</label>
-                            <select class="form-control" name="event_held" id="edit_will_beheld" onchange="edit_event_willbe_held()">
+                            <label for="edit_event_held">Event akan diadakan secara</label>
+                            <select class="form-control" name="edit_event_held" id="edit_will_beheld" onchange="edit_event_willbe_held()">
                                 <option value="0">pilih</option>
                                 <option value="Online">Online</option>
                                 <option value="Offline">Offline</option>
                             </select>
-                            <span class="text-danger error-text event_held_error"></span>
+                            <span class="text-danger error-text edit_event_held_error"></span>
                         </div>
                 
                         <div class="form-group d-none" id="events_link">
-                            <label for="link_event">Link Event</label>
-                            <input type="url" class="form-control" name="link_event" id="link_event" aria-describedby="link_eventHelp" placeholder="Masukkan Link Event" />
-                            <span class="text-danger error-text link_event_error"></span>
+                            <label for="edit_link_event">Link Event</label>
+                            <input type="url" class="form-control" name="edit_link_event" id="edit_link_event" aria-describedby="link_eventHelp" placeholder="Masukkan Link Event" />
+                            <span class="text-danger error-text edit_link_event_error"></span>
                         </div>
                 
                         <div class="form-group d-none" id="events_provinsi">
-                            <label for="provinsi_event">Lokasi provinsi</label>
+                            <label for="edit_provinsi_event">Lokasi provinsi</label>
                             <select class="form-control" name="edit_provinsi_event" id="edit_provinsi_event" onchange="show_cities2(this)">
                                 <option value="0" selected>-- pilih provinsi --</option>
                                 @foreach($provinces as $provinsi)
@@ -63,23 +63,23 @@
                         </div>
                 
                         <div class="form-group d-none" id="events_address">
-                            <label for="address_event">Alamat Event</label>
-                            <textarea class="form-control" name="address_event" id="address_event" rows="2"></textarea>
-                            <span class="text-danger error-text address_event_error"></span>
+                            <label for="edit_address_event">Alamat Event</label>
+                            <textarea class="form-control" name="edit_address_event" id="edit_address_event" rows="2"></textarea>
+                            <span class="text-danger error-text edit_address_event_error"></span>
                         </div>
                     </div>
 
                     <div class="col md-6">
                         <div class="form-group">
-                            <label for="jadwal_event">Jadwal Event</label>
-                            <input type="date" class="form-control" name="jadwal_event" id="jadwal_event" aria-describedby="jadwal_eventHelp">
-                            <span class="text-danger error-text jadwal_event_error"></span>
+                            <label for="edit_jadwal_event">Jadwal Event</label>
+                            <input type="date" class="form-control" name="edit_jadwal_event" id="edit_jadwal_event" aria-describedby="edit_jadwal_eventHelp">
+                            <span class="text-danger error-text edit_jadwal_event_error"></span>
                         </div>
                 
                         <div class="form-group">
-                            <label for="time_event">Jam Event</label>
-                            <input type="time" class="form-control" name="time_event" id="time_event" aria-describedby="jadwal_eventHelp">
-                            <span class="text-danger error-text time_event_error"></span>
+                            <label for="edit_time_event">Jam Event</label>
+                            <input type="time" class="form-control" name="edit_time_event" id="edit_time_event" aria-describedby="edit_time_eventHelp">
+                            <span class="text-danger error-text edit_time_event_error"></span>
                         </div>
                 
                         {{-- akan di set 1 hari sebelum acara akan ditutup pendaftarannya --}}
@@ -114,6 +114,7 @@
         console.log($('select[name="edit_kota_event"]').val());
         
     });
+
 function edit_event_willbe_held() {
     var event_held = $("#edit_will_beheld").val(); 
    

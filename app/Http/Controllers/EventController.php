@@ -174,11 +174,11 @@ class EventController extends Controller
     {
         //validate request
         $validator = Validator::make($req->all(),[
-            'nama_event'=>'required',
-            'desc_event'=>'required',
-            'event_held'=>'required|not_in:0',
-            'jadwal_event'=>'required|date',
-            'time_event'=>'required',
+            'edit_nama_event'=>'required',
+            'edit_desc_event'=>'required',
+            'edit_event_held'=>'required|not_in:0',
+            'edit_jadwal_event'=>'required|date',
+            'edit_time_event'=>'required',
         ]);
 
         //check the request is validated or not
@@ -187,11 +187,11 @@ class EventController extends Controller
         }else
         {
 
-            if ($req->event_held == "Offline") {
+            if ($req->edit_event_held == "Offline") {
                 $validator = Validator::make($req->all(),[
                     'edit_provinsi_event'=>'required|not_in:0',
                     'edit_kota_event'=>'required|not_in:0',
-                    'address_event'=>'required',
+                    'edit_address_event'=>'required',
                     
                 ]);
                 if (!$validator->passes()) {
@@ -200,21 +200,21 @@ class EventController extends Controller
                     DB::table('header_events')->
                     where('id',$req->coba_id)->
                     update([
-                        'name' => $req->nama_event,
-                        'desc' => $req->desc_event,
-                        'held' => $req->event_held,
+                        'name' => $req->edit_nama_event,
+                        'desc' => $req->edit_desc_event,
+                        'held' => $req->edit_event_held,
                         'province' => $req->edit_provinsi_event,
                         'city' => $req->edit_kota_event,
-                        'address' => $req->address_event,
-                        'event_schedule' => $req->jadwal_event,
-                        'event_time' => $req->time_event,
+                        'address' => $req->edit_address_event,
+                        'event_schedule' => $req->edit_jadwal_event,
+                        'event_time' => $req->edit_time_event,
 
                     ]);
                 }
             }
             else if($req->event_held == "Online"){
                 $validator = Validator::make($req->all(),[
-                    'link_event'=>'required',
+                    'edit_link_event'=>'required',
                 ]);
                 if (!$validator->passes()) {
                     return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
@@ -223,12 +223,12 @@ class EventController extends Controller
                     DB::table('header_events')->
                     where('id',$req->coba_id)->
                     update([
-                        'name' => $req->nama_event,
-                        'desc' => $req->desc_event,
-                        'held' => $req->event_held,
-                        'link' => $req->link_event,
-                        'event_schedule' => $req->jadwal_event,
-                        'event_time' => $req->time_event,
+                        'name' => $req->edit_nama_event,
+                        'desc' => $req->edit_desc_event,
+                        'held' => $req->edit_event_held,
+                        'link' => $req->edit_link_event,
+                        'event_schedule' => $req->edit_jadwal_event,
+                        'event_time' => $req->edit_time_event,
 
                     ]);
                 }

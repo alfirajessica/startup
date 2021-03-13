@@ -146,6 +146,9 @@ return [
         'jadwal_event' => [
             'required' => 'Tentukan jadwal event',
         ],
+        'time_event' => [
+            'required' => 'Tentukan Waktu event diadakan'
+        ],
     ],
 
     /*

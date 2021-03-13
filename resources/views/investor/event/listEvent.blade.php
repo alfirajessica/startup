@@ -108,20 +108,20 @@ $('body').on('click', '.editProduct', function () {
       var product_id = $(this).data('id');
       $.get("{{ route('inv.listEvent') }}" +'/editEvent' + '/' + product_id, function (data) {
             $('#coba_id').val(data.id);
-            $('#nama_event').val(data.name);
-            $('#desc_event').val(data.desc);
+            $('#edit_nama_event').val(data.name);
+            $('#edit_desc_event').val(data.desc);
             $('#edit_will_beheld').val(data.held);
 
             edit_event_willbe_held();    
             var held = $('#edit_will_beheld').val(data.held);
-            $('#link_event').val(data.link);
+            $('#edit_link_event').val(data.link);
             $('#edit_provinsi_event').val(data.province);
             
             open_city(data.province, data.city);
             
-            $('#address_event').val(data.address);
-            $('#jadwal_event').val(data.event_schedule);
-            $('#time_event').val(data.event_time);
+            $('#edit_address_event').val(data.address);
+            $('#edit_jadwal_event').val(data.event_schedule);
+            $('#edit_time_event').val(data.event_time);
 
             var gmbr = "/uploads/event/"+data.image;
             console.log(gmbr);
