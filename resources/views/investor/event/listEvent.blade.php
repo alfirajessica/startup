@@ -1,4 +1,5 @@
 
+@include('investor.event.editEvent')
 <div class="row py-4">
     <div class="col">
       <div class="table-responsive">
@@ -114,30 +115,77 @@ $('body').on('click', '.editProduct', function () {
             edit_event_willbe_held();    
             var held = $('#edit_will_beheld').val(data.held);
             $('#link_event').val(data.link);
-            $('#provinsi_event').val(data.province);
-            $('#kota_event').val(data.city);
+            $('#edit_provinsi_event').val(data.province);
+            
+            open_city(data.province, data.city);
+            
             $('#address_event').val(data.address);
             $('#jadwal_event').val(data.event_schedule);
             $('#time_event').val(data.event_time);
-          
+
+            var gmbr = "/uploads/event/"+data.image;
+            console.log(gmbr);
+            $("#previewImg2").attr("src", gmbr);
+           
       })
-   });
+});
+
+function open_city(idprovince, idcity) { 
+  
+    console.log("id city :" + idcity);
+    if (idprovince) {
+        jQuery.ajax({
+            url: '/cities/'+idprovince,
+            type: "GET",
+            dataType: "json",
+            success: function (response) {
+                $('select[name="edit_kota_event"]').empty();
+                
+                $('select[name="edit_kota_event"]').append('<option value="" selected>-- pilih kota --</option>');
+                $.each(response, function (key, value) {
+                    var id = value["city_id"];
+                    $('select[name="edit_kota_event"]').append('<option value="'+ id + '">' + value["city_name"] + '</option>');
+                });
+                $('select[name="edit_kota_event"]').find('option[value="'+idcity+'"]').attr("selected",true);
+            },
+        });
+    } else {
+        $('select[name="edit_kota_event"]').append('<option value="">-- pilih kota --</option>');
+    }
+ }
 
 
 $('body').on('click', '.deleteEvent', function () {
      
-     var product_id = $(this).data("id");
-     confirm("Are You sure want to delete !");
-   
-     $.ajax({
-         type: "get",
-         url: "{{ route('inv.listEvent') }}"+'/deleteEvent' + '/' + product_id,
-         success: function (data) {
-            table_listEvent();
-         },
-         error: function (data) {
-             console.log('Error:', data);
-         }
-     });
- });
+    var id = $(this).data("id");
+    var txt;
+    swal({
+        title: "Are You sure want to delete?",
+        text: "Once deleted, you will not be able to recover this event!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+                $.ajax({
+                    type: "get",
+                    url: "{{ route('inv.listEvent') }}"+'/deleteEvent' + '/' + id,
+                    success: function (data) {
+                        table_listEvent();
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            
+            swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+        });
+        } else {
+            swal("Your imaginary file is safe!");
+        }
+    });
+
+});
 </script>

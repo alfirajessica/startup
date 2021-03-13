@@ -82,7 +82,7 @@ Route::prefix('admin')->group(function () {
 //valuation tools -- all of can use it
 Route::get('/valuation', [ValuationToolsController::class, 'valuation'])->name('valuation');
 
-//INVESTOR
+//-----------------------------INVESTOR-------------------
 Route::get('/inv/akun', [InvController::class, 'akun'])->name('inv.akun');
 
 //investor -- event
@@ -92,12 +92,22 @@ Route::get('/inv/listEvent', [EventController::class, 'listEvent'])->name('inv.l
 Route::get('/cities/{province_id}', [EventController::class, 'getCities']); //get all cities in buat event
 
 Route::get('/inv/listEvent/editEvent/{id}', [EventController::class, 'editEvent'])->name('inv.listEvent.editEvent'); //get all cities in buat event
+Route::post('/inv/listEvent/updateEvent', [EventController::class, 'updateEvent'])->name('inv.listEvent.updateEvent'); //get all cities in buat event
+
 Route::get('/inv/listEvent/deleteEvent/{id}', [EventController::class, 'deleteEvent'])->name('inv.listEvent.deleteEvent'); //get all cities in buat event
 //Route::get('/inv/editEvent/{id}', [EventController::class, 'editEvent']);
 
 
 Route::get('/inv/startup', [InvController::class, 'startup'])->name('inv.startup');
+//filter di menu startup
+Route::get('/inv/startup/{id}', [InvController::class, 'detail_category_filter'])->name('inv.startup.detail_category_filter');
+
 Route::get('/inv/detailstartup', [InvController::class, 'detailstartup'])->name('detailstartup');
+
+
+//-----------------------------end of INVESTOR---------------------------
+
+
 
 //Developer
 Route::get('/dev/akun', [DevController::class, 'akun'])->name('dev.akun');

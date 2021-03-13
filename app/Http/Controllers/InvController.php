@@ -165,12 +165,14 @@ class InvController extends Controller
         return view('investor.startup', $list_category);
     }
 
-    //filterStartup
-    public function checkbox_categoryHeader()
+    public function detail_category_filter($id)
     {
+        $list_detailcategory['list_detailcategory'] = DB::table('detail_category_products')->where('category_id', '=', $id)->get();
+         return $list_detailcategory;
         
-        return view('admin', compact('users', 'roles'));
     }
+
+   
 
     public function detailstartup(){
         return view('investor.detailstartup');

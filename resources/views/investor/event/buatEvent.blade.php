@@ -44,7 +44,7 @@
         <div class="form-group d-none" id="event_kota">
             <label for="kota_event">Lokasi Kota</label>
             <select class="form-control" name="kota_event">
-                 <option value="0">-- pilih kota --</option>
+                 <option value="">-- pilih kota --</option>
             </select>
             <span class="text-danger error-text kota_event_error"></span>
         </div>
@@ -149,7 +149,8 @@ function show_cities() {
                 $('select[name="kota_event"]').empty();
                 $('select[name="kota_event"]').append('<option value="" selected>-- pilih kota --</option>');
                 $.each(response, function (key, value) {
-                    $('select[name="kota_event"]').append('<option value="' + key+'"[id]"' + '">' + value["city_name"] + '</option>');
+                    var id = value["city_id"];
+                    $('select[name="kota_event"]').append('<option value="'+ id + '">' + value["city_name"] + '</option>');
                 });
             },
         });
@@ -179,6 +180,7 @@ $("#pop").on("click", function() {
 
 //function when user click button --Simpan Event
 $("#buatEvent").on("submit",function (e) {
+    console.log($('select[name="kota_event"]').val());
     e.preventDefault();
    
     $.ajax({
@@ -202,7 +204,7 @@ $("#buatEvent").on("submit",function (e) {
                 document.querySelector('#event_link, #event_lokasi').classList.add('d-none');
                 $("#previewImg").attr("src", '{{asset('images')}}');
                 table_listEvent(); //call table_listEvent ini listEvent.blade.php
-                alert(data.msg);
+                swal(data.msg);
             }
         }
     });

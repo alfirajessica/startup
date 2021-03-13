@@ -142,7 +142,7 @@ class EventController extends Controller
         if($req->ajax()){
             return datatables()->of($list_dev)
                     ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="collapse" data-target="#collapseExample"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
    
                         $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
                         data-toggle="confirmation"
@@ -168,6 +168,75 @@ class EventController extends Controller
     {
         $HeaderEvent = HeaderEvent::find($id);
         return response()->json($HeaderEvent);
+    }
+
+    public function updateEvent(Request $req)
+    {
+        //validate request
+        $validator = Validator::make($req->all(),[
+            'nama_event'=>'required',
+            'desc_event'=>'required',
+            'event_held'=>'required|not_in:0',
+            'jadwal_event'=>'required|date',
+            'time_event'=>'required',
+        ]);
+
+        //check the request is validated or not
+        if (!$validator->passes()) {
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else
+        {
+
+            if ($req->event_held == "Offline") {
+                $validator = Validator::make($req->all(),[
+                    'edit_provinsi_event'=>'required|not_in:0',
+                    'edit_kota_event'=>'required|not_in:0',
+                    'address_event'=>'required',
+                    
+                ]);
+                if (!$validator->passes()) {
+                    return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+                }else{
+                    DB::table('header_events')->
+                    where('id',$req->coba_id)->
+                    update([
+                        'name' => $req->nama_event,
+                        'desc' => $req->desc_event,
+                        'held' => $req->event_held,
+                        'province' => $req->edit_provinsi_event,
+                        'city' => $req->edit_kota_event,
+                        'address' => $req->address_event,
+                        'event_schedule' => $req->jadwal_event,
+                        'event_time' => $req->time_event,
+
+                    ]);
+                }
+            }
+            else if($req->event_held == "Online"){
+                $validator = Validator::make($req->all(),[
+                    'link_event'=>'required',
+                ]);
+                if (!$validator->passes()) {
+                    return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+                }else{
+                    //if online
+                    DB::table('header_events')->
+                    where('id',$req->coba_id)->
+                    update([
+                        'name' => $req->nama_event,
+                        'desc' => $req->desc_event,
+                        'held' => $req->event_held,
+                        'link' => $req->link_event,
+                        'event_schedule' => $req->jadwal_event,
+                        'event_time' => $req->time_event,
+
+                    ]);
+                }
+            }
+            
+            return response()->json(['status'=>1, 'msg'=>'Berhasil mengubah Event']);
+        }
+        
     }
 
     public function deleteEvent($id)

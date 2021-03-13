@@ -15,10 +15,11 @@ class CreateDetailCategoryProductsTable extends Migration
     {
         Schema::create('detail_category_products', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('category_id');
+            $table->bigInteger('category_id')->unsigned();
             $table->string('name');
             $table->string('status');
             $table->timestamps();
+            $table->foreign('category_id')->references('id')->on('category_products')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

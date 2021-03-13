@@ -14,33 +14,71 @@
             <h5>Tipe <i class="fas fa-chevron-down float-right"></i> </h5>
         </a>
         <div class="collapse multi-collapse" id="multiCollapseExample2">
-            @foreach($list_category as $category)
-            <div class="form-check">
-              <label class="form-check-label">
-                    <input class="form-check-input" type="checkbox" name="checkbox_categoryHeader[]" value="{{$category->id}}"> {{$category->name_category}}</td>
-
-                    {{-- nanti ini untuk dapetin list detail category  --}}
-                    @foreach($list_category as $role)
-                    <div class="form-check">
-                    <input type="hidden" name="checkbox_categoryHeader_ID">
-                    <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" name="checkbox_categoryHeader[]"> {{$role->name_category}}</td>
-                    </label>
-                    </div>
+            <div class="form-group">
+                <label for=""></label>
+                <select class="form-control" name="checkbox_categoryHeader" id="checkbox_categoryHeader" onchange="show_detail(this)">
+                    
+                    @foreach($list_category as $category)
+                    <option value="{{$category->id}}"> {{$category->name_category}}</option>
+                    
                     @endforeach
-
-              </label>
+                </select>
             </div>
-            @endforeach
+            
+            <div class="form-group">
+                <div class="form-check checkbox" name="checkbox_categoryDetail">
+              
+                </div>
+            </div>
+            
+            
         </div>
         <hr>  
+        {{-- <div id="check-awesome" class="form-group checkbox">
+            <input type="checkbox" id="History">
+            <label for="History">
+            </label>
+        </div> --}}
 
-        <a name="" id="" class="btn-block" data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3"> 
+      
+        {{-- <a name="" id="" class="btn-block" data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3"> 
             <h5>Umur  <i class="fas fa-chevron-down float-right"></i> </h5>
         </a>
         <div class="collapse multi-collapse" id="multiCollapseExample3">
             <input type="range" class="custom-range" id="customRange1">
-        </div>
+        </div> --}}
     </div>
     
 </div><!-- card-body --> 
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
+
+<script type="text/javascript">
+
+function show_detail() { 
+    
+    var id = $('#checkbox_categoryHeader').val();
+    console.log(id);
+
+     $.get("{{ route('inv.startup') }}" + '/' + id, function (data) {
+         //var place = document.getElementById('check-awesome');
+         $('div[name="checkbox_categoryDetail"]').empty();
+         for (let i = 0; i < data.list_detailcategory.length; i++) {
+             console.log(data.list_detailcategory[i]["id"])
+
+             var idnya = data.list_detailcategory[i]["id"];
+             var isi = data.list_detailcategory[i]["name"];
+
+                    
+             $('div[name="checkbox_categoryDetail"]').append('<label class="form-check-label" > <input class="form-check-input border-0" type="checkbox" value="'+ idnya + '"/>' + isi + '</label>');
+            
+         }
+  
+     })
+
+}
+
+</script>

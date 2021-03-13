@@ -40,7 +40,7 @@
       
                   <!-- password -->
                   <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                    @include('investor.event.editEvent')
+                    
                     @include('investor.event.listEvent')
                   </div> <!-- end of lihat daftar event -->
               </div> <!-- end of tab content -->
