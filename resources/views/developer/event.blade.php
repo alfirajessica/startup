@@ -63,7 +63,8 @@
                             <p class="card-text">
                               {{$item->desc}}
                             </p>
-                            <a href="{{ route('dev.event.detailsEvent')}}" class="btn btn-primary">Detail Event</a>
+                            
+                            <a href="{{ route('dev.event.detailsEvent', ['id' =>$item->id]) }}" class="btn btn-primary">Detail Event</a>
                           </div>
                         </div>
                       </div>
@@ -75,7 +76,6 @@
                       <div class="col-md-12 d-flex justify-content-center">
                         {{ $header_events->links() }}
                       </div>
-                      
                     </div>
                 </div>
             </section>

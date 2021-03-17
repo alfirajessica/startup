@@ -1,5 +1,7 @@
 @extends('head')
 <link href="/css/blog.css" rel="stylesheet">
+
+
 <body>
     <div id="app">
         <div class="container ">

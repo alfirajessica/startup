@@ -93,12 +93,13 @@ Route::get('/cities/{province_id}', [EventController::class, 'getCities']); //ge
 
 Route::get('/inv/listEvent/editEvent/{id}', [EventController::class, 'editEvent'])->name('inv.listEvent.editEvent'); //get all cities in buat event
 Route::post('/inv/listEvent/updateEvent', [EventController::class, 'updateEvent'])->name('inv.listEvent.updateEvent'); //get all cities in buat event
-
 Route::get('/inv/listEvent/deleteEvent/{id}', [EventController::class, 'deleteEvent'])->name('inv.listEvent.deleteEvent'); //get all cities in buat event
-//Route::get('/inv/editEvent/{id}', [EventController::class, 'editEvent']);
 
+Route::get('/inv/listEvent/detailEvent/{id}', [EventController::class, 'detailEvent'])->name('inv.listEvent.detailEvent'); //get all cities in buat event
+//investor -- end of event
 
 Route::get('/inv/startup', [InvController::class, 'startup'])->name('inv.startup');
+
 //filter di menu startup
 Route::get('/inv/startup/{id}', [InvController::class, 'detail_category_filter'])->name('inv.startup.detail_category_filter');
 
@@ -114,9 +115,10 @@ Route::get('/dev/akun', [DevController::class, 'akun'])->name('dev.akun');
 
 //event
 Route::get('/dev/event', [EventController::class, 'devEvent'])->name('dev.event');
+Route::get('/dev/event/detailsEvent/{id}', [EventController::class, 'detailsEvent'])->name('dev.event.detailsEvent');
+Route::get('/dev/event/joinEvent/{id}', [EventController::class, 'joinEvent'])->name('dev.event.joinEvent');
 
 
-Route::get('/dev/event/detailsEvent', [DevController::class, 'detailsEvent'])->name('dev.event.detailsEvent');
 Route::get('/dev/product', [DevController::class, 'product'])->name('dev.product');
 Route::get('/dev/review', [DevController::class, 'review'])->name('dev.review');
 

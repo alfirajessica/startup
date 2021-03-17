@@ -9,7 +9,7 @@
     <div class="row py-4">
         <div class="py-4"></div>
         <div class="col-md-4 mb-0"><!--col-md-4 -->
-            <button type="button" class="btn btn-primary btn-lg btn-block">Daftar Event</button>
+            
             <hr>
             <div class="card profile-card-3">
                 <div class="background-block">
@@ -26,18 +26,18 @@
         </div><!--end col-md-4 -->
         
         <div class="col-md-8"> <!--col-md-8 -->
-            
+            @foreach ($header_events as $item)
+            {{-- <input type="text" id="id_province" value="{{$item->id_province}}">
+            <input type="text" id="id_city" value="{{$item->id_city}}"> --}}
             <div class="card border-0">
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
+                    <h5 class="card-title">{{$item->name}}</h5>
                     <h6 class="card-subtitle text-muted">Support card subtitle</h6>
                 </div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
-                <rect width="100%" height="100%" fill="#868e96"></rect>
-                <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-                </svg>
+                <img id="previewImg2" class="d-block user-select-none" width="100%" height="400" src="/uploads/event/{{$item->image}}" >
+                </a>
                 <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class="card-text">{{$item->desc}}</p>
                 </div>
             </div>
 
@@ -45,18 +45,47 @@
                 <div class="card-body shadow">
                     <h5>Event Info</h5>
                     <br>
-                    <strong class="d-inline-block mb-2 text-success">[Online/Offline]</strong>
-                    <h6><i class="fas fa-external-link-alt"></i> Online link </h6>
-                    <h6><i class="fas fa-map-marker-alt"></i> Lokasi </h6>
-                    <h6><i class="fas fa-calendar-alt"></i> Tanggal </h6>
-                    <h6><i class="fas fa-clock"></i> Waktu </h6>
+                    <strong id="held_detailEvent" class="d-inline-block mb-2 text-success">{{$item->held}}</strong>
+                    <h6 id="row_link" class="d-none"><i class="fas fa-external-link-alt"></i> <a href="{{$item->link}}"> {{$item->link}} </a> </h6>
+                    <h6 id="row_loc" class="d-none"><i class="fas fa-map-marker-alt"></i> {{$item->province_name}}, {{$item->city_name}} </h6>
+                    <h6><i class="fas fa-calendar-alt"></i> {{ \Carbon\Carbon::parse($item->event_schedule)->format('d/M/Y')}} </h6>
+                    <h6><i class="fas fa-clock"></i>{{ \Carbon\Carbon::parse($item->event_time)->format('h:m')}}  </h6>
                 </div>
+                <a href="{{ route('dev.event.joinEvent', ['id' =>$item->id]) }}" class="btn btn-primary" id="joinEvent">Detail Event</a>
             </div>    
+            
+            @endforeach
         </div><!--end col-md-8 -->
     </div>
 </div>
 
-
-
-
 @endsection
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function () {
+        held_detailEvent();
+    });
+
+    function held_detailEvent() {
+        var event_held = $("#held_detailEvent").text(); 
+    
+        if (event_held == "Online") {
+            document.querySelector('#row_link').classList.remove('d-none');
+            document.querySelector('#row_loc').classList.add('d-none');
+            
+        }
+        else if (event_held == "Offline") {
+            document.querySelector('#row_link').classList.add('d-none');
+            document.querySelector('#row_loc').classList.remove('d-none');
+        }
+    }
+
+    $('card').on('click', '#joinEvent', function () {
+      console.log("join");
+    });
+</script>
+

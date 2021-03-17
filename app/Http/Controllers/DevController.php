@@ -36,9 +36,7 @@ class DevController extends Controller
         return view('developer.event');
     }
 
-    public function detailsEvent(){
-        return view('developer.event.detailsEvent');
-    }
+    
 
     public function review()
     {

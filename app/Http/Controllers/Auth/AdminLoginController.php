@@ -61,6 +61,6 @@ class AdminLoginController extends Controller
 // php artisan tinker
 // $admin = new App\Models\Admin
 // $admin->name = "Admin"
-// $admin->email = "admin@gmail.com"
+// $admin->email = "startups.invs@gmail.com"
 // $admin->password = Hash::make('password')
 // $admin->save()

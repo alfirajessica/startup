@@ -1,5 +1,6 @@
 
 @include('investor.event.editEvent')
+@include('investor.event.detailEvent')
 <div class="row py-4">
     <div class="col">
       <div class="table-responsive">
@@ -30,6 +31,7 @@ $(document).ready(function () {
   table_listEvent();
 });
 var table = $('#table_listEvent').DataTable;
+var coba="";
 //function table list event -- show all event from the user who is login
 function table_listEvent() {
     $('#table_listEvent').DataTable({
@@ -52,17 +54,17 @@ function table_listEvent() {
                 name: 'name'
             },
             {
-                data: null,
+                data: 'held',
                 name: 'held',
-                render: data => {
-                    if (data.held == "Offline") {
-                        return data.held+'<br><small><p>'+data.province+'</p></small><br>';
-                    }
-                    else if (data.held == "Online") {
-                        return data.held+'<br><small><a href="'+ data.link +'">'+data.link+'</a></small><br>';    
-                    }
+                // render: data => {
+                //     if (data.held == "Offline") {
+                //         return data.held
+                //     }
+                //     else if (data.held == "Online") {
+                //         return data.held+'<br><small><a href="'+ data.link +'">'+data.link+'</a></small><br>';    
+                //     }
                     
-                }
+                // }
             },
             {
                 data: null,
@@ -100,8 +102,33 @@ function table_listEvent() {
                 name:'action',
             },
         ],
+        
     });
 }
+
+
+
+ $('body').on('click', '.detailEvent', function () {
+     var product_id = $(this).data('id');
+     $.get("{{ route('inv.listEvent') }}" +'/editEvent' + '/' + product_id, function (data) {
+        $('#coba_id2').val(data.id);    
+        $('#title_detailevent').text(" " + data.name);
+        $('#desc_detailevent').text(data.desc);
+        $('#held_detailEvent').text(data.held);
+        held_detailEvent();
+        $('#link_detailEvent').html("<i class='fas fa-map-marker-alt none'></i>").text(data.link);
+        $('#add_detailEvent').text(data.address);
+        
+        var status = "detailEvent";
+        open_city(data.id_province, data.id_city, status);
+        
+        var jadwal = moment(data.event_schedule).format('DD/MMM/YYYY');
+        var jam = moment(data.event_time).format('h:mm');
+        
+        $('#date_detailEvent').text(jadwal);
+        $('#time_detailEvent').text(jam);
+    });
+ });
 
 
 $('body').on('click', '.editProduct', function () {
@@ -115,9 +142,10 @@ $('body').on('click', '.editProduct', function () {
             edit_event_willbe_held();    
             var held = $('#edit_will_beheld').val(data.held);
             $('#edit_link_event').val(data.link);
-            $('#edit_provinsi_event').val(data.province);
+            $('#edit_provinsi_event').val(data.id_province);
             
-            open_city(data.province, data.city);
+            var status = "editProduct";
+            open_city(data.id_province, data.id_city, status);
             
             $('#edit_address_event').val(data.address);
             $('#edit_jadwal_event').val(data.event_schedule);
@@ -130,8 +158,9 @@ $('body').on('click', '.editProduct', function () {
       })
 });
 
-function open_city(idprovince, idcity) { 
-  
+
+
+function open_city(idprovince, idcity, status) {   
     console.log("id city :" + idcity);
     if (idprovince) {
         jQuery.ajax({
@@ -144,7 +173,16 @@ function open_city(idprovince, idcity) {
                 $('select[name="edit_kota_event"]').append('<option value="" selected>-- pilih kota --</option>');
                 $.each(response, function (key, value) {
                     var id = value["city_id"];
-                    $('select[name="edit_kota_event"]').append('<option value="'+ id + '">' + value["city_name"] + '</option>');
+
+                    if (status == "detailEvent" && idcity == id) {
+                        var provinceName = value["province"];
+                        var cityName = value["city_name"];
+                        $('#loc_detailEvent').text(provinceName + ", " + cityName);
+                        console.log(provinceName + " " + cityName);
+                    }
+                    else if (status == "editProduct") {
+                        $('select[name="edit_kota_event"]').append('<option value="'+ id + '">' + value["city_name"] + '</option>');
+                    }
                 });
                 $('select[name="edit_kota_event"]').find('option[value="'+idcity+'"]').attr("selected",true);
             },
@@ -152,7 +190,7 @@ function open_city(idprovince, idcity) {
     } else {
         $('select[name="edit_kota_event"]').append('<option value="">-- pilih kota --</option>');
     }
- }
+}
 
 
 $('body').on('click', '.deleteEvent', function () {

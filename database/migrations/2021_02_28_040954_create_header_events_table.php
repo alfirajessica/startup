@@ -20,8 +20,10 @@ class CreateHeaderEventsTable extends Migration
             $table->text('desc')->nullable();
             $table->string('held');
             $table->string('link')->nullable();
-            $table->bigInteger('province')->nullable();
-            $table->bigInteger('city')->nullable();
+            $table->bigInteger('id_province')->nullable();
+            $table->text('province_name')->nullable();
+            $table->bigInteger('id_city')->nullable();
+            $table->text('city_name')->nullable();
             $table->text('address')->nullable();
             $table->date('event_schedule');
             $table->time('event_time')->nullable();

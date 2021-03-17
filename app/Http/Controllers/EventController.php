@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Validator;
 use App\Models\HeaderEvent;
+use App\Models\detailEvent;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -55,6 +56,18 @@ class EventController extends Controller
        // return view('investor.event', $cities);
     }
 
+    public function getCitiesName($id)
+    {
+        $response = Http::withHeaders([
+            'key' => $this->API_KEY
+        ])->get('https://api.rajaongkir.com/starter/city?&province='.$id.'');
+
+        $cities = $response['rajaongkir']['results'];
+        return response()->json($cities);
+       // return view('investor.event', $cities);
+    }
+
+    //save event to db
     public function buatEvent(Request $req){
 
         $user = auth()->user();
@@ -90,9 +103,12 @@ class EventController extends Controller
                     return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
                 }else{
                     //if offline
-                    $event->province = $req->provinsi_event;
-                    $event->city = $req->kota_event;
+                    $event->id_province = $req->provinsi_event;
+                    $event->id_city = $req->kota_event;
+                    $event->province_name = $req->hidden_province_name;
+                    $event->city_name = $req->hidden_city_name;
                     $event->address = $req->address_event;
+
                 }
             }
             else if ($event->held == "Online") {
@@ -142,9 +158,11 @@ class EventController extends Controller
         if($req->ajax()){
             return datatables()->of($list_dev)
                     ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-primary btn-sm detailEvent">Detail</a>';
+
+                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
    
-                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
+                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
                         data-toggle="confirmation"
                         data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
                         data-btn-ok-class="btn btn-sm btn-danger"
@@ -165,6 +183,12 @@ class EventController extends Controller
     }
 
     public function editEvent($id)
+    {
+        $HeaderEvent = HeaderEvent::find($id);
+        return response()->json($HeaderEvent);
+    }
+
+    public function detailEvent($id)
     {
         $HeaderEvent = HeaderEvent::find($id);
         return response()->json($HeaderEvent);
@@ -203,8 +227,8 @@ class EventController extends Controller
                         'name' => $req->edit_nama_event,
                         'desc' => $req->edit_desc_event,
                         'held' => $req->edit_event_held,
-                        'province' => $req->edit_provinsi_event,
-                        'city' => $req->edit_kota_event,
+                        'id_province' => $req->edit_provinsi_event,
+                        'id_city' => $req->edit_kota_event,
                         'address' => $req->edit_address_event,
                         'event_schedule' => $req->edit_jadwal_event,
                         'event_time' => $req->edit_time_event,
@@ -256,22 +280,45 @@ class EventController extends Controller
 
     public function homeNewEvents(Request $req){
 
-    //     $date = \Carbon\Carbon::today()->subDays(30);
-    //    // $newEvents = User::where('created_at','>=',$date)->get();
-    //     $list_events = DB::table('header_events')
-    //                 ->where('created_at', '=', $date)
-    //                 ->get();
-
-    //     dd($list_events);
-
         $header_events = DB::table("header_events")
                    ->whereDate('created_at', '>', Carbon::now()->subDays(30))
                    ->all();
         return view('dev.devEvent', $header_events);
+    }
 
-        // $user = auth()->user();
-        // $list_events = DB::table('header_events')
-        //             ->where('user_id', '=', $user->id)
-        //             ->get();
+    public function detailsEvent($id){
+
+        $header_events['header_events'] = DB::table("header_events")->where('id','=',$id)->get();
+        return view('developer.event.detailsEvent', $header_events);
+    }
+
+    public function joinEvent($id){
+
+        $user = auth()->user();
+
+        $isExist = DB::table('detail_events')
+                ->where('id_header_events', '=', $id)
+                ->where('id_participant', '=', $user->id)
+                ->first();;
+
+        $isExist = detailEvent::where('id_header_events', '=', $id)->where('id_participant', '=', $user->id)->first();
+        
+        if (detailEvent::where('id_header_events', '=', $id)->where('id_participant', '=', $user->id)->exists()) //available
+        {
+            return response()->json(['status'=>-1, 'msg'=>'sudah mengikuti event']);
+        }
+        if ($isExist == null) {
+            $detailevent = new detailEvent;
+            $detailevent->id_header_events = $id;
+            $detailevent->id_participant = $user->id;
+            //kurang status
+            $query = $detailevent->save();
+    
+            if ($query) {
+                return response()->json(['status'=>1, 'msg'=>'Event baru berhasil ditambahkan']);
+            }
+        }
+        
+        
     }
 }

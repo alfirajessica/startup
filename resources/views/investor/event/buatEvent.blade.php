@@ -41,13 +41,17 @@
             <span class="text-danger error-text provinsi_event_error"></span>
         </div>
 
+        <input type="text" id="hidden_province_name" name="hidden_province_name">
+
         <div class="form-group d-none" id="event_kota">
             <label for="kota_event">Lokasi Kota</label>
-            <select class="form-control" name="kota_event">
+            <select class="form-control" name="kota_event"onchange="get_city()">
                  <option value="">-- pilih kota --</option>
             </select>
             <span class="text-danger error-text kota_event_error"></span>
         </div>
+
+        <input type="text" id="hidden_city_name" name="hidden_city_name">
 
         <div class="form-group d-none" id="event_address">
             <label for="address_event">Alamat Event</label>
@@ -139,6 +143,8 @@ function event_willbe_held() {
 
 //show cities when province selected
 function show_cities() {
+    $("#hidden_province_name").val($('select[name="provinsi_event"] option:selected').text());
+
     let provindeId = $('select[name="provinsi_event"]').val();
     if (provindeId) {
         jQuery.ajax({
@@ -152,11 +158,16 @@ function show_cities() {
                     var id = value["city_id"];
                     $('select[name="kota_event"]').append('<option value="'+ id + '">' + value["city_name"] + '</option>');
                 });
+                
             },
         });
     } else {
         $('select[name="kota_event"]').append('<option value="">-- pilih kota --</option>');
     }
+}
+
+function get_city() {  
+    $("#hidden_city_name").val($('select[name="kota_event"] option:selected').text());
 }
 
 //to show image what user had choosen in preview
@@ -204,7 +215,8 @@ $("#buatEvent").on("submit",function (e) {
                 document.querySelector('#event_link, #event_lokasi').classList.add('d-none');
                 $("#previewImg").attr("src", '{{asset('images')}}');
                 table_listEvent(); //call table_listEvent ini listEvent.blade.php
-                swal(data.msg);
+                swal("Berhasil!", data.msg, "success");
+                
             }
         }
     });

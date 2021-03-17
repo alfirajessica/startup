@@ -1,1 +1,0 @@
-//gk jadi pakai ini

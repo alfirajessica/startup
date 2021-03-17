@@ -149,6 +149,7 @@ return [
         'time_event' => [
             'required' => 'Tentukan Waktu event diadakan'
         ],
+        
     ],
 
     /*

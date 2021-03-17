@@ -85,6 +85,9 @@ Investor :
           -> jika online, input link meeting
         - jadwal (hari, jam)
         - gambar untuk pendukung event
+     => Detail
+        - detail event
+        - detail banyak peserta -- tombol untuk simpan peserta dalam excel
 
 3. Fitur katalog startup
   - Tampilan produk [semua kategori]
