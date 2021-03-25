@@ -21,6 +21,8 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        // $this->middleware('guest');
+        // $this->middleware('guest:admin');
     }
 
     /**
@@ -30,6 +32,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        
         $user_role = auth()->user()->role;
         //dd($user_role);
 
@@ -42,13 +45,14 @@ class HomeController extends Controller
         }
         //investor
         else if ($user_role == "2") {
+            
             return view('investor.home'); 
         }
-        //admin
-        else{
+        // //admin
+        // else{
             
-            return view('investor.home');
-        }
+        //     return view('investor.home');
+        // }
         
     }
 

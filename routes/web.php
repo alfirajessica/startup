@@ -116,8 +116,10 @@ Route::get('/dev/akun', [DevController::class, 'akun'])->name('dev.akun');
 //event
 Route::get('/dev/event', [EventController::class, 'devEvent'])->name('dev.event');
 Route::get('/dev/event/detailsEvent/{id}', [EventController::class, 'detailsEvent'])->name('dev.event.detailsEvent');
-Route::get('/dev/event/joinEvent/{id}', [EventController::class, 'joinEvent'])->name('dev.event.joinEvent');
+Route::post('/dev/event/joinEvent', [EventController::class, 'joinEvent'])->name('dev.event.joinEvent');
 
+//listjoinevent
+Route::get('/dev/listJoinEvent', [EventController::class, 'listJoinEvent'])->name('dev.listJoinEvent');
 
 Route::get('/dev/product', [DevController::class, 'product'])->name('dev.product');
 Route::get('/dev/review', [DevController::class, 'review'])->name('dev.review');

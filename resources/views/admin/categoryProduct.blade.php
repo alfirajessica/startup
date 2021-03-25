@@ -130,22 +130,33 @@ $('body').on('click', '.detailKategori', function () {
 $('body').on('click', '.deleteKategori', function () {
     var id = $(this).data("id");
     var txt;
-    if (confirm("Are You sure want to delete !")) {
-        //txt = "You pressed OK!";
-        $.ajax({
-            type: "get",
-            url: "{{ route('admin.categoryProduct') }}"+'/deleteKategori' + '/' + id,
-            success: function (data) {
-                table1();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
+    swal({
+        title: "Are You sure want to delete?",
+        text: "Once deleted, you will not be able to recover this event!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "get",
+                url: "{{ route('admin.categoryProduct') }}"+'/deleteKategori' + '/' + id,
+                success: function (data) {
+                    table1();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+            
+            swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
         });
-    } else {
-        console.log('You pressed Cancel!');
-    }
-
+        } else {
+            swal("Your imaginary file is safe!");
+        }
+    });
 });
 
 $('body').on('click', '.editCategory', function () {
@@ -211,24 +222,33 @@ function table2(id) {
 $('body').on('click', '.deleteDetailKategori', function () {
     var id = $(this).data("id");
     var txt;
-    if (confirm("Are You sure want to delete !")) {
-        //txt = "You pressed OK!";
-        $.ajax({
-        type: "get",
-        url: "{{ route('admin.categoryProduct') }}"+'/deleteDetailKategori' + '/' + id,
-        success: function (data) {
-            table2(id);
-        },
-        error: function (data) {
-            console.log('Error:', data);
+    swal({
+        title: "Are You sure want to delete?",
+        text: "Once deleted, you will not be able to recover this event!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "get",
+                url: "{{ route('admin.categoryProduct') }}"+'/deleteDetailKategori' + '/' + id,
+                success: function (data) {
+                    table2(id);
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+            
+            swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+        });
+        } else {
+            swal("Your imaginary file is safe!");
         }
     });
-    } else {
-        console.log('You pressed Cancel!');
-    }
-
-    
-
 });
 
 

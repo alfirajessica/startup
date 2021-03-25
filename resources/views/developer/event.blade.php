@@ -3,9 +3,7 @@
 @section('content')
 <div class="container">
      <!-- card shadow -->
-        <div class="row"> <!-- row -->
-            @include('units.jumbotron')
-        </div>
+
         <!-- row untuk filter-->
         <div class="row">
             <div class="col-md-12">
@@ -14,7 +12,7 @@
                     Filter By
                 </a>
                 <div class="collapse multi-collapse show" id="multiCollapseExample1">  
-                    <div class="card-body border-1"> <!-- card-body -->
+                    <div class="card-body shadow border-1"> <!-- card-body -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -45,12 +43,39 @@
             
         </div>
         <!-- end row untuk filter-->
+        <div class="row py-2">
+          @foreach ($header_events as $item)
+          <div class="col-md-4 mb-5 mb-md-0 py-2">
+            <div class="card card-lift--hover shadow border-0 py-2">
+              <a src="/uploads/event/{{$item->image}}" title="Landing Page">
+                <img src="/uploads/event/{{$item->image}}" class="card-img-top">
+              </a>
+              <div class="card-body">
+                <h5 class="card-title">{{$item->name}}</h5>
+                <p class="card-text">
+                  {{substr($item->desc,0,40)}}
+                              <a href="{{ route('dev.event.detailsEvent', ['id' =>$item->id]) }}" class="btn btn-outline-primary btn-sm">Detail Event</a>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          @endforeach
+        </div>
+        <div class="row py-4">
+          <div class="col-md-12 d-flex justify-content-center">
+            {{ $header_events->links() }}
+          </div>
+        </div>
         <div class="row">
+          
             <section class="pt-2 pb-5">
+              
                 <div class="container">
+                
                     {{-- row event baru --}}
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
-                      @foreach ($header_events as $item)
+                    <div class="row row-cols-1 row-cols-md-4 g-4">
+                      {{-- @foreach ($header_events as $item)
                       <div class="col py-2">
                         <div class="card shadow border-0 h-100">
                           <img
@@ -61,22 +86,21 @@
                           <div class="card-body">
                             <h5 class="card-title">{{$item->name}}</h5>
                             <p class="card-text">
-                              {{$item->desc}}
+                              {{substr($item->desc,0,40)}}
+                              <a href="{{ route('dev.event.detailsEvent', ['id' =>$item->id]) }}" class="btn btn-outline-primary btn-sm">Detail Event</a>
                             </p>
-                            
-                            <a href="{{ route('dev.event.detailsEvent', ['id' =>$item->id]) }}" class="btn btn-primary">Detail Event</a>
                           </div>
                         </div>
                       </div>
-                      @endforeach
-                      </div>
+                      @endforeach --}}
+                    </div>
                       
                     {{-- end of row event baru --}}
-                    <div class="row py-4">
+                    {{-- <div class="row py-4">
                       <div class="col-md-12 d-flex justify-content-center">
                         {{ $header_events->links() }}
                       </div>
-                    </div>
+                    </div> --}}
                 </div>
             </section>
         </div>

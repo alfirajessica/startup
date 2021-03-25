@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div class="py-4"></div>
+    
      <!-- card shadow -->
       <div class="row"> <!-- row -->
         <div class="col-md-12">

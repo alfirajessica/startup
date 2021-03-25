@@ -1,116 +1,151 @@
 @extends('head')
-<link href="/css/blog.css" rel="stylesheet">
-<body>
-    <div id="app">
-        <div class="container ">
-            <header class="blog-header fixed-top">
-                <nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm px-4">
-                    <div class="container">
-                        <a class="navbar-brand" href="{{ url('/home') }}">
-                            {{ config('app.name', 'Startup') }}
+<body class="landing-page">
+  <!-- Navbar -->
+  <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg bg-white navbar-light position-sticky top-0 shadow py-2">
+    <div class="container">
+        <a class="navbar-brand mr-lg-5" href="{{ url('/home') }}">
+            {{ config('app.name', 'Startup') }}
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="navbar_global">
+            <div class="navbar-collapse-header">
+                <div class="row">
+                    <div class="col-6 collapse-brand">
+                        <a href="../../../index.html">
+                            <img src="../assets/img/brand/blue.png">
                         </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-        
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <!-- Left Side Of Navbar -->
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('dev.event') }}">{{ __('Event') }}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('valuation') }}">{{ __('Valuation Tools') }}</a>
-                                </li>
-                            </ul>
-        
-                            <!-- Right Side Of Navbar -->
-                            <ul class="navbar-nav ml-auto">
-                                <!-- Authentication Links -->
-                                @guest
-                                    @if (Route::has('login'))
-                                        <li class="nav-item">
-                                            <a class="nav-link btn" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                        </li>
-                                    @endif
-                                    
-                                    @if (Route::has('register'))
-                                        <li class="nav-item">
-                                            <a class="nav-link btn btn-outline-secondary" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                        </li>
-                                    @endif
-                                @else
-                                    <li class="nav-item dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                            {{ Auth::user()->name }}
-                                        </a>
-        
-                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="{{ route('dev.product') }}">
-                                                {{ __('Daftarkan Produk') }}
-                                            </a>
-
-                                            <a class="dropdown-item" href="{{ route('dev.product') }}">
-                                                {{ __('Produk Saya') }}
-                                            </a>
-
-                                            <a class="dropdown-item" href="{{ route('dev.review') }}">
-                                                {{ __('Riwayat Review dan Rating') }}
-                                            </a>
-
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="">
-                                                {{ __('Laporan') }}
-                                            </a>
-                                            <a class="dropdown-item" href="{{ route('dev.akun') }}">
-                                                {{ __('Pengaturan Akun') }}
-                                            </a>
-
-                                            <div class="dropdown-divider"></div>
-
-                                            <a class="dropdown-item" href="{{ route('logout') }}"
-                                                onclick="event.preventDefault();
-                                                                document.getElementById('logout-form').submit();">
-                                                {{ __('Logout') }}
-                                            </a>
-        
-                                            <form id="logout-form" action="{{ route('users.logout') }}" method="POST" class="d-none">
-                                                @csrf
-                                            </form>
-                                        </div>
-                                    </li>
-                                @endguest
-                            </ul>
-                        </div>
                     </div>
-                    
-                </nav> 
-
-                @if (Route::currentRouteName() == "home")
-                    @include('units.category')
+                    <div class="col-6 collapse-close">
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+                        <span></span>
+                        <span></span>
+                    </button>
+                    </div>
+                </div>
+            </div>
+            <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dev.event') }}">{{ __('Event') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('valuation') }}">{{ __('Valuation Tools') }}</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav align-items-lg-center ml-lg-auto">
+            <!-- Authentication Links -->
+            @guest
+                @if (Route::has('login'))
+                    <li class="nav-item">
+                        <a class="nav-link btn" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    </li>
                 @endif
-                @if (Route::currentRouteName() == "event")
-                    @include('units.category')
+            
+                @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-outline-secondary" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    </li>
                 @endif
-                </header>
-                
-                       
-        </div>
+            @else
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        {{ Auth::user()->name }}
+                    </a>
 
-        <main class="py-4">
-            {{-- <div class="panel-body">
-                @component('components.who')
-                @endcomponent
-            </div> --}}
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="{{ route('dev.product') }}" class="dropdown-item">
+                            <i class="ni ni-single-02"></i>
+                            <span>{{ __('Produk') }}</span>
+                        </a>
 
+                        <a href="{{ route('dev.listJoinEvent') }}" class="dropdown-item">
+                            <i class="ni ni-single-02"></i>
+                            <span>{{ __('Event diikuti') }}</span>
+                        </a>
+
+                        <a href="{{ route('dev.review') }}" class="dropdown-item">
+                            <i class="ni ni-single-02"></i>
+                            <span>{{ __('Riwayat Review dan Rating') }}</span>
+                        </a>
+
+                        <a href="#" class="dropdown-item">
+                            <i class="ni ni-single-02"></i>
+                            <span>{{ __('Laporan') }}</span>
+                        </a>
+
+                        <a href="{{ route('dev.akun') }}" class="dropdown-item">
+                            <i class="ni ni-single-02"></i>
+                            <span>{{ __('Pengaturan Akun') }}</span>
+                        </a>
+
+                        {{-- <a class="dropdown-item" href="{{ route('dev.product') }}">
+                            {{ __('Daftarkan Produk') }}
+                        </a> --}}
+
+                        {{-- <a class="dropdown-item" href="{{ route('dev.product') }}">
+                            {{ __('Produk Saya') }}
+                        </a> --}}
+
+
+                        <div class="dropdown-divider"></div>
+
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('users.logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+            @endguest
+          </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- End Navbar -->
+  
+    <!-- wrapper -->
+    <div class="wrapper">
+        @if (Route::currentRouteName() == "home")
+            @include('units.jumbotron')
+            
+        @endif
+
+        {{-- @if (Route::currentRouteName() == "dev.akun")
+        <section class="section-profile-cover section-shaped my-0">
+            <!-- Circles background -->
+            <img class="bg-image" src="/argon/assets/img/pages/mohamed.jpg" style="width: 100%;">
+            <!-- SVG separator -->
+            <div class="separator separator-bottom separator-skew">
+              <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <polygon class="fill-secondary" points="2560 0 2560 100 0 100"></polygon>
+              </svg>
+            </div>
+          </section>
+        @endif --}}
+
+        <main>
             @yield('content')
-            {{-- @yield('content')  ini home --}}
         </main>
 
+        {{-- <div class="section">
+            <div class="container">
+              <div class="row align-items-center">
+                
+              </div>
+            </div>
+        </div> --}}
         
+        <br /><br />
+
+        @include('units.footer')
     </div>
-    @include('units.footer')
+    <!-- end wrapper -->
+    @include('units.scripts')
 </body>
 </html>
-
 

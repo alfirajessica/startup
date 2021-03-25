@@ -26,9 +26,28 @@
         </div><!--end col-md-4 -->
         
         <div class="col-md-8"> <!--col-md-8 -->
+            <form action="{{ route('dev.event.joinEvent')}}" method="post" id="joinEvent">
+            @csrf
+
+            @if (session('status'))
+                <script>
+                    $(document).ready(function () {
+                        swal("{{ session('status') }}", "You clicked the button!", "success");
+                    });
+                </script>
+            @endif
+            @if (session('fail'))
+                <script>
+                    $(document).ready(function () {
+                        swal("{{ session('fail') }}", "You clicked the button!", "warning");
+                    });
+                </script>
+            @endif
+            
+
             @foreach ($header_events as $item)
-            {{-- <input type="text" id="id_province" value="{{$item->id_province}}">
-            <input type="text" id="id_city" value="{{$item->id_city}}"> --}}
+            
+            <input type="text" name="id_event" value={{$item->id}}>
             <div class="card border-0">
                 <div class="card-body">
                     <h5 class="card-title">{{$item->name}}</h5>
@@ -51,23 +70,27 @@
                     <h6><i class="fas fa-calendar-alt"></i> {{ \Carbon\Carbon::parse($item->event_schedule)->format('d/M/Y')}} </h6>
                     <h6><i class="fas fa-clock"></i>{{ \Carbon\Carbon::parse($item->event_time)->format('h:m')}}  </h6>
                 </div>
-                <a href="{{ route('dev.event.joinEvent', ['id' =>$item->id]) }}" class="btn btn-primary" id="joinEvent">Detail Event</a>
+                @endforeach
+                <button type="submit" class="btn btn-primary float-right">JOIN</button>
+                {{-- <a  href="{{ route('dev.event.joinEvent', ['id' =>$item->id]) }}" class="btn btn-primary" id="joinEvent" onclick="coba()">Detail Event</a> --}}
             </div>    
-            
-            @endforeach
+            </form> 
         </div><!--end col-md-8 -->
     </div>
 </div>
-
 @endsection
+
+
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
 
+
 <script>
     $(document).ready(function () {
         held_detailEvent();
+        
     });
 
     function held_detailEvent() {
@@ -83,9 +106,38 @@
             document.querySelector('#row_loc').classList.remove('d-none');
         }
     }
-
-    $('card').on('click', '#joinEvent', function () {
-      console.log("join");
+    
+    $("#joinEvent").on("submit",function (e) {
+        e.preventDefault();
+   
+        $.ajax({
+            url:$(this).attr('action'),
+            method:$(this).attr('method'),
+            data:new FormData(this),
+            processData:false,
+            dataType:'json',
+            contentType:false,
+            beforeSend:function() {
+                $(document).find('span.error-text').text('');
+            },
+            success:function(data) {
+                if (data.status == -1) {
+                    $.each(data.error, function (prefix, val) {
+                        $('span.'+prefix+'_error').text(val[0]);
+                    });
+                }
+                else{
+                    
+                    swal({
+                        title: data.msg,
+                        text: "You clicked the button!",
+                        icon: "success",
+                        button: "Aww yiss!",
+                    });
+                
+                }
+            }
+        });
     });
 </script>
 

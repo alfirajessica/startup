@@ -165,7 +165,7 @@ class CategoryproductController extends Controller
         DB::table('category_products')->where('id',$req->edit_categoryID)->update([
              'name_category' => $req->edit_category_product,
              ]);
-        return response()->json(['success'=>"Berhasil mengubah kategori", 'tr'=>'tr_'.$req->edit_categoryID]);
+        return response()->json(['status'=>1, 'msg'=>'Berhasil mengubah kategori']);
     }
 
 

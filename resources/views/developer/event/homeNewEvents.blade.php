@@ -29,7 +29,7 @@
                               <div class="card-body">
                                 <h5 class="card-title">{{ $item->name }}</h5>
                                 <p class="card-text">
-                                    {{ $item->desc }}
+                                    {{substr($item->desc,0,40)}}
                                 </p>
                                 <a href="#" class="btn btn-primary">Detail Event</a>
                               </div>

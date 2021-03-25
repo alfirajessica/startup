@@ -2,13 +2,6 @@
 @csrf
 <div class="collapse show" id="collapseCategory">
     <div class="card card-body col-md-12">
-        <div id="alert_success" class="alert alert-success d-none">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-        </div>
-        <div id="alert_danger" class="alert alert-danger d-none">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-        </div>
-
         <label for="category_product" class="col-form-label">Kateogri Produk:</label>
         <div class="input-group">
             <input type="text" class="form-control" name="category_product" >
@@ -48,26 +41,23 @@ $("#addNewCategoryProduct").on("submit",function (e) {
                 });
             }
             else if (data.status == -1) { 
-                document.querySelector('#alert_danger').classList.remove('d-none');
-                $('#alert_danger').text("Kategori ini telah terdaftar");
                 $('#addNewCategoryProduct')[0].reset();
-                setTimeout(function(){
-                    document.querySelector('#alert_danger').classList.add('d-none');
-                }, 5000 ); 
-               
+                swal({
+                    title: data.msg,
+                    text: "You clicked the button!",
+                    icon: "warning",
+                });
+
             }
             else{
-                
+                swal({
+                    title: data.msg,
+                    text: "You clicked the button!",
+                    icon: "success",
+                });
                  $('#addNewCategoryProduct')[0].reset();
                  $("#addNewCategoryProduct").attr('data-dismiss','modal');
-                 $('#alert_success').text("Berhasil Tambah Kategori Baru");
-                 document.querySelector('#alert_success').classList.remove('d-none');
                  table1();
-
-                 setTimeout(function(){
-                    document.querySelector('#alert_success').classList.add('d-none');
-                }, 5000 ); 
-
             }
         }
     });

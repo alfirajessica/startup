@@ -17,6 +17,7 @@ class CreateDetailEventsTable extends Migration
             $table->id();
             $table->bigInteger('id_header_events')->unsigned();
             $table->bigInteger('id_participant');
+            $table->string('status');
             $table->timestamps();
             $table->foreign('id_header_events')->references('id')->on('header_events')->onDelete('cascade')->onUpdate('cascade');
         });

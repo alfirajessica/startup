@@ -292,33 +292,43 @@ class EventController extends Controller
         return view('developer.event.detailsEvent', $header_events);
     }
 
-    public function joinEvent($id){
+    public function joinEvent(Request $req){
 
         $user = auth()->user();
 
-        $isExist = DB::table('detail_events')
-                ->where('id_header_events', '=', $id)
-                ->where('id_participant', '=', $user->id)
-                ->first();;
-
-        $isExist = detailEvent::where('id_header_events', '=', $id)->where('id_participant', '=', $user->id)->first();
+        $isExist = detailEvent::where('id_header_events', '=', $req->id_event)->where('id_participant', '=', $user->id)->first();
         
-        if (detailEvent::where('id_header_events', '=', $id)->where('id_participant', '=', $user->id)->exists()) //available
+        if (detailEvent::where('id_header_events', '=', $req->id_event)->where('id_participant', '=', $user->id)->exists()) //available
         {
-            return response()->json(['status'=>-1, 'msg'=>'sudah mengikuti event']);
+            return back()->with('fail', 'sudah mengikuti Event');
+            
         }
         if ($isExist == null) {
             $detailevent = new detailEvent;
-            $detailevent->id_header_events = $id;
+            $detailevent->id_header_events = $req->id_event;
             $detailevent->id_participant = $user->id;
-            //kurang status
+            $detailevent->status = "1";
+            //1 - aktif, 0 - Tidak aktif
             $query = $detailevent->save();
     
             if ($query) {
-                return response()->json(['status'=>1, 'msg'=>'Event baru berhasil ditambahkan']);
+                return back()->with('status', 'Berhasil join Event');
             }
         }
         
         
+    }
+
+    public function listJoinEvent(){
+
+        $user = auth()->user();
+
+        $myevents['myevents'] = DB::table('detail_events')
+        ->leftJoin('header_events', 'header_events.id', '=', 'detail_events.id_header_events')
+        ->where('detail_events.id_participant','=',$user->id)
+        ->get();
+
+        return view('developer.listJoinEvent', $myevents);
+
     }
 }
