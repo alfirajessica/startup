@@ -7,13 +7,17 @@
         <div class="form-group">
             <label for="exampleInputEmail1">Cari</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <hr>
         </div>
-        <hr>   
+           
 
+        
+        
         <a name="" id="" class="btn-block" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
-            <h5>Tipe <i class="fas fa-chevron-down float-right"></i> </h5>
+            
+            <label>Tipe <i class="fas fa-chevron-down float-right"></i> </label>
         </a>
-        <div class="collapse multi-collapse" id="multiCollapseExample2">
+        <div class="collapse multi-collapse show" id="multiCollapseExample2">
             <div class="form-group">
                 <label for=""></label>
                 <select class="form-control" name="checkbox_categoryHeader" id="checkbox_categoryHeader" onchange="show_detail(this)">
@@ -73,7 +77,7 @@ function show_detail() {
              var isi = data.list_detailcategory[i]["name"];
 
                     
-             $('div[name="checkbox_categoryDetail"]').append('<label class="form-check-label" > <input class="form-check-input border-0" type="checkbox" value="'+ idnya + '"/>' + isi + '</label>');
+             $('div[name="checkbox_categoryDetail"]').append('<label class="form-check-label" > <input class="form-check-input border-0" type="checkbox" value="'+ idnya + '"/>' + isi + '</label> <br>');
             
          }
   

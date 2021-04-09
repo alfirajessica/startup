@@ -5,105 +5,56 @@
      <!-- card shadow -->
 
         <!-- row untuk filter-->
-        <div class="row">
+        <div class="row py-4">
+            {{-- @include('developer.filterEvents') --}}
             <div class="col-md-12">
-                <a name="" id="" class="btn-block" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
-                    <i class="fas fa-filter"></i>
-                    Filter By
-                </a>
-                <div class="collapse multi-collapse show" id="multiCollapseExample1">  
-                    <div class="card-body shadow border-1"> <!-- card-body -->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Cari</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                </div> 
-                            </div>  
-                            <div class="col-md-6">
-                                <a name="" id="" class="btn-block" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
-                                    <h5>Tipe <i class="fas fa-chevron-down float-right"></i> </h5>
-                                </a>
-                                <div class="collapse multi-collapse" id="multiCollapseExample2">
-                                    
-                                    <div class="form-check">
-                                      <label class="form-check-label">
-                                        <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue" checked>
-                                        Display value
-                                      </label>
+              <a name="" id="" class="btn-block" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
+                  <i class="fas fa-filter"></i>
+                  Filter By
+              </a>
+              <div class="collapse multi-collapse show" id="multiCollapseExample1">  
+                  <div class="card-body shadow border-1"> <!-- card-body -->
+                      <div class="row">
+                          <div class="col-md-6">
+                             @include('units.search')
+                          </div>  
+                          <div class="col-md-6">
+                              <a name="" id="" class="btn-block" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
+                                  <h5>Tipe <i class="fas fa-chevron-down float-right"></i> </h5>
+                              </a>
+                              <div class="collapse multi-collapse" id="multiCollapseExample2">
+                                  
+                                  <div class="form-check">
+                                    <label class="form-check-label">
+                                      <select class="form-control" id="held" >
+                                        <option value="1">Semua</option>
+                                        <option value="Online">Online</option>
+                                        <option value="Offline">Offline</option>
+                                    </select>
+                                    </label>
+                                  </div>
+          
+                                  <div class="form-group">
+                                    <div class="form-check checkbox" name="checkbox_categoryDetail">
+                                  
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <hr>  
-                    </div>
-                </div>
-            </div>
-            
-            
+                              </div>
+                          </div>
+                      </div>
+                      <hr>  
+                  </div>
+              </div>
+          </div>
         </div>
         <!-- end row untuk filter-->
-        <div class="row py-2">
-          @foreach ($header_events as $item)
-          <div class="col-md-4 mb-5 mb-md-0 py-2">
-            <div class="card card-lift--hover shadow border-0 py-2">
-              <a src="/uploads/event/{{$item->image}}" title="Landing Page">
-                <img src="/uploads/event/{{$item->image}}" class="card-img-top">
-              </a>
-              <div class="card-body">
-                <h5 class="card-title">{{$item->name}}</h5>
-                <p class="card-text">
-                  {{substr($item->desc,0,40)}}
-                              <a href="{{ route('dev.event.detailsEvent', ['id' =>$item->id]) }}" class="btn btn-outline-primary btn-sm">Detail Event</a>
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          @endforeach
+
+        <div id="user_data">
+          @include('developer.event.dataEvent')
         </div>
-        <div class="row py-4">
-          <div class="col-md-12 d-flex justify-content-center">
-            {{ $header_events->links() }}
-          </div>
-        </div>
-        <div class="row">
-          
-            <section class="pt-2 pb-5">
-              
-                <div class="container">
-                
-                    {{-- row event baru --}}
-                    <div class="row row-cols-1 row-cols-md-4 g-4">
-                      {{-- @foreach ($header_events as $item)
-                      <div class="col py-2">
-                        <div class="card shadow border-0 h-100">
-                          <img
-                            src="/uploads/event/{{$item->image}}"
-                            class="card-img-top"
-                            alt="..."
-                          />
-                          <div class="card-body">
-                            <h5 class="card-title">{{$item->name}}</h5>
-                            <p class="card-text">
-                              {{substr($item->desc,0,40)}}
-                              <a href="{{ route('dev.event.detailsEvent', ['id' =>$item->id]) }}" class="btn btn-outline-primary btn-sm">Detail Event</a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      @endforeach --}}
-                    </div>
-                      
-                    {{-- end of row event baru --}}
-                    {{-- <div class="row py-4">
-                      <div class="col-md-12 d-flex justify-content-center">
-                        {{ $header_events->links() }}
-                      </div>
-                    </div> --}}
-                </div>
-            </section>
-        </div>
+
+        
+        
     </div>
 </div>
 @endsection
@@ -115,5 +66,36 @@
 <script>
 $(document).ready(function () {
 
+  $('#search_input').on('keyup', function() {
+    $value = $(this).val();
+    getMoreUsers(1);
+  });
+
+  $('#held').on('change', function() {
+          getMoreUsers();
+  });
+
 });
+
+function getMoreUsers(page) {
+      var search = $('#search_input').val();
+
+      var held = $('#held option:selected').val();
+      console.log(held);
+      
+      $.ajax({
+        type: "GET",
+        data: {
+          'search_query':search,
+          'held_query':held,
+        },
+        url: "{{ route('users.get-more-users') }}" + "?page=" + page,
+        success:function(data) {
+          $('#user_data').html(data);
+          //console.log(data);
+        }
+      });
+    }
+
+
 </script>

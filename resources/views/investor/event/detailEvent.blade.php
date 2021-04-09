@@ -71,7 +71,25 @@
                     </div>
                 </div>
             </div>
+            <div class="row py-4">
+                <div class="col">
+                  <div class="table-responsive">
+                      <table class="table table-bordered table-hover" width="100%" id="table_participant">
+                        <thead>
+                            <tr>
+                                <th>Nama Event</th>
+                                <th>Diadakan Secara</th>
+                                <th>Diadakan Secara</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    <!-- AKHIR TABLE -->
+                    </div>
+                </div>
+            </div>
             </form>
+            
         </div>
       </div>
     </div>
@@ -91,5 +109,41 @@ function held_detailEvent() {
         document.querySelector('#row_link').classList.add('d-none');
         document.querySelector('#row_loc').classList.remove('d-none');
     }
+}
+
+function table_listParticipant(id) {
+    //var id = $("#coba_id2").text(); 
+    $('#table_participant').DataTable({
+        destroy:true,
+        processing: true,
+        serverSide: true, //aktifkan server-side 
+        responsive:true,
+        deferRender:true,
+        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+        ajax: {
+            url: "{{ route('inv.listEvent') }}" +'/listParticipant' + '/' + id,
+            type: 'GET'
+        },
+        order: [
+            [0, 'asc']
+        ],
+        columns: [
+            {
+                data: 'id',
+                name: 'id'
+            },
+            {
+                data: 'name',
+                name: 'name',
+                
+            },
+            
+            {
+                data:'action',
+                name:'action',
+            },
+        ],
+        
+    });
 }
 </script>

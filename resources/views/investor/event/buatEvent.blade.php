@@ -41,17 +41,17 @@
             <span class="text-danger error-text provinsi_event_error"></span>
         </div>
 
-        <input type="text" id="hidden_province_name" name="hidden_province_name">
+        <input type="hidden" id="hidden_province_name" name="hidden_province_name">
 
         <div class="form-group d-none" id="event_kota">
             <label for="kota_event">Lokasi Kota</label>
-            <select class="form-control" name="kota_event"onchange="get_city()">
+            <select class="form-control" name="kota_event" onchange="get_city()">
                  <option value="">-- pilih kota --</option>
             </select>
             <span class="text-danger error-text kota_event_error"></span>
         </div>
 
-        <input type="text" id="hidden_city_name" name="hidden_city_name">
+        <input type="hidden" id="hidden_city_name" name="hidden_city_name">
 
         <div class="form-group d-none" id="event_address">
             <label for="address_event">Alamat Event</label>

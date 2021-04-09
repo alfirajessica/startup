@@ -100,15 +100,17 @@
             
         @endif
 
-        <div class="section features-6">
+        <main>
+            @yield('content')
+        </main>
+
+        {{-- <div class="section features-6">
             <div class="container">
               <div class="row align-items-center">
-                <main>
-                    @yield('content')
-                </main>
+                
               </div>
             </div>
-          </div>
+          </div> --}}
         
         <br /><br />
 

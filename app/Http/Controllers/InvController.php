@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Validator;
 use App\Models\HeaderEvent;
 use App\Models\User;
+use App\Models\DetailUser;
 use App\Models\CategoryProduct;
 use App\Models\detailCategoryProduct;
 
@@ -24,7 +25,7 @@ class InvController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:guest');
+        $this->middleware('auth');
     }
 
     /**
@@ -162,13 +163,15 @@ class InvController extends Controller
     public function startup()
     {
         $list_category['list_category'] = DB::table('category_products')->get();
-        return view('investor.startup', $list_category);
+        $list_events['list_events'] = DB::table('header_events')->paginate(6);
+        //return view('investor.startup', $list_category);
+        return view('investor.startup')->with($list_category)->with($list_events);
     }
 
     public function detail_category_filter($id)
     {
         $list_detailcategory['list_detailcategory'] = DB::table('detail_category_products')->where('category_id', '=', $id)->get();
-         return $list_detailcategory;
+        return $list_detailcategory;
         
     }
 
@@ -180,6 +183,23 @@ class InvController extends Controller
 
     public function akun()
     {
-        return view('investor.akun');
+        $user = auth()->user();
+        
+        //headernya
+        $akun_user['akun_user'] = DB::table('users')
+                    ->leftJoin('detail_users', 'users.id', '=', 'detail_users.id_user')
+                    ->where('users.id', '=', $user->id)
+                    ->get();
+
+        //get Province
+        $response = Http::withHeaders([
+            'key' => $this->API_KEY
+        ])->get('https://api.rajaongkir.com/starter/province');
+
+        $provinces['provinces']= $response['rajaongkir']['results']; 
+
+        //return view('developer.akun')->with($akun_user)->with($provinces);
+
+        return view('investor.akun')->with($akun_user)->with($provinces);
     }
 }

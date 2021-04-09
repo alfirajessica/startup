@@ -56,15 +56,7 @@ function table_listEvent() {
             {
                 data: 'held',
                 name: 'held',
-                // render: data => {
-                //     if (data.held == "Offline") {
-                //         return data.held
-                //     }
-                //     else if (data.held == "Online") {
-                //         return data.held+'<br><small><a href="'+ data.link +'">'+data.link+'</a></small><br>';    
-                //     }
-                    
-                // }
+              
             },
             {
                 data: null,
@@ -110,6 +102,7 @@ function table_listEvent() {
 
  $('body').on('click', '.detailEvent', function () {
      var product_id = $(this).data('id');
+     table_listParticipant(product_id);
      $.get("{{ route('inv.listEvent') }}" +'/editEvent' + '/' + product_id, function (data) {
         $('#coba_id2').val(data.id);    
         $('#title_detailevent').text(" " + data.name);

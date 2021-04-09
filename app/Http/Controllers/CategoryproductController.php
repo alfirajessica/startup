@@ -169,5 +169,11 @@ class CategoryproductController extends Controller
     }
 
 
+    public function detail_category_filter($id)
+    {
+        $list_detailcategory['list_detailcategory'] = DB::table('detail_category_products')->where('category_id', '=', $id)->get();
+        return $list_detailcategory;
+        
+    }
     
 }

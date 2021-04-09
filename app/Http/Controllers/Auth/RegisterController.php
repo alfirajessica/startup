@@ -8,9 +8,13 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class RegisterController extends Controller
 {
+    protected $API_KEY = 'b987431dcecfd64bc6a193cdce1ff0bd';
+
     /*
     |--------------------------------------------------------------------------
     | Register Controller
@@ -23,6 +27,36 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+       //get Province
+       $response = Http::withHeaders([
+        'key' => $this->API_KEY
+        ])->get('https://api.rajaongkir.com/starter/province');
+
+        $provinces['provinces']= $response['rajaongkir']['results'];  
+
+        return view('auth.register', $provinces);
+
+    }
+
+    public function getCities($id)
+    {
+        $response = Http::withHeaders([
+            'key' => $this->API_KEY
+        ])->get('https://api.rajaongkir.com/starter/city?&province='.$id.'');
+
+        $cities = $response['rajaongkir']['results'];
+        return response()->json($cities);
+       
+    }
+    
+
 
     /**
      * Where to redirect users after registration.
@@ -52,6 +86,8 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'province'=> ['required'],
+            'city'=> ['required'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role' => ['required', 'in:1,2'],
         ]);
@@ -68,8 +104,13 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'id_province'=> $data['province'],
+            'province_name'=> $data['hidden_province_name'],
+            'id_city'=> $data['city'],
+            'city_name'=> $data['hidden_city_name'],
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
         ]);
+
     }
 }

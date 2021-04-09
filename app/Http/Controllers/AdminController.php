@@ -39,6 +39,12 @@ class AdminController extends Controller
         return view('admin.akun');
     }
 
+    // public function typeTrans()
+    // {
+    //     $type_trans['type_trans'] = DB::table('type_trans')->get();
+    //     return view('admin.typeTrans',$type_trans);
+    // }
+
     
 
     //DEVELOPER

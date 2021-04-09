@@ -76,6 +76,12 @@
                         <span class="nav-link-text">{{ __('Produk Kategori') }}</span>
                       </a>
                     </li>
+                    <li class="ct-sidenav-active">
+                      <a class="nav-link active" href="{{ route('admin.typeTrans') }}">
+                        <i class="ni ni-tv-2 text-primary"></i>
+                        <span class="nav-link-text">{{ __('Tipe Transaksi') }}</span>
+                      </a>
+                    </li>
                   </ul>
                 </div>
                 <!-- Show links for all groups -->

@@ -18406,7 +18406,7 @@ a.btn-icon-only {
 }
 
 .card-lift--hover:hover {
-  transform: translateY(-20px);
+  transform: translateY(-10px);
   transition: all 0.15s ease;
 }
 

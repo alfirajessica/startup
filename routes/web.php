@@ -9,11 +9,14 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\DevController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryproductController;
+use App\Http\Controllers\TypeTransController;
+use App\Http\Controllers\ProductController;
 
 use App\Http\Controllers\ValuationToolsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 use App\Http\Controllers\Auth\AdminForgotPasswordController;
 use App\Http\Controllers\Auth\AdminResetPasswordController;
@@ -34,6 +37,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::get('reg/cities/{province_id}', [RegisterController::class, 'getCities']); //get all cities in buat event
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/users/logout', [LoginController::class, 'userLogout'])->name('users.logout');
@@ -68,6 +73,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/kategoriProduk/editKategori/{id}', [CategoryproductController::class, 'editCategoryProduct'])->name('admin.categoryProduct.editCategoryProduct');
     Route::post('/kategoriProduk/updateKategori', [CategoryproductController::class, 'updateCategoryProduct'])->name('admin.updateCategoryProduct');
 
+    //tipe transaksi
+    Route::get('/typetrans', [TypeTransController::class, 'typeTrans'])->name('admin.typeTrans');
+    Route::post('/typetrans/new', [TypeTransController::class, 'addNewtypeTrans'])->name('admin.addNewtypeTrans');
+    Route::get('/typetrans/editTypeTrans/{id}', [TypeTransController::class, 'editTypeTrans'])->name('admin.typeTrans.editTypeTrans');
+    Route::post('/typetrans/updateTypeTrans', [TypeTransController::class, 'updateTypeTrans'])->name('admin.updateTypeTrans');
+
     //pengguna - developer
     Route::get('/dev/daftarDeveloper', [AdminController::class, 'listdev'])->name('admin.dev.listDev');
     Route::get('/dev/produkDeveloper', [AdminController::class, 'produkdev'])->name('admin.dev.produkDev');
@@ -96,14 +107,15 @@ Route::post('/inv/listEvent/updateEvent', [EventController::class, 'updateEvent'
 Route::get('/inv/listEvent/deleteEvent/{id}', [EventController::class, 'deleteEvent'])->name('inv.listEvent.deleteEvent'); //get all cities in buat event
 
 Route::get('/inv/listEvent/detailEvent/{id}', [EventController::class, 'detailEvent'])->name('inv.listEvent.detailEvent'); //get all cities in buat event
+Route::get('/inv/listEvent/listParticipant/{id}', [EventController::class, 'listParticipant'])->name('inv.listEvent.listParticipant'); //get all cities in buat event
 //investor -- end of event
 
 Route::get('/inv/startup', [InvController::class, 'startup'])->name('inv.startup');
 
 //filter di menu startup
 Route::get('/inv/startup/{id}', [InvController::class, 'detail_category_filter'])->name('inv.startup.detail_category_filter');
-
 Route::get('/inv/detailstartup', [InvController::class, 'detailstartup'])->name('detailstartup');
+
 
 
 //-----------------------------end of INVESTOR---------------------------
@@ -112,17 +124,35 @@ Route::get('/inv/detailstartup', [InvController::class, 'detailstartup'])->name(
 
 //Developer
 Route::get('/dev/akun', [DevController::class, 'akun'])->name('dev.akun');
+Route::post('/dev/akun/updateAkun', [DevController::class, 'updateAkun'])->name('dev.akun.updateAkun'); 
+Route::post('/dev/akun/updateTentang', [DevController::class, 'updateTentang'])->name('dev.akun.updateTentang'); 
+Route::get('/dev/cities/{province_id}', [DevController::class, 'getCities']); //get all cities in buat event
 
 //event
 Route::get('/dev/event', [EventController::class, 'devEvent'])->name('dev.event');
 Route::get('/dev/event/detailsEvent/{id}', [EventController::class, 'detailsEvent'])->name('dev.event.detailsEvent');
 Route::post('/dev/event/joinEvent', [EventController::class, 'joinEvent'])->name('dev.event.joinEvent');
+//Route::get('/inv/listEvent', [EventController::class, 'listEvent'])->name('inv.listEvent'); //show list event
+Route::get('/dev/event/cancleEvent/{id}', [EventController::class, 'cancleEvent'])->name('dev.event.cancleEvent');
 
 //listjoinevent
 Route::get('/dev/listJoinEvent', [EventController::class, 'listJoinEvent'])->name('dev.listJoinEvent');
+Route::get('/dev/listCancleEvent', [EventController::class, 'listCancleEvent'])->name('dev.listCancleEvent');
+Route::get('/dev/listHistoryEvent', [EventController::class, 'listHistoryEvent'])->name('dev.listHistoryEvent');
 
+//product
 Route::get('/dev/product', [DevController::class, 'product'])->name('dev.product');
+Route::get('/dev/product/{id}', [DevController::class, 'detail_category_filter'])->name('dev.product.detail_category_filter');
+Route::post('/dev/product', [ProductController::class, 'addNewProduct'])->name('dev.product.addNewProduct'); 
+Route::get('/dev/listProduct', [ProductController::class, 'listProduct'])->name('dev.listProduct'); //show list product
+
+
 Route::get('/dev/review', [DevController::class, 'review'])->name('dev.review');
 
+//search
+Route::get('/dev/event/searchEvent/{id}', [EventController::class, 'searchEvent'])->name('dev.event.searchEvent');
+
+//Route::get('get-more-users', 'HomeController@getMoreUsers')->name('users.get-more-users');
+Route::get('get-more-users', [EventController::class, 'getMoreUsers'])->name('users.get-more-users');
 
 

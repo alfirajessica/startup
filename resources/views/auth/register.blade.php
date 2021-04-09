@@ -76,6 +76,33 @@
                       </div>
                     </div>
 
+                    
+                      <div class="form-group">
+                        <div class="input-group input-group-alternative mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                          </div>
+                         
+                          <select class="form-control" name="province" onchange="show_cities(this)">
+                            <option class="form-control" value="0" selected>-- pilih provinsi --</option>
+                             @foreach($provinces as $provinsi)
+                                <option value="{{ $provinsi['province_id'] }}">{{ $provinsi['province'] }}</option>
+                            @endforeach
+                          </select>
+                          
+                        </div>
+                        <input type="text" id="hidden_province_name" name="hidden_province_name">
+                      </div>
+
+                      <div class="form-group" id="event_kota">
+                        <label for="city">Lokasi Kota</label>
+                        <select class="form-control" name="city" onchange="get_city()">
+                             <option value="">-- pilih kota --</option>
+                        </select>
+                        <span class="text-danger error-text city_error"></span>
+                    </div>
+                    <input type="hidden" id="hidden_city_name" name="hidden_city_name">
+                      
                     <div class="form-group focused">
                       <div class="input-group input-group-alternative">
                         <div class="input-group-prepend">
@@ -167,5 +194,39 @@
         $("#i_eye2").attr("style", "display:none");
         $("#i_slash2").attr("style", "display:block");
     }
+
+    //show cities when province selected
+    function show_nameprovince() {
+        $("#hidden_province_name").val($('select[name="province"] option:selected').text());
+    }
+
+    function show_cities() {
+      $("#hidden_province_name").val($('select[name="province"] option:selected').text());
+      
+
+    let provindeId = $('select[name="province"]').val();
+    if (provindeId) {
+        jQuery.ajax({
+            url: 'reg/cities/'+provindeId,
+            type: "GET",
+            dataType: "json",
+            success: function (response) {
+                $('select[name="city"]').empty();
+                $('select[name="city"]').append('<option value="" selected>-- pilih kota --</option>');
+                $.each(response, function (key, value) {
+                    var id = value["city_id"];
+                    $('select[name="city"]').append('<option value="'+ id + '">' + value["city_name"] + '</option>');
+                });
+                
+            },
+        });
+    } else {
+        $('select[name="city"]').append('<option value="">-- pilih kota --</option>');
+    }
+}
+
+function get_city() {  
+    $("#hidden_city_name").val($('select[name="city"] option:selected').text());
+}
 </script>
 </html>

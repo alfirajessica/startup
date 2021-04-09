@@ -11,6 +11,7 @@ use App\Models\HeaderEvent;
 use App\Models\detailEvent;
 use App\Models\User;
 use Carbon\Carbon;
+//use App\Http\Controllers\GlobalConstants;
 
 class EventController extends Controller
 {
@@ -194,6 +195,40 @@ class EventController extends Controller
         return response()->json($HeaderEvent);
     }
 
+    public function listParticipant($id, Request $req){
+
+        $user = auth()->user();
+        
+        $list_dev = DB::table('detail_events')
+                    ->leftJoin('users', 'detail_events.id_participant', '=', 'users.id')
+                    ->where('detail_events.id_header_events','=',$id)
+                    ->get();
+                    
+        if($req->ajax()){
+            return datatables()->of($list_dev)
+                    ->addColumn('action', function($data){
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-primary btn-sm detailEvent">Detail</a>';
+
+                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
+                        data-toggle="confirmation"
+                        data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
+                        data-btn-ok-class="btn btn-sm btn-danger"
+                        data-btn-cancel-label="Cancel"
+                        data-btn-cancel-icon="fa fa-chevron-circle-left"
+                        data-btn-cancel-class="btn btn-sm btn-default"
+                        data-title="Are you sure you want to delete ?"
+                        data-placement="left" data-singleton="true">Hapus</a>';
+    
+                        return $btn;
+                     })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+        }
+
+        return view('inv.listEvent');
+    }
+
     public function updateEvent(Request $req)
     {
         //validate request
@@ -275,7 +310,37 @@ class EventController extends Controller
     public function devEvent()
     {
         $header_events['header_events'] = DB::table("header_events")->paginate(6);
-        return view('developer.event', $header_events);
+        return view('developer.event')->with($header_events);
+    }
+
+    //search di events developer
+    public function searchEvent(Request $req)
+    {
+        $list_category['list_category'] = DB::table('category_products')->get();
+        $header_events['header_events'] = DB::table("header_events")->where('name','='.$req->search_input)->paginate(6);
+        $output="";
+      
+    }
+
+    //search
+    public function getMoreUsers(Request $req) {
+        
+        $search = $req->search_query;
+        $held = $req->held_query;
+       
+        if($req->ajax()) {
+
+            if ($held == "1") {
+                $header_events['header_events'] = DB::table("header_events")->where('name','like',$search.'%')->paginate(6);
+            }
+            else{
+                $header_events['header_events'] = DB::table("header_events")->where('name','like',$search.'%')->where('held','=',$held)->paginate(6);
+            }
+            
+
+            return view('developer.event.dataEvent')->with($header_events);
+           
+        }
     }
 
     public function homeNewEvents(Request $req){
@@ -298,10 +363,21 @@ class EventController extends Controller
 
         $isExist = detailEvent::where('id_header_events', '=', $req->id_event)->where('id_participant', '=', $user->id)->first();
         
-        if (detailEvent::where('id_header_events', '=', $req->id_event)->where('id_participant', '=', $user->id)->exists()) //available
+        if (detailEvent::where('id_header_events', '=', $req->id_event)->where('id_participant', '=', $user->id)->where('status', '=', "1")->exists()) //available
         {
             return back()->with('fail', 'sudah mengikuti Event');
             
+        }
+        
+        if(detailEvent::where('id_header_events', '=', $req->id_event)->where('id_participant', '=', $user->id)->where('status', '=', "0")->exists()){
+            
+            DB::table('detail_events')
+            ->where('id_header_events',$req->id_event)
+            ->where('id_participant',$user->id)
+            ->update([
+                        'status' => "1",
+                    ]);
+            return back()->with('status', 'Berhasil join Event kembali');
         }
         if ($isExist == null) {
             $detailevent = new detailEvent;
@@ -319,16 +395,91 @@ class EventController extends Controller
         
     }
 
-    public function listJoinEvent(){
+    public function listJoinEvent(Request $req){
+
+        // 1-aktif/ikut, 0-batal, 2-selesai
 
         $user = auth()->user();
-
-        $myevents['myevents'] = DB::table('detail_events')
+        $myevents = DB::table('detail_events')
         ->leftJoin('header_events', 'header_events.id', '=', 'detail_events.id_header_events')
         ->where('detail_events.id_participant','=',$user->id)
+        ->where('detail_events.status','!=',"0")
         ->get();
+        if($req->ajax()){
+            return datatables()->of($myevents)
+                    ->addColumn('action', function($data){
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-primary btn-sm detailEvent">Detail</a>';
 
-        return view('developer.listJoinEvent', $myevents);
-
+                        return $btn;
+                     })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+        }
+        return view('developer.listJoinEvent');
     }
+
+    public function cancleEvent($id)
+    {
+        $user = auth()->user();
+        DB::table('detail_events')
+            ->where('id_header_events',$id)
+            ->where('id_participant',$user->id)
+            ->update([
+                        'status' => "0",
+                    ]);
+
+        return back()->with('status', 'Berhasil cancle Event');
+    }
+
+    public function listCancleEvent(Request $req){
+
+        // 1-aktif/ikut, 0-batal, 2-selesai
+
+        $user = auth()->user();
+        $myevents = DB::table('detail_events')
+        ->leftJoin('header_events', 'header_events.id', '=', 'detail_events.id_header_events')
+        ->where('detail_events.id_participant','=',$user->id)
+        ->where('detail_events.status','=',"0")
+        ->get();
+        if($req->ajax()){
+            return datatables()->of($myevents)
+                    ->addColumn('action', function($data){
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-primary btn-sm detailEvent">Detail</a>';
+
+                        return $btn;
+                     })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+        }
+        return view('developer.listJoinEvent');
+    }
+
+    public function listHistoryEvent(Request $req){
+
+        // 1-aktif/ikut, 0-batal, 2-selesai
+
+        $user = auth()->user();
+        $myevents = DB::table('detail_events')
+        ->leftJoin('header_events', 'header_events.id', '=', 'detail_events.id_header_events')
+        ->where('detail_events.id_participant','=',$user->id)
+        ->where('detail_events.status','=',"2")
+        ->get();
+        if($req->ajax()){
+            return datatables()->of($myevents)
+                    ->addColumn('action', function($data){
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-primary btn-sm detailEvent">Detail</a>';
+
+                        return $btn;
+                     })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+        }
+        return view('developer.listJoinEvent');
+    }
+
+    
+
 }
