@@ -8,7 +8,7 @@
                     <th>Nama Proyek</th>
                     <th>Kategori</th>
                     <th>Url</th>
-                    <th>Rilis</th>
+                    
                 </tr>
             </thead>
             <tbody></tbody>
@@ -59,13 +59,8 @@ function table_listProduct() {
               
             },
             {
-                data: 'url',
-                name: 'url',
-              
-            },
-            {
-                data: 'rilis',
-                name: 'rilis',
+                data: 'action',
+                name: 'action',
               
             },
             
@@ -73,4 +68,37 @@ function table_listProduct() {
         
     });
 }
+
+$('body').on('click', '.deleteProject', function () {
+    var id = $(this).data("id");
+    console.log(id);
+    var txt;
+    swal({
+        title: "Are You sure want to delete?",
+        text: "Once deleted, you will not be able to recover this project!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "get",
+                url: "{{ route('dev.listProduct') }}"+'/deleteProject' + '/' + id,
+                success: function (data) {
+                    table_listProduct();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+            swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+        });
+        } else {
+            swal("Your imaginary file is safe!");
+        }
+    });
+ });
+
 </script>

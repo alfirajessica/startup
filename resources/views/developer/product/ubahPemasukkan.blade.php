@@ -16,6 +16,7 @@
           <input type="hidden" name="id_detail_product_kas" id="id_detail_product_kas">
           <label for="">Jumlah baru</label>
           <input type="number" class="form-control form-control-alternative" name="edit_jumlah" id="edit_jumlah">
+          <span class="text-danger error-text edit_jumlah_error"></span>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -36,4 +37,45 @@
       table_listPengeluaran();
     }
   });
+
+  $("#modal_ubahJumlah").on("submit",function (e) {
+    e.preventDefault();
+   
+    $.ajax({
+        url:$(this).attr('action'),
+        method:$(this).attr('method'),
+        data:new FormData(this),
+        processData:false,
+        dataType:'json',
+        contentType:false,
+        beforeSend:function() {
+            $(document).find('span.error-text').text('');
+        },
+        success:function(data) {
+            if (data.status == 0) {
+                $.each(data.error, function (prefix, val) {
+                    $('span.'+prefix+'_error').text(val[0]);
+                });
+            }
+            else{
+                $('#modal_ubahJumlah')[0].reset();
+                //$('#modal_ubahJumlah').hide();
+                if ($('#status_kas').val() == "Pemasukkan") {
+                  table_listPemasukkan();
+                }
+                else
+                {
+                  table_listPengeluaran();
+                }
+                swal({
+                    title: data.msg,
+                    text: "You clicked the button!",
+                    icon: "success",
+                    button: "Aww yiss!",
+                });
+               
+            }
+        }
+    });
+});
 </script>

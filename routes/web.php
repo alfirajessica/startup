@@ -145,6 +145,8 @@ Route::get('/dev/product', [DevController::class, 'product'])->name('dev.product
 Route::get('/dev/product/{id}', [DevController::class, 'detail_category_filter'])->name('dev.product.detail_category_filter');
 Route::post('/dev/product', [ProductController::class, 'addNewProduct'])->name('dev.product.addNewProduct'); 
 Route::get('/dev/listProduct', [ProductController::class, 'listProduct'])->name('dev.listProduct'); //show list product
+Route::get('/dev/listProduct/deleteProject/{id}', [ProductController::class, 'deleteProject'])->name('dev.listProduct.deleteProject'); //show list product
+
 Route::get('/dev/product/deletePemasukkan/{id}', [ProductController::class, 'deletePemasukkan'])->name('dev.product.deletePemasukkan'); 
 Route::get('/dev/product/detailPemasukkan/{id}', [ProductController::class, 'detailPemasukkan'])->name('dev.product.detailPemasukkan'); 
 Route::post('/dev/product/updatePemasukkan', [ProductController::class, 'updatePemasukkan'])->name('dev.product.updatePemasukkan'); //show list product

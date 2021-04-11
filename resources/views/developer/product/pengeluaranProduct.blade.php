@@ -173,6 +173,17 @@ function table_listPengeluaran() {
     });
 }
 
+$('body').on('click', '.editKas', function () {
+      var product_id = $(this).data('id');
+      console.log(product_id);
+      $.get("{{ route('dev.product') }}" +'/detailPemasukkan' + '/' + product_id, function (data) {
+            $("#nama_tipe").text($("#pilih_project").find(":selected").text()+"/");
+            $('#id_detail_product_kas').val(data.id);
+            $('#edit_jumlah').val(data.jumlah);
+            $('#status_kas').val("Pengeluaran");
+      })  
+});
+
 $('body').on('click', '.deleteKas', function () {
     var id = $(this).data("id");
     var txt;

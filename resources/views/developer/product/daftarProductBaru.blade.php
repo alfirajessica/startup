@@ -265,12 +265,10 @@
         });
 
         navigateTo(0);
-    });
 
-    $("#msform").on("submit",function (e) {
-    e.preventDefault();
-   
-    $.ajax({
+        $('#msform').submit(function (e) { 
+            e.preventDefault();
+            $.ajax({
             url:$(this).attr('action'),
             method:$(this).attr('method'),
             data:new FormData(this),
@@ -289,7 +287,9 @@
                 else{
                 //update yang di page akun depan
                     $('#msform')[0].reset();
+                    $("#previewImg").attr("src", '{{asset('images')}}');
                     table_listProduct();
+                    navigateTo(0);
                     swal({
                         title: data.msg,
                         text: "You clicked the button!",
@@ -300,5 +300,42 @@
                 }
             }
         });
+        });
+
     });
+
+    // $("#msform").on("submit",function (e) {
+    // e.preventDefault();
+   
+    // $.ajax({
+    //         url:$(this).attr('action'),
+    //         method:$(this).attr('method'),
+    //         data:new FormData(this),
+    //         processData:false,
+    //         dataType:'json',
+    //         contentType:false,
+    //         beforeSend:function() {
+    //             $(document).find('span.error-text').text('');
+    //         },
+    //         success:function(data) {
+    //             if (data.status == 0) {
+    //                 $.each(data.error, function (prefix, val) {
+    //                     $('span.'+prefix+'_error').text(val[0]);
+    //                 });
+    //             }
+    //             else{
+    //             //update yang di page akun depan
+    //                 $('#msform')[0].reset();
+    //                 table_listProduct();
+    //                 swal({
+    //                     title: data.msg,
+    //                     text: "You clicked the button!",
+    //                     icon: "success",
+    //                     button: "Aww yiss!",
+    //                 });
+                
+    //             }
+    //         }
+    //     });
+    // });
 </script>
