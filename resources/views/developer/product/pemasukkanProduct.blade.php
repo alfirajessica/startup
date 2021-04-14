@@ -17,7 +17,7 @@
                     <button class="btn btn-outline-default" type="button" onclick="pilih_proyek()">Sesuaikan</button>
                   </div>
                 </div>
-              </div>     
+            </div>     
         </div>
     </div>
     <div class="row">

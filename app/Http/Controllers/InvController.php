@@ -163,9 +163,46 @@ class InvController extends Controller
     public function startup()
     {
         $list_category['list_category'] = DB::table('category_products')->get();
-        $list_events['list_events'] = DB::table('header_events')->paginate(6);
+        $list_project['list_project'] = 
+        DB::table('header_products')
+        ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
+        ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
+        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc')
+        ->paginate(6);
         //return view('investor.startup', $list_category);
-        return view('investor.startup')->with($list_category)->with($list_events);
+        return view('investor.startup')->with($list_category)->with($list_project);
+    }
+
+    public function detailstartup(Request $req, $id){
+
+        $list_project['list_project'] = 
+        DB::table('header_products')
+        ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
+        ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
+        ->where('header_products.id','=',$id)
+        ->get();
+
+        $list_finance['list_finance'] = 
+         DB::table('header_products')
+         ->join('detail_product_kas','detail_product_kas.id_headerproduct','=','header_products.id')
+         ->select(\DB::raw('SUM(detail_product_kas.jumlah) as total,DATE_FORMAT(detail_product_kas.created_at,"%Y-%m") as monthDate'))
+         ->where('header_products.id','=',$id)
+         ->where('detail_product_kas.tipe','=','1')
+         ->groupBy(\DB::raw('DATE_FORMAT(detail_product_kas.created_at,"%Y-%m")'))
+         ->orderBy('detail_product_kas.created_at')
+         ->get();
+
+        $list_finance_keluar['list_finance_keluar'] = 
+        DB::table('header_products')
+        ->join('detail_product_kas','detail_product_kas.id_headerproduct','=','header_products.id')
+        ->select(\DB::raw('SUM(detail_product_kas.jumlah) as total_keluar,DATE_FORMAT(detail_product_kas.created_at,"%Y-%m") as monthDate'))
+        ->where('header_products.id','=',$id)
+        ->where('detail_product_kas.tipe','=','2')
+        ->groupBy(\DB::raw('DATE_FORMAT(detail_product_kas.created_at,"%Y-%m")'))
+        ->orderBy('detail_product_kas.created_at')
+        ->get();
+        
+        return view('investor.detailstartup')->with($list_project)->with($list_finance)->with($list_finance_keluar);
     }
 
     public function detail_category_filter($id)
@@ -177,9 +214,7 @@ class InvController extends Controller
 
    
 
-    public function detailstartup(){
-        return view('investor.detailstartup');
-    }
+    
 
     public function akun()
     {

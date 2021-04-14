@@ -18,6 +18,10 @@
     </div>
 </div>
 
+@include('developer.product.detailProduct')
+
+
+
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -101,4 +105,20 @@ $('body').on('click', '.deleteProject', function () {
     });
  });
 
+ $('body').on('click', '.detailProject', function () {
+     var product_id = $(this).data('id');
+     $.get("{{ route('dev.listProduct') }}" +'/detailProject' + '/' + product_id, function (data) {
+        table_detailProduct(product_id);
+        
+        $('#nama_product').text(data.name_product);    
+        $('#tipe_product').text(data.id_detailcategory); 
+        $('#url_product').text(data.url); 
+        $('#rilis_product').text(data.rilis); 
+        $('#desc').text(data.desc); 
+        $('#team').text(data.team);
+        $('#reason').text(data.reason); 
+        $('#benefit').text(data.benefit);
+        $('#solution').text(data.solution);
+    });
+ });
 </script>

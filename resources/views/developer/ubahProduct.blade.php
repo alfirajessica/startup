@@ -1,10 +1,40 @@
+@extends('layouts.dev')
+<link rel="stylesheet" href="/css/multisteps.css">
+
+<style>
+    section{
+        padding-top: :100px;
+    }
+    .form-section{
+        padding-left: 15px;
+        display: none;
+    }
+    .form-section.current{
+        display: inherit;
+
+    }
+    .btn-info, btn-btn-success{
+        margin-top: 10px;
+    }
+    .parsley-errors-list{
+        margin: 2px 0 3px;
+        padding: 0;
+        list-style-type: none;
+        color: red;
+    }
+    .modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+    }
+</style>
+@section('content')
 <div class="col-md-12">
     <div class="card px-0 pb-0 mt-3 mb-3 border-0">
         <h2><strong>Daftarkan Proyek Baru Saya</strong></h2>
         <p>Isi semua form untuk ke halaman selanjutnya</p>
         <div class="row">
             <div class="col-md-12 mx-0">
-                <form id="msform" action="{{ route('dev.product.addNewProduct')}}" method="POST" class="contact-form">
+                <form id="msform" class="contact-form">
                     @csrf
                     <!-- progressbar -->
                     
@@ -117,125 +147,4 @@
         </div>
     </div>
 </div>
-
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
-<script>
-    
-    $(function(){
-        var $section = $('.form-section');
-
-        function navigateTo(index){
-            $section.removeClass('current').eq(index).addClass('current');
-            $('.form-navigation .previous').toggle(index>0);
-
-            var atTheEnd = index >= $section.length -1;
-            $('.form-navigation .next').toggle(!atTheEnd);
-            $('.form-navigation [type=submit]').toggle(atTheEnd);
-        }
-
-        function curIndex() {  
-            return $section.index($section.filter('.current'));
-
-        }
-
-        $('.form-navigation .previous').click(function(){
-            navigateTo(curIndex()-1);
-            $("#progressbar li").eq($(".form-section").index(curIndex()-1)).removeClass("active"); 
-        });
-
-        $('.form-navigation .next').click(function(){
-            $('.contact-form').parsley().whenValidate({
-                group:'block-' + curIndex()
-                
-            }).done(function(){
-                navigateTo(curIndex()+1);
-                $("#progressbar li").eq($(".form-section").index(curIndex()+1)).addClass("active"); 
-                
-            })
-            
-        });
-
-        $section.each(function(index, section){
-            $(section).find(':input').attr('data-parsley-group','block-'+index);
-        });
-
-        navigateTo(0);
-
-        $('#msform').submit(function (e) { 
-            e.preventDefault();
-            $.ajax({
-            url:$(this).attr('action'),
-            method:$(this).attr('method'),
-            data:new FormData(this),
-            processData:false,
-            dataType:'json',
-            contentType:false,
-            beforeSend:function() {
-                $(document).find('span.error-text').text('');
-            },
-            success:function(data) {
-                if (data.status == 0) {
-                    $.each(data.error, function (prefix, val) {
-                        $('span.'+prefix+'_error').text(val[0]);
-                    });
-                }
-                else{
-                //update yang di page akun depan
-                    $('#msform')[0].reset();
-                    $("#previewImg").attr("src", '{{asset('images')}}');
-                    table_listProduct();
-                    navigateTo(0);
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
-                        icon: "success",
-                        button: "Aww yiss!",
-                    });
-                
-                }
-            }
-        });
-        });
-
-    });
-
-    // $("#msform").on("submit",function (e) {
-    // e.preventDefault();
-   
-    // $.ajax({
-    //         url:$(this).attr('action'),
-    //         method:$(this).attr('method'),
-    //         data:new FormData(this),
-    //         processData:false,
-    //         dataType:'json',
-    //         contentType:false,
-    //         beforeSend:function() {
-    //             $(document).find('span.error-text').text('');
-    //         },
-    //         success:function(data) {
-    //             if (data.status == 0) {
-    //                 $.each(data.error, function (prefix, val) {
-    //                     $('span.'+prefix+'_error').text(val[0]);
-    //                 });
-    //             }
-    //             else{
-    //             //update yang di page akun depan
-    //                 $('#msform')[0].reset();
-    //                 table_listProduct();
-    //                 swal({
-    //                     title: data.msg,
-    //                     text: "You clicked the button!",
-    //                     icon: "success",
-    //                     button: "Aww yiss!",
-    //                 });
-                
-    //             }
-    //         }
-    //     });
-    // });
-</script>
+@endsection

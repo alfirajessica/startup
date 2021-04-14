@@ -22,6 +22,10 @@
         list-style-type: none;
         color: red;
     }
+    .modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+    }
 </style>
 @section('content')
 <div class="container">
@@ -48,15 +52,18 @@
                 </div>
                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
                     @include('developer.product.listProduct')
+                    
                 </div>
             </div>
         </div>
     </div>
     
-    
+    {{-- @include('developer.ubahProduct') --}}
 </div>
 
 @include('developer.product.ubahPemasukkan')
+
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script> 
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>

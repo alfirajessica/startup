@@ -155,19 +155,13 @@ class ProductController extends Controller
         if($req->ajax()){
             return datatables()->of($list_proyek)
                 ->addColumn('action', function($data){
-                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#editModal"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Ubah</a>';
+                    $btn = '<a href="'.route("dev.listProduct.ubahProject").'" data-toggle="tooltip" data-target="#ubahProduct"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Ubah</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject" data-tr="tr_{{$product->id}}"
-                    data-toggle="confirmation"
-                    data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
-                    data-btn-ok-class="btn btn-sm btn-danger"
-                    data-btn-cancel-label="Cancel"
-                    data-btn-cancel-icon="fa fa-chevron-circle-left"
-                    data-btn-cancel-class="btn btn-sm btn-default"
-                    data-title="Are you sure you want to delete ?"
-                    data-placement="left" data-singleton="true">Hapus</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject" data-tr="tr_{{$product->id}}">Hapus</a>';
 
-                    $btn = $btn. ' <a href="#row_detailCategory" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
+                    // $btn = $btn. ' <a href="'.route("dev.listProduct.detailProject").'" data-toggle="tooltip" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
+
+                    $btn = $btn. ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
 
                     return $btn;
                 })
@@ -182,6 +176,34 @@ class ProductController extends Controller
     {
         DB::table("header_products")->delete($id);
     	return response()->json(['success'=>"Berhasil menghapus kas", 'tr'=>'tr_'.$id]);
+    }
+
+    public function detailProject($id)
+    {
+       // return view('developer.product.detailProduct');
+         $HeaderProduct = HeaderProduct::find($id);
+         return response()->json($HeaderProduct);
+    }
+
+    public function detailProjectKas(Request $req, $id)
+    {
+        $list_kas = DB::table('detail_product_kas')
+                    ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
+                    ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
+                    ->where('detail_product_kas.id_headerproduct','=',$id)
+                    ->get();
+       
+        if($req->ajax()){
+            return datatables()->of($list_kas)
+                ->addColumn('action', function($data){
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKas">Ubah</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('dev.listProduct');
     }
     
     public function addNewPemasukkan(Request $req)
@@ -289,12 +311,19 @@ class ProductController extends Controller
             update([
                 'jumlah' => $req->edit_jumlah,
             ]);
-
-            //return back()->with('status', 'Berhasil join Event kembali');
-
-            //return view('developer.event.dataEvent')->with($header_events);
-
            return response()->json(['status'=>1, 'msg'=>'Berhasil mengubah detail product kas']);
         }
+    }
+
+    public function ubahProject()
+    {
+        $list_category['list_category'] = DB::table('category_products')->get();
+        $type_trans['type_trans'] = DB::table('type_trans')->get();
+        $list_project['list_project'] = DB::table('header_products')->get();
+
+        
+        return view('developer.ubahProduct')->with($list_category)->with($type_trans)->with($list_project);
+
+        //return view('developer.product.ubahProduct');
     }
 }

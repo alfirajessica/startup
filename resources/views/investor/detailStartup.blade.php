@@ -16,16 +16,19 @@
         </div><!--end col-md-4 -->
         
         <div class="col-md-8"> <!--col-md-8 -->
+            @foreach ($list_project as $item)
+                {{-- image, desc site info, about product --}}
+                @include('investor.detailStartup.desc') 
+            @endforeach
+                {{-- tabel keuangan --}}
             
-            {{-- image, desc site info, about product --}}
-            @include('investor.detailStartup.desc') 
+            
+                @include('investor.detailStartup.financial')
+            
 
-            {{-- tabel keuangan --}}
-            @include('investor.detailStartup.financial')
-
-            {{-- rating, ulasan --}}
-            @include('investor.detailStartup.ulasan')
-
+                {{-- rating, ulasan --}}
+                @include('investor.detailStartup.ulasan')
+           
         </div><!--end col-md-8 -->
     </div>
 </div>
