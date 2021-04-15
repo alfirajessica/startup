@@ -11,6 +11,7 @@ use App\Models\HeaderEvent;
 use App\Models\User;
 use App\Models\DetailUser;
 use App\Models\CategoryProduct;
+use App\Models\DetailProductKas;
 use App\Models\detailCategoryProduct;
 
 
@@ -183,25 +184,23 @@ class InvController extends Controller
         ->get();
 
         $list_finance['list_finance'] = 
-         DB::table('header_products')
-         ->join('detail_product_kas','detail_product_kas.id_headerproduct','=','header_products.id')
-         ->select(\DB::raw('SUM(detail_product_kas.jumlah) as total,DATE_FORMAT(detail_product_kas.created_at,"%Y-%m") as monthDate'))
-         ->where('header_products.id','=',$id)
-         ->where('detail_product_kas.tipe','=','1')
-         ->groupBy(\DB::raw('DATE_FORMAT(detail_product_kas.created_at,"%Y-%m")'))
-         ->orderBy('detail_product_kas.created_at')
-         ->get();
-
-        $list_finance_keluar['list_finance_keluar'] = 
-        DB::table('header_products')
-        ->join('detail_product_kas','detail_product_kas.id_headerproduct','=','header_products.id')
-        ->select(\DB::raw('SUM(detail_product_kas.jumlah) as total_keluar,DATE_FORMAT(detail_product_kas.created_at,"%Y-%m") as monthDate'))
-        ->where('header_products.id','=',$id)
-        ->where('detail_product_kas.tipe','=','2')
-        ->groupBy(\DB::raw('DATE_FORMAT(detail_product_kas.created_at,"%Y-%m")'))
+        DB::table('detail_product_kas')
+        ->select(\DB::raw('SUM(jumlah) as total_masuk,DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
+        ->where('id_headerproduct','=',$id)
+        ->where('tipe','=','1')
+        ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
         ->orderBy('detail_product_kas.created_at')
         ->get();
-        
+
+        $list_finance_keluar['list_finance_keluar'] = 
+        DB::table('detail_product_kas')
+        ->select(\DB::raw('SUM(jumlah) as total_keluar,DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
+        ->where('id_headerproduct','=',$id)
+        ->where('tipe','=','2')
+        ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->orderBy('detail_product_kas.created_at')
+        ->get();
+       
         return view('investor.detailstartup')->with($list_project)->with($list_finance)->with($list_finance_keluar);
     }
 

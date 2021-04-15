@@ -23,7 +23,9 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="">Rilis</label>
-                    <div class="font-weight-bold text-truncate ng-binding">{{$item->rilis}}</div>
+                    <div class="font-weight-bold text-truncate ng-binding">
+                        {{ \Carbon\Carbon::parse($item->rilis)->format('d/M/Y')}}
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
