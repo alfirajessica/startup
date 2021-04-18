@@ -3,16 +3,18 @@
 @section('content')
 <div class="container">
      <!-- card shadow -->
-    <div class="row py-4"> <!-- row -->
-        {{-- @include('units.jumbotron') --}}
+    {{-- <div class="row py-4"> <!-- row -->
+        {{-- @include('units.jumbotron')
         <div class="py-4"></div>
-    </div>
+    </div> --}}
     <div class="row py-4">
         <div class="py-4"></div>
         <div class="col-md-4 mb-0"><!--col-md-4 -->
-            <button type="button" class="btn btn-primary btn-lg btn-block">Investasikan</button>
+            {{-- <button type="button" class="btn btn-primary btn-lg btn-block">Investasikan</button> --}}
             <hr>
+            @foreach ($detail_user as $item)
             @include('investor.detailStartup.profilStartup')
+            @endforeach
         </div><!--end col-md-4 -->
         
         <div class="col-md-8"> <!--col-md-8 -->

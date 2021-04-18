@@ -113,7 +113,7 @@ $('body').on('click', '.deleteProject', function () {
         $('#nama_product').text(data.name_product);    
         $('#tipe_product').text(data.id_detailcategory); 
         $('#url_product').text(data.url); 
-        $('#rilis_product').text(data.rilis); 
+        $('#rilis_product').text(moment(data.rilis).format('DD/MMM/YYYY')); 
         $('#desc').text(data.desc); 
         $('#team').text(data.team);
         $('#reason').text(data.reason); 

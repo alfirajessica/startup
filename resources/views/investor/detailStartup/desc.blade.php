@@ -1,13 +1,18 @@
 <div class="card border-0">
     <div class="card-body">
-        <h5 class="card-title">Special title treatment</h5>
-        <h6 class="card-subtitle text-muted">Support card subtitle</h6>
+        <div class="row">
+            <div class="col-md-8">
+                <h5 class="card-title">{{$item->name_product}}</h5>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary btn-lg btn-block">Investasikan</button>
+            </div>
+        </div>
+        
     </div>
     <img id="previewImg2" class="d-block user-select-none" width="100%" height="400" src="/uploads/event/{{$item->image}}" >
                 </a>
-    <div class="card-body">
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div>
+    
 </div>
 
 <div class="card border-0 py-4">
@@ -30,8 +35,8 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label for="">Net Profit</label>
-                    <div class="font-weight-bold text-truncate ng-binding">Rp 0</div>
+                    <label for="">Link</label>
+                    <a href="{{$item->url}}">{{$item->url}}</a>
                 </div>
             </div>
         </div>

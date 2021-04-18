@@ -161,6 +161,20 @@ function createHighcharts(data) {
       style: {
         fontSize: "16px"
       }
+    },
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    layout: 'horizontal'
+                }
+            }
+        }]
     }
   });
 }

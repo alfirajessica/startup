@@ -110,13 +110,15 @@ Route::get('/inv/listEvent/detailEvent/{id}', [EventController::class, 'detailEv
 Route::get('/inv/listEvent/listParticipant/{id}', [EventController::class, 'listParticipant'])->name('inv.listEvent.listParticipant'); //get all cities in buat event
 //investor -- end of event
 
-Route::get('/inv/startup', [InvController::class, 'startup'])->name('inv.startup');
 
-//filter di menu startup
+//investor di page startup
+Route::get('/inv/startup', [ProductController::class, 'startup'])->name('inv.startup');
 Route::get('/inv/startup/{id}', [InvController::class, 'detail_category_filter'])->name('inv.startup.detail_category_filter');
 Route::get('/inv/detailstartup/{id}', [InvController::class, 'detailstartup'])->name('inv.detailstartup');
 
-
+//search
+Route::get('/inv/startup/searchStartup/{id}', [ProductController::class, 'searchStartup'])->name('inv.startup.searchStartup');
+Route::get('inv/get-more-users', [ProductController::class, 'getMoreUsers'])->name('inv.get-more-users');
 
 //-----------------------------end of INVESTOR---------------------------
 
@@ -172,8 +174,6 @@ Route::get('/dev/review', [DevController::class, 'review'])->name('dev.review');
 
 //search
 Route::get('/dev/event/searchEvent/{id}', [EventController::class, 'searchEvent'])->name('dev.event.searchEvent');
-
-//Route::get('get-more-users', 'HomeController@getMoreUsers')->name('users.get-more-users');
 Route::get('get-more-users', [EventController::class, 'getMoreUsers'])->name('users.get-more-users');
 
 

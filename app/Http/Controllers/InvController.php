@@ -200,8 +200,12 @@ class InvController extends Controller
         ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
         ->orderBy('detail_product_kas.created_at')
         ->get();
+
+        $user = auth()->user();
+        $detail_user['detail_user'] = DB::table('users')->where('id','=',$user->id)->get();
+
        
-        return view('investor.detailstartup')->with($list_project)->with($list_finance)->with($list_finance_keluar);
+        return view('investor.detailstartup')->with($list_project)->with($list_finance)->with($list_finance_keluar)->with($detail_user);
     }
 
     public function detail_category_filter($id)

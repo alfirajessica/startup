@@ -28,7 +28,7 @@ class ProductController extends Controller
 
     public function addNewProduct(Request $req)
     {
-       
+        $user = auth()->user();
         $validator = Validator::make($req->all(),[
             'nama_produk'=>'required',
             'jenis_produk'=>'required',
@@ -48,7 +48,8 @@ class ProductController extends Controller
             
             //save to db header_products
             $newProduct = new HeaderProduct;
-            $newProduct->name_product = $req->nama_produk;
+            $newProduct->user_id = $user->id;
+            $newProduct->name_product = ucfirst($req->nama_produk);
             $newProduct->id_detailcategory = $req->detail_kategori;
             $newProduct->url = $req->url;
             $newProduct->rilis = $req->rilis;
@@ -65,11 +66,11 @@ class ProductController extends Controller
                 $highligts->image = '';
             }
             $newProduct->image = $filename;
-            $newProduct->desc = $req->desc;
-            $newProduct->team = $req->team;
-            $newProduct->reason = $req->reason;
-            $newProduct->benefit = $req->benefit;
-            $newProduct->solution = $req->solution;
+            $newProduct->desc = ucfirst($req->desc);
+            $newProduct->team = ucfirst($req->team);
+            $newProduct->reason = ucfirst($req->reason);
+            $newProduct->benefit = ucfirst($req->benefit);
+            $newProduct->solution = ucfirst($req->solution);
             $newProduct->status = "1";  //aktif
             $query = $newProduct->save();
 
@@ -147,9 +148,11 @@ class ProductController extends Controller
 
     public function listProduct(Request $req)
     {
+        $user = auth()->user();
         $list_proyek = DB::table('header_products')
                     ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
                     ->select('header_products.id','header_products.name_product','detail_category_products.name')
+                    ->where('header_products.user_id','=',$user->id)
                     ->get();
 
         if($req->ajax()){
@@ -242,9 +245,6 @@ class ProductController extends Controller
                     return response()->json(['status'=>1, 'msg'=>'Berhasil menambah detail produk kas']);
                 }
             }
-            
-
-            
         }
     }
 
@@ -325,5 +325,80 @@ class ProductController extends Controller
         return view('developer.ubahProduct')->with($list_category)->with($type_trans)->with($list_project);
 
         //return view('developer.product.ubahProduct');
+    }
+
+    public function startup()
+    {
+        $list_category['list_category'] = 
+        DB::table('category_products')->get();
+
+        $list_dtcategory['list_dtcategory'] = 
+        DB::table('detail_category_products')->get();
+
+        $list_project['list_project'] = 
+        DB::table('header_products')
+        ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
+        ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
+        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url')
+        ->paginate(6);
+       
+        
+        return view('investor.startup')->with($list_category)->with($list_project)->with($list_dtcategory);
+    }
+
+    //search di startup investor
+    public function searchStartup(Request $req)
+    {
+        $list_category['list_category'] = DB::table('category_products')->get();
+        $list_project['list_project'] = 
+        DB::table('header_products')
+        ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
+        ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
+        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc')
+        ->where('header_products.name_product','=',$req->search_input)
+        ->paginate(6);
+
+        // $list_category['list_category'] = DB::table('category_products')->get();
+        // $header_events['header_events'] = DB::table("header_events")->where('name','='.$req->search_input)->paginate(6);
+        $output="";
+      
+    }
+
+    //search
+    public function getMoreUsers(Request $req) {
+        
+        $search = $req->search_query;
+        $type = $req->typecategory_query;
+       
+        if($req->ajax()) {
+
+            if ($type == "1") {
+                $list_project['list_project'] = 
+                    DB::table('header_products')
+                    ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
+                    ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
+                    ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc')
+                    ->where('header_products.name_product','like',$search.'%')
+                    ->paginate(6);
+
+                // $header_events['header_events'] = DB::table("header_events")->where('name','like',$search.'%')->paginate(6);
+            }
+            else{
+                $list_project['list_project'] = 
+                    DB::table('header_products')
+                    ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
+                    ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
+                    ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc')
+                    ->where('header_products.name_product','like',$search.'%')
+                    ->where('detail_category_products.id','=',$type)
+                    ->paginate(6);
+
+                // $header_events['header_events'] = DB::table("header_events")->where('name','like',$search.'%')->where('held','=',$type)->paginate(6);
+            }
+            
+
+            return view('investor.detailStartup.dataStartup')->with($list_project);
+           
+        }
     }
 }

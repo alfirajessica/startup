@@ -77,7 +77,7 @@ $(document).ready(function () {
 
 });
 
-function getMoreUsers(page) {
+    function getMoreUsers(page) {
       var search = $('#search_input').val();
 
       var held = $('#held option:selected').val();
@@ -92,7 +92,6 @@ function getMoreUsers(page) {
         url: "{{ route('users.get-more-users') }}" + "?page=" + page,
         success:function(data) {
           $('#user_data').html(data);
-          //console.log(data);
         }
       });
     }

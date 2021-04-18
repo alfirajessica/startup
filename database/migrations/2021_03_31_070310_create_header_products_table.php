@@ -15,6 +15,7 @@ class CreateHeaderProductsTable extends Migration
     {
         Schema::create('header_products', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->unsigned();
             $table->text('name_product');
             $table->bigInteger('id_detailcategory')->unsigned();
             $table->text('url');
@@ -27,6 +28,7 @@ class CreateHeaderProductsTable extends Migration
             $table->longText('solution');
             $table->string('status');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_detailcategory')->references('id')->on('detail_category_products')->onDelete('cascade')->onUpdate('cascade');
         });
     }

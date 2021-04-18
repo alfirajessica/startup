@@ -30,9 +30,10 @@ class DevController extends Controller
      */
     public function product()
     {
+        $user = auth()->user();
         $list_category['list_category'] = DB::table('category_products')->get();
         $type_trans['type_trans'] = DB::table('type_trans')->get();
-        $list_project['list_project'] = DB::table('header_products')->get();
+        $list_project['list_project'] = DB::table('header_products')->where('user_id','=',$user->id)->get();
 
         
         return view('developer.product')->with($list_category)->with($type_trans)->with($list_project);

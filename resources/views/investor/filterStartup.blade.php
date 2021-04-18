@@ -10,13 +10,10 @@
             <hr>
         </div>
            
-
-        
-        
         <a name="" id="" class="btn-block" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
-            
             <label>Tipe <i class="fas fa-chevron-down float-right"></i> </label>
         </a>
+        
         <div class="collapse multi-collapse show" id="multiCollapseExample2">
             <div class="form-group">
                 <label for=""></label>
@@ -24,7 +21,6 @@
                     
                     @foreach($list_category as $category)
                     <option value="{{$category->id}}"> {{$category->name_category}}</option>
-                    
                     @endforeach
                 </select>
             </div>
@@ -33,9 +29,7 @@
                 <div class="form-check checkbox" name="checkbox_categoryDetail">
               
                 </div>
-            </div>
-            
-            
+            </div> 
         </div>
         <hr>  
         {{-- <div id="check-awesome" class="form-group checkbox">
