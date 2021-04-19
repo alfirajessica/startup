@@ -165,17 +165,10 @@ class EventController extends Controller
                     ->addColumn('action', function($data){
                         $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-primary btn-sm detailEvent">Detail</a>';
 
-                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
+                        // $btn = $btn. ' <a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
    
-                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
-                        data-toggle="confirmation"
-                        data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
-                        data-btn-ok-class="btn btn-sm btn-danger"
-                        data-btn-cancel-label="Cancel"
-                        data-btn-cancel-icon="fa fa-chevron-circle-left"
-                        data-btn-cancel-class="btn btn-sm btn-default"
-                        data-title="Are you sure you want to delete ?"
-                        data-placement="left" data-singleton="true">Hapus</a>';
+                        // $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
+                        // >Hapus</a>';
     
                         return $btn;
                      })

@@ -113,8 +113,25 @@ function table_listEvent() {
                 }
             },
             {
-                data:'action',
+                data:null,
                 name:'action',
+                render: data => {
+                    var status="";
+                    var action="";
+                    if(data.status == "2")
+                    {
+                        action += '<a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'+data.id+'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct disabled">Ubah</a>';
+
+                        action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent disabled">Hapus</a>';
+
+                    }else{
+                        action += '<a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'+data.id+'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
+
+                        action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent">Hapus</a>';
+                    }
+                    
+                    return data.action + action;
+                }
             },
         ],
         
