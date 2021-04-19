@@ -43,6 +43,8 @@ Route::get('reg/cities/{province_id}', [RegisterController::class, 'getCities'])
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/users/logout', [LoginController::class, 'userLogout'])->name('users.logout');
 
+//upd global in inv and dev when event has passed
+Route::get('/eventPassed', [HomeController::class, 'event_haspassed'])->name('eventPassed');
  
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
@@ -146,7 +148,8 @@ Route::get('/dev/listHistoryEvent', [EventController::class, 'listHistoryEvent']
 Route::get('/dev/product', [DevController::class, 'product'])->name('dev.product');
 Route::get('/dev/product/{id}', [DevController::class, 'detail_category_filter'])->name('dev.product.detail_category_filter');
 Route::post('/dev/product', [ProductController::class, 'addNewProduct'])->name('dev.product.addNewProduct'); 
-Route::get('/dev/listProduct', [ProductController::class, 'listProduct'])->name('dev.listProduct'); //show list product
+Route::get('/dev/listProject/select', [ProductController::class, 'listProject_select'])->name('dev.listProject.select');
+Route::get('/dev/listProduct', [ProductController::class, 'listProduct'])->name('dev.listProduct'); //show list product in daftar product
 Route::get('/dev/listProduct/detailProject/{id}', [ProductController::class, 'detailProject'])->name('dev.listProduct.detailProject'); 
 Route::get('/dev/listProduct/detailProjectKas/{id}', [ProductController::class, 'detailProjectKas'])->name('dev.listProduct.detailProjectKas'); 
 Route::get('/dev/listProduct/deleteProject/{id}', [ProductController::class, 'deleteProject'])->name('dev.listProduct.deleteProject'); //show list product
@@ -163,7 +166,9 @@ Route::post('/dev/listPemasukkan/addNewPemasukkan', [ProductController::class, '
 Route::get('/dev/product/listPengeluaran/{id}', [ProductController::class, 'listPengeluaran'])->name('dev.product.listPengeluaran'); //show list product
 Route::post('/dev/listPengeluaran/addNewPengeluaran', [ProductController::class, 'addNewPengeluaran'])->name('dev.listPengeluaran.addNewPengeluaran'); //show list product
 
-Route::get('/dev/product/deletePemasukkan/{id}', [ProductController::class, 'deletePemasukkan'])->name('dev.product.deletePemasukkan'); 
+Route::get('/dev/product/deletePemasukkan/{id}', [ProductController::class, 'deletePemasukkan'])->name('dev.product.deletePemasukkan');
+Route::get('/dev/product/deletePengeluaran/{id}', [ProductController::class, 'deletePengeluaran'])->name('dev.product.deletePengeluaran'); 
+
 Route::get('/dev/product/detailPemasukkan/{id}', [ProductController::class, 'detailPemasukkan'])->name('dev.product.detailPemasukkan'); 
 Route::post('/dev/product/updatePemasukkan', [ProductController::class, 'updatePemasukkan'])->name('dev.product.updatePemasukkan'); //show list product
 

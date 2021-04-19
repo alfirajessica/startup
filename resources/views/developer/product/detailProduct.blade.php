@@ -195,7 +195,8 @@ function table_detailProduct(id) {
             {
                 data: 'jumlah',
                 name: 'jumlah',
-                render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )
+                className: 'dt-body-right',
+                render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp')
               
             },
         ],
@@ -217,9 +218,9 @@ function table_detailProduct(id) {
                 
                 .reduce( function (a, b) {
                     
-                    var cur_index = api.column(0).data().indexOf(a);
-                        if (api.column(0).data()[cur_index] != "1") {
-                        return parseInt(a)+parseInt(b);
+                    var cur_index = api.column(3).data().indexOf(a);
+                        if (api.column(3).data()[cur_index] != "1") {
+                        return cur_index;
                     }
                     else { return parseInt(a); }
 

@@ -61,3 +61,12 @@
     </div>
 </div>
 @endsection
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
+
+
+{{-- call function event_passed globally --}}
+<script>
+ const url_eventPassed = @json(route('eventPassed'));
+</script>
+<script src="js/custom.js"></script>

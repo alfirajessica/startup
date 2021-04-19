@@ -126,6 +126,8 @@
 
 <script>
     
+    show_listProject_select();
+    
     $(function(){
         var $section = $('.form-section');
 
@@ -189,6 +191,7 @@
                     $('#msform')[0].reset();
                     $("#previewImg").attr("src", '{{asset('images')}}');
                     table_listProduct();
+                    show_listProject_select();
                     navigateTo(0);
                     swal({
                         title: data.msg,
@@ -203,6 +206,25 @@
         });
 
     });
+
+    function show_listProject_select() {
+        
+        jQuery.ajax({
+            url: 'listProject/select',
+            type: "GET",
+            dataType: "json",
+            success: function (response) {
+                console.log('masuk');
+                $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').empty();
+                $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').append('<option value="" disabled>-- pilih Project Anda --</option>');
+                $.each(response, function (key, value) {
+                    var id = value["id"];
+                    $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').append('<option value="'+ id + '"> #' + value['id'] + ' - '+  value["name_product"] + '</option>');
+                });
+                
+            },
+        });
+    }
 
     // $("#msform").on("submit",function (e) {
     // e.preventDefault();

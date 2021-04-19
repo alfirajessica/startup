@@ -94,7 +94,7 @@ class ProductController extends Controller
                 ->addColumn('action', function($data){
                     $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKas">Ubah</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKas" data-tr="tr_{{$product->id}}"
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKasMasuk" data-tr="tr_{{$product->id}}"
                     data-toggle="confirmation"
                     data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
                     data-btn-ok-class="btn btn-sm btn-danger"
@@ -127,7 +127,7 @@ class ProductController extends Controller
                 ->addColumn('action', function($data){
                     $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKas">Ubah</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKas" data-tr="tr_{{$product->id}}"
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKasKeluar" data-tr="tr_{{$product->id}}"
                     data-toggle="confirmation"
                     data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
                     data-btn-ok-class="btn btn-sm btn-danger"
@@ -146,6 +146,18 @@ class ProductController extends Controller
         return view('dev.listPengeluaran');      
     }
 
+    public function listProject_select()
+    {
+        $user = auth()->user();
+        $list_project = DB::table('header_products')
+                    ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
+                    ->select('header_products.id','header_products.name_product','detail_category_products.name')
+                    ->where('header_products.user_id','=',$user->id)
+                    ->get();
+
+        return response()->json($list_project);
+    }
+
     public function listProduct(Request $req)
     {
         $user = auth()->user();
@@ -161,8 +173,6 @@ class ProductController extends Controller
                     $btn = '<a href="'.route("dev.listProduct.ubahProject").'" data-toggle="tooltip" data-target="#ubahProduct"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Ubah</a>';
 
                     $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject" data-tr="tr_{{$product->id}}">Hapus</a>';
-
-                    // $btn = $btn. ' <a href="'.route("dev.listProduct.detailProject").'" data-toggle="tooltip" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
 
                     $btn = $btn. ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
 
@@ -222,11 +232,11 @@ class ProductController extends Controller
             //cek apakah data yang sama pernah dimasukkan sebelumnya.
             //berdasarkan id_headerproduct, tipe, id_typetrans dan created_at
 
-            $isExist = DetailProductKas::where('id_headerproduct', '=',$req->pilih_project)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereDate('created_at', Carbon::today())->first();
+            $isExist = DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereDate('created_at', Carbon::today())->first();
 
             //dd(Carbon::today());
             //dd($date->toDateString());
-            if (DetailProductKas::where('id_headerproduct', '=',$req->pilih_project)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereDate('created_at', Carbon::today())->exists()) {
+            if (DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereDate('created_at', Carbon::today())->exists()) {
                 return response()->json(['status'=>-1, 'msg'=>'sudah ada, silakan ubah']);
             }
 
@@ -234,7 +244,7 @@ class ProductController extends Controller
             {
                 //save to db detail_product_kas
                 $newPemasukkan = new DetailProductKas;
-                $newPemasukkan->id_headerproduct = $req->pilih_project;
+                $newPemasukkan->id_headerproduct = $req->pilih_project_masuk;
                 $newPemasukkan->tipe = "1";
                 $newPemasukkan->id_typetrans = $req->tipe_pemasukkan;
                 $newPemasukkan->jumlah = $req->jumlah;
@@ -288,8 +298,15 @@ class ProductController extends Controller
     public function deletePemasukkan(Request $req, $id)
     {
         DB::table("detail_product_kas")->delete($id);
-    	return response()->json(['success'=>"Berhasil menghapus kas", 'tr'=>'tr_'.$id]);
+    	return response()->json(['success'=>"Berhasil menghapus kas masuk", 'tr'=>'tr_'.$id]);
     }
+
+    public function deletePengeluaran(Request $req, $id)
+    {
+        DB::table("detail_product_kas")->delete($id);
+    	return response()->json(['success'=>"Berhasil menghapus kas keluar", 'tr'=>'tr_'.$id]);
+    }
+
 
     public function detailPemasukkan($id)
     {

@@ -68,6 +68,8 @@ class EventController extends Controller
        // return view('investor.event', $cities);
     }
 
+    
+
     //save event to db
     public function buatEvent(Request $req){
 
@@ -148,6 +150,8 @@ class EventController extends Controller
         }
 
     }
+
+    
 
     public function listEvent(Request $req){
 

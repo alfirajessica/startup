@@ -7,11 +7,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <div class="input-group input-group-alternative mb-4">
-                  <select name="pilih_project" id="pilih_project" class="form-control form-control-alternative" type="text"> 
-                    @foreach ($list_project as $item)
+                <div class="input-group input-group-alternative mb-4" id="select_project">
+                  <select name="pilih_project_masuk" id="pilih_project_masuk" class="form-control form-control-alternative" type="text"> 
+                    {{-- @foreach ($list_project as $item)
                         <option value="{{$item->id}}">#{{$item->id}} - {{$item->name_product}}</option>
-                    @endforeach
+                    @endforeach --}}
                   </select>
                   <div class="input-group-append">
                     <button class="btn btn-outline-default" type="button" onclick="pilih_proyek()">Sesuaikan</button>
@@ -23,52 +23,56 @@
     <div class="row">
         <div class="col-md-12">
             <p>Saat ini sedang memasukkan pemasukkan pada proyek : 
-                <label id="nama_project_dipilih"></label>
+                <label id="nama_project_dipilih_masuk"></label>
             </p>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label class="float-left">Tipe Pemasukkan</label>
-                <select class="form-control form-control-alternative" name="tipe_pemasukkan" id="tipe_pemasukkan" onchange="tipe(this)">
-                    @foreach ($type_trans as $item)
-                        @if ($item->tipe == "1")
-                            <option value="{{$item->id}}"> {{$item->keterangan}}</option>
-                        @endif
-                    @endforeach
-                </select>
-                <span class="text-danger error-text tipe_pemasukkan_error"></span>
+    <div class="card border-0 d-none" id="card_masuk">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="float-left">Tipe Pemasukkan</label>
+                    <select class="form-control form-control-alternative" name="tipe_pemasukkan" id="tipe_pemasukkan">
+                        <option value="0" disabled> --Pilih Tipe --</option>
+                        @foreach ($type_trans as $item)
+                            @if ($item->tipe == "1")
+                                <option value="{{$item->id}}"> {{$item->keterangan}}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                    <span class="text-danger error-text tipe_pemasukkan_error"></span>
+                </div>
+            </div>
+           
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="float-left">Jumlah</label>
+                    <div class="input-group input-group-alternative mb-4">
+                      <input class="form-control" type="number" name="jumlah" id="jumlah">
+                      <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                      </div>
+                    </div>
+                </div> 
+                <span class="text-danger error-text jumlah_error"></span>
             </div>
         </div>
-       
-        <div class="col-md-8">
-            <div class="form-group">
-                <label class="float-left">Jumlah</label>
-                <div class="input-group input-group-alternative mb-4">
-                  <input class="form-control" type="number" name="jumlah">
-                  <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                  </div>
-                </div>
-            </div> 
-            <span class="text-danger error-text jumlah_error"></span>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" width="100%" id="table_listPemasukkan">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tipe Pemasukkan</th>
+                        <th>Jumlah</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <!-- AKHIR TABLE -->
         </div>
     </div>
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover" width="100%" id="table_listPemasukkan">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Tipe Pemasukkan</th>
-                    <th>Jumlah</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-        <!-- AKHIR TABLE -->
-        </div>
+    
 </div>
 </form>
 
@@ -83,9 +87,7 @@
 
 
 <script type="text/javascript">
-function tipe() {
-    //console.log($("#tipe_pemasukkan").val())
-}
+
     $("#pemasukkanProduct").on("submit",function (e) {
     e.preventDefault();
     console.log($(['name="action"']).attr('id'));
@@ -106,7 +108,10 @@ function tipe() {
                 });
             }
             else if (data.status == -1) { 
-                $('#pemasukkanProduct')[0].reset();
+                var terpilih_before = $("#nama_project_dipilih_masuk").text();
+                $("#pilih_project_masuk").find(":selected").text(terpilih_before);
+                $('#tipe_pemasukkan').val(0);
+                $('#jumlah').val('');
                 swal({
                     title: data.msg,
                     text: "You clicked the button!",
@@ -121,21 +126,29 @@ function tipe() {
                     icon: "success",
                 });
                 table_listPemasukkan();
-                 $('#pemasukkanProduct')[0].reset();
-                
+                 var terpilih_before = $("#nama_project_dipilih_masuk").text();
+                 $("#pilih_project_masuk").find(":selected").text(terpilih_before);
+                 $('#tipe_pemasukkan').val(0);
+                 $('#jumlah').val('');
             }
         }
     });
 });
 
 function pilih_proyek() {
-    var id = $("#pilih_project").find(":selected").val();
-    $("#nama_project_dipilih").text($("#pilih_project").find(":selected").text());
+    $("#card_masuk").removeClass('d-none');
+
+    var id = $("#pilih_project_masuk").find(":selected").val();
+    $("#nama_project_dipilih_masuk").text($("#pilih_project_masuk").find(":selected").text());
+    $("#pilih_project_masuk").val(id);
+    
+
+    
    table_listPemasukkan();
 }
 
 function table_listPemasukkan() {
-    var id = $("#pilih_project").find(":selected").val();
+    var id = $("#pilih_project_masuk").find(":selected").val();
     console.log(id);
     $('#table_listPemasukkan').DataTable({
         destroy:true,
@@ -184,7 +197,7 @@ $('body').on('click', '.editKas', function () {
       var product_id = $(this).data('id');
       console.log(product_id);
       $.get("{{ route('dev.product') }}" +'/detailPemasukkan' + '/' + product_id, function (data) {
-            $("#nama_tipe").text($("#pilih_project").find(":selected").text()+"/");
+            $("#nama_tipe").text($("#pilih_project_masuk").find(":selected").text()+"/");
             $('#id_detail_product_kas').val(data.id);
             $('#edit_jumlah').val(data.jumlah);
             $('#status_kas').val("Pemasukkan");
@@ -193,7 +206,7 @@ $('body').on('click', '.editKas', function () {
         
 });
 
-$('body').on('click', '.deleteKas', function () {
+$('body').on('click', '.deleteKasMasuk', function () {
     var id = $(this).data("id");
     var txt;
     swal({

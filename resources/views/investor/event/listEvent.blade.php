@@ -7,9 +7,11 @@
           <table class="table table-bordered table-hover" width="100%" id="table_listEvent">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Nama Event</th>
                     <th>Diadakan Secara</th>
                     <th>Jadwal Acara</th>
+                    <th>Status</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -50,6 +52,10 @@ function table_listEvent() {
         ],
         columns: [
             {
+                data: 'id',
+                name: 'id'
+            },
+            {
                 data: 'name',
                 name: 'name'
             },
@@ -57,6 +63,23 @@ function table_listEvent() {
                 data: 'held',
                 name: 'held',
               
+            },
+            {
+                data: null,
+                name: 'status',
+                render: data => {
+                    var status="";
+                    if(data.status == "1")
+                    {
+                        status = "Aktif";
+                    }
+                    else if (data.status == "2") {
+                        status = "Selesai";
+                    }else{
+                        status = "Tidak Aktif";
+                    }
+                    return status;
+                }
             },
             {
                 data: null,

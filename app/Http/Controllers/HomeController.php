@@ -56,5 +56,19 @@ class HomeController extends Controller
         
     }
 
+    //check event if has passed
+    public function event_haspassed()
+    {
+       
+        //get date now
+        $date = Carbon::now();
+
+        $list_event = DB::table('header_events')
+                    ->where('event_schedule','<',$date->toDateString())
+                    ->update([
+                        'status' =>'2',
+                    ]);
+                   
+    }
     
 }
