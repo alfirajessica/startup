@@ -152,7 +152,9 @@ Route::get('/dev/listProject/select', [ProductController::class, 'listProject_se
 Route::get('/dev/listProduct', [ProductController::class, 'listProduct'])->name('dev.listProduct'); //show list product in daftar product
 Route::get('/dev/listProduct/detailProject/{id}', [ProductController::class, 'detailProject'])->name('dev.listProduct.detailProject'); 
 Route::get('/dev/listProduct/detailProjectKas/{id}', [ProductController::class, 'detailProjectKas'])->name('dev.listProduct.detailProjectKas'); 
-Route::get('/dev/listProduct/deleteProject/{id}', [ProductController::class, 'deleteProject'])->name('dev.listProduct.deleteProject'); //show list product
+Route::get('/dev/listProduct/deleteProject/{id}', [ProductController::class, 'deleteProject'])->name('dev.listProduct.deleteProject'); 
+Route::get('/dev/listProduct/activeProject/{id}', [ProductController::class, 'activeProject'])->name('dev.listProduct.activeProject'); 
+Route::get('/dev/listProduct/nonactiveProject/{id}', [ProductController::class, 'nonactiveProject'])->name('dev.listProduct.nonactiveProject'); 
 
 //product -- ubah
 Route::get('/dev/listProduct/ubahProject', [ProductController::class, 'ubahProject'])->name('dev.listProduct.ubahProject'); 

@@ -1,6 +1,6 @@
 <div class="col-md-12">
-    <div class="card px-0 pb-0 mt-3 mb-3 border-0">
-        <h2><strong>Daftarkan Proyek Baru Saya</strong></h2>
+    <div class="card px-0 pb-0 mb-3 border-0">
+        <h4><strong>Daftarkan Proyek Baru Saya</strong></h4>
         <p>Isi semua form untuk ke halaman selanjutnya</p>
         <div class="row">
             <div class="col-md-12 mx-0">
