@@ -158,7 +158,7 @@ class ProductController extends Controller
         return response()->json($list_project);
     }
 
-    //Developer /listProduct/table_listProduct -- tab Project Terdaftar Aktif
+//Developer /listProduct/table_listProduct
     public function listProduct(Request $req)
     {
         $user = auth()->user();
@@ -290,6 +290,7 @@ class ProductController extends Controller
         }
         return view('dev.listProduct');
     }
+//end of Developer /listProduct/table_listProduct
     
     public function addNewPemasukkan(Request $req)
     {
@@ -454,10 +455,10 @@ class ProductController extends Controller
     }
 
     //search
-    public function getMoreUsers(Request $req) {
+    public function getMoreStartups(Request $req) {
         
         $search = $req->search_query;
-        $type = $req->typecategory_query;
+        $type = "";
        
         if($req->ajax()) {
 
@@ -466,7 +467,7 @@ class ProductController extends Controller
                     DB::table('header_products')
                     ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
                     ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
-                    ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc')
+                    ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url')
                     ->where('header_products.name_product','like',$search.'%')
                     ->paginate(6);
 
@@ -477,9 +478,8 @@ class ProductController extends Controller
                     DB::table('header_products')
                     ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
                     ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
-                    ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc')
+                    ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url')
                     ->where('header_products.name_product','like',$search.'%')
-                    ->where('detail_category_products.id','=',$type)
                     ->paginate(6);
 
                 // $header_events['header_events'] = DB::table("header_events")->where('name','like',$search.'%')->where('held','=',$type)->paginate(6);

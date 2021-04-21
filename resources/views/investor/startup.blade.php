@@ -139,10 +139,10 @@ $(document).ready(function () {
     getMoreUsers(1);
   });
 
-  var checkboxes = $('input[name="check_detailCat[]"]');
-  checkboxes.filter(":checked").map(function () {
-    return this.value;
-  }).get()
+  // var checkboxes = $('input[name="check_detailCat[]"]');
+  // checkboxes.filter(":checked").map(function () {
+  //   return this.value;
+  // }).get()
   
   //var typecategory = $('input[name="check_detailCat[]"]:checked').val();
  //     console.log(typecategory);
@@ -168,16 +168,16 @@ $(document).ready(function () {
     function getMoreUsers(page) {
       var search = $('#search_input').val();
 
-      var typecategory = $('input[name="category_check"]:checked').val();
-      console.log(typecategory);
+      // var typecategory = $('input[name="category_check"]:checked').val();
+      // console.log(typecategory);
       
       $.ajax({
         type: "GET",
         data: {
           'search_query':search,
-          'typecategory_query':typecategory,
+          'typecategory_query':"",
         },
-        url: "{{ route('inv.get-more-users') }}" + "?page=" + page,
+        url: "{{ route('inv.get-more-startups') }}" + "?page=" + page,
         success:function(data) {
           $('#user_data').html(data);
         }

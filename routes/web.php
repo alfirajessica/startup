@@ -120,7 +120,7 @@ Route::get('/inv/detailstartup/{id}', [InvController::class, 'detailstartup'])->
 
 //search
 Route::get('/inv/startup/searchStartup/{id}', [ProductController::class, 'searchStartup'])->name('inv.startup.searchStartup');
-Route::get('inv/get-more-users', [ProductController::class, 'getMoreUsers'])->name('inv.get-more-users');
+Route::get('inv/get-more-startups', [ProductController::class, 'getMoreStartups'])->name('inv.get-more-startups');
 
 //-----------------------------end of INVESTOR---------------------------
 
