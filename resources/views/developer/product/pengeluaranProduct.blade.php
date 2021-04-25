@@ -8,9 +8,6 @@
             <div class="form-group">
                 <div class="input-group input-group-alternative mb-4">
                   <select name="pilih_project_keluar" id="pilih_project_keluar" class="form-control form-control-alternative" type="text"> 
-                    {{-- @foreach ($list_project as $item)
-                        <option value="{{$item->id}}">#{{$item->id}} - {{$item->name_product}}</option>
-                    @endforeach --}}
                   </select>
                   <div class="input-group-append">
                     <button class="btn btn-outline-default" type="button" onclick="pilih_proyek_keluar()">Sesuaikan</button>

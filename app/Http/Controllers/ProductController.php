@@ -71,7 +71,9 @@ class ProductController extends Controller
             $newProduct->reason = ucfirst($req->reason);
             $newProduct->benefit = ucfirst($req->benefit);
             $newProduct->solution = ucfirst($req->solution);
-            $newProduct->status = "1";  //aktif
+            //0- blm dikonfirmasi, 1-aktif/sdh dikonfirmasi, 2-project memiliki investor, 3-dinonaktifkan, 4-project tidk dikonfirmasi
+
+            $newProduct->status = "0";  
             $query = $newProduct->save();
 
             if ($query) {
@@ -153,6 +155,7 @@ class ProductController extends Controller
                     ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
                     ->select('header_products.id','header_products.name_product','detail_category_products.name')
                     ->where('header_products.user_id','=',$user->id)
+                    ->where('header_products.status','!=','3')
                     ->get();
 
         return response()->json($list_project);
@@ -165,70 +168,95 @@ class ProductController extends Controller
        
         if($req->ajax()){
             
-                if ($req->tabel1 == "#table_listProduct") {
-                    $list_proyek1 = DB::table('header_products')
+            //status 0 -- belum dikonfirmasi
+            if ($req->tabel0 == "#table_listProductConfirmYet"){
+                $list_proyek0 = DB::table('header_products')
+                ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
+                ->select('header_products.id','header_products.name_product','detail_category_products.name','header_products.status')
+                ->where('header_products.user_id','=',$user->id)
+                ->where('header_products.status','=','0')
+                ->orWhere('header_products.status','=','4')
+                ->get();
+
+                return datatables()->of($list_proyek0)
+                ->addColumn('action', function($data){
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+            }
+
+            //status 1 -- aktif/sudah dikonfirmasi
+            if ($req->tabel1 == "#table_listProduct") {
+                $list_proyek1 = DB::table('header_products')
+                ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
+                ->select('header_products.id','header_products.name_product','detail_category_products.name')
+                ->where('header_products.user_id','=',$user->id)
+                ->where('header_products.status','=','1')
+                ->get();
+
+                return datatables()->of($list_proyek1)
+                ->addColumn('action', function($data){
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
+
+                    $btn = $btn. ' <a href="'.route("dev.listProduct.ubahProject").'" data-toggle="tooltip" data-target="#ubahProduct"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Ubah</a>';
+
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm nonAktifProject" data-tr="tr_{{$product->id}}">Nonaktif</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+            }
+
+            //status 2 - project memiliki investor
+            if($req->tabel2 == "#table_listProductInvestor"){
+                $list_proyek2 = DB::table('header_products')
+                ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
+                ->select('header_products.id','header_products.name_product','detail_category_products.name')
+                ->where('header_products.user_id','=',$user->id)
+                ->where('header_products.status','=','2')
+                ->get();
+
+                return datatables()->of($list_proyek2)
+                ->addColumn('action', function($data){
+                    
+                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
+
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm aktifProject" data-tr="tr_{{$product->id}}">Aktifkan</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+            }
+
+            //status 3 - nonaktif
+            if($req->tabel3 == "#table_listProductNonAktif"){
+                
+                $list_proyek3 = DB::table('header_products')
                     ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
                     ->select('header_products.id','header_products.name_product','detail_category_products.name')
                     ->where('header_products.user_id','=',$user->id)
-                    ->where('header_products.status','=','1')
+                    ->where('header_products.status','=','3')
                     ->get();
 
-                    return datatables()->of($list_proyek1)
-                    ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
-
-                        $btn = $btn. ' <a href="'.route("dev.listProduct.ubahProject").'" data-toggle="tooltip" data-target="#ubahProduct"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Ubah</a>';
-
-                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm nonAktifProject" data-tr="tr_{{$product->id}}">Nonaktif</a>';
-                        return $btn;
-                    })
-                    ->rawColumns(['action'])
-                    ->addIndexColumn()
-                    ->make(true);
-                }
-                else if($req->tabel2 == "#table_listProductNonAktif"){
-                    $list_proyek2 = DB::table('header_products')
-                    ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
-                    ->select('header_products.id','header_products.name_product','detail_category_products.name')
-                    ->where('header_products.user_id','=',$user->id)
-                    ->where('header_products.status','=','0')
-                    ->get();
-
-                    return datatables()->of($list_proyek2)
+                    return datatables()->of($list_proyek3)
                     ->addColumn('action', function($data){
                         
                         $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
 
-                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm aktifProject" data-tr="tr_{{$product->id}}">Aktifkan</a>';
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject" data-tr="tr_{{$product->id}}">Hapus</a>';
 
                         return $btn;
                     })
                     ->rawColumns(['action'])
                     ->addIndexColumn()
                     ->make(true);
-                }
-                else if($req->tabel3 == "#table_listProductInvestor"){
-                    
-                    $list_proyek3 = DB::table('header_products')
-                        ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
-                        ->select('header_products.id','header_products.name_product','detail_category_products.name')
-                        ->where('header_products.user_id','=',$user->id)
-                        ->where('header_products.status','=','2')
-                        ->get();
-
-                        return datatables()->of($list_proyek3)
-                        ->addColumn('action', function($data){
-                           
-                            $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
-
-                            $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject" data-tr="tr_{{$product->id}}">Hapus</a>';
-    
-                            return $btn;
-                        })
-                        ->rawColumns(['action'])
-                        ->addIndexColumn()
-                        ->make(true);
-                }
+            }
 
                 // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject" data-tr="tr_{{$product->id}}">Hapus</a>';
         }
@@ -252,7 +280,7 @@ class ProductController extends Controller
         DB::table('header_products')->
             where('id',$id)->
             update([
-                'status' => '0',
+                'status' => '3',
             ]);
         return response()->json(['success'=>"Berhasil menonaktifkan", 'tr'=>'tr_'.$id]);
     }
@@ -325,9 +353,36 @@ class ProductController extends Controller
                 $query = $newPemasukkan->save();
 
                 if ($query) {
+                    $cek = $req->pilih_project_masuk;
+                    
+                    // //cek apakah di tabel detail_product_kas sudah ada ID diatas
+                    // //kalau sudah ada status jadi 1-blm dikonfirmasi
+                    // $isExist2 = DetailProductKas::where('id_headerproduct', '=',$cek)->first();
+                    // if (DetailProductKas::where('id_headerproduct', '=',$cek)->exists())
+                    // {
+                    //     DB::table('header_products')->
+                    //     where('id',$cek)->
+                    //     update([
+                    //         'status' => '1',
+                    //     ]);
+                    // }
+
                     return response()->json(['status'=>1, 'msg'=>'Berhasil menambah detail produk kas']);
                 }
             }
+        }
+    }
+
+    public function upd_status_to($cek)
+    {
+        $isExist = DetailProductKas::where('id_headerproduct', '=',$cek)->first();
+        if ($isExist == null)
+        {
+            DB::table('header_products')->
+            where('id',$cek)->
+            update([
+                'status' => '1',
+            ]);
         }
     }
 
@@ -430,6 +485,7 @@ class ProductController extends Controller
         ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
         ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
         ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url')
+        ->where('header_products.status','=','1')
         ->paginate(6);
        
         
@@ -445,6 +501,7 @@ class ProductController extends Controller
         ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
         ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
         ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc')
+        ->where('header_products.status','=','1')
         ->where('header_products.name_product','=',$req->search_input)
         ->paginate(6);
 
@@ -468,6 +525,7 @@ class ProductController extends Controller
                     ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
                     ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
                     ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url')
+                    ->where('header_products.status','=','1')
                     ->where('header_products.name_product','like',$search.'%')
                     ->paginate(6);
 
@@ -479,6 +537,7 @@ class ProductController extends Controller
                     ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
                     ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
                     ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url')
+                    ->where('header_products.status','=','1')
                     ->where('header_products.name_product','like',$search.'%')
                     ->paginate(6);
 
@@ -490,4 +549,7 @@ class ProductController extends Controller
            
         }
     }
+
+
+    
 }

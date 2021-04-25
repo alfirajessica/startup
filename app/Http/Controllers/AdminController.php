@@ -11,6 +11,7 @@ use DataTables;
 use App\Models\User;
 use App\Models\CategoryProduct;
 use App\Models\detailCategoryProduct;
+use App\Models\HeaderProduct;
 
 class AdminController extends Controller
 {
@@ -73,6 +74,60 @@ class AdminController extends Controller
     public function produkdev(){
         return view('admin.dev.produkDev');
     }
+
+    public function listProductDev(Request $req)
+    {
+        $list_project = 
+        DB::table('header_products')
+        ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
+        ->join('users', 'users.id','=','header_products.user_id')
+        ->select('header_products.id','header_products.name_product','detail_category_products.name', 'users.email')
+        ->where('header_products.status','=','0')
+        ->get();
+
+        if($req->ajax()){
+            return datatables()->of($list_project)
+                ->addColumn('action', function($data){
+                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
+
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-danger btn-sm confirmProject" data-tr="tr_{{$product->id}}">Confirm</a>';
+
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="notConfirm" class="btn btn-danger btn-sm notConfirmProject" data-tr="tr_{{$product->id}}">Tidak Dikonfirmasi</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('admin.dev.listProductDev');
+    }
+
+    public function detailProject($id)
+    {
+         $HeaderProduct = HeaderProduct::find($id);
+         return response()->json($HeaderProduct);
+    }
+
+    public function confirmProject($id)
+    {
+        DB::table('header_products')->
+        where('id',$id)->
+        update([
+            'status' => '1',
+        ]);
+        return response()->json(['success'=>"Berhasil mengaktifkan", 'tr'=>'tr_'.$id]);
+    }
+
+    public function notConfirmProject($id)
+    {
+        DB::table('header_products')->
+        where('id',$id)->
+        update([
+            'status' => '4',
+        ]);
+        return response()->json(['success'=>"Berhasil mengaktifkan", 'tr'=>'tr_'.$id]);
+    }
+
 
 
     //INVESTOR

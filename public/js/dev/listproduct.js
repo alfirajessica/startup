@@ -2,13 +2,68 @@
 //Dibawah ini adalah function pada listProduct.blade.php
 $(function () {
     table_listProduct();
+
+    //daftarProductBaru.blade.php
+    show_listProject_select();
 });
 
 //tabel Project Terdaftar Aktif
 function table_listProduct() {
+    var tabel0 = "#table_listProductConfirmYet";
     var tabel1 = "#table_listProduct";
-    var tabel2 = "#table_listProductNonAktif";
-    var tabel3 = "#table_listProductInvestor";
+    var tabel2 = "#table_listProductInvestor";
+    var tabel3 = "#table_listProductNonAktif";
+
+    $('#table_listProductConfirmYet').DataTable({
+        destroy:true,
+        processing: true,
+        serverSide: true, //aktifkan server-side 
+        responsive:true,
+        deferRender:true,
+        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+        ajax: {
+            url: url_table_listProduct,
+            type: 'GET',
+            data:{
+                "tabel0":tabel0,
+                },
+        },
+        order: [
+            [0, 'asc']
+        ],
+        columns: [
+            {
+                data: 'id',
+                name: 'id'
+            },
+            {
+                data: 'name_product',
+                name: 'name_product',
+              
+            },
+            {
+                data: 'name',
+                name: 'name',
+              
+            },
+            {
+                data: null,
+                name: null,
+                render: data => {
+                    if (data.status == "1") {
+                        return "<small> Menunggu </small>";
+                    }else{
+                        return "<small> Silakan Lengkapi kembali Data Project Anda </small>";
+                    }
+                   
+                }
+              
+            },
+            
+        ],
+        
+    });
+
     $('#table_listProduct').DataTable({
         destroy:true,
         processing: true,
@@ -254,3 +309,22 @@ $('body').on('click', '.nonAktifProject', function () {
     });
 });
 
+//daftarProductBlade.php
+function show_listProject_select() {
+        
+    jQuery.ajax({
+        url: url_show_listProject_select,
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+            console.log('masuk');
+            $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').empty();
+            $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').append('<option value="" disabled>-- pilih Project Anda --</option>');
+            $.each(response, function (key, value) {
+                var id = value["id"];
+                $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').append('<option value="'+ id + '"> #' + value['id'] + ' - '+  value["name_product"] + '</option>');
+            });
+            
+        },
+    });
+}

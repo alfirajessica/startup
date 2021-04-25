@@ -58,7 +58,7 @@
         <div class="container-fluid">
           <div class="row flex-xl-nowrap">
             <div class="col-12 col-md-3 col-xl-2 ct-sidebar">
-              <nav class="ct-links collapse" id="ct-docs-nav" style="" onclick="changeClick()">
+              <nav class="ct-links collapse" id="ct-docs-nav" style="">
                 <!-- Show links for all groups -->
                 <div class="ct-toc-item active">
                   <a class="ct-toc-link" href="../../docs/getting-started/overview.html">Getting started</a>
@@ -70,13 +70,13 @@
                         <span class="nav-link-text">Dashboard</span>
                       </a>
                     </li>
-                    <li class="ct-sidenav-active">
+                    <li class="ct-sidenav">
                       <a class="nav-link active" href="{{ route('admin.categoryProduct') }}">
                         <i class="ni ni-tv-2 text-primary"></i>
                         <span class="nav-link-text">{{ __('Produk Kategori') }}</span>
                       </a>
                     </li>
-                    <li class="ct-sidenav-active">
+                    <li>
                       <a class="nav-link active" href="{{ route('admin.typeTrans') }}">
                         <i class="ni ni-tv-2 text-primary"></i>
                         <span class="nav-link-text">{{ __('Tipe Transaksi') }}</span>
@@ -152,3 +152,12 @@
 
 </html>
 
+{{-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script>
+$('.nav ct-sidenav').click(function (e) { 
+  e.preventDefault();
+  console.log('ok');
+  $('li .ct-sidenav').addClass('-active');
+});
+
+</script> --}}

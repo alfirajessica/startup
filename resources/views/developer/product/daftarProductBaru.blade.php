@@ -118,15 +118,13 @@
     </div>
 </div>
 
-
-
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
 <script>
     
-    show_listProject_select();
+    //call function show_listProject_select di /js/dev/listproduct.js
+    //menampilkan id-nama proyek di Pemasukkan dan Pengeluaran
+    const url_show_listProject_select = "listProject/select";
     
     $(function(){
         var $section = $('.form-section');
@@ -195,7 +193,7 @@
                     navigateTo(0);
                     swal({
                         title: data.msg,
-                        text: "You clicked the button!",
+                        text: "Silakan masukkan detail informasi terkai pemasukkan dan pengeluaran proyek pada tab Pemasukkan dan Pengeluaran!",
                         icon: "success",
                         button: "Aww yiss!",
                     });
@@ -206,58 +204,5 @@
         });
 
     });
-
-    function show_listProject_select() {
-        
-        jQuery.ajax({
-            url: 'listProject/select',
-            type: "GET",
-            dataType: "json",
-            success: function (response) {
-                console.log('masuk');
-                $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').empty();
-                $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').append('<option value="" disabled>-- pilih Project Anda --</option>');
-                $.each(response, function (key, value) {
-                    var id = value["id"];
-                    $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').append('<option value="'+ id + '"> #' + value['id'] + ' - '+  value["name_product"] + '</option>');
-                });
-                
-            },
-        });
-    }
-
-    // $("#msform").on("submit",function (e) {
-    // e.preventDefault();
-   
-    // $.ajax({
-    //         url:$(this).attr('action'),
-    //         method:$(this).attr('method'),
-    //         data:new FormData(this),
-    //         processData:false,
-    //         dataType:'json',
-    //         contentType:false,
-    //         beforeSend:function() {
-    //             $(document).find('span.error-text').text('');
-    //         },
-    //         success:function(data) {
-    //             if (data.status == 0) {
-    //                 $.each(data.error, function (prefix, val) {
-    //                     $('span.'+prefix+'_error').text(val[0]);
-    //                 });
-    //             }
-    //             else{
-    //             //update yang di page akun depan
-    //                 $('#msform')[0].reset();
-    //                 table_listProduct();
-    //                 swal({
-    //                     title: data.msg,
-    //                     text: "You clicked the button!",
-    //                     icon: "success",
-    //                     button: "Aww yiss!",
-    //                 });
-                
-    //             }
-    //         }
-    //     });
-    // });
 </script>
+<script src="/js/dev/listproduct.js"></script>

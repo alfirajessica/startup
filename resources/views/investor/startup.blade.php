@@ -53,48 +53,9 @@
                       @endforeach
 
                     </div>
-                      {{-- <div class="form-group">
-                          <label for=""></label>
-                          <select class="form-control" name="checkbox_categoryHeader" id="checkbox_categoryHeader" onchange="show_detail(this)">
-                              
-                              @foreach($list_category as $category)
-                              <option value="{{$category->id}}"> {{$category->name_category}}</option>
-                              @endforeach
-                          </select>
-                      </div>
                       
-                      <div class="form-group">
-                          <div class="form-check checkbox" name="checkbox_categoryDetail">
-                        
-                          </div>
-                      </div>  --}}
                   </div>
-                  <hr>  
-
-                  {{-- <a name="" id="" class="btn-block" data-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample3">
-                    <h5>Tipe <i class="fas fa-chevron-down float-right"></i> </h5>
-                  </a> 
-
-                  <div class="collapse multi-collapse show" id="multiCollapseExample3">
-                      <div class="form-group">
-                          
-                          @foreach($list_category as $category)
-                          
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="category_checkbox" id="{{$category->id}}">
-                            <label class="" for="{{$category->id}}">{{$category->name}}</label>
-                          </div>
-                          @endforeach
-                          
-                      </div>
-                      
-                      <div class="form-group">
-                          <div class="form-check checkbox" name="checkbox_categoryDetail">
-                        
-                          </div>
-                      </div> 
-                  </div>
-                   --}}
+                  <hr> 
               </div>
               
           </div><!-- card-body --> 
@@ -126,93 +87,16 @@
 @endsection
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
-
+<script src="https://code.highcharts.com/highcharts.js"></script>
 
 <script>
-$(document).ready(function () {
+  //semua function ini ada pada /js/inv/startup.js
 
-  $('#search_input').on('keyup', function() {
-    $value = $(this).val();
-    getMoreUsers(1);
-  });
+  //call function get_more_users untuk search dan filter
+  const url_get_more_users ="{{ route('inv.get-more-startups') }}" + "?page=";
 
-  // var checkboxes = $('input[name="check_detailCat[]"]');
-  // checkboxes.filter(":checked").map(function () {
-  //   return this.value;
-  // }).get()
-  
-  //var typecategory = $('input[name="check_detailCat[]"]:checked').val();
- //     console.log(typecategory);
-
- 
-});
-
-  // $('div[name="checkbox_categoryDetail"] input[type="checkbox"]').click(function(){
-  //           if($(this).prop("checked") == true){
-  //               console.log("Checkbox is checked.");
-  //           }
-  //           else if($(this).prop("checked") == false){
-  //               console.log("Checkbox is unchecked.");
-  //           }
-  //       });
-
-  // $('#check_detailCat').on('change', function() {
-  //   getMoreUsers();
-  // });
-
-
-
-    function getMoreUsers(page) {
-      var search = $('#search_input').val();
-
-      // var typecategory = $('input[name="category_check"]:checked').val();
-      // console.log(typecategory);
-      
-      $.ajax({
-        type: "GET",
-        data: {
-          'search_query':search,
-          'typecategory_query':"",
-        },
-        url: "{{ route('inv.get-more-startups') }}" + "?page=" + page,
-        success:function(data) {
-          $('#user_data').html(data);
-        }
-      });
-    }
-
-  function show_detail() { 
-      
-      var id = $('#checkbox_categoryHeader').val();
-      console.log(id);
-  
-       $.get("{{ route('inv.startup') }}" + '/' + id, function (data) {
-           //var place = document.getElementById('check-awesome');
-           $('div[name="checkbox_categoryDetail"]').empty();
-           for (let i = 0; i < data.list_detailcategory.length; i++) {
-               console.log(data.list_detailcategory[i]["id"])
-  
-               var idnya = data.list_detailcategory[i]["id"];
-               var isi = data.list_detailcategory[i]["name"];
-  
-                      
-               $('div[name="checkbox_categoryDetail"]').append('<label id="typeCategory" class="form-check-label" > <input name="category_check" class="form-check-input border-0"  type="checkbox" value="'+ idnya + '"/>' + isi + '</label> <br>');
-
-              //  $('div[name="checkbox_categoryDetail"]').append(
-              //    '<input type="checkbox" name="category_check" class="category_checkbox" id="'+idnya+'"> <label class="form-check-label" for="'+idnya+'">' + isi + '</label>'
-              //  );
-
-             
-              
-           }
-    
-       })
-  
-  }
-  
-  </script>
-
+  //call function show_detail saat memilih/menekan salah satu card startup
+  const url_show_detail = "{{ route('inv.startup') }}" + '/';
+</script>
+<script src="/js/inv/startup.js"></script>
 

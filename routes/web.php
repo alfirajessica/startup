@@ -81,9 +81,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/typetrans/editTypeTrans/{id}', [TypeTransController::class, 'editTypeTrans'])->name('admin.typeTrans.editTypeTrans');
     Route::post('/typetrans/updateTypeTrans', [TypeTransController::class, 'updateTypeTrans'])->name('admin.updateTypeTrans');
 
-    //pengguna - developer
+    //tab nav - developer
     Route::get('/dev/daftarDeveloper', [AdminController::class, 'listdev'])->name('admin.dev.listDev');
     Route::get('/dev/produkDeveloper', [AdminController::class, 'produkdev'])->name('admin.dev.produkDev');
+    Route::get('/dev/listProductDev', [AdminController::class, 'listProductDev'])->name('admin.dev.listProductDev'); 
+    Route::get('/dev/listProductDev/detailProject/{id}', [AdminController::class, 'detailProject'])->name('admin.dev.listProductDev.detailProject'); 
+    Route::get('/dev/listProductDev/confirmProject/{id}', [AdminController::class, 'confirmProject'])->name('admin.dev.listProductDev.confirmProject');
+    Route::get('/dev/listProductDev/notConfirmProject/{id}', [AdminController::class, 'notConfirmProject'])->name('admin.dev.listProductDev.notConfirmProject');
 
     //pengguna - investor
     Route::get('/dev/daftarInvestor', [AdminController::class, 'listinv'])->name('admin.inv.listInv');

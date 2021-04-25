@@ -176,6 +176,13 @@ class InvController extends Controller
 
     public function detailstartup(Request $req, $id){
 
+        // SELECT DATE_FORMAT(a.created_at,"%Y-%m"), sum(a.jumlah) as total_masuk, b.jumlah as total_keluar
+        // from detail_product_kas a
+        // left join detail_product_kas b on a.id_headerproduct=b.id_headerproduct
+        // WHERE a.id_headerproduct='11' AND a.tipe=1 and b.tipe=2
+        // GROUP by a.tipe, DATE_FORMAT(a.created_at,"%Y-%m")
+        // ORDER by a.created_at
+
         $list_project['list_project'] = 
         DB::table('header_products')
         ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
