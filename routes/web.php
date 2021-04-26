@@ -121,6 +121,7 @@ Route::get('/inv/listEvent/listParticipant/{id}', [EventController::class, 'list
 Route::get('/inv/startup', [ProductController::class, 'startup'])->name('inv.startup');
 Route::get('/inv/startup/{id}', [InvController::class, 'detail_category_filter'])->name('inv.startup.detail_category_filter');
 Route::get('/inv/detailstartup/{id}', [InvController::class, 'detailstartup'])->name('inv.detailstartup');
+Route::get('/inv/detailstartup/financial/{id}', [InvController::class, 'listFinance'])->name('inv.detailstartup.financial');
 
 //search
 Route::get('/inv/startup/searchStartup/{id}', [ProductController::class, 'searchStartup'])->name('inv.startup.searchStartup');

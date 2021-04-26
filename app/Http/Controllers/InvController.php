@@ -176,12 +176,11 @@ class InvController extends Controller
 
     public function detailstartup(Request $req, $id){
 
-        // SELECT DATE_FORMAT(a.created_at,"%Y-%m"), sum(a.jumlah) as total_masuk, b.jumlah as total_keluar
-        // from detail_product_kas a
-        // left join detail_product_kas b on a.id_headerproduct=b.id_headerproduct
-        // WHERE a.id_headerproduct='11' AND a.tipe=1 and b.tipe=2
-        // GROUP by a.tipe, DATE_FORMAT(a.created_at,"%Y-%m")
-        // ORDER by a.created_at
+        /*(SELECT created_at, id, SUM(jumlah) as jumlah1
+        FROM detail_product_kas WHERE tipe='1' AND id_headerproduct=10)
+        UNION
+        (SELECT created_at, id, SUM(jumlah) as jumlah2
+        FROM detail_product_kas WHERE tipe='2' AND id_headerproduct=10)*/
 
         $list_project['list_project'] = 
         DB::table('header_products')
@@ -198,6 +197,7 @@ class InvController extends Controller
         ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
         ->orderBy('detail_product_kas.created_at')
         ->get();
+        
 
         $list_finance_keluar['list_finance_keluar'] = 
         DB::table('detail_product_kas')
@@ -212,8 +212,40 @@ class InvController extends Controller
         $detail_user['detail_user'] = DB::table('users')->where('id','=',$user->id)->get();
 
        
-        return view('investor.detailstartup')->with($list_project)->with($list_finance)->with($list_finance_keluar)->with($detail_user);
+        return view('investor.detailstartup')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar);
     }
+
+    /*public function listFinance(Request $req, $id)
+    {
+        $list_finance = 
+        DB::table('detail_product_kas')
+        ->select('id', \DB::raw('SUM(jumlah) as total_masuk,DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
+        ->where('id_headerproduct','=',$id)
+        ->where('tipe','=','1')
+        ->groupBy('id', \DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->orderBy('created_at')
+         ->union(
+             DB::table('detail_product_kas')
+             ->select('id', \DB::raw('SUM(jumlah) as total_keluar,DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
+             ->where('id_headerproduct','=',$id)
+             ->where('tipe','=','2')
+             ->groupBy('id', \DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+             ->orderBy('created_at')
+             )
+        ->get();
+
+        if($req->ajax()){
+            return datatables()->of($list_finance)
+                ->addColumn('action', function($data){
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKas">Ubah</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('inv.detailstartup.financial');
+    }*/
 
     public function detail_category_filter($id)
     {

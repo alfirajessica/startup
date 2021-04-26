@@ -18,10 +18,11 @@ $(function () {
         //     console.log(typecategory);
 
     //financial.blade.php
-    let draw = false;
+    //table_finance();
+    
     init();
 });
-
+let draw = false;
 //startup.blade.php
 function getMoreUsers(page) {
     var search = $('#search_input').val();
@@ -59,6 +60,49 @@ function show_detail() {
              $('div[name="checkbox_categoryDetail"]').append('<label id="typeCategory" class="form-check-label" > <input name="category_check" class="form-check-input border-0"  type="checkbox" value="'+ idnya + '"/>' + isi + '</label> <br>');
         }  
     });
+}
+
+//financial.blade.php -- table financial
+function table_finance() { 
+ 
+  $('#table_finance').DataTable({
+      destroy:true,
+      processing: true,
+      serverSide: true, //aktifkan server-side 
+      responsive:true,
+      deferRender:true,
+      aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+      ajax: {
+          url: 'financial/' + url_table_finance,
+          type: 'GET',
+      },
+      order: [
+          [0, 'asc']
+      ],
+      columns: [
+          {
+              data: 'id',
+              name: 'id',
+          },
+          {
+              data: 'total_masuk',
+              name: 'total_masuk',
+            
+          },
+          {
+              data: 'total_keluar',
+              name: 'total_keluar',
+            
+          },
+          {
+              data: 'action',
+              name: 'action',
+          },
+          
+      ],
+      
+  });
+
 }
 
 //financial.blade.php
