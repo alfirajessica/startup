@@ -11,6 +11,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CategoryproductController;
 use App\Http\Controllers\TypeTransController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\InvestController;
 
 use App\Http\Controllers\ValuationToolsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -123,9 +125,21 @@ Route::get('/inv/startup/{id}', [InvController::class, 'detail_category_filter']
 Route::get('/inv/detailstartup/{id}', [InvController::class, 'detailstartup'])->name('inv.detailstartup');
 Route::get('/inv/detailstartup/financial/{id}', [InvController::class, 'listFinance'])->name('inv.detailstartup.financial');
 
+
+
 //search
 Route::get('/inv/startup/searchStartup/{id}', [ProductController::class, 'searchStartup'])->name('inv.startup.searchStartup');
 Route::get('inv/get-more-startups', [ProductController::class, 'getMoreStartups'])->name('inv.get-more-startups');
+
+
+//investor -- startup
+Route::get('/inv/invest', [InvController::class, 'invest'])->name('inv.invest');
+
+//investor saat tekan tombol Investasikan -- using Midtrans Payment
+Route::get('/inv/investTo/{id}/{invest}', [InvestController::class, 'investTo'])->name('inv.investTo');
+
+Route::get('/inv/invest/listInvestAktif', [InvestController::class, 'listInvestAktif'])->name('inv.invest.listInvestAktif');
+Route::get('/inv/invest/listInvestTdkAktif', [InvestController::class, 'listInvestTdkAktif'])->name('inv.invest.listInvestTdkAktif');
 
 //-----------------------------end of INVESTOR---------------------------
 

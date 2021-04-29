@@ -87,18 +87,18 @@ function table_listProduct() {
                 name: 'id'
             },
             {
-                data: 'name_product',
-                name: 'name_product',
+                data: 'project_id',
+                name: 'project_id',
               
             },
             {
-                data: 'name',
-                name: 'name',
+                data: 'invest_id',
+                name: 'invest_id',
               
             },
             {
-                data: 'action',
-                name: 'action',
+                data: 'jumlah',
+                name: 'jumlah',
               
             },
             

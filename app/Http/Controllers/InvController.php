@@ -279,4 +279,9 @@ class InvController extends Controller
 
         return view('investor.akun')->with($akun_user)->with($provinces);
     }
+
+    public function invest()
+    {
+        return view('investor.invest');
+    }
 }

@@ -14,8 +14,8 @@ $(function () {
         //   return this.value;
         // }).get()
     
-        //var typecategory = $('input[name="check_detailCat[]"]:checked').val();
-        //     console.log(typecategory);
+    //var typecategory = $('input[name="check_detailCat"]:checked').val();
+    // console.log(typecategory);
 
     //financial.blade.php
     //table_finance();
@@ -38,7 +38,13 @@ function getMoreUsers(page) {
       },
       url: url_get_more_users + page,
       success:function(data) {
-        $('#user_data').html(data);
+        console.log(data);
+        if (data == null) {
+          $('#user_data').html("kosong");
+        } else {
+          $('#user_data').html(data);
+        }
+        
       }
     });
 }

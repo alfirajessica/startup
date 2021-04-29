@@ -1,4 +1,12 @@
 @foreach ($list_project as $item)
+   
+{{-- 
+    @if(!$list_project)
+
+    <label for="">kosong</label>
+
+    @endif --}}
+
 <a href="{{ url('inv/detailstartup', $item->id) }}">
     <div class="card mb-3 card-lift--hover shadow" style="max-width: 1024px;">
     <div class="row no-gutters">
@@ -41,7 +49,8 @@
 
 <div class="row py-4">
     <div class="col-md-12 d-flex justify-content-center">
-      {{ $list_project->links() }}
+        {!! $list_project->links() !!}
+      
     </div>
 </div>
 

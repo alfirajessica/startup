@@ -1,5 +1,10 @@
-event_hasPassed();
 
+$(function () {
+    event_hasPassed();
+});
+
+//function dimana akan mengubah status pada tabel header_events
+//jika header telah melewati masa akan diadakan event
 function event_hasPassed() {  
     $.ajax({
         type: "get",

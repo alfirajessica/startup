@@ -58,7 +58,7 @@
                             {{ __('Buat Event') }}
                         </a>
 
-                        <a class="dropdown-item" href="">
+                        <a class="dropdown-item" href="{{ route('inv.invest') }}">
                             {{ __('List Investasi') }}
                         </a>
 

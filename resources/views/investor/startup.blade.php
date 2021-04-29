@@ -43,7 +43,7 @@
                         @foreach($list_dtcategory as $category2)
                           @if ($category2->category_id == $category->id)
                           <div id="checkbox_categoryDetail" class="form-check checkbox">
-                            <input type="checkbox" name="check_detailCat[]" class="form-check-input border-0" value="{{$category2->id}}"> <label class="form-check-label">{{$category2->name}}</label>
+                            <input type="checkbox" name="check_detailCat" class="form-check-input border-0" value="{{$category2->id}}"> <label class="form-check-label">{{$category2->name}}</label>
                           </div>
                           @endif
                         @endforeach

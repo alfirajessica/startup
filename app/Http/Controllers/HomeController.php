@@ -46,6 +46,30 @@ class HomeController extends Controller
         //investor
         else if ($user_role == "2") {
             
+             $get_id = DB::table('header_events')->select('id')->where('status','=','2')->get();
+            // dd($get_id);
+             /*for ($i=0; $i <=count($get_id) ; $i++) { 
+                 dd($get_id);
+                 
+             }*/
+
+            /*UPDATE detail_events SET status=2
+            WHERE (SELECT id FROM header_events 
+            WHERE header_events.id=detail_events.id_header_events AND
+            header_events.status=2)
+
+             $upd_details = 
+             DB::table('detail_events')
+                ->where(
+                    DB::table('header_events')
+                    ->where('header_events.id','=','detail_events.id_header_events')
+                    ->where('header_events.status','=','2')
+                )
+                ->update([
+                    'detail_events.status' =>'2',
+                ]);
+
+            */
             return view('investor.home'); 
         }
         // //admin
@@ -63,12 +87,31 @@ class HomeController extends Controller
         //get date now
         $date = Carbon::now();
 
+        //update status yang ada di header_events
         $list_event = DB::table('header_events')
                     ->where('event_schedule','<',$date->toDateString())
                     ->update([
                         'status' =>'2',
                     ]);
-                   
+        
+        //get id yang tadinya di update status nya menjadi 2
+        $get_id = DB::table('header_events')->select('id')->where('status','=','2')->get();
+        dd($get_id);
+        
+        $upd_details = 
+             DB::table('detail_events')
+                ->join('header_events')
+                ->where('detail_events.id_header_events','=','header_events.id')
+                ->where('header_events.status','=','2')
+                ->update([
+                    'status' =>'2',
+                ]);
+
+        // //update details events berdasarkan id diatas
+        //  for ($i=0; $i < count($get_id); $i++) {
+             
+        //  }
+        
     }
     
 }

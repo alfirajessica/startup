@@ -459,7 +459,7 @@ class EventController extends Controller
 
         $user = auth()->user();
         $myevents = DB::table('detail_events')
-        ->leftJoin('header_events', 'header_events.id', '=', 'detail_events.id_header_events')
+        ->rightjoin('header_events', 'header_events.id', '=', 'detail_events.id_header_events')
         ->where('detail_events.id_participant','=',$user->id)
         ->where('detail_events.status','=',"2")
         ->get();
