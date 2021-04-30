@@ -20,7 +20,9 @@ class CreateHeaderInvestsTable extends Migration
             $table->bigInteger('invest_id')->unsigned();
             $table->bigInteger('jumlah');
             $table->bigInteger('profit');
-            $table->string('status');
+            $table->string('status_transaction'); //status berdasarkan midtrans
+            $table->string('status_invest');  
+            //masih aktif invest atau tidak -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif)
             $table->timestamps();
         });
     }

@@ -26,21 +26,27 @@ function payButton() {
             "nama_project":nama_project,
             },
         success:function(data) {
-            console.log(data);
+            console.log('ini data : ' + data);
             $('#invest_number').val(0);
             snap.pay(data, {
             // Optional
             onSuccess: function(result){
-                
-                /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                $order_id = result['order_id'];
+                savetoDBInvest($order_id);
+                document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
             },
             // Optional
             onPending: function(result){
-                /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                $order_id = result['order_id'];
+                savetoDBInvest($order_id);
+                
+                document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
             },
             // Optional
             onError: function(result){
-                /* You may add your own js here, this is just example */ document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                $order_id = result['order_id'];
+                savetoDBInvest($order_id);
+                document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
             }
             });
         }
@@ -48,6 +54,21 @@ function payButton() {
     }
 
 } 
+
+function savetoDBInvest($id) { 
+    console.log('ini result : ' + $id);
+    $.ajax({
+        type: "get",
+        url: '/inv/updStatus' + '/' + $id,
+        success: function (data) {
+           // listInvestAktif();
+           console.log('upd');
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+ }
 // end of product/desc.blade.php
 
 // invest/listinvest.blade.php

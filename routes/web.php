@@ -137,6 +137,7 @@ Route::get('/inv/invest', [InvController::class, 'invest'])->name('inv.invest');
 
 //investor saat tekan tombol Investasikan -- using Midtrans Payment
 Route::get('/inv/investTo/{id}/{invest}', [InvestController::class, 'investTo'])->name('inv.investTo');
+Route::get('/inv/updStatus/{id}', [InvestController::class, 'saveToDbHeaderInvests'])->name('inv.updStatus');
 
 Route::get('/inv/invest/listInvestAktif', [InvestController::class, 'listInvestAktif'])->name('inv.invest.listInvestAktif');
 Route::get('/inv/invest/listInvestTdkAktif', [InvestController::class, 'listInvestTdkAktif'])->name('inv.invest.listInvestTdkAktif');
