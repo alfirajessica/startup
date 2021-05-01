@@ -5,17 +5,17 @@
       <div class="card-body"> <!-- card body -->
         <!-- tab content -->
         <div class="tab-content" id="myTabContent">
-            <!-- profile -->
+            <!-- table_listInvestPending -->
             <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" width="100%" id="table_listInvestAktif">
+                    <table class="table table-bordered table-hover" width="100%" id="table_listInvestPending">
                       <thead>
                           <tr>
-                              <th>#</th>
-                              <th>Nama Event</th>
-                              <th>Diadakan Secara</th>
-                              <th>Jadwal Acara</th>
-                             
+                              <th>Invest_id</th>
+
+                              <th>Project</th>
+                              <th>Status</th>
+                              <th>Aksi</th>
                           </tr>
                       </thead>
                       <tbody></tbody>
@@ -23,13 +23,13 @@
                   <!-- AKHIR TABLE -->
                   </div>
             </div>
-            <!-- end of profile -->
+            <!-- end of table_listInvestPending -->
 
-            <!-- password -->
+            <!-- table_listInvestSettlement -->
             <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
               
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" width="100%" id="table_listInvestTdkAktif">
+                    <table class="table table-bordered table-hover" width="100%" id="table_listInvestSettlement">
                       <thead>
                           <tr>
                               <th>#</th>
@@ -43,11 +43,13 @@
                     </table>
                   <!-- AKHIR TABLE -->
                   </div>
-            </div> <!-- end of lihat daftar event -->
+            </div> 
+            <!-- end of table_listInvestSettlementt -->
 
+            <!-- table_listInvestCancel -->
             <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" width="100%" id="table_listInvestAktif">
+                    <table class="table table-bordered table-hover" width="100%" id="table_listInvestCancel">
                       <thead>
                           <tr>
                               <th>#</th>
@@ -62,6 +64,7 @@
                   <!-- AKHIR TABLE -->
                   </div>
             </div>
+            <!-- end of table_listInvestCancel -->
         </div> <!-- end of tab content -->
       </div> <!--end of card body -->
       </div>
@@ -69,16 +72,27 @@
     <!-- end card -->
 </div>
 
+{{-- modal detail dari transaksi investasi --}}
+@include('investor.invest.detailTrans')
+{{-- end of modal detail dari transaksi investasi --}}
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>  
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
 
 <script>
-    const url_table_listInvestAktif = "{{ route('inv.invest.listInvestAktif') }}" + '/';
+    //tabel listInvestPending --> untuk daftar transaksi investasi yang BELUM dikirim uangnya.
+    const url_table_listInvestPending = "{{ route('inv.invest.listInvestPending') }}" + '/';
 
-    const url_table_listInvestTdkAktif = "{{ route('inv.invest.listInvestTdkAktif') }}" + '/';
+    //tabel listInvestSettlement --> untuk daftar transaksi investasi yang SUDAH dikirim uangnya.
+    const url_table_listInvestSettlement = "{{ route('inv.invest.listInvestSettlement') }}" + '/';
+
+    //tabel listInvestCancel --> untuk daftar transaksi investasi yang DI CANCLE OR EXPIRE 
+    const url_table_listInvestCancel= "{{ route('inv.invest.listInvestCancel') }}" + '/';
+
+    const url_detailInvest = "{{ route('inv.invest') }}" + '/detailInvest' + '/';
+    const url_detailStatusInvest = "{{ route('inv.invest') }}" + '/detailStatusInvest' + '/';
+
+    const url_table_projectDetails = "{{ route('inv.invest') }}" + '/projectdetailInvest' + '/';
 </script>
 
 <script src="/js/inv/invest.js"></script>

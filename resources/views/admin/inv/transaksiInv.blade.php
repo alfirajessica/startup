@@ -7,14 +7,39 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card shadow"> <!-- card shadow --> 
-                  Transaksi Investor
-                </div>
+                  <div class="table-responsive">
+                    <table class="table table-bordered table-hover" width="100%" id="table_listInvestConfirmYet">
+                      <thead>
+                          <tr>
+                              <th>#ID</th>
+                              <th>Nama</th>
+                              <th>Email</th>
+                              <th>Aksi</th>
+                          </tr>
+                      </thead>
+                      <tbody>
 
+                      </tbody>
+                    </table>
+                  <!-- AKHIR TABLE -->
+                  </div>
+                </div>
             </div>
         </div>
       </main>
     </div>
-</div>
-                    
-@endsection
+</div>        
 
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script>
+  //semua function disini ada pada --> public/js/admin/dev/product/productDev.js
+  const url_table_listInvestConfirmYet = @json(route('admin.inv.transaksiInv'));
+
+  //call function pada tabel --> table_listProduct /aktifProject
+  const url_table_listInvestConfirmYet_confirmInvest = "{{ route('admin.inv.transaksiInv') }}" +'/confirmInvest' + '/';
+</script>
+<script src="/js/admin/inv/transaksi/listInvest.js"></script>
+
+
+@endsection

@@ -1,6 +1,7 @@
 
 $(function () {
     event_hasPassed();
+    updStatusTrans();
 });
 
 //function dimana akan mengubah status pada tabel header_events
@@ -17,3 +18,18 @@ function event_hasPassed() {
         }
     });
   }
+
+  function updStatusTrans() { 
+   // console.log('ini result : ' + $id);
+    $.ajax({
+        type: "get",
+        url: '/updStatus',
+        success: function (data) {
+           // listInvestAktif();
+           console.log('upd');
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+}

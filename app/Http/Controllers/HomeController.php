@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Validator;
 use App\Models\HeaderEvent;
+use App\Models\HeaderInvest;
 use App\Models\User;
 use Carbon\Carbon;
 
 class HomeController extends Controller
 {
+    public $MIDTRANS_SERVER_KEY = 'SB-Mid-server-prYkvSccGV27NceSR_YIgIQo';
     /**
      * Create a new controller instance.
      *
@@ -23,6 +25,8 @@ class HomeController extends Controller
         $this->middleware('auth');
         // $this->middleware('guest');
         // $this->middleware('guest:admin');
+
+        
     }
 
     /**
@@ -106,12 +110,44 @@ class HomeController extends Controller
                 ->update([
                     'status' =>'2',
                 ]);
-
-        // //update details events berdasarkan id diatas
-        //  for ($i=0; $i < count($get_id); $i++) {
-             
-        //  }
-        
     }
+
+
+    public function updStatusTrans()
+    {
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = $this->MIDTRANS_SERVER_KEY;
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
+        
+        $data = HeaderInvest::all()->toArray();
+        for ($i=0; $i < count($data); $i++) { 
+
+            //get status dari midtrans berdasarkan order_id nya
+            $status = \Midtrans\Transaction::status($data[$i]['invest_id']);
+            $status = json_decode(json_encode($status),true);
+
+             DB::table('header_invests')->
+             where('invest_id','=',$data[$i]['invest_id'])->
+             update([
+                 'status_transaction' => $status['transaction_status'],
+             ]);
+
+             DB::table('header_products')
+             ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+             ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
+             ->where('header_invests.status_transaction','=','pending')
+             ->where('header_invests.status_transaction','=','settlement')
+             ->update([
+                 'header_products.status' => '2',
+             ]);
+        }
+    }
+
+
     
 }

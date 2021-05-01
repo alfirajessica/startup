@@ -47,6 +47,9 @@ Route::post('/users/logout', [LoginController::class, 'userLogout'])->name('user
 
 //upd global in inv and dev when event has passed
 Route::get('/eventPassed', [HomeController::class, 'event_haspassed'])->name('eventPassed');
+
+//upd global di investor dan dev -- update status transaction di header invests
+Route::get('/updStatus', [HomeController::class, 'updStatusTrans'])->name('inv.updStatus');
  
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
@@ -92,8 +95,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/dev/listProductDev/notConfirmProject/{id}', [AdminController::class, 'notConfirmProject'])->name('admin.dev.listProductDev.notConfirmProject');
 
     //pengguna - investor
-    Route::get('/dev/daftarInvestor', [AdminController::class, 'listinv'])->name('admin.inv.listInv');
-    Route::get('/dev/transaksiInvestor', [AdminController::class, 'transaksiinv'])->name('admin.inv.transaksiInv');
+    Route::get('/inv/daftarInvestor', [AdminController::class, 'listinv'])->name('admin.inv.listInv');
+    Route::get('/inv/transaksiInv', [AdminController::class, 'transaksiInv'])->name('admin.inv.transaksiInv');
+    Route::get('/inv/transaksiInv/confirmInvest/{id}', [AdminController::class, 'confirmInvest'])->name('admin.inv.transaksiInv.confirmInvest');
+    Route::get('/inv/transaksiInv/notConfirmInvest/{id}', [AdminController::class, 'notConfirmInvest'])->name('admin.inv.transaksiInv.notConfirmInvest');
 });
 
 
@@ -137,10 +142,12 @@ Route::get('/inv/invest', [InvController::class, 'invest'])->name('inv.invest');
 
 //investor saat tekan tombol Investasikan -- using Midtrans Payment
 Route::get('/inv/investTo/{id}/{invest}', [InvestController::class, 'investTo'])->name('inv.investTo');
-Route::get('/inv/updStatus/{id}', [InvestController::class, 'saveToDbHeaderInvests'])->name('inv.updStatus');
-
-Route::get('/inv/invest/listInvestAktif', [InvestController::class, 'listInvestAktif'])->name('inv.invest.listInvestAktif');
-Route::get('/inv/invest/listInvestTdkAktif', [InvestController::class, 'listInvestTdkAktif'])->name('inv.invest.listInvestTdkAktif');
+Route::get('/inv/invest/listInvestPending', [InvestController::class, 'listInvestPending'])->name('inv.invest.listInvestPending');
+Route::get('/inv/invest/listInvestSettlement', [InvestController::class, 'listInvestSettlement'])->name('inv.invest.listInvestSettlement');
+Route::get('/inv/invest/listInvestCancel', [InvestController::class, 'listInvestCancel'])->name('inv.invest.listInvestCancel');
+Route::get('/inv/invest/detailInvest/{id}', [InvestController::class, 'detailInvest'])->name('inv.invest.detailInvest');
+Route::get('/inv/invest/detailStatusInvest/{id}', [InvestController::class, 'detailStatusInvest'])->name('inv.invest.detailStatusInvest');
+Route::get('/inv/invest/projectdetailInvest/{id}', [InvestController::class, 'projectdetailInvest'])->name('inv.invest.projectdetailInvest');
 
 //-----------------------------end of INVESTOR---------------------------
 

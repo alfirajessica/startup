@@ -186,6 +186,7 @@ class InvController extends Controller
         DB::table('header_products')
         ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
         ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
+        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url', 'header_products.rilis','header_products.team','header_products.reason','header_products.benefit','header_products.solution')
         ->where('header_products.id','=',$id)
         ->get();
 

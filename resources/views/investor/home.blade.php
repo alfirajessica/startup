@@ -68,5 +68,6 @@
 {{-- call function event_passed globally --}}
 <script>
  const url_eventPassed = @json(route('eventPassed'));
+ const url_updStatusTrans = '/updStatus';
 </script>
 <script src="js/custom.js"></script>

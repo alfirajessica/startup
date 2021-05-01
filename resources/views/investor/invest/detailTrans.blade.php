@@ -1,0 +1,98 @@
+<div class="modal fade bd-example-modal-lg" id="detailTrans" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          {{-- <h5 class="modal-title" id="exampleModalLabel">Ubah Event</h5> --}}
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">Project Details</div>
+                        <div class="card-body">
+                          <div class="table-responsive-lg">
+                            <table class="table table-sm padding-0" width="100%" id="table_projectDetails">
+                                <thead>
+                                    <th>Invest_id</th>
+                                    <th>Project</th>
+                                    <th>Dev</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </thead>
+                                <tbody></tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="4" style="text-align:right; font-weight:bold">Total Pengeluaran :</th>
+                                        <th style="font-weight:bold" id="totalsemua"></th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row py-4">
+                {{-- payment information --}}
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header">Invest Details</div>
+                    <div class="card-body">
+                      <div class="table-responsive-lg">
+                        <table class="table table-sm padding-0" width="100%" id="table_detailOrder">
+                          <tbody>
+                            <tr>
+                              <td>Invest Id</td>
+                              <td id='invest_id'></td>
+                            </tr>
+                            <tr>
+                                <td>Transaksi ID</td>
+                                <td id='transaction_id'></td>
+                            </tr>
+                            <tr>
+                              <td>Tipe Pembayaran</td>
+                              <td id='pay_type'></td>
+                            </tr>
+                            <tr>
+                                <td>Jumlah</td>
+                                <td id='jumlah'></td>
+                            </tr>
+                            <tr>
+                                <td>Pesan</td>
+                                <td id='msg_admin'></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {{-- end of payment information --}}
+  
+                {{-- investor and developer information --}}
+                <div class="col-md-6">
+                    <div class="card">
+                      <div class="card-header">Payment Details</div>
+                      <div class="card-body">
+                        <div class="table-responsive-lg">
+                          <table class="table table-sm padding-0" width="100%" id="table_payDetails">
+                            <tbody></tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                {{-- end of investor and developer information --}}
+            </div>
+            
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit">Saya sudah transfer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

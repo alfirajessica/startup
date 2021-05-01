@@ -1,6 +1,13 @@
 <div class="card border-0">
     <div class="card-body">
         <div class="row">
+            @if (session('fail'))
+                <script>
+                    $(document).ready(function () {
+                        swal("{{ session('fail') }}", "You clicked the button!", "warning");
+                    });
+                </script>
+            @endif
             <div class="col-md-8">
                 <h1 id="id_product">{{$item->id}}</h1>
                 <h5 class="card-title" name="name_project" id="name_project">{{$item->name_product}}</h5>
@@ -122,10 +129,6 @@
     //function saat menekan tombol Investasikan pada modal
     const url_pay = '/inv/investTo/';
 
-    
-    const url_table_listInvestAktif = "{{ route('inv.invest.listInvestAktif') }}" + '/';
-
-    const url_table_listInvestTdkAktif = "{{ route('inv.invest.listInvestTdkAktif') }}" + '/';
 </script>
 
 <script src="/js/inv/invest.js"></script>

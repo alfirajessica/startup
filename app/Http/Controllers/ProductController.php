@@ -489,7 +489,7 @@ class ProductController extends Controller
         ->paginate(6);
        
         
-        return view('investor.startup')->with($list_category)->with($list_project)->with($list_dtcategory);
+        return view('investor.startup')->with($list_dtcategory)->with($list_category)->with($list_project);
     }
 
     //search di startup investor
