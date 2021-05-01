@@ -155,6 +155,8 @@ class AdminController extends Controller
         $list_invest = 
         DB::table('header_invests')
         ->where('status_transaction','=','settlement')
+        ->orWhere('status_transaction','=','cancle') //actionnya minta utk diaktifkan kembali product statusnya
+        ->orWhere('status_transaction','=','expire')//actionnya minta utk diaktifkan kembali product statusnya
         ->where('status_invest','=','0')
         ->get();
 
@@ -181,6 +183,16 @@ class AdminController extends Controller
         where('id',$id)->
         update([
             'status_invest' => '1',
+        ]);
+        return response()->json(['success'=>"Berhasil mengaktifkan", 'tr'=>'tr_'.$id]);
+    }
+
+    public function notConfirmInvest($id)
+    {
+        DB::table('header_invests')->
+        where('id',$id)->
+        update([
+            'status_invest' => '0',
         ]);
         return response()->json(['success'=>"Berhasil mengaktifkan", 'tr'=>'tr_'.$id]);
     }

@@ -89,9 +89,9 @@
             </div>
             
         </div>
-        <div class="modal-footer">
+        {{-- <div class="modal-footer">
           <button class="btn btn-primary" type="submit">Saya sudah transfer</button>
-        </div>
+        </div> --}}
       </div>
     </div>
   </div>

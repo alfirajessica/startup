@@ -316,6 +316,8 @@ $('body').on('click', '.detailProject', function () {
    $.get(url_detailStatusInvest + id, function (data) {
        if (data == "0") {
            $('#msg_admin').text('Menunggu Konfirmasi Admin');
+       }else if (data == "1") {
+        $('#msg_admin').text('Telah Dikonfirmasi Admin');
        }
     });
 });

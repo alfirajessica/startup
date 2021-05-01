@@ -38,6 +38,9 @@
 
   //call function pada tabel --> table_listProduct /aktifProject
   const url_table_listInvestConfirmYet_confirmInvest = "{{ route('admin.inv.transaksiInv') }}" +'/confirmInvest' + '/';
+
+  //call function pada tabel --> table_listProduct /nonaktif
+  const url_table_listInvestConfirmYet_notConfirmInvest = "{{ route('admin.inv.transaksiInv') }}" +'/notConfirmInvest' + '/';
 </script>
 <script src="/js/admin/inv/transaksi/listInvest.js"></script>
 

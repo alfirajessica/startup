@@ -77,3 +77,36 @@ function table_listInvestConfirmYet() {
         }
     });
 });
+
+$('body').on('click', '.notConfirmInvest', function () {
+    var id = $(this).data("id");
+    console.log(id);
+    var txt;
+    swal({
+        title: "Are You sure want to delete?",
+        text: "Once deleted, you will not be able to recover this project!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "get",
+                url: url_table_listInvestConfirmYet_notConfirmInvest + id,
+                success: function (data) {
+                    table_listInvestConfirmYet();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+            //jika sukses, call swal
+            swal("Poof! Your imaginary file has been deleted!", {
+            icon: "success",
+        });
+        } else {
+            swal("Your imaginary file is safe!");
+        }
+    });
+});

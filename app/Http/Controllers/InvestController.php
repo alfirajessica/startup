@@ -173,10 +173,11 @@ class InvestController extends Controller
         if($req->ajax()){
             return datatables()->of($listInvestSettlement)
                     ->addColumn('action', function($data){
-                         $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="far fa-edit"></i> Edit</a>';
-                         $button .= '&nbsp;&nbsp;';
-                         $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';     
-                         return $button;
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-primary btn-sm detailProject">Detail</a>';
+
+                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}" >Sudah Kirim</a>';
+    
+                        return $btn;
                      })
                     ->rawColumns(['action'])
                     ->addIndexColumn()
@@ -203,10 +204,11 @@ class InvestController extends Controller
         if($req->ajax()){
             return datatables()->of($listInvestCancel)
                     ->addColumn('action', function($data){
-                         $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="far fa-edit"></i> Edit</a>';
-                         $button .= '&nbsp;&nbsp;';
-                         $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';     
-                         return $button;
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-primary btn-sm detailProject">Detail</a>';
+
+                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}" >Sudah Kirim</a>';
+    
+                        return $btn;
                      })
                     ->rawColumns(['action'])
                     ->addIndexColumn()
