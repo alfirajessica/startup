@@ -15,19 +15,22 @@
             </li>
             
         </ul>
-        <div class="tab-content py-4" id="myTabContent">
+        <div class="card">
+            
+        </div>
+        <div class="tab-content py-4 bg-white" id="myTabContent">
             <div class="tab-pane fade" id="confirm" role="tabpanel" aria-labelledby="confirm-tab">
                 {{-- <div class="alert alert-info" role="alert">
                     <strong>Project Terdaftar Aktif</strong> adalah project yang ditampilkan pada katalog Startup
                 </div> --}}
-                <div class="table-responsive">
+                <div class="table-responsive py-2 px-2">
                     <table class="table table-bordered table-hover table_listProduct" width="100%" id="table_listProductConfirmYet">
                       <thead>
                           <tr>
                               <th>#</th>
-                              <th>Nama Proyek</th>
-                              <th>Kategori</th>
-                              <th>Status</th>
+                              <th>Created at</th>
+                              <th>Nama proyek</th>
+                              <th>Detail</th>
                           </tr>
                       </thead>
                       <tbody></tbody>
@@ -36,10 +39,10 @@
                 </div>
             </div>
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-info px-2" role="alert">
                     <strong>Project Terdaftar Aktif</strong> adalah project yang ditampilkan pada katalog Startup
                 </div>
-                <div class="table-responsive">
+                <div class="table-responsive py-2 px-2">
                     <table class="table table-bordered table-hover table_listProduct" width="100%" id="table_listProduct">
                       <thead>
                           <tr>
@@ -56,7 +59,7 @@
             </div>
             
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                <div class="table-responsive">
+                <div class="table-responsive py-2 px-2">
                     <table class="table table-bordered table-hover table_listProduct" width="100%" id="table_listProductNonAktif">
                         <thead>
                             <tr>
@@ -72,7 +75,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="table-responsive">
+                <div class="table-responsive py-2 px-2">
                     <table class="table table-bordered table-hover table_listProduct" width="100%" id="table_listProductInvestor">
                         <thead>
                             <tr>
@@ -110,7 +113,7 @@
 </div>
 
 @include('developer.product.detailProduct')
-
+{{-- @include('developer.product.ubahProduct') --}}
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      

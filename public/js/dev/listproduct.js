@@ -6,6 +6,7 @@ $(function () {
     //daftarProductBaru.blade.php
     show_listProject_select();
 });
+    
 
 //tabel Project Terdaftar Aktif
 function table_listProduct() {
@@ -37,29 +38,20 @@ function table_listProduct() {
                 name: 'id'
             },
             {
+                data: 'created_at',
+                name: 'created_at',
+              
+            },
+            {
                 data: 'name_product',
                 name: 'name_product',
               
             },
             {
-                data: 'name',
-                name: 'name',
+                data: 'action',
+                name: 'action',
               
             },
-            {
-                data: null,
-                name: null,
-                render: data => {
-                    if (data.status == "1") {
-                        return "<small> Menunggu </small>";
-                    }else{
-                        return "<small> Silakan Lengkapi kembali Data Project Anda </small>";
-                    }
-                   
-                }
-              
-            },
-            
         ],
         
     });
@@ -87,20 +79,21 @@ function table_listProduct() {
                 name: 'id'
             },
             {
-                data: 'project_id',
-                name: 'project_id',
+                data: 'name_product',
+                name: 'name_product',
               
             },
             {
-                data: 'invest_id',
-                name: 'invest_id',
+                data: 'name',
+                name: 'name',
               
             },
             {
-                data: 'jumlah',
-                name: 'jumlah',
+                data: 'action',
+                name: 'action',
               
             },
+            
             
         ],
         
@@ -190,11 +183,13 @@ function table_listProduct() {
         
     });
 }
+
 $('body').on('click', '.detailProject', function () {
     var product_id = $(this).data('id');
+    table_pemasukkan_pengeluaran(product_id);
     $.get(url_table_listProduct_detailProject + product_id, function (data) {
-       table_detailProduct(product_id);
-       
+        console.log("/uploads/event/"+data.image);
+        $("img#previewImg").attr("src", "/uploads/event/"+data.image);
        $('#nama_product').text(data.name_product);    
        $('#tipe_product').text(data.id_detailcategory); 
        $('#url_product').text(data.url); 
@@ -309,6 +304,8 @@ $('body').on('click', '.nonAktifProject', function () {
     });
 });
 
+
+
 //daftarProductBlade.php
 function show_listProject_select() {
         
@@ -326,5 +323,131 @@ function show_listProject_select() {
             });
             
         },
+    });
+}
+
+//detailProduct Transaksi Pemasukkan dan Pengeluaran
+var getTotal, getUangmuka, temptotal='';
+
+function table_pemasukkan_pengeluaran(id) {
+    var groupColumn = 1;
+    var get="";
+
+    var tabel0 = "#table_pemasukkan";
+    var tabel1 = "#table_pengeluaran";
+
+    $('#table_pemasukkan').DataTable({
+        destroy:true,
+        processing: true,
+        serverSide: true, //aktifkan server-side 
+        responsive:true,
+        deferRender:true,
+        language: {
+            "emptyTable": "Silakan Atur Pemasukkan Anda pada Tab Pemasukkan"
+        },
+        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+        ajax: {
+            url: "/dev/listProduct/detailProjectKas/" + id,
+            type: 'GET',
+            data:{
+                "getTabel":tabel0,
+                },
+        },
+        order: [
+            [0, 'asc']
+        ],
+        columns: [
+            {
+                data: null,
+                name: 'tipe',
+                render: data => {
+                    var tipe="";
+                    if (data.tipe == "1") {
+                        tipe = "+";
+                    }else{
+                        tipe = "-"
+                    }
+                    return tipe;
+                }
+            },
+            {
+                data: null,
+                name: 'created_at',
+                render: data => {
+                    return moment(data.created_at).format('DD/MMM/YYYY')
+                }
+            },
+            {
+                data: 'keterangan',
+                name: 'keterangan',
+              
+            },
+            {
+                data: 'jumlah',
+                name: 'jumlah',
+                className: 'dt-body-right',
+                render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp')
+              
+            },
+        ],
+        
+    });
+
+    $('#table_pengeluaran').DataTable({
+        destroy:true,
+        processing: true,
+        serverSide: true, //aktifkan server-side 
+        responsive:true,
+        deferRender:true,
+        language: {
+            "emptyTable": "Silakan Atur Pengeluaran Anda pada Tab Pengeluaran"
+        },
+        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+        ajax: {
+            url: "/dev/listProduct/detailProjectKas/" + id,
+            type: 'GET',
+            data:{
+                "getTabel":tabel1,
+            },
+        },
+        order: [
+            [0, 'asc']
+        ],
+        columns: [
+            {
+                data: null,
+                name: 'tipe',
+                render: data => {
+                    var tipe="";
+                    if (data.tipe == "1") {
+                        tipe = "+";
+                    }else{
+                        tipe = "-"
+                    }
+                    return tipe;
+                }
+            },
+            {
+                data: null,
+                name: 'created_at',
+                render: data => {
+                    return moment(data.created_at).format('DD/MMM/YYYY')
+                }
+            },
+            {
+                data: 'keterangan',
+                name: 'keterangan',
+              
+            },
+            {
+                data: 'jumlah',
+                name: 'jumlah',
+                className: 'dt-body-right',
+                render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp')
+              
+            },
+           
+        ],
+       
     });
 }

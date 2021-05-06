@@ -23,7 +23,7 @@
                 </button>
             </div>
         </div>
-        <div class="modal-body">
+        <div class="modal-body bg-secondary">
             <div class="row">
                 <div class="col-md-12">
                     <!-- tab content -->
@@ -33,10 +33,13 @@
                                 <div class="col-md-6">
                                     <div class="card border-0">
                 
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+                                        <img id="previewImg" class="d-block user-select-none" width="100%" height="200" >
+                
+
+                                        {{-- <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
                                         <rect width="100%" height="100%" fill="#868e96"></rect>
                                         <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-                                        </svg>
+                                        </svg> --}}
                                         
                                     </div>
                                 </div>
@@ -81,57 +84,96 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row py-2">
                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                        <h6>Deskripsi</h6>
-                                        <label for="" id="desc"></label>
+                                    <div class="card">
+                                        <div class="form-group px-2">
+                                            <h6>Deskripsi</h6>
+                                            <label for="" id="desc"></label>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <h6>Team</h6>
-                                        <label for="" id="team"></label>
+                                   
+                                    <div class="card">
+                                        <div class="form-group px-2">
+                                            <h6>Team</h6>
+                                            <label for="" id="team"></label>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <h6>Reason</h6>
-                                        <label for="" id="reason"></label>
+                                    
+                                    <div class="card">
+                                        <div class="form-group px-2">
+                                            <h6>Reason</h6>
+                                            <label for="" id="reason"></label>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <h6>Benefit</h6>
-                                        <label for="" id="benefit"></label>
+                                   
+                                    <div class="card">
+                                        <div class="form-group px-2">
+                                            <h6>Benefit</h6>
+                                            <label for="" id="benefit"></label>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        <h6>Solution</h6>
-                                        <label for="" id="solution"></label>
+                                   
+                                    <div class="card">
+                                        <div class="form-group px-2">
+                                            <h6>Solution</h6>
+                                            <label for="" id="solution"></label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-hover" width="100%" id="table_detailProduct">
-                                  <thead>
-                                      <tr>
-                                          <th>#</th>
-                                          <th>Created at</th>
-                                          <th>Tipe Trans</th>
-                                          <th>Jumlah</th>
-                                      </tr>
-                                  </thead>
-                                  <tbody></tbody>
-                                  <tfoot>
-                                    <tr>
-                                        <th colspan="3" style="text-align:right; font-weight:bold">Total Pemasukkan :</th>
-                                        <th style="font-weight:bold"></th>
-                                    </tr>
-                                    
-                                    <tr>
-                                        <th colspan="3" style="text-align:right; font-weight:bold">Total Pengeluaran :</th>
-                                        <th style="font-weight:bold" id="totalsemua"></th>
-                                    </tr>
-                                </tfoot>
-                                </table>
-                              <!-- AKHIR TABLE -->
-                              </div>
+                            <div class="row">
+                                <div class="card col-md-12">
+                                    <h5 class="fs-title">Pemasukkan</h5>
+                                    <div class="col-md-12 py-2">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover table-sm" width="100%" id="table_pemasukkan">
+                                              <thead>
+                                                  <tr>
+                                                      <th>#</th>
+                                                      <th>Created at</th>
+                                                      <th>Tipe Trans</th>
+                                                      <th>Jumlah</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody></tbody>
+                                              <tfoot>
+                                                <tr>
+                                                    <th colspan="3" style="text-align:right; font-weight:bold">Total Pemasukkan :</th>
+                                                    <th style="font-weight:bold"></th>
+                                                </tr>
+                                            </tfoot>
+                                            </table>
+                                          <!-- AKHIR TABLE -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row py-4">
+                                <div class="card col-md-12">
+                                    <h5 class="fs-title">Pengeluaran</h5>
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover" width="100%" id="table_pengeluaran">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Created at</th>
+                                                    <th>Tipe Trans</th>
+                                                    <th>Jumlah</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                            
+                                            </table>
+                                        <!-- AKHIR TABLE -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -140,110 +182,3 @@
       </div>
     </div>
 </div>
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
-
-<script>
-var getTotal, getUangmuka, temptotal='';
-//var table = $('#table_detailProduct').DataTable();
-function table_detailProduct(id) {
-    var groupColumn = 1;
-    $('#table_detailProduct').DataTable({
-        destroy:true,
-        processing: true,
-        serverSide: true, //aktifkan server-side 
-        responsive:true,
-        deferRender:true,
-        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
-        ajax: {
-            url: "{{ route('dev.listProduct') }}" +'/detailProjectKas' + '/' + id,
-            type: 'GET'
-        },
-        order: [
-            [0, 'asc']
-        ],
-        columns: [
-            {
-                data: null,
-                name: 'tipe',
-                render: data => {
-                    var tipe="";
-                    if (data.tipe == "1") {
-                        tipe = "+";
-                    }else{
-                        tipe = "-"
-                    }
-                    return tipe;
-                }
-            },
-            {
-                data: null,
-                name: 'created_at',
-                render: data => {
-                    return moment(data.created_at).format('DD/MMM/YYYY')
-                }
-            },
-            {
-                data: 'keterangan',
-                name: 'keterangan',
-              
-            },
-            {
-                data: 'jumlah',
-                name: 'jumlah',
-                className: 'dt-body-right',
-                render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp')
-              
-            },
-        ],
-        "footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
-            
-            //Remove the formatting to get integer data for summation
-            var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                    i.replace(/[\$,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
-            };
-
-            // Total over all pages
-            total = api
-                .column( 3 )
-                .data()
-                
-                .reduce( function (a, b) {
-                    
-                    var cur_index = api.column(3).data().indexOf(a);
-                        if (api.column(3).data()[cur_index] != "1") {
-                        return cur_index;
-                    }
-                    else { return parseInt(a); }
-
-                }, 0 );
-
-            // Total over this page
-            pageTotal = api
-                .column( 3, { page: 'current'} )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-
-            // Update footer
-            $( api.column( 3 ).footer() ).html(
-                $.fn.dataTable.render.number('.','.','2','Rp').display(total)
-            );
-            
-            $("#totalsemua").html(
-                $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
-            );                        
-        }
-    });
-}
-
-</script>

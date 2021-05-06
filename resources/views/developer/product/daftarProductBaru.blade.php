@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <div class="card px-0 pb-0 mb-3 border-0">
+    <div class="card px-2 py-2 pb-0 mb-3 border-0">
         <h4><strong>Daftarkan Proyek Baru Saya</strong></h4>
         <p>Isi semua form untuk ke halaman selanjutnya</p>
         <div class="row">
@@ -8,17 +8,17 @@
                     @csrf
                     <!-- progressbar -->
                     
-                    <ul id="progressbar">
+                    <ul id="progressbar" class="d-flex justify-content-center">
                         <li class="active" id="account"><strong>Singkat Produk</strong></li>
                         <li id="personal"><strong>Detail</strong></li>
                         
                     </ul> <!-- fieldsets -->
                         
                         <div class="form-section">
-                            <h2 class="fs-title">Informasi Produk</h2> 
+                            <h2 class="fs-title">Informasi Proyek</h2> 
                             <div class="form-group">
-                                <label class="float-left">Nama produk</label>
-                                <input type="text" name="nama_produk" id="nama_produk" class="form-control form-control-alternative" aria-describedby="nama_produk_error" required>
+                                <label class="float-left">Nama Proyek</label>
+                                <input type="text" name="nama_produk" id="nama_produk" class="form-control form-control-alternative" aria-describedby="nama_produk_error" placeholder="Nama proyek" required>
                                 <span class="text-danger error-text nama_produk_error"></span>
                             </div>
                             <div class="row">

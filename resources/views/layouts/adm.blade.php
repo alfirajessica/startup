@@ -70,7 +70,7 @@
                         <span class="nav-link-text">Dashboard</span>
                       </a>
                     </li>
-                    <li class="ct-sidenav">
+                    <li >
                       <a class="nav-link active" href="{{ route('admin.categoryProduct') }}">
                         <i class="ni ni-tv-2 text-primary"></i>
                         <span class="nav-link-text">{{ __('Produk Kategori') }}</span>

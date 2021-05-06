@@ -6,7 +6,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="nama_tipe">nama/tipe</h5>
+          <h5 class="modal-title" id="nama_tipe"></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -27,55 +27,5 @@
   </div>
 </form>
 
-<script>
-  $(document).ready(function () {
-    if ($('#status_kas').val() == "Pemasukkan") {
-      table_listPemasukkan();
-    }
-    else
-    {
-      table_listPengeluaran();
-    }
-  });
-
-  $("#modal_ubahJumlah").on("submit",function (e) {
-    e.preventDefault();
-   
-    $.ajax({
-        url:$(this).attr('action'),
-        method:$(this).attr('method'),
-        data:new FormData(this),
-        processData:false,
-        dataType:'json',
-        contentType:false,
-        beforeSend:function() {
-            $(document).find('span.error-text').text('');
-        },
-        success:function(data) {
-            if (data.status == 0) {
-                $.each(data.error, function (prefix, val) {
-                    $('span.'+prefix+'_error').text(val[0]);
-                });
-            }
-            else{
-                $('#modal_ubahJumlah')[0].reset();
-                //$('#modal_ubahJumlah').hide();
-                if ($('#status_kas').val() == "Pemasukkan") {
-                  table_listPemasukkan();
-                }
-                else
-                {
-                  table_listPengeluaran();
-                }
-                swal({
-                    title: data.msg,
-                    text: "You clicked the button!",
-                    icon: "success",
-                    button: "Aww yiss!",
-                });
-               
-            }
-        }
-    });
-});
-</script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
+<script src="/js/dev/product.js"></script>

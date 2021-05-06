@@ -7,12 +7,14 @@
         <div class="tab-content" id="myTabContent">
             <!-- table_listInvestPending -->
             <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                <div class="alert alert-info" role="alert">
+                  <strong>info</strong> Mohon refresh halaman ini jika sudah melakukan pembayaran
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" width="100%" id="table_listInvestPending">
                       <thead>
                           <tr>
                               <th>Invest_id</th>
-
                               <th>Project</th>
                               <th>Status</th>
                               <th>Aksi</th>
@@ -21,7 +23,7 @@
                       <tbody></tbody>
                     </table>
                   <!-- AKHIR TABLE -->
-                  </div>
+                </div>
             </div>
             <!-- end of table_listInvestPending -->
 

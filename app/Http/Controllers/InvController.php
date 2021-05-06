@@ -196,7 +196,7 @@ class InvController extends Controller
         ->where('id_headerproduct','=',$id)
         ->where('tipe','=','1')
         ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
-        ->orderBy('detail_product_kas.created_at')
+        ->orderBy('created_at' )
         ->get();
         
 
@@ -225,14 +225,6 @@ class InvController extends Controller
         ->where('tipe','=','1')
         ->groupBy('id', \DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
         ->orderBy('created_at')
-         ->union(
-             DB::table('detail_product_kas')
-             ->select('id', \DB::raw('SUM(jumlah) as total_keluar,DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
-             ->where('id_headerproduct','=',$id)
-             ->where('tipe','=','2')
-             ->groupBy('id', \DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
-             ->orderBy('created_at')
-             )
         ->get();
 
         if($req->ajax()){

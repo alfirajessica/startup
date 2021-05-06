@@ -9,7 +9,7 @@
                 </script>
             @endif
             <div class="col-md-8">
-                <h1 id="id_product">{{$item->id}}</h1>
+                <h1 id="id_product" class="d-none">{{$item->id}}</h1>
                 <h5 class="card-title" name="name_project" id="name_project">{{$item->name_product}}</h5>
             </div>
             <div class="col-md-4">

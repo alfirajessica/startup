@@ -49,7 +49,7 @@ Route::post('/users/logout', [LoginController::class, 'userLogout'])->name('user
 Route::get('/eventPassed', [HomeController::class, 'event_haspassed'])->name('eventPassed');
 
 //upd global di investor dan dev -- update status transaction di header invests
-Route::get('/updStatus', [HomeController::class, 'updStatusTrans'])->name('inv.updStatus');
+Route::get('/updStatus', [HomeController::class, 'updStatusTrans'])->name('updStatus');
  
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
@@ -190,6 +190,8 @@ Route::get('/dev/listProduct/ubahProject', [ProductController::class, 'ubahProje
 Route::get('/dev/product/listPemasukkan/{id}', [ProductController::class, 'listPemasukkan'])->name('dev.product.listPemasukkan'); //show list product
 Route::post('/dev/listPemasukkan/addNewPemasukkan', [ProductController::class, 'addNewPemasukkan'])->name('dev.listPemasukkan.addNewPemasukkan'); //show list product
 
+//cek pemasukkan pada product per id
+Route::get('/dev/listProduct/cek_pemasukan/{id}', [ProductController::class, 'cek_pemasukan'])->name('dev.listProduct.cek_pemasukan'); //show list product
 
 //product-pengeluaran
 Route::get('/dev/product/listPengeluaran/{id}', [ProductController::class, 'listPengeluaran'])->name('dev.product.listPengeluaran'); //show list product
@@ -200,7 +202,7 @@ Route::get('/dev/product/deletePengeluaran/{id}', [ProductController::class, 'de
 
 Route::get('/dev/product/detailPemasukkan/{id}', [ProductController::class, 'detailPemasukkan'])->name('dev.product.detailPemasukkan'); 
 Route::post('/dev/product/updatePemasukkan', [ProductController::class, 'updatePemasukkan'])->name('dev.product.updatePemasukkan'); //show list product
-
+//Route::post('/dev/product/updatePemasukkan', [ProductController::class, 'updatePemasukkan'])->name('dev.product.updatePemasukkan'); //show list product
 
 
 

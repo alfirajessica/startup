@@ -28,7 +28,7 @@
     }
 </style>
 @section('content')
-<div class="container">
+<div class="container bg-secondary">
     <div class="py-4"></div>
     <div class="row">
         <div class="col-md-3">
@@ -39,7 +39,7 @@
                 <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Semua Proyek saya</a>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 py-2">
             <div class="tab-content" id="v-pills-tabContent">
                 <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                     @include('developer.product.daftarProductBaru')

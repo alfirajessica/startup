@@ -112,7 +112,7 @@
               </div>
             </div>
           </div> --}}
-        <main>
+        <main class="bg-secondary">
             @yield('content')
         </main>
         <br /><br />

@@ -137,6 +137,15 @@ class HomeController extends Controller
                  'status_transaction' => $status['transaction_status'],
              ]);
 
+            if ($status['transaction_status'] == "cancel" || $status['transaction_status'] == "expire") {
+                DB::table('header_invests')->
+                where('invest_id','=',$data[$i]['invest_id'])->
+                update([
+                    'status_transaction' => $status['transaction_status'],
+                    'status_invest' => '4'
+                ]);
+            }
+
              DB::table('header_products')
              ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
              ->where('header_invests.invest_id','=',$data[$i]['invest_id'])

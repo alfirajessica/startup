@@ -17,6 +17,7 @@
             <tbody>
                 @forelse ($list_finance as $item1)
                 <tr>
+                    
                     <td id="year"> {{ \Carbon\Carbon::parse($item1->monthDate)->format('M/Y')}}</td>
                     <td id ="revenue"> {{number_format( $item1->total_masuk , 0 , '.' , ',' )}} </td>
                         
@@ -50,10 +51,10 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
 <script src="https://code.highcharts.com/highcharts.js"></script>
 {{-- semua function ini ada pada /js/inv/startup.js --}}
-{{-- <script>
+<script>
      var id = {{ Request::route('id')}};
-     console.log(id)
+     console.log(id);
      const url_table_finance = id;
      console.log(url_table_finance);
-</script> --}}
+</script> 
 <script src="/js/inv/startup.js"></script>

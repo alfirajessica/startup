@@ -18,7 +18,7 @@ $(function () {
     // console.log(typecategory);
 
     //financial.blade.php
-    //table_finance();
+    table_finance();
     
     init();
 });
@@ -96,8 +96,8 @@ function table_finance() {
             
           },
           {
-              data: 'total_keluar',
-              name: 'total_keluar',
+              data: 'total_masuk',
+              name: 'total_masuk',
             
           },
           {

@@ -111,7 +111,8 @@ class InvestController extends Controller
         
     }
 
-    public function updStatusTrans()
+    //update status_transaction agar sesuai dengan midtrans
+    /*public function updStatusTrans()
     {
         $data = HeaderInvest::all()->toArray();
         for ($i=0; $i < count($data); $i++) { 
@@ -120,15 +121,24 @@ class InvestController extends Controller
             $status = \Midtrans\Transaction::status($data[$i]['invest_id']);
             $status = json_decode(json_encode($status),true);
 
-             DB::table('header_invests')->
-             where('invest_id','=',$data[$i]['invest_id'])->
-             update([
-                 'status_transaction' => $status['transaction_status'],
-             ]);
-        }
-    }
+            DB::table('header_invests')->
+            where('invest_id','=',$data[$i]['invest_id'])->
+            update([
+                'status_transaction' => $status['transaction_status'],
+            ]);
 
-    //status_invest -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif)
+            if ($status['transaction_status'] == "cancel" || $status['transaction_status'] == "expire") {
+                DB::table('header_invests')->
+                where('invest_id','=',$data[$i]['invest_id'])->
+                update([
+                    'status_transaction' => $status['transaction_status'],
+                    'status_invest' => '4'
+                ]);
+            }
+        }
+    }*/
+
+    //status_invest -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif oleh inv), 4(tdk aktif krna gagal byr/cancle/expire)
 
     public function listInvestPending(Request $req)
     {
@@ -139,7 +149,7 @@ class InvestController extends Controller
                     ->select('header_invests.id', 'header_products.name_product', 'header_invests.invest_id','header_invests.status_transaction')
                     ->where('header_invests.user_id', '=', $user->id)
                     ->where('header_invests.status_transaction','=','pending')
-                    ->orWhere('header_invests.status_invest','=','0')
+                    ->Where('header_invests.status_invest','=','0')
                     ->get();
         if($req->ajax()){
             return datatables()->of($listInvestPending)
@@ -175,7 +185,7 @@ class InvestController extends Controller
                     ->addColumn('action', function($data){
                         $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-primary btn-sm detailProject">Detail</a>';
 
-                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}" >Sudah Kirim</a>';
+                        // $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}" >Sudah Kirim</a>';
     
                         return $btn;
                      })
@@ -206,8 +216,6 @@ class InvestController extends Controller
                     ->addColumn('action', function($data){
                         $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-primary btn-sm detailProject">Detail</a>';
 
-                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}" >Sudah Kirim</a>';
-    
                         return $btn;
                      })
                     ->rawColumns(['action'])

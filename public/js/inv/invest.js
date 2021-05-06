@@ -319,6 +319,12 @@ $('body').on('click', '.detailProject', function () {
        }else if (data == "1") {
         $('#msg_admin').text('Telah Dikonfirmasi Admin');
        }
+       else if (data == "2") {
+        $('#msg_admin').text('Investasi telah dinonaktifkan');
+       }
+       else if (data == "4") {
+        $('#msg_admin').text('Investasi Gagal');
+       }
     });
 });
 
