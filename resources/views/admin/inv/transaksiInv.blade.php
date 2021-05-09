@@ -30,6 +30,10 @@
     </div>
 </div>        
 
+{{-- modal detail dari transaksi investasi --}}
+@include('admin.inv.detailTrans')
+{{-- end of modal detail dari transaksi investasi --}}
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script>
@@ -41,6 +45,10 @@
 
   //call function pada tabel --> table_listProduct /nonaktif
   const url_table_listInvestConfirmYet_notConfirmInvest = "{{ route('admin.inv.transaksiInv') }}" +'/notConfirmInvest' + '/';
+
+  const url_detailInvest = '/detailInvest' + '/';
+  const url_detailStatusInvest = '/detailStatusInvest' + '/';
+  const url_table_projectDetails = '/projectdetailInvest' + '/';
 </script>
 <script src="/js/admin/inv/transaksi/listInvest.js"></script>
 

@@ -14,6 +14,9 @@ $(function () {
         //   return this.value;
         // }).get()
     
+    //     var typecategory = $('input[name="checkbox_categoryDetail"]:checked').val();
+    // console.log(typecategory);
+
     //var typecategory = $('input[name="check_detailCat"]:checked').val();
     // console.log(typecategory);
 
@@ -27,8 +30,8 @@ let draw = false;
 function getMoreUsers(page) {
     var search = $('#search_input').val();
 
-    // var typecategory = $('input[name="category_check"]:checked').val();
-    // console.log(typecategory);
+    var typecategory = $('input[name="category_check"]:checked').val();
+    console.log(typecategory);
     
     $.ajax({
       type: "GET",

@@ -1,7 +1,11 @@
+{{-- modal detail dari transaksi investasi --}}
+@include('investor.invest.detailTrans')
+{{-- end of modal detail dari transaksi investasi --}}
+
 <div class="col-md-12 py-2">
     <!-- card -->
     <div class="card">
-      <div class="card shadow">
+      <div class="card">
       <div class="card-body"> <!-- card body -->
         <!-- tab content -->
         <div class="tab-content" id="myTabContent">
@@ -74,9 +78,7 @@
     <!-- end card -->
 </div>
 
-{{-- modal detail dari transaksi investasi --}}
-@include('investor.invest.detailTrans')
-{{-- end of modal detail dari transaksi investasi --}}
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>  
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
@@ -91,10 +93,10 @@
     //tabel listInvestCancel --> untuk daftar transaksi investasi yang DI CANCLE OR EXPIRE 
     const url_table_listInvestCancel= "{{ route('inv.invest.listInvestCancel') }}" + '/';
 
-    const url_detailInvest = "{{ route('inv.invest') }}" + '/detailInvest' + '/';
-    const url_detailStatusInvest = "{{ route('inv.invest') }}" + '/detailStatusInvest' + '/';
+    const url_detailInvest = '/detailInvest' + '/';
+    const url_detailStatusInvest = '/detailStatusInvest' + '/';
+    const url_table_projectDetails = '/projectdetailInvest' + '/';
 
-    const url_table_projectDetails = "{{ route('inv.invest') }}" + '/projectdetailInvest' + '/';
 </script>
 
 <script src="/js/inv/invest.js"></script>

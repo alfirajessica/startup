@@ -1,37 +1,16 @@
 @extends('layouts.inv')
 
 @section('content')
-<div class="container">
-     <!-- card shadow -->
-    {{-- <div class="row py-4"> <!-- row -->
-        {{-- @include('units.jumbotron')
-        <div class="py-4"></div>
-    </div> --}}
-    <div class="row py-4">
-        <div class="py-4"></div>
-        <div class="col-md-4 mb-0"><!--col-md-4 -->
-            {{-- <button type="button" class="btn btn-primary btn-lg btn-block">Investasikan</button> --}}
-            <hr>
-            @foreach ($detail_user as $item)
-            @include('investor.detailStartup.profilStartup')
-            @endforeach
-        </div><!--end col-md-4 -->
-        
-        <div class="col-md-8"> <!--col-md-8 -->
-            @foreach ($list_project as $item)
-                {{-- image, desc site info, about product --}}
-                @include('investor.detailStartup.desc') 
-            @endforeach
-                {{-- tabel keuangan --}}
-            
-            
-                @include('investor.detailStartup.financial')
-            
+<div class="container bg-secondary">
 
-                {{-- rating, ulasan --}}
-                @include('investor.detailStartup.ulasan')
-           
-        </div><!--end col-md-8 -->
+    <div class="row py-4 bg-secondary">
+        <div class="py-4"></div>
+            <div class="col-md-12">
+                @foreach ($list_project as $item)
+                    {{-- image, desc site info, about product --}}
+                    @include('investor.detailStartup.desc') 
+                @endforeach
+            </div>        
     </div>
 </div>
 

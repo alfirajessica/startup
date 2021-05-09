@@ -4,7 +4,7 @@
         <p>Isi semua form untuk ke halaman selanjutnya</p>
         <div class="row">
             <div class="col-md-12 mx-0">
-                <form id="msform" action="{{ route('dev.product.addNewProduct')}}" method="POST" class="contact-form">
+                <form id="msform" action="{{ route('dev.product.addNewProduct')}}" method="POST" class="contact-form" novalidate>
                     @csrf
                     <!-- progressbar -->
                     
@@ -18,8 +18,9 @@
                             <h2 class="fs-title">Informasi Proyek</h2> 
                             <div class="form-group">
                                 <label class="float-left">Nama Proyek</label>
+                                
                                 <input type="text" name="nama_produk" id="nama_produk" class="form-control form-control-alternative" aria-describedby="nama_produk_error" placeholder="Nama proyek" required>
-                                <span class="text-danger error-text nama_produk_error"></span>
+                                <span class="text-danger error-text nama_produk_error" id="nama_produk_error"></span>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -121,11 +122,18 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
 
 <script>
-    
+    // if ($('#nama_produk').val() == "") {
+    //     $('#nama_produk_error').html('Nama produk belum diisi');
+    // }
+    // else if ($('#detail_kategori').selected() == -1) {
+    //     $('#detail_kategori_error').html('Nama produk belum diisi');
+    // }
+
     //call function show_listProject_select di /js/dev/listproduct.js
     //menampilkan id-nama proyek di Pemasukkan dan Pengeluaran
     const url_show_listProject_select = "listProject/select";
     
+
     $(function(){
         var $section = $('.form-section');
 
@@ -148,14 +156,16 @@
             $("#progressbar li").eq($(".form-section").index(curIndex()-1)).removeClass("active"); 
         });
 
-        $('.form-navigation .next').click(function(){
+       
+        $('.form-navigation .next').click(function(e){
+            
             $('.contact-form').parsley().whenValidate({
                 group:'block-' + curIndex()
-                
+     
             }).done(function(){
                 navigateTo(curIndex()+1);
                 $("#progressbar li").eq($(".form-section").index(curIndex()+1)).addClass("active"); 
-                
+     
             })
             
         });
@@ -168,6 +178,7 @@
 
         $('#msform').submit(function (e) { 
             e.preventDefault();
+            console.log(e);
             $.ajax({
             url:$(this).attr('action'),
             method:$(this).attr('method'),
@@ -195,7 +206,7 @@
                         title: data.msg,
                         text: "Silakan masukkan detail informasi terkai pemasukkan dan pengeluaran proyek pada tab Pemasukkan dan Pengeluaran!",
                         icon: "success",
-                        button: "Aww yiss!",
+                        button: "OK!",
                     });
                 
                 }

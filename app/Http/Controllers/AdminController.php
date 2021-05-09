@@ -155,19 +155,17 @@ class AdminController extends Controller
         $list_invest = 
         DB::table('header_invests')
         ->where('status_transaction','=','settlement')
-        ->orWhere('status_transaction','=','cancle') //actionnya minta utk diaktifkan kembali product statusnya
-        ->orWhere('status_transaction','=','expire')//actionnya minta utk diaktifkan kembali product statusnya
         ->where('status_invest','=','0')
         ->get();
 
         if($req->ajax()){
             return datatables()->of($list_invest)
                 ->addColumn('action', function($data){
-                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-primary btn-sm detailProject">Detail</a>';
 
                     $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-danger btn-sm confirmInvest" data-tr="tr_{{$product->id}}">Confirm</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="notConfirm" class="btn btn-danger btn-sm notconfirmInvest" data-tr="tr_{{$product->id}}">Tidak Dikonfirmasi</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="notConfirm" class="btn btn-danger btn-sm notConfirmInvest" data-tr="tr_{{$product->id}}">Tidak Dikonfirmasi</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -194,6 +192,6 @@ class AdminController extends Controller
         update([
             'status_invest' => '0',
         ]);
-        return response()->json(['success'=>"Berhasil mengaktifkan", 'tr'=>'tr_'.$id]);
+        return response()->json(['success'=>"Berhasil menonaktifkan", 'tr'=>'tr_'.$id]);
     }
 }

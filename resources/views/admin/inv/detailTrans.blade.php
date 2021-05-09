@@ -89,9 +89,7 @@
             </div>
             
         </div>
-        {{-- <div class="modal-footer">
-          <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Sudah Kirim</a>
-        </div> --}}
+        
       </div>
     </div>
   </div>

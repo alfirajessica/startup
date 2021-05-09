@@ -23,7 +23,7 @@
               <i class="fas fa-filter"></i>
               Filter By
           </a>
-          <div class="collapse multi-collapse show" id="multiCollapseExample1">    
+          <div class="collapse multi-collapse show bg-white" id="multiCollapseExample1">    
               <div class="card-body border-1"> <!-- card-body -->
                  
                     @include('units.search')
@@ -55,25 +55,14 @@
                     </div>
                       
                   </div>
-                  <hr> 
               </div>
               
           </div><!-- card-body --> 
 
         </div><!--end tabs -->
         
-        <div class="col-md-9">
-            <div class="card border-0 py-4">  
-                <div class="form-group">
-                    <label for="exampleSelect1">Sort By</label>
-                    <select class="form-control" id="exampleSelect1">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                    </select>
-                </div>    
+        <div class="col-md-9 bg-secondary">
+            <div class="card border-0 py-4 bg-secondary">  
                 
                 <div id="user_data">
                   @include('investor.detailStartup.dataStartup')

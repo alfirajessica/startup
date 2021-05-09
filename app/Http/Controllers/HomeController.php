@@ -26,6 +26,14 @@ class HomeController extends Controller
         // $this->middleware('guest');
         // $this->middleware('guest:admin');
 
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = $this->MIDTRANS_SERVER_KEY;
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
         
     }
 
@@ -116,13 +124,13 @@ class HomeController extends Controller
     public function updStatusTrans()
     {
         // Set your Merchant Server Key
-        \Midtrans\Config::$serverKey = $this->MIDTRANS_SERVER_KEY;
-        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        \Midtrans\Config::$isProduction = false;
-        // Set sanitization on (default)
-        \Midtrans\Config::$isSanitized = true;
-        // Set 3DS transaction for credit card to true
-        \Midtrans\Config::$is3ds = true;
+        // \Midtrans\Config::$serverKey = $this->MIDTRANS_SERVER_KEY;
+        // // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        // \Midtrans\Config::$isProduction = false;
+        // // Set sanitization on (default)
+        // \Midtrans\Config::$isSanitized = true;
+        // // Set 3DS transaction for credit card to true
+        // \Midtrans\Config::$is3ds = true;
         
         $data = HeaderInvest::all()->toArray();
         for ($i=0; $i < count($data); $i++) { 
@@ -157,6 +165,67 @@ class HomeController extends Controller
         }
     }
 
+    public function detailInvest($id)
+    {
 
+        $data = HeaderInvest::find($id);
+        $investID = $data->invest_id;
+        $projectID = $data->project_id;
+       
+        
+        //get status dari midtrans berdasarkan order_id nya
+        $status = \Midtrans\Transaction::status($investID);
+        $status = json_decode(json_encode($status),true);
+
+        return response()->json($status);
+
+    }
+
+    public function detailStatusInvest($id)
+    {
+        $data = HeaderInvest::find($id);
+        $statusInvest = $data->status_invest;
+
+        return $statusInvest;
+    }
+
+    public function projectdetailInvest(Request $req, $id)
+    {
+        $data = HeaderInvest::find($id);
+        $projectID = $data->project_id;
+
+        $detail = DB::table('header_products')
+                    ->leftJoin('detail_category_products', 'detail_category_products.id','=','header_products.id_detailcategory')
+                    ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+                    ->leftJoin('users','users.id','=','header_products.user_id')
+                    ->select('header_products.id','header_products.name_product','detail_category_products.name','header_invests.jumlah', 'users.name as nama_dev', 'users.email')
+                    ->where('header_products.id', '=', $projectID)
+                    ->where('header_invests.id','=',$id)
+                    ->get();
+        if($req->ajax()){
+            return datatables()->of($detail)
+                    ->addColumn('action', function($data){
+                         $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="far fa-edit"></i> Edit</a>';
+                         $button .= '&nbsp;&nbsp;';
+                         $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';     
+                         return $button;
+                     })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+        }
+    }
     
+    //jika investor meng-cancle investasi/Batal Invest pada saat transaksi investasi masih berstatus "Pending"
+    public function cancleInvest($id)
+    {
+         //get invest idnya
+        $data = HeaderInvest::find($id);
+        $investID = $data->invest_id;
+
+        $cancel = \Midtrans\Transaction::cancel($investID);
+
+        return $cancel;
+        //var_dump($cancel);
+    }
 }

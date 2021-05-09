@@ -1,4 +1,10 @@
 @extends('head')
+<style>
+    .modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+    }
+  </style>
 <body class="landing-page">
   <!-- Navbar -->
   <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg bg-white navbar-light position-sticky top-0 shadow py-2">

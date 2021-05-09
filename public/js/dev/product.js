@@ -1,3 +1,9 @@
+//Dibawah ini adalah function pada 
+//dev/product/daftarProduct.blade.php
+//dev/product/pemasukkanProduct.blade.php
+//dev/product/pengeluaranProduct.blade.php
+//dev/product/ubahPemasukkan.blade.php --> modal
+
 $(function () {
 
     if ($('#status_kas').val() == "Pemasukkan") {

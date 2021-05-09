@@ -1,6 +1,7 @@
 
-//Dibawah ini adalah function pada listProduct.blade.php
+//Dibawah ini adalah function pada dev/product/listProduct.blade.php
 $(function () {
+    
     table_listProduct();
 
     //daftarProductBaru.blade.php

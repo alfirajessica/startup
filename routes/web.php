@@ -50,7 +50,16 @@ Route::get('/eventPassed', [HomeController::class, 'event_haspassed'])->name('ev
 
 //upd global di investor dan dev -- update status transaction di header invests
 Route::get('/updStatus', [HomeController::class, 'updStatusTrans'])->name('updStatus');
- 
+
+//get detail transaksi invest
+Route::get('/detailInvest/{id}', [HomeController::class, 'detailInvest'])->name('detailInvest');
+Route::get('/detailStatusInvest/{id}', [HomeController::class, 'detailStatusInvest'])->name('detailStatusInvest');
+Route::get('/projectdetailInvest/{id}', [HomeController::class, 'projectdetailInvest'])->name('projectdetailInvest');
+
+//cancle invest
+Route::get('/cancleInvest/{id}', [HomeController::class, 'cancleInvest'])->name('cancleInvest');
+
+
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
 
@@ -145,9 +154,7 @@ Route::get('/inv/investTo/{id}/{invest}', [InvestController::class, 'investTo'])
 Route::get('/inv/invest/listInvestPending', [InvestController::class, 'listInvestPending'])->name('inv.invest.listInvestPending');
 Route::get('/inv/invest/listInvestSettlement', [InvestController::class, 'listInvestSettlement'])->name('inv.invest.listInvestSettlement');
 Route::get('/inv/invest/listInvestCancel', [InvestController::class, 'listInvestCancel'])->name('inv.invest.listInvestCancel');
-Route::get('/inv/invest/detailInvest/{id}', [InvestController::class, 'detailInvest'])->name('inv.invest.detailInvest');
-Route::get('/inv/invest/detailStatusInvest/{id}', [InvestController::class, 'detailStatusInvest'])->name('inv.invest.detailStatusInvest');
-Route::get('/inv/invest/projectdetailInvest/{id}', [InvestController::class, 'projectdetailInvest'])->name('inv.invest.projectdetailInvest');
+
 
 //-----------------------------end of INVESTOR---------------------------
 

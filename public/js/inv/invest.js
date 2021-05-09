@@ -1,8 +1,5 @@
 $(function () {
     $('#invest_number').val(0);
-    // listInvestPending();
-    // listInvestSettlement();
-    // listInvestCancel();
     updStatusTrans();
 });
 
@@ -29,12 +26,14 @@ function payButton() {
             },
         success:function(data) {
             console.log('ini data : ' + data);
+
             if (data == 0) {
                
                 swal("Gagal!", "Anda belum melunaskan investasi pada project yang sama!", "fail");
                
             }else{
                 $('#invest_number').val(0);
+                $('#exampleModal').modal('hide');
                 snap.pay(data, {
                 // Optional
                 onSuccess: function(result){
@@ -52,6 +51,7 @@ function payButton() {
                     //document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
                 }
                 });
+
             }
             
         },
@@ -65,7 +65,6 @@ function payButton() {
 } 
 
 function updStatusTrans() { 
-   // console.log('ini result : ' + $id);
     $.ajax({
         type: "get",
         url: '/updStatus',
@@ -73,6 +72,7 @@ function updStatusTrans() {
             listInvestPending();
             listInvestSettlement();
             listInvestCancel();
+           
         },
         error: function (data) {
             console.log('Error:', data);
@@ -114,8 +114,22 @@ function listInvestPending() {
               
             },
             {
-                data: 'action',
-                name: 'action', 
+                data: null,
+                name: 'status_transaction', 
+                render: data => {
+                    var btn;
+                    if (data.status_transaction == "pending") {
+                        btn= "<a href='javascript:void(0)' data-toggle='modal' data-target='#detailTrans' data-id='"+ data.id + "' data-original-title='Detail' class='detail btn btn-warning btn-sm detailProject'>Detail</a>";
+
+                        btn = btn + " <a href='javascript:void(0)' data-toggle='tooltip' data-id='" + data.id + "' data-original-title='Kirim' class='btn btn-success btn-sm sudahKirim' data-tr='tr_{{$product->id}}' >Sudah Kirim</a>";
+                    
+                        btn = btn + " <a href='javascript:void(0)' data-toggle='tooltip' data-id='" + data.id + "' data-original-title='Cancel' class='btn btn-danger btn-sm cancelInvest' data-tr='tr_{{$product->id}}' >Batal Invest</a>";
+                    }
+                    else if (data.status_transaction == "settlement") {
+                        btn= "<a href='javascript:void(0)' data-toggle='modal' data-target='#detailTrans' data-id='"+ data.id + "' data-original-title='Detail' class='detail btn btn-primary btn-sm detailProject'>Detail</a>";
+                    }
+                    return btn;
+                }
             },
            
         ],
@@ -310,6 +324,46 @@ $('body').on('click', '.detailProject', function () {
             "</tr>";
             $('#table_payDetails tbody').html(showPayDetail);
         }
+        else if (data['payment_type'] == "gopay") {
+            showPayDetail = 
+            "<tr>" +
+                "<td>Tipe Bayar</td>" +
+                "<td>Gopay</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>QR CODE </td>" +
+                "<td><img width='200px' height='200px' class='qr' src='https://api.sandbox.veritrans.co.id/v2/gopay/" + data['transaction_id'] + "/qr-code'> </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>Time </td>" +
+                "<td>" + data['transaction_time'] + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>Status</td>" +
+                "<td>" + detail_time_settle + "</td>" +
+            "</tr>";
+            $('#table_payDetails tbody').html(showPayDetail);
+        }
+        else if (data['payment_type'] == "qris") {
+            showPayDetail = 
+            "<tr>" +
+                "<td>Tipe Bayar</td>" +
+                "<td> " + data['acquirer'] + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>QR CODE </td>" +
+                "<td><img width='200px' height='200px' class='qr' src='https://api.sandbox.veritrans.co.id/v2/qris/shopeepay/sppq_" + data['transaction_id'] + "/qr-code'> </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>Time </td>" +
+                "<td>" + data['transaction_time'] + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>Status</td>" +
+                "<td>" + detail_time_settle + "</td>" +
+            "</tr>";
+            $('#table_payDetails tbody').html(showPayDetail);
+        }
    });
 
    //get status_invest
@@ -325,6 +379,25 @@ $('body').on('click', '.detailProject', function () {
        else if (data == "4") {
         $('#msg_admin').text('Investasi Gagal');
        }
+    });
+});
+
+$('body').on('click', '.sudahKirim', function () {
+    updStatusTrans();
+});
+
+$('body').on('click', '.cancelInvest', function () {
+    var id = $(this).data('id');
+    console.log(id);
+    $.ajax({
+        type: "get",
+        url: '/cancleInvest/' + id ,
+        success: function (data) {
+            updStatusTrans();
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
     });
 });
 

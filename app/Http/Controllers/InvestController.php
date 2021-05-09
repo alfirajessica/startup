@@ -111,32 +111,7 @@ class InvestController extends Controller
         
     }
 
-    //update status_transaction agar sesuai dengan midtrans
-    /*public function updStatusTrans()
-    {
-        $data = HeaderInvest::all()->toArray();
-        for ($i=0; $i < count($data); $i++) { 
-
-            //get status dari midtrans berdasarkan order_id nya
-            $status = \Midtrans\Transaction::status($data[$i]['invest_id']);
-            $status = json_decode(json_encode($status),true);
-
-            DB::table('header_invests')->
-            where('invest_id','=',$data[$i]['invest_id'])->
-            update([
-                'status_transaction' => $status['transaction_status'],
-            ]);
-
-            if ($status['transaction_status'] == "cancel" || $status['transaction_status'] == "expire") {
-                DB::table('header_invests')->
-                where('invest_id','=',$data[$i]['invest_id'])->
-                update([
-                    'status_transaction' => $status['transaction_status'],
-                    'status_invest' => '4'
-                ]);
-            }
-        }
-    }*/
+    
 
     //status_invest -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif oleh inv), 4(tdk aktif krna gagal byr/cancle/expire)
 
@@ -149,15 +124,16 @@ class InvestController extends Controller
                     ->select('header_invests.id', 'header_products.name_product', 'header_invests.invest_id','header_invests.status_transaction')
                     ->where('header_invests.user_id', '=', $user->id)
                     ->where('header_invests.status_transaction','=','pending')
+                    ->orWhere('header_invests.status_transaction','=','settlement')
                     ->Where('header_invests.status_invest','=','0')
                     ->get();
         if($req->ajax()){
             return datatables()->of($listInvestPending)
                     ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-primary btn-sm detailProject">Detail</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
 
-                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}" >Sudah Kirim</a>';
-    
+                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Sudah Kirim</a>';
+
                         return $btn;
                      })
                     ->rawColumns(['action'])
@@ -226,56 +202,7 @@ class InvestController extends Controller
         return view('inv.listInvest');
     }
 
-    public function detailInvest($id)
-    {
 
-        $data = HeaderInvest::find($id);
-        $investID = $data->invest_id;
-        $projectID = $data->project_id;
-       
-        
-        //get status dari midtrans berdasarkan order_id nya
-        $status = \Midtrans\Transaction::status($investID);
-        $status = json_decode(json_encode($status),true);
-
-        return response()->json($status);
-
-    }
-
-    public function detailStatusInvest($id)
-    {
-        $data = HeaderInvest::find($id);
-        $statusInvest = $data->status_invest;
-
-        return $statusInvest;
-    }
-
-    public function projectdetailInvest(Request $req, $id)
-    {
-        $data = HeaderInvest::find($id);
-        $projectID = $data->project_id;
-
-        $detail = DB::table('header_products')
-                    ->leftJoin('detail_category_products', 'detail_category_products.id','=','header_products.id_detailcategory')
-                    ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
-                    ->leftJoin('users','users.id','=','header_products.user_id')
-                    ->select('header_products.id','header_products.name_product','detail_category_products.name','header_invests.jumlah', 'users.name as nama_dev', 'users.email')
-                    ->where('header_products.id', '=', $projectID)
-                    ->where('header_invests.id','=',$id)
-                    ->get();
-        if($req->ajax()){
-            return datatables()->of($detail)
-                    ->addColumn('action', function($data){
-                         $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="far fa-edit"></i> Edit</a>';
-                         $button .= '&nbsp;&nbsp;';
-                         $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';     
-                         return $button;
-                     })
-                    ->rawColumns(['action'])
-                    ->addIndexColumn()
-                    ->make(true);
-        }
-    }
-
+    
     
 }
