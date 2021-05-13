@@ -97,6 +97,7 @@ class InvestController extends Controller
             $newHeader->profit = 0;
             $newHeader->status_transaction = '-';  //status yang didapat dari midtrans  
             $newHeader->status_invest = '0';    //(0-menunggu konfirmasi), (1-aktif/sdh dikonfirmasi), (2-tdk invest lagi)
+            $newHeader->invest_expire = $req->invest_exp_date; 
             $query = $newHeader->save();
 
             DB::table('header_products')
@@ -121,7 +122,7 @@ class InvestController extends Controller
        
         $listInvestPending = DB::table('header_invests')
                     ->leftJoin('header_products', 'header_products.id','=','header_invests.project_id')
-                    ->select('header_invests.id', 'header_products.name_product', 'header_invests.invest_id','header_invests.status_transaction')
+                    ->select('header_invests.id', 'header_products.name_product', 'header_invests.invest_id','header_invests.status_transaction', 'header_invests.invest_expire')
                     ->where('header_invests.user_id', '=', $user->id)
                     ->where('header_invests.status_transaction','=','pending')
                     ->orWhere('header_invests.status_transaction','=','settlement')

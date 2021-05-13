@@ -186,7 +186,7 @@ class HomeController extends Controller
         $data = HeaderInvest::find($id);
         $statusInvest = $data->status_invest;
 
-        return $statusInvest;
+        return response()->json($data);
     }
 
     public function projectdetailInvest(Request $req, $id)

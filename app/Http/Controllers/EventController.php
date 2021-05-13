@@ -163,7 +163,7 @@ class EventController extends Controller
         if($req->ajax()){
             return datatables()->of($list_dev)
                     ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-primary btn-sm detailEvent">Detail</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-warning btn-sm detailEvent">Detail</a>';
 
                         // $btn = $btn. ' <a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
    
@@ -268,7 +268,7 @@ class EventController extends Controller
                     ]);
                 }
             }
-            else if($req->event_held == "Online"){
+            else if($req->edit_event_held == "Online"){
                 $validator = Validator::make($req->all(),[
                     'edit_link_event'=>'required',
                 ]);

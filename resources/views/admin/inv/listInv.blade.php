@@ -33,9 +33,11 @@
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script>
-  
+   const url_detailInvest = '/detailInvest' + '/';
+    const url_detailStatusInvest = '/detailStatusInvest' + '/';
+    const url_table_projectDetails = '/projectdetailInvest' + '/';
 </script>
-<script src="/js/admin/inv/investor.js"></script>
+<script src="/js/admin/inv/transaksi/listInvest.js"></script>
 
 
 @endsection

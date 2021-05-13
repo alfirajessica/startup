@@ -222,17 +222,18 @@ $('body').on('click', '.detailProject', function () {
 
    //get status_invest
    $.get(url_detailStatusInvest + id, function (data) {
-       if (data == "0") {
-           $('#msg_admin').text('Menunggu Konfirmasi Admin');
-       }else if (data == "1") {
-        $('#msg_admin').text('Telah Dikonfirmasi Admin');
-       }
-       else if (data == "2") {
-        $('#msg_admin').text('Investasi telah dinonaktifkan');
-       }
-       else if (data == "4") {
-        $('#msg_admin').text('Investasi Gagal');
-       }
+    $('#invest_exp').text(moment(data['invest_expire']).format('DD-MMM-YYYY')); 
+    if (data['status_invest'] == "0") {
+        $('#msg_admin').text('Menunggu Konfirmasi Admin');
+    }else if (data['status_invest'] == "1") {
+     $('#msg_admin').text('Telah Dikonfirmasi Admin');
+    }
+    else if (data['status_invest'] == "2") {
+     $('#msg_admin').text('Investasi telah dinonaktifkan');
+    }
+    else if (data['status_invest'] == "4") {
+     $('#msg_admin').text('Investasi Gagal');
+    }
     });
 });
 

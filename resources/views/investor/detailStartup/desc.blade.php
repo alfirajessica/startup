@@ -142,6 +142,13 @@
               onBlur="this.type=''; this.lastValue=this.value; this.value=this.value==''?'':(+this.value).toLocaleString()" class="form-control form-control-alternative"/>
               <small id="notif_invest_number"></small>
             </div>
+            <div class="form-group">
+                <label for="" class="col-form-label">Durasi Anda Investasi :</label>
+                <select name="durasi_inv" id="durasi_inv" class="form-control">
+                    <option value="3">3 Bulan</option>
+                    <option value="6">6 Bulan</option>
+                </select>
+            </div>
           </form>
         </div>
         <div class="modal-footer">

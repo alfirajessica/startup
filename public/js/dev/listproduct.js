@@ -201,6 +201,13 @@ $('body').on('click', '.detailProject', function () {
        $('#benefit').text(data.benefit);
        $('#solution').text(data.solution);
    });
+
+   //get detail investornya
+//    $.get(url_table_listProduct_detailProject + product_id, function (data) {
+//     console.log("/uploads/event/"+data.image);
+    
+//     });
+
 });
 
 $('body').on('click', '.deleteProject', function () {

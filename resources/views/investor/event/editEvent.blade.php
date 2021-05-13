@@ -2,7 +2,7 @@
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" id="editEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
+      <div class="modal-content bg-secondary">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Ubah Event</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -17,19 +17,19 @@
                     <div class="col md-6">
                         <div class="form-group">
                             <label for="edit_nama_event">Nama Event</label>
-                            <input type="text" class="form-control" name="edit_nama_event" id="edit_nama_event" aria-describedby="edit_nama_eventHelp" placeholder="Masukkan Nama Event">
+                            <input type="text" class="form-control form-control-alternative" name="edit_nama_event" id="edit_nama_event" aria-describedby="edit_nama_eventHelp" placeholder="Masukkan Nama Event">
                             <span class="text-danger error-text edit_nama_event_error"></span>
                         </div>
                 
                         <div class="form-group">
                             <label for="edit_desc_event">Deskripsi Event</label>
-                            <textarea class="form-control" name="edit_desc_event" id="edit_desc_event" rows="3"></textarea>
+                            <textarea class="form-control form-control-alternative" name="edit_desc_event" id="edit_desc_event" rows="3"></textarea>
                             <span class="text-danger error-text edit_desc_event_error"></span>
                         </div>
                 
                         <div class="form-group">
                             <label for="edit_event_held">Event akan diadakan secara</label>
-                            <select class="form-control" name="edit_event_held" id="edit_will_beheld" onchange="edit_event_willbe_held()">
+                            <select class="form-control form-control-alternative" name="edit_event_held" id="edit_will_beheld" onchange="edit_event_willbe_held()">
                                 <option value="0">pilih</option>
                                 <option value="Online">Online</option>
                                 <option value="Offline">Offline</option>
@@ -39,13 +39,13 @@
                 
                         <div class="form-group d-none" id="events_link">
                             <label for="edit_link_event">Link Event</label>
-                            <input type="url" class="form-control" name="edit_link_event" id="edit_link_event" aria-describedby="link_eventHelp" placeholder="Masukkan Link Event" />
+                            <input type="url" class="form-control form-control-alternative" name="edit_link_event" id="edit_link_event" aria-describedby="link_eventHelp" placeholder="Masukkan Link Event" />
                             <span class="text-danger error-text edit_link_event_error"></span>
                         </div>
                 
                         <div class="form-group d-none" id="events_provinsi">
                             <label for="edit_provinsi_event">Lokasi provinsi</label>
-                            <select class="form-control" name="edit_provinsi_event" id="edit_provinsi_event" onchange="show_cities2(this)">
+                            <select class="form-control form-control-alternative" name="edit_provinsi_event" id="edit_provinsi_event" onchange="show_cities2(this)">
                                 <option value="0" selected>-- pilih provinsi --</option>
                                 @foreach($provinces as $provinsi)
                                     <option value="{{ $provinsi['province_id'] }}">{{ $provinsi['province'] }}</option>
@@ -56,7 +56,7 @@
                 
                         <div class="form-group d-none" id="events_kota">
                             <label for="kota_event">Lokasi Kota</label>
-                            <select class="form-control" name="edit_kota_event" id="edit_kota_event">
+                            <select class="form-control form-control-alternative" name="edit_kota_event" id="edit_kota_event">
                                  <option value="0">-- pilih kota --</option>
                             </select>
                             <span class="text-danger error-text kota_event_error"></span>
@@ -64,7 +64,7 @@
                 
                         <div class="form-group d-none" id="events_address">
                             <label for="edit_address_event">Alamat Event</label>
-                            <textarea class="form-control" name="edit_address_event" id="edit_address_event" rows="2"></textarea>
+                            <textarea class="form-control form-control-alternative" name="edit_address_event" id="edit_address_event" rows="2"></textarea>
                             <span class="text-danger error-text edit_address_event_error"></span>
                         </div>
                     </div>
@@ -72,13 +72,13 @@
                     <div class="col md-6">
                         <div class="form-group">
                             <label for="edit_jadwal_event">Jadwal Event</label>
-                            <input type="date" class="form-control" name="edit_jadwal_event" id="edit_jadwal_event" aria-describedby="edit_jadwal_eventHelp">
+                            <input type="date" class="form-control form-control-alternative" name="edit_jadwal_event" id="edit_jadwal_event" aria-describedby="edit_jadwal_eventHelp">
                             <span class="text-danger error-text edit_jadwal_event_error"></span>
                         </div>
                 
                         <div class="form-group">
                             <label for="edit_time_event">Jam Event</label>
-                            <input type="time" class="form-control" name="edit_time_event" id="edit_time_event" aria-describedby="edit_time_eventHelp">
+                            <input type="time" class="form-control form-control-alternative" name="edit_time_event" id="edit_time_event" aria-describedby="edit_time_eventHelp">
                             <span class="text-danger error-text edit_time_event_error"></span>
                         </div>
                 
@@ -86,13 +86,13 @@
                 
                         <div class="input-group">
                             <label for="editInputFile2">File input</label>
-                            <input type="file" class="form-control-file"  name="image" id="editInputFile2" aria-describedby="fileHelp" onchange="previewFile2(this)">
+                            <input type="file" class="form-control-file form-control-alternative"  name="image" id="editInputFile2" aria-describedby="fileHelp" onchange="previewFile2(this)">
                             <span class="text-danger error-text image_error"></span>
                         </div>
                 
                         <div class="form-group">
                           <a href="#" id="pop">
-                            <img id="previewImg2" style="max-width: 250px; margin-top:20px" src="{{asset('images')}}">
+                            <img id="previewImg2" style="max-width: 250px; margin-top:20px" src="../images/sample-img.png">
                             </a>  
                         </div>
                     </div>
@@ -110,64 +110,12 @@
 
 
 <script>
-    $(document).ready(function () {
-        console.log($('select[name="edit_kota_event"]').val());
+    // $(document).ready(function () {
+    //     console.log($('select[name="edit_kota_event"]').val());
         
-    });
+    // });
 
-function edit_event_willbe_held() {
-    var event_held = $("#edit_will_beheld").val(); 
-   
-    if (event_held == "Online") {
-        document.querySelector('#events_link').classList.remove('d-none');
-        document.querySelector('#events_provinsi').classList.add('d-none');
-        document.querySelector('#events_kota').classList.add('d-none');
-        document.querySelector('#events_address').classList.add('d-none');
-       
-    }
-    else if (event_held == "Offline") {
-        document.querySelector('#events_link').classList.add('d-none');
-        document.querySelector('#events_provinsi').classList.remove('d-none');
-        document.querySelector('#events_kota').classList.remove('d-none');
-        document.querySelector('#events_address').classList.remove('d-none');
-    }
-}
 
-function previewFile2() {
-    var file = $("#exampleInputFile2").get(0).files[0];
-    console.log(file);
-    if (file) {
-        var reader = new FileReader();
-        reader.onload = function(){
-            $("#previewImg2").attr("src", reader.result);
-            console.log(file);
-        }
-        reader.readAsDataURL(file);
-    }
-}
-
-//show cities when province selected
-function show_cities2() {
-    let provindeId = $('select[name="edit_provinsi_event"]').val();
-    console.log("id provinsi :" + provindeId);
-    if (provindeId) {
-        jQuery.ajax({
-            url: '/cities/'+provindeId,
-            type: "GET",
-            dataType: "json",
-            success: function (response) {
-                $('select[name="edit_kota_event"]').empty();
-                $('select[name="edit_kota_event"]').append('<option value="" selected>-- pilih kota --</option>');
-                $.each(response, function (key, value) {
-                    var id = value["city_id"];
-                    $('select[name="edit_kota_event"]').append('<option value="'+ id + '">' + value["city_name"] + '</option>');
-                });
-            },
-        });
-    } else {
-        $('select[name="edit_kota_event"]').append('<option value="">-- pilih kota --</option>');
-    }
-}
 
 //function when user click button -- Simpan perubahan
 $("#updateEvent").on("submit",function (e) {
@@ -207,3 +155,4 @@ $("#updateEvent").on("submit",function (e) {
     });
 });
 </script>
+<script src="/js/inv/event.js"></script>

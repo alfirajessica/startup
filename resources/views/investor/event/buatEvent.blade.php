@@ -84,7 +84,9 @@
 
         <div class="form-group">
           <a href="#" id="pop">
-            <img id="previewImg" style="max-width: 250px; margin-top:20px" src="{{asset('images')}}">
+            {{-- {{asset('images')}} --}}
+           
+            <img id="previewImg" style="max-width: 250px; margin-top:20px" src="../images/sample-img.png">
             </a>  
         </div>
         
@@ -116,78 +118,8 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
 
 <script type="text/javascript">
-
-//do hide and show if event_held had choosen -- onchange select
-function event_willbe_held() {
-    var event_held = $("#will_beheld, #edit_will_beheld").val(); 
-    console.log(event_held);
-    if (event_held == "online") {
-        document.querySelector('#event_link').classList.remove('d-none');
-        document.querySelector('#event_provinsi').classList.add('d-none');
-        document.querySelector('#event_kota').classList.add('d-none');
-        document.querySelector('#event_address').classList.add('d-none');
-       
-    }
-    else if (event_held == "offline") {
-        document.querySelector('#event_link').classList.add('d-none');
-        document.querySelector('#event_provinsi').classList.remove('d-none');
-        document.querySelector('#event_kota').classList.remove('d-none');
-        document.querySelector('#event_address').classList.remove('d-none');
-    }
-}
-
-//show cities when province selected
-function show_cities() {
-    $("#hidden_province_name").val($('select[name="provinsi_event"] option:selected').text());
-
-    let provindeId = $('select[name="provinsi_event"]').val();
-    if (provindeId) {
-        jQuery.ajax({
-            url: '/cities/'+provindeId,
-            type: "GET",
-            dataType: "json",
-            success: function (response) {
-                $('select[name="kota_event"]').empty();
-                $('select[name="kota_event"]').append('<option value="" selected>-- pilih kota --</option>');
-                $.each(response, function (key, value) {
-                    var id = value["city_id"];
-                    $('select[name="kota_event"]').append('<option value="'+ id + '">' + value["city_name"] + '</option>');
-                });
-                
-            },
-        });
-    } else {
-        $('select[name="kota_event"]').append('<option value="">-- pilih kota --</option>');
-    }
-}
-
-function get_city() {  
-    $("#hidden_city_name").val($('select[name="kota_event"] option:selected').text());
-}
-
-//to show image what user had choosen in preview
-function previewFile() {
-    var file = $("#exampleInputFile").get(0).files[0];
-    if (file) {
-        var reader = new FileReader();
-        reader.onload = function(){
-            $("#previewImg").attr("src", reader.result);
-            console.log(file);
-        }
-        reader.readAsDataURL(file);
-    }
-}
-
-//show image preview to modal
-$("#pop").on("click", function() {
-    $('#imagepreview').attr('src', $('#previewImg').attr('src')); // here asign the image to the modal when the user click the enlarge link
-    $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
-});
 
 //function when user click button --Simpan Event
 $("#buatEvent").on("submit",function (e) {
@@ -223,3 +155,4 @@ $("#buatEvent").on("submit",function (e) {
 });
 
 </script>
+<script src="/js/inv/event.js"></script>

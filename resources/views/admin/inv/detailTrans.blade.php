@@ -45,6 +45,10 @@
                         <table class="table table-sm padding-0" width="100%" id="table_detailOrder">
                           <tbody>
                             <tr>
+                              <td>Masa Berlaku Investasi</td>
+                              <td id='invest_exp'></td>
+                            </tr>
+                            <tr>
                               <td>Invest Id</td>
                               <td id='invest_id'></td>
                             </tr>

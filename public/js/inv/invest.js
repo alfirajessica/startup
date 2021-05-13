@@ -13,51 +13,57 @@ function payButton() {
     var num = $('#invest_number').val().toLocaleString().replace(/\D/g,'');
     var invest=parseInt(num);
     
+    var durasi = $('#durasi_inv').val();
+    var startdate = new Date();
+    var invest_exp_date = moment(startdate, "DD-MM-YYYY").add(durasi, 'months').format('YYYY-MM-DD');
+    
     //batas minimal invest 500 ribu
     if (invest < 500000) {
        $('#notif_invest_number').html('minimal 500 ribu!');
     }
     else {
-        $.ajax({
-        type: "GET",
-        url: url_pay + id + '/' + invest,
-        data:{
-            "nama_project":nama_project,
-            },
-        success:function(data) {
-            console.log('ini data : ' + data);
+         $.ajax({
+         type: "GET",
+         url: url_pay + id + '/' + invest,
+         data:{
+             "nama_project":nama_project,
+             "invest_exp_date":invest_exp_date
+             },
+         success:function(data) {
+             console.log('ini data : ' + data);
 
-            if (data == 0) {
+             if (data == 0) {
                
-                swal("Gagal!", "Anda belum melunaskan investasi pada project yang sama!", "fail");
+                 swal("Gagal!", "Anda belum melunaskan investasi pada project yang sama!", "fail");
                
-            }else{
-                $('#invest_number').val(0);
-                $('#exampleModal').modal('hide');
-                snap.pay(data, {
-                // Optional
-                onSuccess: function(result){
-                    updStatusTrans();
-                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                },
-                // Optional
-                onPending: function(result){
-                    updStatusTrans();
-                    document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                },
-                // Optional
-                onError: function(result){
-                    updStatusTrans();
-                    //document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                }
-                });
+             }else{
+                 $('#invest_number').val(0);
+                 $('#exampleModal').modal('hide');
+                 
+                 snap.pay(data, {
+                 // Optional
+                 onSuccess: function(result){
+                     updStatusTrans();
+                     document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                 },
+                 // Optional
+                 onPending: function(result){
+                     updStatusTrans();
+                     document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                 },
+                 // Optional
+                 onError: function(result){
+                     updStatusTrans();
+                     //document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
+                 }
+                 });
 
-            }
+             }
             
-        },
-        error: function (data) {
-            console.log('Error:', data);
-        }
+         },
+         error: function (data) {
+             console.log('Error:', data);
+         }
 
     });
     }
@@ -238,7 +244,9 @@ $('body').on('click', '.detailProject', function () {
         else if (data['payment_type'] == "echannel") {
             tipe_pay="Mandiri Bill";
         }
-    
+
+        
+        
         $('#invest_id').text(data['order_id']);    
         $('#pay_type').text(tipe_pay);
         $('#jumlah').text(data['gross_amount']);
@@ -368,17 +376,19 @@ $('body').on('click', '.detailProject', function () {
 
    //get status_invest
    $.get(url_detailStatusInvest + id, function (data) {
-       if (data == "0") {
-           $('#msg_admin').text('Menunggu Konfirmasi Admin');
-       }else if (data == "1") {
-        $('#msg_admin').text('Telah Dikonfirmasi Admin');
-       }
-       else if (data == "2") {
-        $('#msg_admin').text('Investasi telah dinonaktifkan');
-       }
-       else if (data == "4") {
-        $('#msg_admin').text('Investasi Gagal');
-       }
+        
+        $('#invest_exp').text(moment(data['invest_expire']).format('DD-MMM-YYYY')); 
+        if (data['status_invest'] == "0") {
+            $('#msg_admin').text('Menunggu Konfirmasi Admin');
+        }else if (data['status_invest'] == "1") {
+         $('#msg_admin').text('Telah Dikonfirmasi Admin');
+        }
+        else if (data['status_invest'] == "2") {
+         $('#msg_admin').text('Investasi telah dinonaktifkan');
+        }
+        else if (data['status_invest'] == "4") {
+         $('#msg_admin').text('Investasi Gagal');
+        }
     });
 });
 
@@ -473,10 +483,12 @@ function projectDetails(id) {
                     return intVal(a) + intVal(b);
                 }, 0 );
 
-            // Update footer
-            $( api.column( 4 ).footer() ).html(
-                $.fn.dataTable.render.number('.','.','2','Rp').display(total)
-            );
+            // // Update footer
+            // $( api.column( 4 ).footer() ).html(
+            //     $.fn.dataTable.render.number('.','.','2','Rp').display(total)
+            // );
+
+            getTotal = total - ((total * 1)/100);
 
             $("#totalsemua").html(
                 $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
