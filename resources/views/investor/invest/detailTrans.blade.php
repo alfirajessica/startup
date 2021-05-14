@@ -66,10 +66,6 @@
                               <td id='pay_type'></td>
                             </tr>
                             <tr>
-                                <td>Jumlah</td>
-                                <td id='jumlah'></td>
-                            </tr>
-                            <tr>
                                 <td>Status Investasi</td>
                                 <td id='msg_admin'></td>
                             </tr>

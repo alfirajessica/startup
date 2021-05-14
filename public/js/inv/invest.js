@@ -249,7 +249,6 @@ $('body').on('click', '.detailProject', function () {
         
         $('#invest_id').text(data['order_id']);    
         $('#pay_type').text(tipe_pay);
-        $('#jumlah').text(data['gross_amount']);
         $('#transaction_id').text(data['transaction_id']);
         
         //Card   --> payment_type:credit_card , masked-card
@@ -282,6 +281,10 @@ $('body').on('click', '.detailProject', function () {
                 "<td>" + data['masked_card'] + "</td>" +
             "</tr>" +
             "<tr>" +
+                "<td>Jumlah Transfer </td>" +
+                "<td>" + data['gross_amount'] + "</td>" +
+            "</tr>" +
+            "<tr>" +
                 "<td>Time </td>" +
                 "<td>" + data['transaction_time'] + "</td>" +
             "</tr>" +
@@ -301,6 +304,10 @@ $('body').on('click', '.detailProject', function () {
             "<tr>" +
                 "<td>Virtual Account </td>" +
                 "<td>" + data['va_numbers'][0]['va_number'] + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>Jumlah Transfer </td>" +
+                "<td>" + data['gross_amount'] + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td>Time </td>" +
@@ -323,6 +330,10 @@ $('body').on('click', '.detailProject', function () {
                 "<td>" + data['bill_key'] + "</td>" +
             "</tr>" +
             "<tr>" +
+                "<td>Jumlah Transfer </td>" +
+                "<td>" + data['gross_amount'] + "</td>" +
+            "</tr>" +
+            "<tr>" +
                 "<td>Time </td>" +
                 "<td>" + data['transaction_time'] + "</td>" +
             "</tr>" +
@@ -341,6 +352,10 @@ $('body').on('click', '.detailProject', function () {
             "<tr>" +
                 "<td>QR CODE </td>" +
                 "<td><img width='200px' height='200px' class='qr' src='https://api.sandbox.veritrans.co.id/v2/gopay/" + data['transaction_id'] + "/qr-code'> </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>Jumlah Transfer </td>" +
+                "<td>" + data['gross_amount'] + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td>Time </td>" +
@@ -450,8 +465,8 @@ function projectDetails(id) {
               
             },
             {
-                data: 'jumlah',
-                name: 'jumlah',
+                data: 'jumlah_invest',
+                name: 'jumlah_invest',
                 render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )
               
             },

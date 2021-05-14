@@ -93,8 +93,8 @@ class InvestController extends Controller
             $newHeader->user_id = $user->id;
             $newHeader->project_id = $id;
             $newHeader->invest_id = $invest_id; //sama dengan order_id di midtrans
-            $newHeader->jumlah = $invest;
-            $newHeader->profit = 0;
+            $newHeader->jumlah_invest = $invest;
+            $newHeader->jumlah_final = $invest - (($invest * 1)/100);
             $newHeader->status_transaction = '-';  //status yang didapat dari midtrans  
             $newHeader->status_invest = '0';    //(0-menunggu konfirmasi), (1-aktif/sdh dikonfirmasi), (2-tdk invest lagi)
             $newHeader->invest_expire = $req->invest_exp_date; 

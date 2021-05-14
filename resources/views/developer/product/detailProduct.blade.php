@@ -116,11 +116,30 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                            <div class="row" id="detail_investornya">
+                           
+                            <div class="row py-2">
                                 <div class="card col-md-12">
-                                    <h5 class="fs-title">Pemasukkan</h5>
+                                    <h5 class="fs-title">Investor</h5>
+                                    <div class="col-md-12 py-2">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover table-sm" width="100%" id="table_listInv">
+                                              <thead>
+                                                  <tr>
+                                                      <th>#</th>
+                                                      <th>Created at</th>
+                                                      <th>Tipe Trans</th>
+                                                      <th>Jumlah</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody></tbody>
+                                              
+                                            </table>
+                                          <!-- AKHIR TABLE -->
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                             <div class="row py-2">
                                 <div class="card col-md-12">
                                     <h5 class="fs-title">Pemasukkan</h5>

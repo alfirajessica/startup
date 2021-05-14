@@ -18,8 +18,8 @@ class CreateHeaderInvestsTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('project_id')->unsigned();
             $table->bigInteger('invest_id')->unsigned();
-            $table->bigInteger('jumlah');
-            $table->bigInteger('profit');
+            $table->bigInteger('jumlah_invest');
+            $table->bigInteger('jumlah_final'); //setelah terkena potongan 1%
             $table->string('status_transaction'); //status berdasarkan midtrans
             $table->string('status_invest');  
             $table->date('invest_expire');

@@ -79,23 +79,23 @@ class ProductController extends Controller
 
            // dd($newProduct->id);
             if ($query) {
-                //set default utk detail_product_kas dengan jumlah 0
-                $newKasMasuk = new DetailProductKas;
-                $newKasMasuk->id_headerproduct = $newProduct->id;
-                $newKasMasuk->tipe = 1;
-                $newKasMasuk->id_typetrans = 1;
-                $newKasMasuk->jumlah = 0;
-                $newKasMasuk->status = 1;
-                $query = $newKasMasuk->save();
+                // //set default utk detail_product_kas dengan jumlah 0
+                // $newKasMasuk = new DetailProductKas;
+                // $newKasMasuk->id_headerproduct = $newProduct->id;
+                // $newKasMasuk->tipe = 1;
+                // $newKasMasuk->id_typetrans = 1;
+                // $newKasMasuk->jumlah = 0;
+                // $newKasMasuk->status = 1;
+                // $query = $newKasMasuk->save();
 
-                //set default utk detail_product_kas dengan jumlah 0
-                $newKasKeluar = new DetailProductKas;
-                $newKasKeluar->id_headerproduct = $newProduct->id;
-                $newKasKeluar->tipe = 2;
-                $newKasKeluar->id_typetrans = 5;
-                $newKasKeluar->jumlah = 0;
-                $newKasKeluar->status = 1;
-                $query = $newKasKeluar->save();
+                // //set default utk detail_product_kas dengan jumlah 0
+                // $newKasKeluar = new DetailProductKas;
+                // $newKasKeluar->id_headerproduct = $newProduct->id;
+                // $newKasKeluar->tipe = 2;
+                // $newKasKeluar->id_typetrans = 5;
+                // $newKasKeluar->jumlah = 0;
+                // $newKasKeluar->status = 1;
+                // $query = $newKasKeluar->save();
                 
                 return response()->json(['status'=>1, 'msg'=>'Berhasil menambah produk baru']);
 
@@ -307,6 +307,24 @@ class ProductController extends Controller
     public function detailProjectKas(Request $req, $id)
     {
         if($req->ajax()){
+
+            if ($req->getTabel == "#table_listInv") {
+                $list_inv = DB::table('header_invests')
+                        ->leftJoin('users', 'users.id', '=', 'header_invests.user_id')
+                        ->select('header_invests.id','users.name','header_invests.invest_id','header_invests.jumlah_final','header_invests.status_invest','header_invests.invest_expire')
+                        ->where('header_invests.project_id','=',$id)
+                        ->get();
+           
+                return datatables()->of($list_inv)
+                        ->addColumn('action', function($data){
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKas">Ubah</a>';
+                        return $btn;
+                        })
+                        ->rawColumns(['action'])
+                        ->addIndexColumn()
+                        ->make(true);
+            }
+            
             
             if ($req->getTabel == "#table_pemasukkan") {
                 $list_kas0 = DB::table('detail_product_kas')
@@ -390,8 +408,7 @@ class ProductController extends Controller
 
             $isExist = DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereDate('created_at', Carbon::today())->first();
 
-            //dd(Carbon::today());
-            //dd($date->toDateString());
+        
             if (DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereDate('created_at', Carbon::today())->exists()) {
                 return response()->json(['status'=>-1, 'msg'=>'sudah ada, silakan ubah']);
             }

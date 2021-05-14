@@ -276,8 +276,8 @@ function projectDetails(id) {
               
             },
             {
-                data: 'jumlah',
-                name: 'jumlah',
+                data: 'jumlah_invest',
+                name: 'jumlah_invest',
                 render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )
               
             },

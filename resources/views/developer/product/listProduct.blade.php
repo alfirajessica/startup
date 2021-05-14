@@ -136,5 +136,6 @@
     //call function pada tabel --> table_listProduct /aktifProject
     const url_table_listProduct_nonactiveProject = "{{ route('dev.listProduct') }}" +'/nonactiveProject' + '/';
  
+   
 </script>
 <script src="/js/dev/listproduct.js"></script>

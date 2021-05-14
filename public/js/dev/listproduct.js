@@ -188,6 +188,7 @@ function table_listProduct() {
 $('body').on('click', '.detailProject', function () {
     var product_id = $(this).data('id');
     table_pemasukkan_pengeluaran(product_id);
+    console.log(product_id);
     $.get(url_table_listProduct_detailProject + product_id, function (data) {
         console.log("/uploads/event/"+data.image);
         $("img#previewImg").attr("src", "/uploads/event/"+data.image);
@@ -457,5 +458,54 @@ function table_pemasukkan_pengeluaran(id) {
            
         ],
        
+    });
+
+    $('#table_listInv').DataTable({
+        destroy:true,
+        processing: true,
+        serverSide: true, //aktifkan server-side 
+        responsive:true,
+        deferRender:true,
+        language: {
+            "emptyTable": "Belum ada investor pada proyek ini"
+        },
+        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+        ajax: {
+            url: "/dev/listProduct/detailProjectKas/" + id,
+            type: 'GET',
+            data:{
+                "getTabel":"#table_listInv",
+                },
+        },
+        order: [
+            [0, 'asc']
+        ],
+        columns: [
+            {
+                data: 'invest_id',
+                name: 'invest_id',
+                
+            },
+            {
+                data: null,
+                name: 'invest_expire',
+                render: data => {
+                    return moment(data.invest_expire).format('DD/MMM/YYYY')
+                }
+            },
+            {
+                data: 'name',
+                name: 'name',
+              
+            },
+            {
+                data: 'jumlah',
+                name: 'jumlah',
+                className: 'dt-body-right',
+                render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp')
+              
+            },
+        ],
+        
     });
 }
