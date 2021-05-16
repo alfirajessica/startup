@@ -30,8 +30,8 @@ function table_listInvestConfirmYet() {
               
             },
             {
-                data: 'jumlah',
-                name: 'jumlah',
+                data: 'jumlah_invest',
+                name: 'jumlah_invest',
               
             },
             {
@@ -309,10 +309,12 @@ function projectDetails(id) {
                     return intVal(a) + intVal(b);
                 }, 0 );
 
-            // Update footer
-            $( api.column( 4 ).footer() ).html(
-                $.fn.dataTable.render.number('.','.','2','Rp').display(total)
-            );
+            // // Update footer
+            // $( api.column( 4 ).footer() ).html(
+            //     $.fn.dataTable.render.number('.','.','2','Rp').display(total)
+            // );
+
+            getTotal = total - ((total * 1)/100);
 
             $("#totalsemua").html(
                 $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)

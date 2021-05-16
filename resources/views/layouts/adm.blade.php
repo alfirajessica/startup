@@ -94,17 +94,18 @@
                   <a class="ct-toc-link" href="../../docs/foundation/colors.html">Developer</a>
                   <ul class="nav ct-sidenav">
                     <li>
+                      <a class="nav-link active" href="{{ route('admin.dev.produkDev')}}">
+                        <i class="ni ni-tv-2 text-primary"></i>
+                        <span class="nav-link-text">Produk Terbaru</span>
+                      </a>
+                    </li>
+                    <li>
                       <a class="nav-link active" href="{{ route('admin.dev.listDev')}}">
                         <i class="ni ni-tv-2 text-primary"></i>
                         <span class="nav-link-text">Daftar Developer</span>
                       </a>
                     </li>
-                    <li>
-                      <a class="nav-link active" href="{{ route('admin.dev.produkDev')}}">
-                        <i class="ni ni-tv-2 text-primary"></i>
-                        <span class="nav-link-text">Produk</span>
-                      </a>
-                    </li>
+                    
                   </ul>
                 </div>
                 <!-- Show links for all groups -->
@@ -146,8 +147,14 @@
                 </a>
               </nav>
             </div>
+            <div class="d-none d-xl-block col-xl-2 ct-toc">
+              <ul class="section-nav">
+                  <li class="toc-entry toc-h3"><a href="#examples">Examples</a></li>
+                  <li class="toc-entry toc-h3"><a href="#dark-table">Dark table</a></li>
+              </ul>
+            </div>
             
-            <main class="col-12 col-md-8 col-xl-7 py-md-3 pl-md-5 ct-content" role="main">
+            <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 ct-content" role="main">
               @yield('content')
             </main>
           </div>

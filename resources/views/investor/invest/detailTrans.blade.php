@@ -28,11 +28,10 @@
                                     <th colspan="4" style="text-align:right; font-weight:bold">Fee Investasi</th>
                                     <th style="font-weight:bold">1%</th>
                                   </tr>
-                                    <tr>
-                                        <th colspan="4" style="text-align:right; font-weight:bold">Total Investasi :</th>
-                                        <th style="font-weight:bold" id="totalsemua"></th>
-                                    </tr>
-
+                                  <tr>
+                                      <th colspan="4" style="text-align:right; font-weight:bold">Total Investasi :</th>
+                                      <th style="font-weight:bold" id="totalsemua"></th>
+                                  </tr>
                                 </tfoot>
                             </table>
                           </div>

@@ -499,8 +499,8 @@ function table_pemasukkan_pengeluaran(id) {
               
             },
             {
-                data: 'jumlah',
-                name: 'jumlah',
+                data: 'jumlah_final',
+                name: 'jumlah_final',
                 className: 'dt-body-right',
                 render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp')
               
