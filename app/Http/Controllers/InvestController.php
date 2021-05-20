@@ -112,9 +112,9 @@ class InvestController extends Controller
         
     }
 
-    
+    //note: investor tdk bisa menonaktifkan investasi yang sudah berhasil
 
-    //status_invest -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif oleh inv), 4(tdk aktif krna gagal byr/cancle/expire)
+    //status_invest -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif oleh inv), 4(tdk aktif krna gagal byr/cancle/expire), 5 (investasi sudah expire)
 
     public function listInvestPending(Request $req)
     {

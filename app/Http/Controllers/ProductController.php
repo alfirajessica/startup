@@ -406,10 +406,12 @@ class ProductController extends Controller
             //cek apakah data yang sama pernah dimasukkan sebelumnya.
             //berdasarkan id_headerproduct, tipe, id_typetrans dan created_at
 
-            $isExist = DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereDate('created_at', Carbon::today())->first();
+            $now = Carbon::now();
+
+            $isExist = DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereMonth('created_at', '=', $now->month)->first();
 
         
-            if (DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereDate('created_at', Carbon::today())->exists()) {
+            if (DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereMonth('created_at','=', $now->month)->exists()) {
                 return response()->json(['status'=>-1, 'msg'=>'sudah ada, silakan ubah']);
             }
 
@@ -424,10 +426,12 @@ class ProductController extends Controller
                 $newPemasukkan->status = "1";
                 $query = $newPemasukkan->save();
 
-                if ($query) {
+                return response()->json(['status'=>1, 'msg'=>'Berhasil menambah detail produk kas']);
+
+                // if ($query) {
                     
-                    return response()->json(['status'=>1, 'msg'=>'Berhasil menambah detail produk kas']);
-                }
+                    
+                // }
             }
         }
     }

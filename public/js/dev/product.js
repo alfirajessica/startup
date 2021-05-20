@@ -199,7 +199,7 @@ $(function () {
             if (willDelete) {
                 $.ajax({
                     type: "get",
-                    url: "{{ route('dev.product') }}"+'/deletePemasukkan' + '/' + id,
+                    url: "/dev/product/deletePemasukkan" + '/' + id,
                     success: function (data) {
                         table_listPemasukkan();
                     },
@@ -297,7 +297,7 @@ $(function () {
             if (willDelete) {
                 $.ajax({
                     type: "get",
-                    url: "{{ route('dev.product') }}"+'/deletePengeluaran' + '/' + id,
+                    url: "/dev/product/deletePengeluaran" + '/' + id,
                     success: function (data) {
                         table_listPengeluaran();
                     },

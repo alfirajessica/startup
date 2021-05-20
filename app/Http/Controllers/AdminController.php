@@ -139,12 +139,13 @@ class AdminController extends Controller
                     ->where('role', '=', 2)
                     ->get();
         if($req->ajax()){
-            return datatables()->of($list_dev)
+            return datatables()->of($list_inv)
                 ->addColumn('action', function($data){
-                    $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="far fa-edit"></i> Edit</a>';
-                    $button .= '&nbsp;&nbsp;';
-                    $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';     
-                    return $button;
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailDev" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailDev">Detail</a>';
+
+                    $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Nonaktifkan</a>';
+
+                    return $btn;
                 })
                 ->rawColumns(['action'])
                 ->addIndexColumn()

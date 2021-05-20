@@ -22,7 +22,7 @@
     <div class="container my--6">
         <div class="row">
             <div class="col-md-12">
-                <div class="card-header text-white">
+                <div class="card-body">
                     <div class="nav-wrapper">
                         <!-- tabs -->
                         <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
@@ -44,7 +44,8 @@
                   <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                     <div class="card shadow border-0">
                       <div class="card-body">
-                        <section class="section py-2">
+                        @include('developer.akun.profile')
+                        {{-- <section class="section py-2">
                           <div class="container">
                             <div class="card card-profile border-0">
                               <div class="">
@@ -111,7 +112,7 @@
                               </div>
                             </div>
                           </div>
-                        </section>
+                        </section> --}}
                       </div>
                     </div>
                   </div>

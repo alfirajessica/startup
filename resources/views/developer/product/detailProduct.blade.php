@@ -126,9 +126,10 @@
                                               <thead>
                                                   <tr>
                                                       <th>#</th>
-                                                      <th>Created at</th>
-                                                      <th>Tipe Trans</th>
+                                                      <th>Investor</th>
+                                                      <th>Masa berakhir</th>
                                                       <th>Jumlah</th>
+                                                      <th>Status</th>
                                                   </tr>
                                               </thead>
                                               <tbody></tbody>
@@ -149,8 +150,8 @@
                                               <thead>
                                                   <tr>
                                                       <th>#</th>
-                                                      <th>Created at</th>
-                                                      <th>Tipe Trans</th>
+                                                      <th>Tanggal</th>
+                                                      <th>Tipe Pemasukkan</th>
                                                       <th>Jumlah</th>
                                                   </tr>
                                               </thead>
@@ -177,13 +178,18 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Created at</th>
-                                                    <th>Tipe Trans</th>
+                                                    <th>Tanggal</th>
+                                                    <th>Tipe Pengeluaran</th>
                                                     <th>Jumlah</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
-                                            
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="3" style="text-align:right; font-weight:bold">Total Pengeluaran :</th>
+                                                    <th style="font-weight:bold" id="totalsemua"></th>
+                                                </tr>
+                                            </tfoot>
                                             </table>
                                         <!-- AKHIR TABLE -->
                                         </div>
