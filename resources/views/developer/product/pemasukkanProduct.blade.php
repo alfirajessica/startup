@@ -76,12 +76,8 @@
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
-
 <script type="text/javascript">
 
     const url_table_listPemasukkan = "{{ route('dev.product') }}" + '/listPemasukkan/';
-
-    
-
 </script>
 <script src="/js/dev/product.js"></script>

@@ -46,6 +46,7 @@ class DevController extends Controller
         
     }
 
+    //dipindahkan ke homecontroller
     public function akun()
     {
         $user = auth()->user();

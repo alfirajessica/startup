@@ -13,6 +13,7 @@ use App\Http\Controllers\TypeTransController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\InvestController;
+use App\Http\Controllers\ReviewController;
 
 use App\Http\Controllers\ValuationToolsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -45,6 +46,12 @@ Route::get('reg/cities/{province_id}', [RegisterController::class, 'getCities'])
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/users/logout', [LoginController::class, 'userLogout'])->name('users.logout');
 
+//akun
+Route::get('/akun', [HomeController::class, 'akun'])->name('akun');
+Route::get('/akun/detailProfil', [HomeController::class, 'detailProfil'])->name('akun.detailProfil');
+Route::post('/akun/updateAkun', [HomeController::class, 'updateAkun'])->name('akun.updateAkun'); 
+Route::post('/akun/updateTentang', [HomeController::class, 'updateTentang'])->name('akun.updateTentang'); 
+
 //upd global in inv and dev when event has passed
 Route::get('/eventPassed', [HomeController::class, 'event_haspassed'])->name('eventPassed');
 
@@ -62,12 +69,8 @@ Route::get('/cancleInvest/{id}', [HomeController::class, 'cancleInvest'])->name(
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
-
     Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
-    
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
-
-    //Route::get('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
     Route::post('/logout', [AdminLoginController::class, 'logout'])->name('admin.logout');
 
     // Password reset routes
@@ -116,7 +119,6 @@ Route::prefix('admin')->group(function () {
 Route::get('/valuation', [ValuationToolsController::class, 'valuation'])->name('valuation');
 
 //-----------------------------INVESTOR-------------------
-Route::get('/inv/akun', [InvController::class, 'akun'])->name('inv.akun');
 
 //investor -- event
 Route::get('/inv/event', [EventController::class, 'event'])->name('inv.event'); //show event view
@@ -155,22 +157,20 @@ Route::get('/inv/invest/listInvestPending', [InvestController::class, 'listInves
 Route::get('/inv/invest/listInvestSettlement', [InvestController::class, 'listInvestSettlement'])->name('inv.invest.listInvestSettlement');
 Route::get('/inv/invest/listInvestCancel', [InvestController::class, 'listInvestCancel'])->name('inv.invest.listInvestCancel');
 
+//reviews
+Route::post('/inv/review', [ReviewController::class, 'beriReview'])->name('inv.beriReview'); //buat event
+Route::get('/inv/review/refreshUlasan/{id}', [ReviewController::class, 'refreshUlasan'])->name('inv.review.refreshUlasan');
 
 //-----------------------------end of INVESTOR---------------------------
 
 
 
-//Developer
-Route::get('/dev/akun', [DevController::class, 'akun'])->name('dev.akun');
-Route::post('/dev/akun/updateAkun', [DevController::class, 'updateAkun'])->name('dev.akun.updateAkun'); 
-Route::post('/dev/akun/updateTentang', [DevController::class, 'updateTentang'])->name('dev.akun.updateTentang'); 
-Route::get('/dev/cities/{province_id}', [DevController::class, 'getCities']); //get all cities in buat event
+//-----------------------------Developer---------------------------
 
 //event
 Route::get('/dev/event', [EventController::class, 'devEvent'])->name('dev.event');
 Route::get('/dev/event/detailsEvent/{id}', [EventController::class, 'detailsEvent'])->name('dev.event.detailsEvent');
 Route::post('/dev/event/joinEvent', [EventController::class, 'joinEvent'])->name('dev.event.joinEvent');
-//Route::get('/inv/listEvent', [EventController::class, 'listEvent'])->name('inv.listEvent'); //show list event
 Route::get('/dev/event/cancleEvent/{id}', [EventController::class, 'cancleEvent'])->name('dev.event.cancleEvent');
 
 //listjoinevent
@@ -209,7 +209,7 @@ Route::get('/dev/product/deletePengeluaran/{id}', [ProductController::class, 'de
 
 Route::get('/dev/product/detailPemasukkan/{id}', [ProductController::class, 'detailPemasukkan'])->name('dev.product.detailPemasukkan'); 
 Route::post('/dev/product/updatePemasukkan', [ProductController::class, 'updatePemasukkan'])->name('dev.product.updatePemasukkan'); //show list product
-//Route::post('/dev/product/updatePemasukkan', [ProductController::class, 'updatePemasukkan'])->name('dev.product.updatePemasukkan'); //show list product
+
 
 
 

@@ -13,8 +13,10 @@ $(function () {
     {
         table_listPengeluaran();
     }
+    
+});
 
-    //pemasukkanProduct.blade.php
+//pemasukkanProduct.blade.php
     $("#pemasukkanProduct").on("submit",function (e) {
         e.preventDefault();
         console.log($(['name="action"']).attr('id'));
@@ -44,80 +46,24 @@ $(function () {
                         text: "You clicked the button!",
                         icon: "warning",
                     });
-    
+
                 }
-                else{
+                else if (data.status == 1){
                     swal({
                         title: data.msg,
                         text: "You clicked the button!",
                         icon: "success",
                     });
                     table_listPemasukkan();
-                     var terpilih_before = $("#nama_project_dipilih_masuk").text();
-                     $("#pilih_project_masuk").find(":selected").text(terpilih_before);
-                     $('#tipe_pemasukkan').val(0);
-                     $('#jumlah').val('');
+                    var terpilih_before = $("#nama_project_dipilih_masuk").text();
+                    $("#pilih_project_masuk").find(":selected").text(terpilih_before);
+                    $('#tipe_pemasukkan').val(0);
+                    $('#jumlah').val('');
                 }
             }
         });
     });
-    //end of pemasukkanProduct.blade.php
 
-    //pengeluaranProduct.blade.php
-    $("#pengeluaranProduct").on("submit",function (e) {
-        e.preventDefault();
-        console.log($(['name="action"']).attr('id'));
-        $.ajax({
-            url:$(this).attr('action'),
-            method:$(this).attr('method'),
-            data:new FormData(this),
-            processData:false,
-            dataType:'json',
-            contentType:false,
-            beforeSend:function() {
-                $(document).find('span.error-text').text('');
-            },
-            success:function(data) {
-                if (data.status == 0) {
-                    $.each(data.error, function (prefix, val) {
-                        $('span.'+prefix+'_error').text(val[0]);
-                    });
-                }
-                else if (data.status == -1) { 
-                    //$('#pengeluaranProduct')[0].reset();
-                    var terpilih_before = $("#nama_project_dipilih_keluar").text();
-                    $("#pilih_project_keluar").find(":selected").text(terpilih_before);
-                    $('#tipe_pengeluaran').val(0);
-                    $('#jumlah_keluar').val('');
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
-                        icon: "warning",
-                    });
-    
-                }
-                else{
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
-                        icon: "success",
-                    });
-                    table_listPengeluaran();
-                    var terpilih_before = $("#nama_project_dipilih_keluar").text();
-                     $("#pilih_project_keluar").find(":selected").text(terpilih_before);
-                     $('#tipe_pengeluaran').val(0);
-                     $('#jumlah_keluar').val('');
-                    
-                    
-                }
-            }
-        });
-    });
-    //end of pengeluaranProduct.blade.php
-    
-});
-
-// pemasukkanProduct.blade.php
     function pilih_proyek() {
         $("#card_masuk").removeClass('d-none');
 
@@ -217,7 +163,58 @@ $(function () {
     });
 // end of pemasukkanProduct.blade.php
 
-// pengeluaranProduct.blade.php
+//pengeluaranProduct.blade.php
+    $("#pengeluaranProduct").on("submit",function (e) {
+        e.preventDefault();
+        console.log($(['name="action"']).attr('id'));
+        $.ajax({
+            url:$(this).attr('action'),
+            method:$(this).attr('method'),
+            data:new FormData(this),
+            processData:false,
+            dataType:'json',
+            contentType:false,
+            beforeSend:function() {
+                $(document).find('span.error-text').text('');
+            },
+            success:function(data) {
+                if (data.status == 0) {
+                    $.each(data.error, function (prefix, val) {
+                        $('span.'+prefix+'_error').text(val[0]);
+                    });
+                }
+                else if (data.status == -1) { 
+                    //$('#pengeluaranProduct')[0].reset();
+                    var terpilih_before = $("#nama_project_dipilih_keluar").text();
+                    $("#pilih_project_keluar").find(":selected").text(terpilih_before);
+                    $('#tipe_pengeluaran').val(0);
+                    $('#jumlah_keluar').val('');
+                    swal({
+                        title: data.msg,
+                        text: "You clicked the button!",
+                        icon: "warning",
+                    });
+
+                }
+                else{
+                    swal({
+                        title: data.msg,
+                        text: "You clicked the button!",
+                        icon: "success",
+                    });
+                    table_listPengeluaran();
+                    var terpilih_before = $("#nama_project_dipilih_keluar").text();
+                    $("#pilih_project_keluar").find(":selected").text(terpilih_before);
+                    $('#tipe_pengeluaran').val(0);
+                    $('#jumlah_keluar').val('');
+                    
+                    
+                }
+            }
+        });
+    });
+
+
     function pilih_proyek_keluar() {
         $("#card_keluar").removeClass('d-none');
 
@@ -255,13 +252,13 @@ $(function () {
                 {
                     data: 'keterangan',
                     name: 'keterangan',
-                  
+                
                 },
                 {
                     data: 'jumlah',
                     name: 'jumlah',
                     render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )
-                  
+                
                 },
                 {
                     data:'action',

@@ -76,7 +76,7 @@
                             {{ __('Laporan') }}
                         </a>
 
-                        <a class="dropdown-item" href="{{ route('inv.akun') }}">
+                        <a class="dropdown-item" href="{{ route('akun') }}">
                             {{ __('Pengaturan Akun') }}
                         </a>
 

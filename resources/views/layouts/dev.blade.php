@@ -80,7 +80,7 @@
                             <span>{{ __('Laporan') }}</span>
                         </a>
 
-                        <a href="{{ route('dev.akun') }}" class="dropdown-item">
+                        <a href="{{ route('akun') }}" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
                             <span>{{ __('Pengaturan Akun') }}</span>
                         </a>
@@ -120,12 +120,13 @@
           </div> --}}
         <main class="bg-secondary">
             @yield('content')
+            
         </main>
-        <br /><br />
-
         @include('units.footer')
-    </div>
 
+        
+    </div>
+    
 </body>
 </html>
 

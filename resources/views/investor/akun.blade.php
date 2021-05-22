@@ -1,4 +1,4 @@
-@extends('layouts.inv')
+@extends('layouts.dev')
 
 @section('content')
   @foreach ($akun_user as $item)
@@ -19,10 +19,10 @@
     </div>
 
     <!-- Page content -->
-    <div class="container my--6">
+    <div class="container my--6 ">
         <div class="row">
             <div class="col-md-12">
-                <div class="card-header text-white">
+                <div class="card-body">
                     <div class="nav-wrapper">
                         <!-- tabs -->
                         <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
@@ -30,123 +30,104 @@
                                 <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Profile</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Password</a>
+                                <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Desc</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
             
-            <div class="col-md-12 py-2">
+            <div class="col-md-12 bg-secondary">
               <!-- tab content -->
               <div class="tab-content" id="myTabContent">
                   <!-- profile -->
                   <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                    <div class="card shadow border-0">
-                      <div class="card-body">
-                        <section class="section py-2">
-                          <div class="container">
-                            <div class="card card-profile border-0">
-                              <div class="">
-
-                                <div class="mt-5 text-center">
-                                  <div class="text-center">
-                                    <a href="#" class="btn btn-sm btn-info mr-4 float-right" data-toggle="modal" data-target="#ubahProfilModal">Ubah Profil</a>
-                                  </div>
-                                  <div class="row justify-content-center">
-                                    <div class="col-lg-9">
-                                      <h3 name="name_user">{{$item->name}}</h3>
-                                  <div class="h6 font-weight-300" name="location_user"><i class="ni location_pin mr-2"></i>{{$item->province_name}},{{$item->city_name}}</div>
-                                  <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>{{$item->email}}</div>
-                                 
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="mt-5 py-5 border-top text-center">
-                                  <div class="text-center">
-                                    <a href="#" class="btn btn-sm btn-info mr-4 float-right" data-toggle="modal" data-target="#ubahTentangModal">Atur tentang saya</a>
-                                  </div>
-                                  <div class="row justify-content-center">
-                                    
-                                    <div class="col-lg-9">
-                                      <h6>Deskripsi Startup Anda</h6>
-                                      <p>
-                                        @if ($item->desc == null)
-                                            [-]
-                                        @else
-                                          {{$item->desc}}
-                                        @endif
-                                      </p>
-                                      <br>
-                                      <h6>Tim Startup Anda</h6>
-                                      <p>
-                                        @if ($item->team == null)
-                                            [-]
-                                        @else
-                                          {{$item->team}}
-                                        @endif
-                                      </p>
-                                      <br>
-                                      <h6>Keuntungan Startup Anda</h6>
-                                      <p>
-                                        @if ($item->benefit == null)
-                                        [-]
-                                        @else
-                                          {{$item->benefit}}
-                                        @endif
-                                      </p>
-                                      <br>
-                                      <h6>Target Anda</h6>
-                                      <p>
-                                        @if ($item->target == null)
-                                        [-]
-                                        @else
-                                          {{$item->target}}
-                                        @endif
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
+                    
+                    <div class="row">
+                      <div class="col">
+                        <div class="card border-1">
+                          <div class="card-body">
+                              <form action="{{ route('akun.updateAkun')}}" method="POST" enctype="multipart/form-data" id="updateAkun">
+                                  @csrf
+                              <div class="form-group">
+                                  <label class="float-left">Email</label>
+                                  <input type="email" placeholder="Regular" class="form-control form-control-alternative" name="email_akunUser" id="email_akunUser" disabled value="{{$item->email}}"/>
                               </div>
-                            </div>
+                                <div class="form-group">
+                                  <label for="">Nama</label>
+                                  <input type="text" class="form-control form-control-alternative" name="nama_akunUser" id="nama_akunUser" placeholder="Nama" value="{{$item->name}}"> 
+                                  <span class="text-danger error-text nama_akunUser_error"></span>
+                                </div>
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label class="float-left">Provinsi</label>
+                                          <select class="form-control form-control-alternative" name="edit_provinsi_user" id="edit_provinsi_user" onchange="show_cities2(this)">
+                                              <option value="0" disabled>-- pilih provinsi --</option>
+                                              @foreach($provinces as $provinsi)
+                                                  <option value="{{ $provinsi['province_id'] }}" {{$provinsi['province_id'] == $item->id_province  ? 'selected' : ''}}>{{ $provinsi['province'] }}</option>
+                                              @endforeach
+                                          </select>
+                                          <span class="text-danger error-text edit_provinsi_user_error"></span>
+                                      </div>
+                                  </div>
+                                  <input type="hidden" name="hidden_province_name" id="hidden_province_name" >
+                  
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label class="float-left">Kota</label>
+                                          <input type="hidden" name="city_id" id="city_id" value="{{$item->id_city}}">
+                                              <select class="form-control form-control-alternative" name="edit_kota_user" id="edit_kota_user" onchange="get_city()">
+                                                <option value="0">-- pilih kota --</option>
+                                              </select>
+                                          <span class="text-danger error-text edit_kota_user_error"></span>
+                                      </div>
+                                  </div>
+                                  <input type="hidden" id="hidden_city_name" name="hidden_city_name">
+                              </div>
+                              <button type="submit" class="btn btn-primary float-right">Simpan Perubahan</button>
+                          </form>
                           </div>
-                        </section>
+                        </div>
                       </div>
-                    </div>
+                  </div>
+                       
                   </div>
                   <!-- end of profile -->
       
                   <!-- password -->
                   <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                   
-                      <div class="row py-2">
+                      <div class="row">
                           <div class="col">
-                            <div class="card shadow border-0">
+                            <div class="card border-1">
                               <div class="card-body">
-                                <form action="">
+                                <form action="{{ route('akun.updateTentang')}}" method="POST" enctype="multipart/form-data" id="ubahTentang">
+                                  @csrf
                                   <div class="form-group">
-                                      <label for="nama_event">Password Anda</label>
-                                      <input type="text" class="form-control" id="nama_event" aria-describedby="nama_eventHelp" value="{{$item->password}}">
-                                  </div>
-  
-                                  <div class="dropdown-divider"></div>
-  
-                                  <div class="alert alert-warning" role="alert">
-                                      <strong>Peringatan</strong> Isi jika ingin mengubah password saja
-                                  </div>
-  
+                                    <label for="">Deskripsi</label>
+                                    <textarea class="form-control form-control-alternative" name="desc" id="desc" rows="3" >{{$item->desc}}</textarea>
+                                    <span class="text-danger error-text desc_error"></span>
+                                    </div>
+                        
                                   <div class="form-group">
-                                      <label for="nama_event">Password Baru</label>
-                                      <input type="password" class="form-control" id="nama_event" aria-describedby="nama_eventHelp" placeholder="Masukkan Nama Event">
-                                  </div>
-  
+                                    <label for="">Tim anda</label>
+                                    <textarea class="form-control form-control-alternative" name="team" id="team" rows="3" >{{$item->team}}</textarea>
+                                    <span class="text-danger error-text team_error"></span>
+                                </div>
+                        
                                   <div class="form-group">
-                                      <label for="nama_event">Konfirmasi Password Baru</label>
-                                      <input type="password" class="form-control" id="nama_event" aria-describedby="nama_eventHelp" placeholder="Masukkan Nama Event">
-                                  </div>
-  
-                                  <button class="btn btn-primary" type="submit">Simpan</button>
+                                    <label for="">Keuntungan</label>
+                                    <textarea class="form-control form-control-alternative" name="benefit" id="benefit" rows="3" >{{$item->benefit}}</textarea>
+                                    <span class="text-danger error-text benefit_error"></span>
+                                </div>
+                        
+                                  <div class="form-group">
+                                    <label for="">Target</label>
+                                    <textarea class="form-control form-control-alternative" name="target" id="target" rows="3">{{$item->target}}</textarea> 
+                                    <span class="text-danger error-text target_error"></span>
+                                </div>
+                                <button type="submit" class="btn btn-primary float-right">Simpan Perubahan</button>
                               </form>
                               </div>
                             </div>
@@ -157,51 +138,12 @@
             </div>
         </div>
     </div>
-    <br>
+   <div class="row py-6"></div>
 
-    @include('developer.akun.ubahProfil')
-    @include('developer.akun.ubahTentang')
     @endforeach
 
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
+    <script src="/js/dev/akun.js"></script>
 
 @endsection
-
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
-
-
-<script>
-  $(document).ready(function () {
-    var idprovinsi = $('#edit_provinsi_user').val();
-    var idcity = $('#city_id').val();
-    open_city(idprovinsi, idcity);
-  });
-
-  function open_city(idprovince, idcity) {   
-    console.log(idprovince, idcity);
-   
-    if (idprovince) {
-        jQuery.ajax({
-            url: '/cities/'+idprovince,
-            type: "GET",
-            dataType: "json",
-            success: function (response) {
-                $('select[name="edit_kota_user"]').empty();
-                
-                $('select[name="edit_kota_user"]').append('<option value="" selected>-- pilih kota --</option>');
-                $.each(response, function (key, value) {
-                    var id = value["city_id"];
-
-                    $('select[name="edit_kota_user"]').append('<option value="'+ id + '">' + value["city_name"] + '</option>');
-                });
-                $('select[name="edit_kota_user"]').find('option[value="'+idcity+'"]').attr("selected",true);
-            },
-        });
-    } else {
-        $('select[name="edit_kota_user"]').append('<option value="">-- pilih kota --</option>');
-    }
-}
-</script>
 

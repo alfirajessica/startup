@@ -142,9 +142,13 @@ class ProductController extends Controller
         if($req->ajax()){
             return datatables()->of($list_kas)
                 ->addColumn('action', function($data){
-                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah" data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKasKeluar">Ubah</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKasKeluar">Ubah</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKasKeluar" data-tr="tr_{{$product->id}}">Hapus</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKasKeluar" data-tr="tr_{{$product->id}}">Hapus</a>';
+
+                    // $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah" data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKasKeluar">Ubah</a>';
+
+                    // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip" data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKasKeluar" data-tr="tr_{{$product->id}}">Hapus</a>';
 
                     return $btn;
                 })
@@ -408,14 +412,14 @@ class ProductController extends Controller
 
             $now = Carbon::now();
 
-            $isExist = DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereMonth('created_at', '=', $now->month)->first();
+            $isExist = DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereDate('created_at', '=', Carbon::today())->first();
 
         
-            if (DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereMonth('created_at','=', $now->month)->exists()) {
+            if (DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereDate('created_at','=', Carbon::today())->exists()) {
                 return response()->json(['status'=>-1, 'msg'=>'sudah ada, silakan ubah']);
             }
 
-            else if ($isExist == null)
+            if ($isExist == null)
             {
                 //save to db detail_product_kas
                 $newPemasukkan = new DetailProductKas;
@@ -426,12 +430,10 @@ class ProductController extends Controller
                 $newPemasukkan->status = "1";
                 $query = $newPemasukkan->save();
 
-                return response()->json(['status'=>1, 'msg'=>'Berhasil menambah detail produk kas']);
-
-                // if ($query) {
-                    
-                    
-                // }
+                if ($query) {
+                    return response()->json(['status'=>1, 'msg'=>'Berhasil menambah detail produk kas']);
+                }
+                
             }
         }
     }

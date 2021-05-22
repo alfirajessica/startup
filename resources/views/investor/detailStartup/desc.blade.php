@@ -10,7 +10,7 @@
                 </script>
                 @endif
 
-                <h1 id="id_product" class="d-none">{{$item->id}}</h1>
+                <h1 id="id_product" name="id_product" class="d-none">{{$item->id}}</h1>
                 <h5 class="card-title font-weight-bold" name="name_project" id="name_project">{{$item->name_product}}</h5>
                 
                 <img id="previewImg2" class="d-block user-select-none" width="100%" max-height="400" src="/uploads/event/{{$item->image}}" > </a>
@@ -118,7 +118,30 @@
         </div>
         <div class="row py-2">
             <div class="col-md-8">
-                @include('investor.detailStartup.ulasan')
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="true">Review & Comments</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+                        <div class="card border-0 py-2">
+                            <div class="card-body">
+                                <div id="data_ulasan">
+                                    @include('investor.detailStartup.dataUlasan')
+                                </div>
+                                
+                        
+                                @include('investor.detailStartup.ulasan')
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                
+                {{-- @include('investor.detailStartup.ulasan') --}} 
+                {{-- @foreach ($reviews as $item)
+                    @include('investor.detailStartup.ulasan')
+                @endforeach --}}
             </div>
         </div>
     </div>

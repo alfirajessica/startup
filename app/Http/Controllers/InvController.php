@@ -13,7 +13,7 @@ use App\Models\DetailUser;
 use App\Models\CategoryProduct;
 use App\Models\DetailProductKas;
 use App\Models\detailCategoryProduct;
-
+use App\Models\Review;
 
 class InvController extends Controller
 {
@@ -212,8 +212,16 @@ class InvController extends Controller
         $user = auth()->user();
         $detail_user['detail_user'] = DB::table('users')->where('id','=',$user->id)->get();
 
+        $reviews['reviews'] = DB::table('reviews')->where('project_id','=',$id)->get();
+
+        $list_reviews ['list_reviews']  = 
+        DB::table('reviews')
+        ->join('users', 'users.id','=','reviews.user_id')
+        ->select('reviews.id', 'users.name', 'reviews.created_at','reviews.rating','reviews.isi_review')
+        ->where('reviews.project_id','=',$id)
+        ->get();
        
-        return view('investor.detailstartup')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar);
+        return view('investor.detailstartup')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews);
     }
 
     /*public function listFinance(Request $req, $id)
