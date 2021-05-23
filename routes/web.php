@@ -157,9 +157,13 @@ Route::get('/inv/invest/listInvestPending', [InvestController::class, 'listInves
 Route::get('/inv/invest/listInvestSettlement', [InvestController::class, 'listInvestSettlement'])->name('inv.invest.listInvestSettlement');
 Route::get('/inv/invest/listInvestCancel', [InvestController::class, 'listInvestCancel'])->name('inv.invest.listInvestCancel');
 
-//reviews
+//reviews - ulasan
 Route::post('/inv/review', [ReviewController::class, 'beriReview'])->name('inv.beriReview'); //buat event
 Route::get('/inv/review/refreshUlasan/{id}', [ReviewController::class, 'refreshUlasan'])->name('inv.review.refreshUlasan');
+
+//history review
+Route::get('/inv/riwayatReview', [ReviewController::class, 'riwayatReview'])->name('inv.riwayatReview');
+Route::get('/inv/riwayatReview/listReviews', [ReviewController::class, 'listReviews'])->name('inv.riwayatReview.listReviews');
 
 //-----------------------------end of INVESTOR---------------------------
 
@@ -186,6 +190,8 @@ Route::get('/dev/listProject/select', [ProductController::class, 'listProject_se
 Route::get('/dev/listProduct', [ProductController::class, 'listProduct'])->name('dev.listProduct'); //show list product in daftar product
 Route::get('/dev/listProduct/detailProject/{id}', [ProductController::class, 'detailProject'])->name('dev.listProduct.detailProject'); 
 Route::get('/dev/listProduct/detailProjectKas/{id}', [ProductController::class, 'detailProjectKas'])->name('dev.listProduct.detailProjectKas'); 
+Route::get('/dev/listProduct/detailProjectReview/{id}', [ReviewController::class, 'detailProjectReview'])->name('dev.listProduct.detailProjectReview'); 
+
 Route::get('/dev/listProduct/deleteProject/{id}', [ProductController::class, 'deleteProject'])->name('dev.listProduct.deleteProject'); 
 Route::get('/dev/listProduct/activeProject/{id}', [ProductController::class, 'activeProject'])->name('dev.listProduct.activeProject'); 
 Route::get('/dev/listProduct/nonactiveProject/{id}', [ProductController::class, 'nonactiveProject'])->name('dev.listProduct.nonactiveProject'); 

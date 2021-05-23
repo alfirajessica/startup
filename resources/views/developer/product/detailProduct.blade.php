@@ -13,6 +13,9 @@
                         <li class="nav-item">
                             <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Transaksi</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Review</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -192,6 +195,31 @@
                                             </tfoot>
                                             </table>
                                         <!-- AKHIR TABLE -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show active" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+                            <div class="row py-2">
+                                <div class="card col-md-12">
+                                    <h5 class="fs-title">Rating & Reviews</h5>
+                                    <div class="col-md-12 py-2">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover table-sm" width="100%" id="table_listReviews">
+                                              <thead>
+                                                  <tr>
+                                                      <th>#</th>
+                                                      <th>Tanggal</th>
+                                                      <th>Investor</th>
+                                                      <th>Rating & Review</th>
+                                                    
+                                                  </tr>
+                                              </thead>
+                                              <tbody></tbody>
+                                              
+                                            </table>
+                                          <!-- AKHIR TABLE -->
                                         </div>
                                     </div>
                                 </div>

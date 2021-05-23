@@ -11,7 +11,8 @@
                 </span>
             <span class="be-comment-time">
                 <i class="fa fa-clock-o"></i>
-                {{$item->created_at}}
+                {{ \Carbon\Carbon::parse($item->created_at)->format('d/M/Y h:m')}}
+               
             </span>
 
         <p class="be-comment-text">

@@ -588,4 +588,58 @@ function table_pemasukkan_pengeluaran(id) {
         ],
         
     });
+
+    $('#table_listReviews').DataTable({
+        destroy:true,
+        processing: true,
+        serverSide: true, //aktifkan server-side 
+        responsive:true,
+        deferRender:true,
+        language: {
+            "emptyTable": "Belum ada investor pada proyek ini"
+        },
+        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+        ajax: {
+            url: "/dev/listProduct/detailProjectReview/" + id,
+            type: 'GET',
+        },
+        order: [
+            [0, 'asc']
+        ],
+        columns: [
+            {
+                data: null,
+                name: 'id',
+                render: data => {
+                    return "#" + data.id;
+                }
+              
+            },
+            {
+                data: 'created_at',
+                name: 'created_at',
+                render: data => {
+                    return moment(data.created_at).format('DD/MMM/YYYY');
+                }
+            },
+            {
+                data: 'name',
+                name: 'name',
+            },
+            {
+                data: null,
+                name: 'rating',
+                render: data => {
+                    var coba="<label> <div class='stars' data-rating='0'>";
+                    for (let index = 0; index < data.rating; index++) {
+                        coba = coba + "<span class='star rated' data-rating='" + index + "'>&nbsp;</span>";
+                    }
+                    coba = coba + "</div>" + data.isi_review + "</label>" ;
+                    return coba;
+                }
+            },
+            
+        ],
+        
+    });
 }

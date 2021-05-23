@@ -107,7 +107,48 @@
             </div>
             <div class="col-md-4">
                 @foreach ($detail_user as $item)
-                    @include('investor.detailStartup.profilStartup')
+                    <div class="card text-center">
+                        <div class="card-header">
+                        Tentang Startup
+                        </div>
+                        <div class="card-body">
+                        <h5>{{$item->name}}</h5>
+                        <p class="card-text">{{$item->province_name}}, {{$item->city_name}}</p>
+                        </div>  
+                    </div>
+                    
+                    
+                    {{-- @include('investor.detailStartup.profilStartup') --}}
+                @endforeach
+
+                @foreach ($reviews as $review)
+                <div class="card text-center py-2">
+                        
+                    <div class="card-body">
+                        <h3 style='font-size:24pt;'>{{$review->rate}} <span style='font-size:18pt;'> /5 </span></h3>
+                        <?php 
+                            $rate = $review->rate;
+                            $sisa = 5 - $rate;
+                            $star = "";
+                            if ($rate == 0) {
+                                $star = "Belum ada ulasan";
+                            }
+                            else if ($rate != 0){
+                                $star = "<div class='stars' data-rating='0'>";
+                                for ($i=0; $i < $rate ; $i++) { 
+                                    $star= $star."<span class='star rated' data-rating='".$i."'>&nbsp;</span>";
+                                }
+                                for ($i=0; $i <$sisa; $i++) { 
+                                    $star= $star."<span class='star' data-rating='".$i."'>&nbsp;</span>";
+                                }
+                                $star = $star."</div>";
+                                
+                            }
+                            echo $star;
+                        ?>
+                        <p class="card-text">{{$review->ulasan}} Ulasan</p>
+                    </div>  
+                </div>
                 @endforeach
             </div>
         </div>

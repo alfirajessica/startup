@@ -68,7 +68,7 @@
                             {{ __('List Investasi') }}
                         </a>
 
-                        <a class="dropdown-item" href="">
+                        <a class="dropdown-item" href="{{ route('inv.riwayatReview') }}">
                             {{ __('Riwayat Review dan Rating') }}
                         </a>
                         <div class="dropdown-divider"></div>

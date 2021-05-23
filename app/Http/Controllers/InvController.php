@@ -212,7 +212,10 @@ class InvController extends Controller
         $user = auth()->user();
         $detail_user['detail_user'] = DB::table('users')->where('id','=',$user->id)->get();
 
-        $reviews['reviews'] = DB::table('reviews')->where('project_id','=',$id)->get();
+        $reviews['reviews'] = 
+        DB::table('reviews')
+        ->select(\DB::raw('round(avg(rating)) as rate, count(id) as ulasan'))
+        ->where('project_id','=',$id)->get();
 
         $list_reviews ['list_reviews']  = 
         DB::table('reviews')
@@ -221,7 +224,7 @@ class InvController extends Controller
         ->where('reviews.project_id','=',$id)
         ->get();
        
-        return view('investor.detailstartup')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews);
+        return view('investor.detailstartup')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews)->with($reviews);
     }
 
     /*public function listFinance(Request $req, $id)
