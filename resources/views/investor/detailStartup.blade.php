@@ -1,9 +1,9 @@
 @extends('layouts.inv')
 
 @section('content')
-<div class="container bg-secondary">
+<div class="container">
 
-    <div class="row py-4 bg-secondary">
+    <div class="row py-4">
         <div class="py-4"></div>
             <div class="col-md-12">
                 @foreach ($list_project as $item)

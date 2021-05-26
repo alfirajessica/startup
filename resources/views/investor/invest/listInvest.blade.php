@@ -5,7 +5,7 @@
 <div class="col-md-12 py-2">
     <!-- card -->
     <div class="card">
-      <div class="card">
+      <div class="card shadow border-0">
       <div class="card-body"> <!-- card body -->
         <!-- tab content -->
         <div class="tab-content" id="myTabContent">

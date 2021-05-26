@@ -37,7 +37,7 @@
                                 <div class="col-md-6">
                                     <div class="card border-0">
                                       
-                                        <img id="previewImg" class="d-block user-select-none" width="100%" height="200" >
+                                        <img id="previewImg" class="d-block user-select-none shadow" width="100%" height="200" >
                                         
                                         
                                     </div>

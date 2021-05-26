@@ -5,7 +5,7 @@
 </ul>
 <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="financial" role="tabpanel" aria-labelledby="financial-tab">
-        <div class="card border-0 py-2">
+        <div class="card shadow border-0 py-2">
             <div class="card-body">
                 <div class="table-responsive">
                     {{-- highchart --}}

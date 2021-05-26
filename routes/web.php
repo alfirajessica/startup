@@ -141,8 +141,6 @@ Route::get('/inv/startup/{id}', [InvController::class, 'detail_category_filter']
 Route::get('/inv/detailstartup/{id}', [InvController::class, 'detailstartup'])->name('inv.detailstartup');
 Route::get('/inv/detailstartup/financial/{id}', [InvController::class, 'listFinance'])->name('inv.detailstartup.financial');
 
-
-
 //search
 Route::get('/inv/startup/searchStartup/{id}', [ProductController::class, 'searchStartup'])->name('inv.startup.searchStartup');
 Route::get('inv/get-more-startups', [ProductController::class, 'getMoreStartups'])->name('inv.get-more-startups');

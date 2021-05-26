@@ -1,4 +1,4 @@
-@extends('layouts.dev')
+@extends('layouts.inv')
 
 @section('content')
   @foreach ($akun_user as $item)
@@ -37,7 +37,7 @@
                 </div>
             </div>
             
-            <div class="col-md-12 bg-secondary">
+            <div class="col-md-12">
               <!-- tab content -->
               <div class="tab-content" id="myTabContent">
                   <!-- profile -->
@@ -45,7 +45,7 @@
                     
                     <div class="row">
                       <div class="col">
-                        <div class="card border-1">
+                        <div class="card shadow border-1" >
                           <div class="card-body">
                               <form action="{{ route('akun.updateAkun')}}" method="POST" enctype="multipart/form-data" id="updateAkun">
                                   @csrf
@@ -100,7 +100,7 @@
                   
                       <div class="row">
                           <div class="col">
-                            <div class="card border-1">
+                            <div class="card shadow border-1">
                               <div class="card-body">
                                 <form action="{{ route('akun.updateTentang')}}" method="POST" enctype="multipart/form-data" id="ubahTentang">
                                   @csrf

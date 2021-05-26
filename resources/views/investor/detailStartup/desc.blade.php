@@ -1,5 +1,5 @@
 <div class="card border-0">
-    <div class="card-body bg-secondary px-0">
+    <div class="card-body px-0" style="background-color: #f7f3e9">
         <div class="row">
            <div class="col-md-8  mb-0">
                 @if (session('fail'))
@@ -11,10 +11,10 @@
                 @endif
 
                 {{-- class="d-none" --}}
-                <h1 id="id_product" name="id_product" >{{$item->id}}</h1>
+                <h1 id="id_product" name="id_product" class="d-none">{{$item->id}}</h1>
                 <h5 class="card-title font-weight-bold" name="name_project" id="name_project">{{$item->name_product}}</h5>
                 
-                <img id="previewImg2" class="d-block user-select-none" width="100%" max-height="400" src="/uploads/event/{{$item->image}}" > </a>
+                <img id="previewImg2" class="d-block user-select-none shadow" width="100%" max-height="400" src="/uploads/event/{{$item->image}}" > </a>
            </div>
            <div class="col-md-4 ">
                <div class="row py-2">
@@ -25,7 +25,7 @@
                </div>
                 <div class="row py-2">
                     <div class="col-md-12">
-                        <div class="card border-0">
+                        <div class="card shadow border-0">
                             <div class="card-body ">
                                 <h5>Site Info</h5>
                                 <div class="row">
@@ -65,12 +65,12 @@
             <div class="col-md-8">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" id="about_product-tab" data-toggle="tab" href="#about_product" role="tab" aria-controls="about_product" aria-selected="true">About Product</a>
+                      <a class="nav-link active" id="about_product-tab" data-toggle="tab" href="#about_product" role="tab" aria-controls="about_product" aria-selected="true">Deskripsi Produk</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="about_product" role="tabpanel" aria-labelledby="about_product-tab">
-                        <div class="card border-0">
+                        <div class="card shadow border-0">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -108,7 +108,7 @@
             </div>
             <div class="col-md-4">
                 @foreach ($detail_user as $item)
-                    <div class="card text-center">
+                    <div class="card shadow text-center">
                         <div class="card-header">
                         Tentang Startup
                         </div>
@@ -123,7 +123,7 @@
                 @endforeach
 
                 @foreach ($reviews as $review)
-                <div class="card text-center py-2">
+                <div class="card shadow text-center py-2">
                         
                     <div class="card-body">
                         <h3 style='font-size:24pt;'>{{$review->rate}} <span style='font-size:18pt;'> /5 </span></h3>
@@ -167,7 +167,7 @@
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
-                        <div class="card border-0 py-2">
+                        <div class="card shadow border-0 py-2">
                             <div class="card-body">
                                 <div id="data_ulasan">
                                     @include('investor.detailStartup.dataUlasan')

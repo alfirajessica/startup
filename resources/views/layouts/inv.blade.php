@@ -25,7 +25,7 @@
             {{ config('app.name', 'Startup') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+        <span class="navbar-toggler-icon"><i class="fas fa-bars" style="color: #f7f3e9"></i></span>
         </button>
         <div class="navbar-collapse collapse" id="navbar_global">
             <div class="navbar-collapse-header">
