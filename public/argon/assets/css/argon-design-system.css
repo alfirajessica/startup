@@ -5779,6 +5779,9 @@ a.badge-darker.focus {
   margin-bottom: 2rem;
   background-color: #e9ecef;
   border-radius: 0.3rem;
+  background: url(/images/person-using-tablet.jpg) no-repeat;
+  background-size: cover;
+  opacity: inherit;
 }
 
 @media (min-width: 576px) {

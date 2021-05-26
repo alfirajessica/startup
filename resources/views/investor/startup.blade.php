@@ -1,7 +1,7 @@
 @extends('layouts.inv')
 
 @section('content')
-<div class="header pb-6 d-flex align-items-center" style="min-height: 300px; background-image: url(/argon/assets/img/theme/img-1-1200x1000.jpg); background-size: cover; background-position: center top;">
+<div class="header pb-6 d-flex align-items-center" style="min-height: 300px; background-image: url(/images/person-using-tablet.jpg); background-size: cover; background-position: center top;">
     <!-- Mask -->
     <span class="mask bg-gradient-default opacity-8"></span>
     <!-- Header container -->
@@ -24,7 +24,7 @@
               Filter By
           </a>
           <div class="collapse multi-collapse show bg-white" id="multiCollapseExample1">    
-              <div class="card-body border-1"> <!-- card-body -->
+              <div class="card-body shadow border-1"> <!-- card-body -->
                  
                     @include('units.search')
                     <hr>
@@ -61,8 +61,8 @@
 
         </div><!--end tabs -->
         
-        <div id="user_data" class="col-md-9 bg-secondary justify-content-center">
-            <div class="card border-0 py-4 bg-secondary">  
+        <div id="user_data" class="col-md-9 justify-content-center">
+            <div class="card border-0 py-4" style="background-color: #f7f3e9">  
                 
               <div class="alert alert-danger d-none" id="search_nullData" role="alert">
                 <strong>Tidak ada </strong>
