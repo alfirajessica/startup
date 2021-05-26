@@ -1,27 +1,33 @@
 //Dibawah ini adalah function pada inv/startup.blade.php
 // Yang termasuk : semua pada folder investor/detailStartup
-
+var tipe="";
 $(function () {
-
     //startup.blade.php
+    $(document).on('click', '.pagination a', function(event) {
+      event.preventDefault();
+      var page = $(this).attr('href').split('page=')[1];
+      getMoreUsers(page);
+    });
+
+    $(document).on('change', 'input[Id="check_detailCat"]', function (e) {
+     //tipe = $(this).val();
+      getMoreUsers(1);
+    });
+
+
+    $('#reset').on('click', function() {
+      $('#search_input').val("");
+      getMoreUsers(1);
+    });
+
+    
     $('#search_input').on('keyup', function() {
         $value = $(this).val();
         getMoreUsers(1);
     });
 
-        // var checkboxes = $('input[name="check_detailCat[]"]');
-        // checkboxes.filter(":checked").map(function () {
-        //   return this.value;
-        // }).get()
-    
-    //     var typecategory = $('input[name="checkbox_categoryDetail"]:checked').val();
-    // console.log(typecategory);
-
-    //var typecategory = $('input[name="check_detailCat"]:checked').val();
-    // console.log(typecategory);
-
     //financial.blade.php
-    table_finance();
+    //table_finance();
     
     init();
 });
@@ -30,27 +36,27 @@ let draw = false;
 function getMoreUsers(page) {
     var search = $('#search_input').val();
 
-    var typecategory = $('input[name="category_check"]:checked').val();
-    console.log(typecategory);
-    
+    const checkboxes = document.querySelectorAll('input[name="check_detailCat"]:checked');
+    let values = [];
+    checkboxes.forEach((checkbox) => {
+        values.push(checkbox.value);
+    });
+    console.log(values) ;
+  
     $.ajax({
       type: "GET",
       data: {
         'search_query':search,
-        'typecategory_query':"",
+        'typecategory_query':values,
       },
       url: url_get_more_users + page,
       success:function(data) {
-        console.log(data);
-        if (data == null) {
-          $('#user_data').html("kosong");
-        } else {
-          $('#user_data').html(data);
-        }
+        $('#user_data').html(data);
         
       }
     });
 }
+
 
 //startup.blade.php
 function show_detail() { 
@@ -160,7 +166,7 @@ function createHighcharts(data) {
         text: "DataTables to Highcharts"
       },
       subtitle: {
-        text: "Data from worldometers.info"
+        text: "Data from "
       },
       xAxis: [
         {

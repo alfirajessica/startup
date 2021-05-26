@@ -10,7 +10,8 @@
                 </script>
                 @endif
 
-                <h1 id="id_product" name="id_product" class="d-none">{{$item->id}}</h1>
+                {{-- class="d-none" --}}
+                <h1 id="id_product" name="id_product" >{{$item->id}}</h1>
                 <h5 class="card-title font-weight-bold" name="name_project" id="name_project">{{$item->name_product}}</h5>
                 
                 <img id="previewImg2" class="d-block user-select-none" width="100%" max-height="400" src="/uploads/event/{{$item->image}}" > </a>

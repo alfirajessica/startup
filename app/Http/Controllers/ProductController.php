@@ -551,7 +551,7 @@ class ProductController extends Controller
         ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
         ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url')
         ->where('header_products.status','=','1')
-        ->paginate(6);
+        ->paginate(4);
        
         
         return view('investor.startup')->with($list_dtcategory)->with($list_category)->with($list_project);
@@ -568,7 +568,7 @@ class ProductController extends Controller
         ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc')
         ->where('header_products.status','=','1')
         ->where('header_products.name_product','=',$req->search_input)
-        ->paginate(6);
+        ->paginate(4);
 
         // $list_category['list_category'] = DB::table('category_products')->get();
         // $header_events['header_events'] = DB::table("header_events")->where('name','='.$req->search_input)->paginate(6);
@@ -580,11 +580,11 @@ class ProductController extends Controller
     public function getMoreStartups(Request $req) {
         
         $search = $req->search_query;
-        $type = "";
-       
+        $type = $req->typecategory_query;
+
         if($req->ajax()) {
 
-            if ($type == "1") {
+            if ($type == null) {
                 $list_project['list_project'] = 
                     DB::table('header_products')
                     ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
@@ -592,9 +592,7 @@ class ProductController extends Controller
                     ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url')
                     ->where('header_products.status','=','1')
                     ->where('header_products.name_product','like',$search.'%')
-                    ->paginate(6);
-
-                // $header_events['header_events'] = DB::table("header_events")->where('name','like',$search.'%')->paginate(6);
+                    ->paginate(4);
             }
             else{
                 $list_project['list_project'] = 
@@ -604,9 +602,13 @@ class ProductController extends Controller
                     ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url')
                     ->where('header_products.status','=','1')
                     ->where('header_products.name_product','like',$search.'%')
-                    ->paginate(6);
-
-                // $header_events['header_events'] = DB::table("header_events")->where('name','like',$search.'%')->where('held','=',$type)->paginate(6);
+                    ->where(function ($query) use($type)
+                    {
+                        for ($i=0; $i <count($type) ; $i++) { 
+                            $query->orwhere('header_products.id_detailcategory','like','%'.$type[$i].'%');
+                        }
+                    })
+                    ->paginate(4);
             }
             
 

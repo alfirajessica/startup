@@ -43,7 +43,7 @@
                         @foreach($list_dtcategory as $category2)
                           @if ($category2->category_id == $category->id)
                           <div id="checkbox_categoryDetail" class="form-check checkbox">
-                            <input type="checkbox" name="check_detailCat" class="form-check-input border-0" value="{{$category2->id}}"> <label class="form-check-label">{{$category2->name}}</label>
+                            <input type="checkbox" name="check_detailCat" id="check_detailCat" class="form-check-input border-0" value="{{$category2->id}}"> <label class="form-check-label">{{$category2->name}}</label>
                           </div>
                           @endif
                         @endforeach
@@ -61,14 +61,14 @@
 
         </div><!--end tabs -->
         
-        <div class="col-md-9 bg-secondary">
+        <div id="user_data" class="col-md-9 bg-secondary justify-content-center">
             <div class="card border-0 py-4 bg-secondary">  
                 
-                <div id="user_data">
-                  @include('investor.detailStartup.dataStartup')
-                </div>
-                
-                
+              <div class="alert alert-danger d-none" id="search_nullData" role="alert">
+                <strong>Tidak ada </strong>
+              </div>
+                @include('investor.detailStartup.dataStartup')
+               
             </div>  
         </div> <!--end of col-md-8 -->
     </div>

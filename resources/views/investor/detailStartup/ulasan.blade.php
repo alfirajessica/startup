@@ -1,7 +1,7 @@
 <form action="{{ route('inv.beriReview')}}" method="POST" enctype="multipart/form-data" id="beriReview">
     @csrf
 
-    <input type="hidden" id="project_id_ulas" name="project_id_ulas" value="{{$item->id}}">
+    <input type="hidden" id="project_id_ulas" name="project_id_ulas">
     <label for=""> Beri Rating</label>
     <div class='stars' data-rating='0'>
         <span class='star' data-rating='1'>&nbsp;</span>
@@ -19,5 +19,15 @@
     <button type="submit" class="btn btn-info float-right">Submit</button>
 </form>
 
-
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
+{{-- <script src="https://code.highcharts.com/highcharts.js"></script> --}}
+{{-- semua function ini ada pada /js/inv/startup.js --}}
+<script>
+    $(function () {
+        var id = {{ Request::route('id')}};
+        console.log(id);
+        $("#project_id_ulas").val(id);
+    });
+   
+</script> 
 <script src="/js/inv/review.js"></script>

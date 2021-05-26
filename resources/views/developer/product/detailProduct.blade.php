@@ -118,6 +118,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                            
                             <div class="row py-2">
@@ -200,7 +201,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tab-pane fade show active" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
+
+                        <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
                             <div class="row py-2">
                                 <div class="card col-md-12">
                                     <h5 class="fs-title">Rating & Reviews</h5>
