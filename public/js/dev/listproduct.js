@@ -582,6 +582,11 @@ function table_pemasukkan_pengeluaran(id) {
                     }else if (data.status_invest == "1") {
                         return "Aktif";
                     }
+                    else if (data.status_invest == "4") {
+                        return "Di cancle";
+                    }else{
+                        return "Menunggu Konfirmasi";
+                    }
                     
                 }
             },

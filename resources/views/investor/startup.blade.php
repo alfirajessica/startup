@@ -52,12 +52,10 @@
                       </label> <br>
                       @endforeach
 
-                    </div>
-                      
+                    </div>   
                   </div>
-              </div>
-              
-          </div><!-- card-body --> 
+              </div>  
+          </div><!-- END COLLAPSE --> 
 
         </div><!--end tabs -->
         

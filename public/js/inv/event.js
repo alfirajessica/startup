@@ -301,7 +301,7 @@ $(function () {
            open_city(data.id_province, data.id_city, status);
            
            var jadwal = moment(data.event_schedule).format('DD/MMM/YYYY');
-           var jam = moment(data.event_time).format('h:mm');
+           var jam = data.event_time;
            
            $('#date_detailEvent').text(jadwal);
            $('#time_detailEvent').text(jam);

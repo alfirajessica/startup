@@ -73,8 +73,8 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a href="{{ route('dev.product') }}" class="dropdown-item">
-                            <i class="ni ni-single-02"></i>
-                            <span>{{ __('Produk') }}</span>
+                            <i class="ni ni-collection"></i>
+                            <span>{{ __('Proyek Saya') }}</span>
                         </a>
 
                         <a href="{{ route('dev.listJoinEvent') }}" class="dropdown-item">
@@ -82,10 +82,10 @@
                             <span>{{ __('Event diikuti') }}</span>
                         </a>
 
-                        <a href="{{ route('dev.review') }}" class="dropdown-item">
+                        {{-- <a href="{{ route('dev.review') }}" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
                             <span>{{ __('Riwayat Review dan Rating') }}</span>
-                        </a>
+                        </a> --}}
 
                         <a href="#" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
@@ -93,15 +93,17 @@
                         </a>
 
                         <a href="{{ route('akun') }}" class="dropdown-item">
-                            <i class="ni ni-single-02"></i>
+                            <i class="ni ni-settings"></i>
                             <span>{{ __('Pengaturan Akun') }}</span>
                         </a>
 
                         <div class="dropdown-divider"></div>
+                        
                         <a class="dropdown-item" href="{{ route('logout') }}"
                             onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
+                            
                         </a>
 
                         <form id="logout-form" action="{{ route('users.logout') }}" method="POST" class="d-none">

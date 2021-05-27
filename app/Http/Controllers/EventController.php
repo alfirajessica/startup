@@ -306,7 +306,7 @@ class EventController extends Controller
     // developer event
     public function devEvent()
     {
-        $header_events['header_events'] = DB::table("header_events")->paginate(6);
+        $header_events['header_events'] = DB::table("header_events")->where('status','=','1')->paginate(6);
         return view('developer.event')->with($header_events);
     }
 
@@ -326,8 +326,8 @@ class EventController extends Controller
         $held = $req->held_query;
        
         if($req->ajax()) {
-
-            if ($held == "1") {
+            //semua
+            if ($held == null) {
                 $header_events['header_events'] = DB::table("header_events")->where('name','like',$search.'%')->paginate(6);
             }
             else{

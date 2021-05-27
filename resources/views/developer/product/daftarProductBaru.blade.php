@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <div class="card px-2 py-2 pb-0 mb-3 border-0">
+    <div class="card shadow px-2 py-2 pb-0 mb-3 border-0">
         <h4><strong>Daftarkan Proyek Baru Saya</strong></h4>
         <p>Isi semua form untuk ke halaman selanjutnya</p>
         <div class="row">

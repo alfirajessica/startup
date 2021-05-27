@@ -236,7 +236,7 @@ class ProductController extends Controller
                     
                     $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm aktifProject" data-tr="tr_{{$product->id}}">Aktifkan</a>';
+                   // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm aktifProject" data-tr="tr_{{$product->id}}">Aktifkan</a>';
 
                     return $btn;
                 })

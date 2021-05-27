@@ -69,12 +69,12 @@
                                                 </div>
                                             </div>
                         
-                                            <div class="row">
+                                            {{-- <div class="row">
                                                 <div class="col-12">
                                                     <i class="fas fa-clock"></i>
                                                     <label id="time_detailEvent"></label>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>

@@ -15,8 +15,8 @@
                 <h5 class="card-title font-weight-bold" name="name_project" id="name_project">{{$item->name_product}}</h5>
                 
                 <img id="previewImg2" class="d-block user-select-none shadow" width="100%" max-height="400" src="/uploads/event/{{$item->image}}" > </a>
-           </div>
-           <div class="col-md-4 ">
+            </div>
+            <div class="col-md-4 ">
                <div class="row py-2">
                    <div class="col-md-12">
                     <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">Investasikan</button>
