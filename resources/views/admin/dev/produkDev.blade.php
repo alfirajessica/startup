@@ -14,7 +14,7 @@
                           <tr>
                               <th>#ID</th>
                               <th>Nama</th>
-                              <th>Email</th>
+                              <th>Proyek</th>
                               <th>Aksi</th>
                           </tr>
                       </thead>

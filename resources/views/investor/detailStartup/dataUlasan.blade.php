@@ -14,15 +14,12 @@
                 {{ \Carbon\Carbon::parse($item->created_at)->format('d/M/Y h:m')}}
                
             </span>
+    </div>
 
-        <p class="be-comment-text">
-            {{$item->rating}}/5 <br>
-            {{$item->isi_review}}
-        </p>
-        <span>
-            <a href="http://" class="text-right">Reply</a>
-        </span>
+    <div class="card-header">
         
+        Rating : {{$item->rating}}/5 <br>
+        Review : {{$item->isi_review}}
     </div>
 </div>
 <hr>

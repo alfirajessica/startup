@@ -130,6 +130,57 @@ class AdminController extends Controller
         return response()->json(['success'=>"Berhasil mengaktifkan", 'tr'=>'tr_'.$id]);
     }
 
+    public function allListProduct(Request $req)
+    {
+        $list_project = 
+        DB::table('header_products')
+        ->leftJoin('header_invests', 'header_invests.project_id','=','header_products.id')
+        ->select('header_products.id','header_products.name_product','header_products.status', 'header_invests.status_invest')
+        ->get();
+
+        if($req->ajax()){
+            return datatables()->of($list_project)
+                ->addColumn('action', function($data){
+                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
+
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-danger btn-sm confirmProject" data-tr="tr_{{$product->id}}">Aktifkan</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+        return view('admin.dev.allListProduct');
+    }
+
+    public function allproduct(Request $req)
+    {
+        $list_project = 
+        DB::table('header_products')
+        ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
+        ->join('users', 'users.id','=','header_products.user_id')
+        ->select('header_products.id','header_products.name_product','detail_category_products.name', 'users.email')
+        ->where('header_products.status','=','0')
+        ->get();
+
+        if($req->ajax()){
+            return datatables()->of($list_project)
+                ->addColumn('action', function($data){
+                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
+
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-danger btn-sm confirmProject" data-tr="tr_{{$product->id}}">Confirm</a>';
+
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="notConfirm" class="btn btn-danger btn-sm notConfirmProject" data-tr="tr_{{$product->id}}">Tidak Dikonfirmasi</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+       return view('admin.dev.allListProduct');
+    }
+
 
 
     //INVESTOR

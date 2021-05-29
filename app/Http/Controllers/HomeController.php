@@ -125,14 +125,7 @@ class HomeController extends Controller
 
     public function updStatusTrans()
     {
-        // Set your Merchant Server Key
-        // \Midtrans\Config::$serverKey = $this->MIDTRANS_SERVER_KEY;
-        // // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-        // \Midtrans\Config::$isProduction = false;
-        // // Set sanitization on (default)
-        // \Midtrans\Config::$isSanitized = true;
-        // // Set 3DS transaction for credit card to true
-        // \Midtrans\Config::$is3ds = true;
+       
         
         $data = HeaderInvest::all()->toArray();
         for ($i=0; $i < count($data); $i++) { 
@@ -141,11 +134,7 @@ class HomeController extends Controller
             $status = \Midtrans\Transaction::status($data[$i]['invest_id']);
             $status = json_decode(json_encode($status),true);
 
-             DB::table('header_invests')->
-             where('invest_id','=',$data[$i]['invest_id'])->
-             update([
-                 'status_transaction' => $status['transaction_status'],
-             ]);
+             
 
             if ($status['transaction_status'] == "cancel" || $status['transaction_status'] == "expire") {
                 DB::table('header_invests')->
@@ -154,18 +143,36 @@ class HomeController extends Controller
                     'status_transaction' => $status['transaction_status'],
                     'status_invest' => '4'
                 ]);
+
+                DB::table('header_products')
+                ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+                ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
+                ->update([
+                    'header_products.status' => '1',
+                ]);
+            }
+            else{
+                DB::table('header_invests')->
+                where('invest_id','=',$data[$i]['invest_id'])->
+                update([
+                    'status_transaction' => $status['transaction_status'],
+                ]);
+
+                DB::table('header_products')
+                ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+                ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
+                ->where('header_invests.status_transaction','=','pending')
+                ->orwhere('header_invests.status_transaction','=','settlement')
+                ->update([
+                    'header_products.status' => '2',
+                ]);
             }
 
-             DB::table('header_products')
-             ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
-             ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
-             ->where('header_invests.status_transaction','=','pending')
-             ->where('header_invests.status_transaction','=','settlement')
-             ->update([
-                 'header_products.status' => '2',
-             ]);
+             
         }
     }
+
+    
 
     public function detailInvest($id)
     {
@@ -219,18 +226,20 @@ class HomeController extends Controller
     }
     
     //jika investor meng-cancle investasi/Batal Invest pada saat transaksi investasi masih berstatus "Pending"
+    //status product dikembalikan menjadi 0
     public function cancleInvest($id)
     {
          //get invest idnya
         $data = HeaderInvest::find($id);
         $investID = $data->invest_id;
-
+        
         $cancel = \Midtrans\Transaction::cancel($investID);
 
         return $cancel;
-        //var_dump($cancel);
+        
     }
 
+    
     //akun
     public function akun()
     {

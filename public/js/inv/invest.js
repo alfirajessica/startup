@@ -413,17 +413,34 @@ $('body').on('click', '.sudahKirim', function () {
 
 $('body').on('click', '.cancelInvest', function () {
     var id = $(this).data('id');
-    console.log(id);
-    $.ajax({
-        type: "get",
-        url: '/cancleInvest/' + id ,
-        success: function (data) {
-            updStatusTrans();
-        },
-        error: function (data) {
-            console.log('Error:', data);
+    //console.log(id);
+    swal({
+        title: "Apakah yakin ingin membatalkan investasi?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "get",
+                url: '/cancleInvest/' + id ,
+                success: function (data) {
+                    updStatusTrans();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+            swal("Investasi berhasil dibatalkan", {
+            icon: "success",
+        });
+        } else {
+            swal("Your imaginary file is safe!");
         }
     });
+
+    
 });
 
 var getTotal, getUangmuka, temptotal='';

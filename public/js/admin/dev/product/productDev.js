@@ -67,8 +67,7 @@ $('body').on('click', '.confirmProject', function () {
     console.log(id);
     var txt;
     swal({
-        title: "Are You sure want to delete?",
-        text: "Once deleted, you will not be able to recover this project!",
+        title: "Yakin Ingin mengkonfirmasi proyek ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -86,11 +85,11 @@ $('body').on('click', '.confirmProject', function () {
                 }
             });
             //jika sukses, call swal
-            swal("Poof! Your imaginary file has been deleted!", {
+            swal("Berhasil Konfirmasi", {
             icon: "success",
         });
         } else {
-            swal("Your imaginary file is safe!");
+            swal("Kamu meng-cancle konfirmasi proyek ini");
         }
     });
 });
@@ -100,8 +99,7 @@ $('body').on('click', '.notConfirmProject', function () {
     console.log(id);
     var txt;
     swal({
-        title: "Are You sure want to delete?",
-        text: "Once deleted, you will not be able to recover this project!",
+        title: "Yakin ingin Tidak mengkonfirmasi?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -119,11 +117,11 @@ $('body').on('click', '.notConfirmProject', function () {
                 }
             });
             //jika sukses, call swal
-            swal("Poof! Your imaginary file has been deleted!", {
+            swal("Berhasil Tidak Konfirmasi", {
             icon: "success",
         });
         } else {
-            swal("Your imaginary file is safe!");
+            swal("Kamu meng-cancle untuk tidak konfirmasi proyek ini");
         }
     });
 });

@@ -8,8 +8,8 @@
     <div class="container d-flex align-items-center">
         <div class="row">
             <div class="col-lg-7 col-md-10">
-            <h1 class="display-2 text-white">Hello </h1>
-            <p class="text-white mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
+            <h1 class="display-2 text-black">Hello </h1>
+            <p class="text-black mt-0 mb-5">This is your profile page. You can see the progress you've made with your work and manage your projects or assigned tasks</p>
             </div>
         </div>
     </div>

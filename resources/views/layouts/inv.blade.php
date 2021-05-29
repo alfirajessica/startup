@@ -17,8 +17,9 @@
         background-color: none
     }
   </style>
-<body class="landing-page">
+<body class="landing-page"  data-spy="scroll" data-offset="60" data-target="#navbar-main">
   <!-- Navbar -->
+  
   <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg position-sticky top-0 shadow py-2">
     <div class="container">
         <a class="navbar-brand mr-lg-5 text-white" href="{{ url('/home') }}">
@@ -121,25 +122,12 @@
         
 
         <main>
-            {{-- @if (Route::currentRouteName() == "home") --}}
             
-        
             @yield('content')
         </main>
-
-        {{-- <div class="section features-6">
-            <div class="container">
-              <div class="row align-items-center">
-                
-              </div>
-            </div>
-          </div> --}}
-        
-        <br /><br />
-
         @include('units.footer')
     </div>
-
+       
 </body>
 </html>
 

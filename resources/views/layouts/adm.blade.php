@@ -4,10 +4,19 @@
   max-height: calc(100vh - 210px);
   overflow-y: auto;
   }
-  
+  .ct-sidebar .nav>.active>a:before {
+    position: absolute;
+    top: 50%;
+    left: 1.5rem;
+    width: 2px;
+    height: 16px;
+    content: '';
+    transform: translateY(-50%);
+    background-color: #0099e5;
+}
 </style>
 <body>
-    <header class="navbar navbar-horizontal navbar-expand navbar-dark flex-row align-items-md-center ct-navbar">
+    <header class="navbar navbar-horizontal navbar-expand navbar-dark flex-row align-items-md-center ct-navbar" style="background-color: #0a1931">
         <a class="navbar-brand" href="{{ url('/home') }}">
             {{ config('app.name', 'Startup') }}
         </a>
@@ -72,16 +81,18 @@
                     
                     <li class="ct-sidenav-active">
                       <a class="nav-link active" href="dashboard.html">
-                        <i class="ni ni-tv-2 text-primary"></i>
+                        {{-- <i class="ni ni-tv-2 text-primary"></i> --}}
                         <span class="nav-link-text">Dashboard</span>
                       </a>
                     </li>
-                    <li >
-                      <a class="nav-link active" href="{{ route('admin.categoryProduct') }}">
-                        <i class="ni ni-tv-2 text-primary"></i>
+
+                    <li>
+                      <a href="{{ route('admin.categoryProduct') }}">
+                        {{-- <i class="ni ni-tv-2 text-primary"></i> --}}
                         <span class="nav-link-text">{{ __('Produk Kategori') }}</span>
                       </a>
                     </li>
+                    
                     <li>
                       <a class="nav-link active" href="{{ route('admin.typeTrans') }}">
                         <i class="ni ni-tv-2 text-primary"></i>
@@ -98,6 +109,12 @@
                       <a class="nav-link active" href="{{ route('admin.dev.produkDev')}}">
                         <i class="ni ni-tv-2 text-primary"></i>
                         <span class="nav-link-text">Produk Terbaru</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="nav-link active" href="{{ route('admin.dev.allListProduct')}}">
+                        <i class="ni ni-tv-2 text-primary"></i>
+                        <span class="nav-link-text">Produk Terdata</span>
                       </a>
                     </li>
                     <li>

@@ -22,6 +22,7 @@ Coded by www.creative-tim.com
   <link rel="icon" type="image/png" href="./assets/img/favicon.png">
   <title>{{ config('app.name', 'Startupss') }}</title>
 
+  {{-- <link type="text/css" href="/argon/assets/css/argonDocs.min.css?v=1.0.0" rel="stylesheet"> --}}
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">

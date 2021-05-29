@@ -106,6 +106,11 @@ Route::prefix('admin')->group(function () {
     Route::get('/dev/listProductDev/confirmProject/{id}', [AdminController::class, 'confirmProject'])->name('admin.dev.listProductDev.confirmProject');
     Route::get('/dev/listProductDev/notConfirmProject/{id}', [AdminController::class, 'notConfirmProject'])->name('admin.dev.listProductDev.notConfirmProject');
 
+    //tab nav- developer - produk terdata
+    Route::get('/dev/allListProduct', [AdminController::class, 'allListProduct'])->name('admin.dev.allListProduct');
+    Route::get('/dev/allproduct', [AdminController::class, 'allproduct'])->name('admin.dev.allproduct');
+
+
     //pengguna - investor
     Route::get('/inv/daftarInvestor', [AdminController::class, 'listinv'])->name('admin.inv.listInv');
     Route::get('/inv/transaksiInv', [AdminController::class, 'transaksiInv'])->name('admin.inv.transaksiInv');

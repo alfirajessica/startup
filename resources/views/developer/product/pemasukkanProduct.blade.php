@@ -59,7 +59,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Tipe Pemasukkan</th>
+                        <th>Tipe Masuk</th>
                         <th>Jumlah</th>
                         <th>Aksi</th>
                     </tr>
