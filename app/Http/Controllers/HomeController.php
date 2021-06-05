@@ -103,23 +103,31 @@ class HomeController extends Controller
 
         //update status yang ada di header_events
         $list_event = DB::table('header_events')
-                    ->where('event_schedule','<',$date->toDateString())
+                    ->where('event_schedule','<=',$date->toDateString())
                     ->update([
                         'status' =>'2',
                     ]);
         
         //get id yang tadinya di update status nya menjadi 2
         $get_id = DB::table('header_events')->select('id')->where('status','=','2')->get();
-        dd($get_id);
+        dd(count($get_id));
         
+        
+        //masih error
+    
         $upd_details = 
              DB::table('detail_events')
-                ->join('header_events')
-                ->where('detail_events.id_header_events','=','header_events.id')
-                ->where('header_events.status','=','2')
+                ->where(function ($query) use($get_id)
+                {
+                    for ($i=0; $i <count($get_id) ; $i++) { 
+                        $query->where('id_header_events','=', $get_id[$i]);
+                    }
+                })
                 ->update([
                     'status' =>'2',
                 ]);
+
+              
     }
 
 

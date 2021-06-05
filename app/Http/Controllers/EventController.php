@@ -204,7 +204,7 @@ class EventController extends Controller
         if($req->ajax()){
             return datatables()->of($list_dev)
                     ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-primary btn-sm detailEvent">Detail</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-warning btn-sm detailEvent">Detail</a>';
 
                         $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
                         data-toggle="confirmation"
@@ -354,38 +354,40 @@ class EventController extends Controller
         return view('developer.event.detailsEvent', $header_events);
     }
 
-    public function joinEvent(Request $req){
+    public function joinEvent(Request $req, $id){
 
         $user = auth()->user();
 
-        $isExist = detailEvent::where('id_header_events', '=', $req->id_event)->where('id_participant', '=', $user->id)->first();
+        $isExist = detailEvent::where('id_header_events', '=', $id)->where('id_participant', '=', $user->id)->first();
         
-        if (detailEvent::where('id_header_events', '=', $req->id_event)->where('id_participant', '=', $user->id)->where('status', '=', "1")->exists()) //available
+        if (detailEvent::where('id_header_events', '=', $id)->where('id_participant', '=', $user->id)->where('status', '=', "1")->exists()) //available
         {
-            return back()->with('fail', 'sudah mengikuti Event');
+            return 0;
             
         }
         
-        if(detailEvent::where('id_header_events', '=', $req->id_event)->where('id_participant', '=', $user->id)->where('status', '=', "0")->exists()){
+        if(detailEvent::where('id_header_events', '=', $id)->where('id_participant', '=', $user->id)->where('status', '=', "0")->exists()){
             
             DB::table('detail_events')
-            ->where('id_header_events',$req->id_event)
+            ->where('id_header_events',$id)
             ->where('id_participant',$user->id)
             ->update([
                         'status' => "1",
                     ]);
-            return back()->with('status', 'Berhasil join Event kembali');
+            return 1;
+            //return back()->with('status', 'Berhasil join Event kembali');
         }
         if ($isExist == null) {
             $detailevent = new detailEvent;
-            $detailevent->id_header_events = $req->id_event;
+            $detailevent->id_header_events = $id;
             $detailevent->id_participant = $user->id;
             $detailevent->status = "1";
             //1 - aktif, 0 - Tidak aktif
             $query = $detailevent->save();
     
             if ($query) {
-                return back()->with('status', 'Berhasil join Event');
+                return 2;
+                //return back()->with('status', 'Berhasil join Event');
             }
         }
         
@@ -405,7 +407,7 @@ class EventController extends Controller
         if($req->ajax()){
             return datatables()->of($myevents)
                     ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-primary btn-sm detailEvent">Detail</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-warning btn-sm detailEvent">Detail</a>';
 
                         return $btn;
                      })
@@ -442,7 +444,7 @@ class EventController extends Controller
         if($req->ajax()){
             return datatables()->of($myevents)
                     ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-primary btn-sm detailEvent">Detail</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-warning btn-sm detailEvent">Detail</a>';
 
                         return $btn;
                      })
@@ -466,7 +468,7 @@ class EventController extends Controller
         if($req->ajax()){
             return datatables()->of($myevents)
                     ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-primary btn-sm detailEvent">Detail</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-warning btn-sm detailEvent">Detail</a>';
 
                         return $btn;
                      })

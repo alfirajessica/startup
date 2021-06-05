@@ -1,0 +1,247 @@
+/* parallax */
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+html, body {
+  overflow: hidden;
+}
+
+.background {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  overflow: hidden;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  height: 130vh;
+  position: fixed;
+  width: 100%;
+  -webkit-transform: translateY(30vh);
+      -ms-transform: translateY(30vh);
+          transform: translateY(30vh);
+  -webkit-transition: all 1.2s cubic-bezier(0.22, 0.44, 0, 1);
+          transition: all 1.2s cubic-bezier(0.22, 0.44, 0, 1);
+}
+.background:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.background:first-child {
+  background-image: url(/images/dashboard_full_2.png);
+  -webkit-transform: translateY(-15vh);
+      -ms-transform: translateY(-15vh);
+          transform: translateY(-15vh);
+}
+.background:first-child .content-wrapper {
+  -webkit-transform: translateY(15vh);
+      -ms-transform: translateY(15vh);
+          transform: translateY(15vh);
+}
+.background:nth-child(2) {
+  background-image: url(/images/dashboard_full_3.png);
+}
+.background:nth-child(3) {
+  background-image: url(/images/dashboard_full_2.png);
+}
+
+/* Set stacking context of slides */
+.background:nth-child(1) {
+  z-index: 3;
+}
+
+.background:nth-child(2) {
+  z-index: 2;
+}
+
+.background:nth-child(3) {
+  z-index: 1;
+}
+
+.content-wrapper {
+  height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  text-align: center;
+  -webkit-flex-flow: column nowrap;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  color: #fff;
+  font-family: Montserrat;
+  text-transform: uppercase;
+  -webkit-transform: translateY(40vh);
+      -ms-transform: translateY(40vh);
+          transform: translateY(40vh);
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transition: all 1.7s cubic-bezier(0.22, 0.44, 0, 1);
+          transition: all 1.7s cubic-bezier(0.22, 0.44, 0, 1);
+}
+.content-title {
+  font-size: 12vh;
+  line-height: 1.4;
+}
+
+.background.up-scroll {
+  -webkit-transform: translate3d(0, -15vh, 0);
+          transform: translate3d(0, -15vh, 0);
+}
+.background.up-scroll .content-wrapper {
+  -webkit-transform: translateY(15vh);
+      -ms-transform: translateY(15vh);
+          transform: translateY(15vh);
+}
+.background.up-scroll + .background {
+  -webkit-transform: translate3d(0, 30vh, 0);
+          transform: translate3d(0, 30vh, 0);
+}
+.background.up-scroll + .background .content-wrapper {
+  -webkit-transform: translateY(30vh);
+      -ms-transform: translateY(30vh);
+          transform: translateY(30vh);
+}
+
+.background.down-scroll {
+  -webkit-transform: translate3d(0, -130vh, 0);
+          transform: translate3d(0, -130vh, 0);
+}
+.background.down-scroll .content-wrapper {
+  -webkit-transform: translateY(40vh);
+      -ms-transform: translateY(40vh);
+          transform: translateY(40vh);
+}
+.background.down-scroll + .background:not(.down-scroll) {
+  -webkit-transform: translate3d(0, -15vh, 0);
+          transform: translate3d(0, -15vh, 0);
+}
+.background.down-scroll + .background:not(.down-scroll) .content-wrapper {
+  -webkit-transform: translateY(15vh);
+      -ms-transform: translateY(15vh);
+          transform: translateY(15vh);
+}
+/* end of parallax */
+
+/* mouse scroll animation*/
+@-webkit-keyframes ani-mouse {
+	0% {
+	opacity: 1;
+	top: 29%;
+	}
+	15% {
+	opacity: 1;
+	top: 50%;
+	}
+	50% {
+	opacity: 0;
+	top: 50%;
+	}
+	100% {
+	opacity: 0;
+	top: 29%;
+	}
+}
+@-moz-keyframes ani-mouse {
+	0% {
+	opacity: 1;
+	top: 29%;
+	}
+	15% {
+	opacity: 1;
+	top: 50%;
+	}
+	50% {
+	opacity: 0;
+	top: 50%;
+	}
+	100% {
+	opacity: 0;
+	top: 29%;
+	}
+}
+@keyframes ani-mouse {
+	0% {
+	opacity: 1;
+	top: 29%;
+	}
+	15% {
+	opacity: 1;
+	top: 50%;
+	}
+	50% {
+	opacity: 0;
+	top: 50%;
+	}
+	100% {
+	opacity: 0;
+	top: 29%;
+	}
+}
+ .scroll-btn {
+	display: block;
+	position: absolute;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+.scroll-btn > * {
+	display: inline-block;
+	line-height: 18px;
+	font-size: 13px;
+	font-weight: normal;
+	color: #7f8c8d;
+	color: #ffffff;
+	font-family: "proxima-nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	letter-spacing: 2px;
+}
+.scroll-btn > *:hover,
+.scroll-btn > *:focus,
+.scroll-btn > *.active {
+	color: #ffffff;
+}
+.scroll-btn > *:hover,
+.scroll-btn > *:focus,
+.scroll-btn > *:active,
+.scroll-btn > *.active {
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+}
+.scroll-btn .mouse {
+	position: relative;
+	display: block;
+	width: 35px;
+	height: 55px;
+	margin: 0 auto 20px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	border: 3px solid white;
+	border-radius: 23px;
+}
+.scroll-btn .mouse > * {
+	position: absolute;
+	display: block;
+	top: 29%;
+	left: 50%;
+	width: 8px;
+	height: 8px;
+	margin: -4px 0 0 -4px;
+	background: white;
+	border-radius: 50%;
+	-webkit-animation: ani-mouse 2.5s linear infinite;
+	-moz-animation: ani-mouse 2.5s linear infinite;
+	animation: ani-mouse 2.5s linear infinite;
+}
+
+/* end of mouse scroll animation*/

@@ -28,6 +28,6 @@
   </div>
 </footer>
 
-<div id="back-to-top" class="show">
+{{-- <div id="back-to-top" class="show">
   <a href="#top"><i class="fa fa-angle-up"></i></a>
-</div>
+</div> --}}

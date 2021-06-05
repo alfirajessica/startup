@@ -134,16 +134,14 @@ class AdminController extends Controller
     {
         $list_project = 
         DB::table('header_products')
-        ->leftJoin('header_invests', 'header_invests.project_id','=','header_products.id')
-        ->select('header_products.id','header_products.name_product','header_products.status', 'header_invests.status_invest')
+        ->select('id','name_product','status')
+        ->where('status','!=','0')
         ->get();
 
         if($req->ajax()){
             return datatables()->of($list_project)
                 ->addColumn('action', function($data){
-                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
-
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-danger btn-sm confirmProject" data-tr="tr_{{$product->id}}">Aktifkan</a>';
+                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProjectTerdata" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
 
                     return $btn;
                 })
@@ -154,7 +152,7 @@ class AdminController extends Controller
         return view('admin.dev.allListProduct');
     }
 
-    public function allproduct(Request $req)
+    /*public function allproduct(Request $req)
     {
         $list_project = 
         DB::table('header_products')
@@ -179,8 +177,29 @@ class AdminController extends Controller
                 ->make(true);
         }
        return view('admin.dev.allListProduct');
-    }
+    }*/
 
+    public function detailProjectTerdata($id, Request $req)
+    {
+        $list_inv = 
+        DB::table('header_invests')
+        ->leftJoin('users', 'users.id', '=', 'header_invests.user_id')
+        ->select('header_invests.id','users.name','header_invests.invest_id','header_invests.jumlah_final','header_invests.status_invest','header_invests.invest_expire')
+        ->where('header_invests.project_id','=',$id)
+        ->get();
+
+        if($req->ajax()){
+            return datatables()->of($list_inv)
+                ->addColumn('action', function($data){
+                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+        }
+    }
 
 
     //INVESTOR

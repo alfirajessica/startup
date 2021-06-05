@@ -34,6 +34,9 @@ Coded by www.creative-tim.com
   <link href="/argon/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/argon/assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
+  {{-- <link href="/argon/assets/css/argonDocs.min.css?v=1.0.0" rel="stylesheet" /> --}}
+  
+  
 
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

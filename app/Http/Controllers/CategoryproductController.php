@@ -42,7 +42,7 @@ class CategoryproductController extends Controller
                     data-title="Are you sure you want to delete ?"
                     data-placement="left" data-singleton="true">Hapus</a>';
 
-                    $btn = $btn. ' <a href="#row_detailCategory" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailKategori">Detail</a>';
+                    $btn = $btn. ' <a href="#row_detailCategory" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailKategori">Detail</a>';
 
                     return $btn;
                 })

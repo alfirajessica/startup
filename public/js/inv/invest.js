@@ -132,7 +132,7 @@ function listInvestPending() {
                         btn = btn + " <a href='javascript:void(0)' data-toggle='tooltip' data-id='" + data.id + "' data-original-title='Cancel' class='btn btn-danger btn-sm cancelInvest' data-tr='tr_{{$product->id}}' >Batal Invest</a>";
                     }
                     else if (data.status_transaction == "settlement") {
-                        btn= "<a href='javascript:void(0)' data-toggle='modal' data-target='#detailTrans' data-id='"+ data.id + "' data-original-title='Detail' class='detail btn btn-primary btn-sm detailProject'>Detail</a>";
+                        btn= "<a href='javascript:void(0)' data-toggle='modal' data-target='#detailTrans' data-id='"+ data.id + "' data-original-title='Detail' class='detail btn btn-warning btn-sm detailProject'>Detail</a>";
                     }
                     return btn;
                 }
@@ -443,7 +443,7 @@ $('body').on('click', '.cancelInvest', function () {
     
 });
 
-var getTotal, getUangmuka, temptotal='';
+var getTotal, fee, temptotal='';
 function projectDetails(id) {
     $('#table_projectDetails').DataTable({
         destroy:true,
@@ -520,7 +520,11 @@ function projectDetails(id) {
             //     $.fn.dataTable.render.number('.','.','2','Rp').display(total)
             // );
 
-            getTotal = total - ((total * 1)/100);
+            fee = ((total * 1)/100);
+            getTotal = total - fee;
+            $("#fee").html(
+                $.fn.dataTable.render.number('.','.','2','Rp').display(fee)
+            ); 
 
             $("#totalsemua").html(
                 $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)

@@ -15,7 +15,6 @@
                               <th>#ID</th>
                               <th>Nama Product</th>
                               <th>Status Product</th>
-                              <th>Status Investor</th>
                               <th>Aksi</th>
                           </tr>
                       </thead>
@@ -32,12 +31,47 @@
     </div>
 </div>    
 
+{{-- modal --}}
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="detailProjectTerdata">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+      
+          
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover" width="100%" id="table_detailProjectTerdata">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Investor</th>
+                    <th>Masa Berakhir</th>
+                    <th>Jumlah</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        <!-- AKHIR TABLE -->
+      </div>
+                  
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script>
   //semua function disini ada pada --> public/js/admin/dev/product/productDev.js
 
   //call function table --> table_allListProductDev
   const url_table_allListProductDev = @json(route('admin.dev.allListProduct'));
+
+  //const url_table_detailProjectTerdata = "{{ route('admin.dev.allListProduct') }}"+'/detail' + '/';
 
 
 </script>

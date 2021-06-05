@@ -160,7 +160,7 @@ class InvestController extends Controller
         if($req->ajax()){
             return datatables()->of($listInvestSettlement)
                     ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-primary btn-sm detailProject">Detail</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
 
                         // $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}" >Sudah Kirim</a>';
     
@@ -191,7 +191,7 @@ class InvestController extends Controller
         if($req->ajax()){
             return datatables()->of($listInvestCancel)
                     ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-primary btn-sm detailProject">Detail</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
 
                         return $btn;
                      })

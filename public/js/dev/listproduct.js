@@ -15,7 +15,8 @@ function table_listProduct() {
     var tabel1 = "#table_listProduct";
     var tabel2 = "#table_listProductInvestor";
     var tabel3 = "#table_listProductNonAktif";
-
+   
+    
     $('#table_listProductConfirmYet').DataTable({
         destroy:true,
         processing: true,

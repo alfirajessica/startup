@@ -210,11 +210,11 @@ class ProductController extends Controller
 
                 return datatables()->of($list_proyek1)
                 ->addColumn('action', function($data){
-                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct"  data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
+                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct"  data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail </a>';
 
-                    $btn = $btn. ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct2"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Ubah</a>';
+                    $btn = $btn. ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct2"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Ubah </a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm nonAktifProject" data-tr="tr_{{$product->id}}">Nonaktif</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm nonAktifProject" data-tr="tr_{{$product->id}}">Nonaktif </a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])

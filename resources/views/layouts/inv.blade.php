@@ -116,7 +116,39 @@
     </div>
   </nav>
   <!-- End Navbar -->
-  
+  @if (Route::currentRouteName() == "home")
+        <section class="background up-scroll">
+        <div class="content-wrapper">
+          <p class="content-title">Full Page Parallax Effect</p>
+          <p class="content-subtitle">
+            <span class="scroll-btn">
+                <a href="#">
+                    <span class="mouse">
+                        <span>
+                        </span>
+                    </span>
+                </a>
+              <p style="margin-top:40px">scroll me</p>
+            
+            </span>
+            
+            </p>
+        </div>
+      </section>
+      <section class="background" id="intro2">
+        <div class="content-wrapper">
+          <p class="content-title">Amazon forest</p>
+          <p class="content-subtitle">All the rendered pixels are super reall</p>
+        </div>
+      </section>
+      <section class="background">
+        <div class="content-wrapper">
+          <p class="content-title">Fireflies.</p>
+          <p class="content-subtitle">Long-exposure photo of fireflies in a darkened Japanese forest</p>
+        </div>
+      </section>
+    @endif
+
     <!-- End Navbar -->
     <div class="wrapper">
         
@@ -125,7 +157,10 @@
             
             @yield('content')
         </main>
-        @include('units.footer')
+        @if (Route::currentRouteName() != "home")
+            @include('units.footer')
+            
+        @endif
     </div>
        
 </body>

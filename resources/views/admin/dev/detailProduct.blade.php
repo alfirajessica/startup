@@ -130,7 +130,7 @@
                                 </tfoot>
                                 </table>
                               <!-- AKHIR TABLE -->
-                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>

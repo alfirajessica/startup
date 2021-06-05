@@ -108,7 +108,7 @@ Route::prefix('admin')->group(function () {
 
     //tab nav- developer - produk terdata
     Route::get('/dev/allListProduct', [AdminController::class, 'allListProduct'])->name('admin.dev.allListProduct');
-    Route::get('/dev/allproduct', [AdminController::class, 'allproduct'])->name('admin.dev.allproduct');
+    Route::get('/dev/allListProduct/detail/{id}', [AdminController::class, 'detailProjectTerdata'])->name('admin.dev.allListProduct.detail');
 
 
     //pengguna - investor
@@ -177,7 +177,7 @@ Route::get('/inv/riwayatReview/listReviews', [ReviewController::class, 'listRevi
 //event
 Route::get('/dev/event', [EventController::class, 'devEvent'])->name('dev.event');
 Route::get('/dev/event/detailsEvent/{id}', [EventController::class, 'detailsEvent'])->name('dev.event.detailsEvent');
-Route::post('/dev/event/joinEvent', [EventController::class, 'joinEvent'])->name('dev.event.joinEvent');
+Route::get('/dev/event/joinEvent/{id}', [EventController::class, 'joinEvent'])->name('dev.event.joinEvent');
 Route::get('/dev/event/cancleEvent/{id}', [EventController::class, 'cancleEvent'])->name('dev.event.cancleEvent');
 
 //listjoinevent
