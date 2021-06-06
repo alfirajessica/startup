@@ -12,12 +12,25 @@ function event_hasPassed() {
         url: url_eventPassed,
         success: function (data) {
             console.log('ok');
+            // $.ajax({
+            //     type: "get",
+            //     url: '/updDetailEvents_status',
+            //     success: function (data) {
+            //         console.log('ok');
+            //     },
+            //     error: function (data) {
+            //         console.log('Error:', data);
+            //     }
+            // });
+        
         },
         error: function (data) {
             console.log('Error:', data);
         }
     });
-  }
+
+
+}
 
   function updStatusTrans() { 
    // console.log('ini result : ' + $id);

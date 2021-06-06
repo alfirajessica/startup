@@ -108,28 +108,19 @@ class HomeController extends Controller
                         'status' =>'2',
                     ]);
         
-        //get id yang tadinya di update status nya menjadi 2
-        $get_id = DB::table('header_events')->select('id')->where('status','=','2')->get();
-        dd(count($get_id));
+        $data = HeaderEvent::where('status','=','2')->get()->toArray();
         
-        
-        //masih error
-    
-        $upd_details = 
-             DB::table('detail_events')
-                ->where(function ($query) use($get_id)
-                {
-                    for ($i=0; $i <count($get_id) ; $i++) { 
-                        $query->where('id_header_events','=', $get_id[$i]);
-                    }
-                })
+        $upd_details = DB::table('detail_events')
+                        ->where(function ($query) use($data)
+                        {
+                            for ($i=0; $i <count($data) ; $i++) { 
+                                $query->orwhere('id_header_events','=', $data[$i]['id']);
+                            }
+                        })
                 ->update([
                     'status' =>'2',
                 ]);
-
-              
     }
-
 
     public function updStatusTrans()
     {

@@ -402,7 +402,7 @@ class EventController extends Controller
         $myevents = DB::table('detail_events')
         ->leftJoin('header_events', 'header_events.id', '=', 'detail_events.id_header_events')
         ->where('detail_events.id_participant','=',$user->id)
-        ->where('detail_events.status','!=',"0")
+        ->where('detail_events.status','=',"1")
         ->get();
         if($req->ajax()){
             return datatables()->of($myevents)
@@ -463,7 +463,7 @@ class EventController extends Controller
         $myevents = DB::table('detail_events')
         ->rightjoin('header_events', 'header_events.id', '=', 'detail_events.id_header_events')
         ->where('detail_events.id_participant','=',$user->id)
-        ->where('detail_events.status','=',"2")
+        ->where('header_events.status','=',"2")
         ->get();
         if($req->ajax()){
             return datatables()->of($myevents)
