@@ -176,4 +176,16 @@ class CategoryproductController extends Controller
         
     }
     
+    public function getCities($id)
+    {
+        $response = Http::withHeaders([
+            'key' => $this->API_KEY
+        ])->get('https://api.rajaongkir.com/starter/city?&province='.$id.'');
+
+        $cities = $response['rajaongkir']['results'];
+        return response()->json($cities);
+       
+    }
+
+    
 }

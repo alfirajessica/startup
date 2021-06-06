@@ -67,6 +67,7 @@ Route::get('/projectdetailInvest/{id}', [HomeController::class, 'projectdetailIn
 Route::get('/cancleInvest/{id}', [HomeController::class, 'cancleInvest'])->name('cancleInvest');
 
 
+
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
     Route::post('/login', [AdminLoginController::class, 'login'])->name('admin.login.submit');
@@ -120,7 +121,7 @@ Route::prefix('admin')->group(function () {
 
 
 
-//valuation tools -- all of can use it
+//valuation tools -- all of user can use it
 Route::get('/valuation', [ValuationToolsController::class, 'valuation'])->name('valuation');
 
 //-----------------------------INVESTOR-------------------
@@ -191,6 +192,12 @@ Route::get('/dev/product/{id}', [DevController::class, 'detail_category_filter']
 Route::post('/dev/product', [ProductController::class, 'addNewProduct'])->name('dev.product.addNewProduct'); 
 Route::get('/dev/listProject/select', [ProductController::class, 'listProject_select'])->name('dev.listProject.select');
 Route::get('/dev/listProduct', [ProductController::class, 'listProduct'])->name('dev.listProduct'); //show list product in daftar product
+
+//jenisproduct/project
+Route::get('/dev/listProduct/get_categoryID/{id}', [ProductController::class, 'get_categoryID'])->name('dev.listProduct.get_categoryID'); 
+Route::get('/dev/listProduct/jenisProject', [ProductController::class, 'jenisProject'])->name('dev.listProduct.jenisProject'); 
+Route::get('/dev/listProduct/detailKategori/{id}', [ProductController::class, 'detailKategori'])->name('dev.listProduct.detailKategori'); 
+
 Route::get('/dev/listProduct/detailProject/{id}', [ProductController::class, 'detailProject'])->name('dev.listProduct.detailProject'); 
 Route::get('/dev/listProduct/detailProjectKas/{id}', [ProductController::class, 'detailProjectKas'])->name('dev.listProduct.detailProjectKas'); 
 Route::get('/dev/listProduct/detailProjectReview/{id}', [ReviewController::class, 'detailProjectReview'])->name('dev.listProduct.detailProjectReview'); 

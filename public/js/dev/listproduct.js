@@ -6,6 +6,10 @@ $(function () {
 
     //daftarProductBaru.blade.php
     show_listProject_select();
+    show_jenis_produk();
+
+    var id = $('#edit_jenis_produk').val();
+    show_detail_kategori(id);
 });
     
 
@@ -19,6 +23,7 @@ function table_listProduct() {
     
     $('#table_listProductConfirmYet').DataTable({
         destroy:true,
+        fixedHeader: true,
         processing: true,
         serverSide: true, //aktifkan server-side 
         responsive:true,
@@ -61,6 +66,7 @@ function table_listProduct() {
     $('#table_listProduct').DataTable({
         destroy:true,
         processing: true,
+        
         serverSide: true, //aktifkan server-side 
         responsive:true,
         deferRender:true,
@@ -100,6 +106,7 @@ function table_listProduct() {
         ],
         
     });
+
 
     $('#table_listProductInvestor').DataTable({
         destroy:true,
@@ -189,14 +196,18 @@ function table_listProduct() {
 $('body').on('click', '.detailProject', function () {
     var product_id = $(this).data('id');
     table_pemasukkan_pengeluaran(product_id);
-    console.log(product_id);
+
     $.get(url_table_listProduct_detailProject + product_id, function (data) {
-        console.log("/uploads/event/"+data.image);
+       
         $("img#previewImg").attr("src", "/uploads/event/"+data.image);
-       $('#nama_product').text(data.name_product);    
-       $('#tipe_product').text(data.id_detailcategory); 
-       $('#url_product').text(data.url); 
-       $('#rilis_product').text(moment(data.rilis).format('DD/MMM/YYYY')); 
+       $('#nama_product').val(data.name_product);  
+       $('#edit_detail_kategori').val(data.id_detailcategory); 
+       var id =data.id_detailcategory; 
+       //show_detail_kategori(id)
+       get_categoryID(id);
+
+       $('#url_product').val(data.url); 
+       $('#rilis_product').val(data.rilis); 
        $('#desc').text(data.desc); 
        $('#team').text(data.team);
        $('#reason').text(data.reason); 
@@ -204,17 +215,30 @@ $('body').on('click', '.detailProject', function () {
        $('#solution').text(data.solution);
    });
 
-   //get detail investornya
-//    $.get(url_table_listProduct_detailProject + product_id, function (data) {
-//     console.log("/uploads/event/"+data.image);
-    
-//     });
 
 });
 
+function get_categoryID(id) { 
+    
+    $('#edit_detail_kategori').val(id); 
+    $.ajax({
+        type: "GET",
+        url: "/dev/listProduct/get_categoryID/" + id,
+        success:function(data) 
+        {
+            $('#edit_jenis_produk').val(data.category_id); 
+            show_detail_kategori(data.category_id);
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+
+   });
+}
+
 $('body').on('click', '.deleteProject', function () {
     var id = $(this).data("id");
-    console.log(id);
+    
     var txt;
     swal({
         title: "Are You sure want to delete?",
@@ -248,7 +272,7 @@ $('body').on('click', '.deleteProject', function () {
 
 $('body').on('click', '.aktifProject', function () {
     var id = $(this).data("id");
-    console.log(id);
+    
     var txt;
     swal({
         title: "Are You sure want to activate?",
@@ -282,7 +306,7 @@ $('body').on('click', '.aktifProject', function () {
 
 $('body').on('click', '.nonAktifProject', function () {
     var id = $(this).data("id");
-    console.log(id);
+   
     var txt;
     swal({
         title: "Are You sure want to nonactivate?",
@@ -324,7 +348,7 @@ function show_listProject_select() {
         type: "GET",
         dataType: "json",
         success: function (response) {
-            console.log('masuk');
+            
             $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').empty();
             $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').append('<option value="" disabled>-- pilih Project Anda --</option>');
             $.each(response, function (key, value) {
@@ -648,4 +672,53 @@ function table_pemasukkan_pengeluaran(id) {
         ],
         
     });
+}
+
+//detailProduct -- deskripsi
+function show_jenis_produk() { 
+   
+    $.ajax({
+        type: "GET",
+        url: "/dev/listProduct/jenisProject",
+        success:function(data) 
+        {
+            $('select[name="edit_jenis_produk"]').empty();
+                $('select[name="edit_jenis_produk"]').append('<option value="" selected>-- pilih kota --</option>');
+                $.each(data, function (key, value) {
+                    var id = value["id"];
+                    $('select[name="edit_jenis_produk"]').append('<option value="'+ id + '">' + value["name_category"] + '</option>');
+                });
+               // $('select[name="edit_jenis_produk"]').find('option[value="'+idcity+'"]').attr("selected",true);
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+
+   });
+}
+
+
+function show_detail_kategori(id) { 
+    var id = $('#edit_jenis_produk').val();
+    
+
+    $.ajax({
+        type: "GET",
+        url: "/dev/listProduct/detailKategori/" + id,
+        success:function(data) 
+        {
+            $('select[name="edit_detail_kategori"]').empty();
+                $('select[name="edit_detail_kategori"]').append('<option value="" selected>-- pilih kota --</option>');
+                $.each(data, function (key, value) {
+                    var id = value["id"];
+                    $('select[name="edit_detail_kategori"]').append('<option value="'+ id + '">' + value["name"] + '</option>');
+                });
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+
+   });
+
+    
 }

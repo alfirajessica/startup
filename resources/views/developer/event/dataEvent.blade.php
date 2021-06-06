@@ -1,8 +1,8 @@
 <div class="row py-2">
   @forelse ($header_events as $item)
-  
+ 
     <div class="col-md-4 mb-5 mb-md-0 py-2">
-      {{-- <a href="{{ url('dev/event/detailsEvent', $item->id) }}"> --}}
+     
       <div class="card card-lift--hover shadow border-0 py-2">
         <a src="/uploads/event/{{$item->image}}" title="Landing Page">
           <img src="/uploads/event/{{$item->image}}" class="card-img-top">
@@ -15,12 +15,11 @@
           </p>
         </div>
       </div>
-    {{-- </a> --}}
+   
     </div>
   
-    
   @empty
-  <p class="bg-danger text-white p-1">No product</p>
+  <p class="text-black">Tidak ada event tersedia</p>
   @endforelse
 </div>
 

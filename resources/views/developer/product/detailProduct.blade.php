@@ -34,48 +34,46 @@
                         <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="card border-0">
-                                        <img id="previewImg" class="d-block user-select-none" width="100%" height="200" >
+                                    <div class="">
+                                        <div class="form-group">
+                                          <label for="">Nama Produk</label>
+                                          <input type="text" name="nama_product" id="nama_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="float-left">Jenis Produk</label>
+                                            <select class="form-control form-control-alternative" name="edit_jenis_produk" id="edit_jenis_produk" onchange="show_detail_kategori(this)"> 
+                                            </select>      
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="float-left">Dalam Kategori</label>
+                                            <select class="form-control form-control-alternative" name="edit_detail_kategori" id="edit_detail_kategori">    
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="float-left">Domain Produk</label>
+                                            <input type="url" name="url_product" id="url_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="card border-0">
-                                        <div class="card-body shadow">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <h5 id="nama_product"></h5>
-                                                </div>
-                                            </div>
-                        
-                                            <div class="row" id="row_link">
-                                                <div class="col-12">
-                                                    <i class="fas fa-external-link-alt"></i> 
-                                                    <a href="" id="url_product"></a>
-                                                </div>
-                                            </div>
-                        
-                                            <div class="row d-none" id="row_loc">
-                                                <div class="col-12">
-                                                    <i class="fas fa-map-marker-alt"></i> 
-                                                    <label id="loc_detailEvent"></label> <br>
-                                                    <label id="add_detailEvent"></label>
-                                                </div>
-                                            </div>
-                        
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <i class="fas fa-calendar-alt "></i> 
-                                                    <label id="rilis_product">  </label>
-                                                </div>
-                                            </div>
-                        
-                                            {{-- <div class="row">
-                                                <div class="col-12">
-                                                    <i class="fas fa-clock"></i>
-                                                    <label id="time_detailEvent"></label>
-                                                </div>
-                                            </div> --}}
+                                    <div class="">
+                                        <div class="form-group">
+                                            <label class="float-left">Tanggal Perilisan produk</label>
+                                            <input type="date" name="rilis_product" id="rilis_product" class="form-control form-control-alternative" aria-describedby="helpId" >
                                         </div>
+
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <label for="exampleInputFile">File input</label>
+                                                <input type="file" class="form-control-file"  name="image" id="exampleInputFile" aria-describedby="fileHelp" onchange="previewFile(this)">
+                                                <span class="text-danger error-text image_error"></span>
+                                            </div>
+                                        </div>
+
+                                        <img id="previewImg" class="d-block user-select-none" width="100%" height="200" >
                                     </div>
                                 </div>
                             </div>
@@ -234,3 +232,6 @@
       </div>
     </div>
 </div>
+
+
+<script src="/js/dev/listproduct.js"></script>

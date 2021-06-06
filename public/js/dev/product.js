@@ -31,35 +31,39 @@ $(function () {
                 $(document).find('span.error-text').text('');
             },
             success:function(data) {
-                if (data.status == 0) {
-                    $.each(data.error, function (prefix, val) {
-                        $('span.'+prefix+'_error').text(val[0]);
-                    });
-                }
-                else if (data.status == -1) { 
-                    var terpilih_before = $("#nama_project_dipilih_masuk").text();
-                    $("#pilih_project_masuk").find(":selected").text(terpilih_before);
-                    $('#tipe_pemasukkan').val(0);
-                    $('#jumlah').val('');
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
-                        icon: "warning",
-                    });
-
-                }
-                else if (data.status == 1){
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
-                        icon: "success",
-                    });
+                console.log(data)
+                if (data == 1) {
+                    
                     table_listPemasukkan();
                     var terpilih_before = $("#nama_project_dipilih_masuk").text();
                     $("#pilih_project_masuk").find(":selected").text(terpilih_before);
                     $('#tipe_pemasukkan').val(0);
                     $('#jumlah').val('');
+                    swal({
+                        title: "Berhasil",
+                        text: "You clicked the button!",
+                        icon: "success",
+                    });
+                    
                 }
+                else if(data == -1){
+                    var terpilih_before = $("#nama_project_dipilih_masuk").text();
+                    $("#pilih_project_masuk").find(":selected").text(terpilih_before);
+                    $('#tipe_pemasukkan').val(0);
+                    $('#jumlah').val('');
+                    swal({
+                        title: "Sudah ada",
+                        text: "You clicked the button!",
+                        icon: "warning",
+                    });
+                    
+                }
+                else if (data.status == 0) {
+                    $.each(data.error, function (prefix, val) {
+                        $('span.'+prefix+'_error').text(val[0]);
+                    });
+                }
+                
             }
         });
     });
@@ -76,7 +80,7 @@ $(function () {
 
     function table_listPemasukkan() {
         var id = $("#pilih_project_masuk").find(":selected").val();
-        console.log(id);
+        //console.log(id);
         $('#table_listPemasukkan').DataTable({
             destroy:true,
             processing: true,

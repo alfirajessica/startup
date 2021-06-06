@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Models\DetailUser;
 use App\Models\DetailProductKas;
 use App\Models\HeaderProduct;
+use App\Models\CategoryProduct;
+use App\Models\detailCategoryProduct;
 use App\Models\Hkas;
 use Validator;
 use Illuminate\Support\Facades\Http;
@@ -214,7 +216,7 @@ class ProductController extends Controller
 
                     $btn = $btn. ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct2"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Ubah </a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm nonAktifProject" data-tr="tr_{{$product->id}}">Nonaktif </a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm nonAktifProject" data-tr="tr_{{$product->id}}">Nonaktifkan </a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -306,6 +308,24 @@ class ProductController extends Controller
        // return view('developer.product.detailProduct');
          $HeaderProduct = HeaderProduct::find($id);
          return response()->json($HeaderProduct);
+    }
+
+    public function get_categoryID($id)
+    {
+        $list_category = detailCategoryProduct::find($id);
+        return response()->json($list_category);
+    }
+
+    public function jenisProject()
+    {
+        $list_category = DB::table('category_products')->get();
+        return response()->json($list_category);
+    }
+
+    public function detailKategori($id)
+    {
+        $list_detailcategory = DB::table('detail_category_products')->where('category_id','=',$id)->get();
+        return response()->json($list_detailcategory);
     }
 
     public function detailProjectKas(Request $req, $id)
@@ -407,19 +427,17 @@ class ProductController extends Controller
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
             
-            //cek apakah data yang sama pernah dimasukkan sebelumnya.
+            //cek apakah data yang sama pernah dimasukkan sebelumnya berdasarkan tanggal inputnya
             //berdasarkan id_headerproduct, tipe, id_typetrans dan created_at
 
-            $now = Carbon::now();
+            $today = Carbon::today()->toDateString();
+            
+            $minToday = $today. " 00:00:00";
+            $maxToday = $today. " 23:59:59";
+           
+            $isExist = DetailProductKas::where('id_headerproduct','=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->where('created_at', '>=', $minToday)->where('created_at', '<=', $maxToday)->first();
 
-            $isExist = DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereDate('created_at', '=', Carbon::today())->first();
-
-        
-            if (DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->whereDate('created_at','=', Carbon::today())->exists()) {
-                return response()->json(['status'=>-1, 'msg'=>'sudah ada, silakan ubah']);
-            }
-
-            if ($isExist == null)
+            if ($isExist === null)
             {
                 //save to db detail_product_kas
                 $newPemasukkan = new DetailProductKas;
@@ -430,10 +448,12 @@ class ProductController extends Controller
                 $newPemasukkan->status = "1";
                 $query = $newPemasukkan->save();
 
-                if ($query) {
-                    return response()->json(['status'=>1, 'msg'=>'Berhasil menambah detail produk kas']);
-                }
+                return 1;
                 
+            }
+            else if (DetailProductKas::where('id_headerproduct','=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->where('created_at', '>=', $minToday)->where('created_at', '<=', $maxToday)->exists()) {
+                return -1;
+                //response()->json(['status'=>-1, 'msg'=>'sudah ada, silakan ubah']);
             }
         }
     }

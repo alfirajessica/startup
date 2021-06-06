@@ -54,6 +54,7 @@
                 <span class="text-danger error-text jumlah_error"></span>
             </div>
         </div>
+        
         <div class="table-responsive px-2">
             <table class="table table-bordered table-hover" width="100%" id="table_listPemasukkan">
                 <thead>

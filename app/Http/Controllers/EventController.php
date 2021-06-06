@@ -314,7 +314,7 @@ class EventController extends Controller
     public function searchEvent(Request $req)
     {
         $list_category['list_category'] = DB::table('category_products')->get();
-        $header_events['header_events'] = DB::table("header_events")->where('name','='.$req->search_input)->paginate(6);
+        $header_events['header_events'] = DB::table("header_events")->where('name','='.$req->search_input)->where('status','=','1')->paginate(6);
         $output="";
       
     }
@@ -328,10 +328,10 @@ class EventController extends Controller
         if($req->ajax()) {
             //semua
             if ($held == null) {
-                $header_events['header_events'] = DB::table("header_events")->where('name','like',$search.'%')->paginate(6);
+                $header_events['header_events'] = DB::table("header_events")->where('name','like',$search.'%')->where('status','=','1')->paginate(6);
             }
             else{
-                $header_events['header_events'] = DB::table("header_events")->where('name','like',$search.'%')->where('held','=',$held)->paginate(6);
+                $header_events['header_events'] = DB::table("header_events")->where('name','like',$search.'%')->where('held','=',$held)->where('status','=','1')->paginate(6);
             }
             
 

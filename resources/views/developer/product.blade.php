@@ -21,6 +21,8 @@
         padding: 0;
         list-style-type: none;
         color: red;
+        text-align: left;
+        font-size: small;
     }
     .modal-body {
     max-height: calc(100vh - 210px);

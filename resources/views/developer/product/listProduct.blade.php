@@ -92,36 +92,10 @@
             </div>
         </div>
     </div>
-    
-
-    {{-- <div class="col">
-      <div class="table-responsive">
-          <table class="table table-bordered table-hover" width="100%" id="table_listProduct">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nama Proyek</th>
-                    <th>Kategori</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        <!-- AKHIR TABLE -->
-        </div>
-    </div> --}}
 </div>
 
 @include('developer.product.detailProduct')
-{{-- @include('developer.product.ubahProduct') --}}
 
-
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>    
-<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
-<script src="https://cdn.datatables.net/fixedheader/3.1.8/js/dataTables.fixedHeader.min.js"></script>
-
-  
 
 <script>
     //semua function disini ada pada --> public/js/dev/listproduct.js
