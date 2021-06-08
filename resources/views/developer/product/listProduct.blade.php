@@ -107,7 +107,7 @@
     const url_table_listProduct_deleteProject = "{{ route('dev.listProduct') }}"+'/deleteProject' + '/';
 
     //call function pada tabel --> table_listProduct /detailProject
-    const url_table_listProduct_detailProject = "{{ route('dev.listProduct') }}" +'/detailProject' + '/';
+    //const url_table_listProduct_detailProject = "{{ route('dev.listProduct') }}" +'/detailProject' + '/';
 
     //call function pada tabel --> table_listProduct /aktifProject
     const url_table_listProduct_activeProject = "{{ route('dev.listProduct') }}" +'/activeProject' + '/';

@@ -202,6 +202,8 @@ Route::get('/dev/listProduct/detailProject/{id}', [ProductController::class, 'de
 Route::get('/dev/listProduct/detailProjectKas/{id}', [ProductController::class, 'detailProjectKas'])->name('dev.listProduct.detailProjectKas'); 
 Route::get('/dev/listProduct/detailProjectReview/{id}', [ReviewController::class, 'detailProjectReview'])->name('dev.listProduct.detailProjectReview'); 
 
+Route::post('/dev/listProduct/updDetailProject', [ProductController::class, 'updDetailProject'])->name('dev.listProduct.updDetailProject'); 
+
 Route::get('/dev/listProduct/deleteProject/{id}', [ProductController::class, 'deleteProject'])->name('dev.listProduct.deleteProject'); 
 Route::get('/dev/listProduct/activeProject/{id}', [ProductController::class, 'activeProject'])->name('dev.listProduct.activeProject'); 
 Route::get('/dev/listProduct/nonactiveProject/{id}', [ProductController::class, 'nonactiveProject'])->name('dev.listProduct.nonactiveProject'); 

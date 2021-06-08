@@ -31,91 +31,102 @@
                 <div class="col-md-12">
                     <!-- tab content -->
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="">
-                                        <div class="form-group">
-                                          <label for="">Nama Produk</label>
-                                          <input type="text" name="nama_product" id="nama_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
-                                        </div>
+                       
+                            <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                                <form action="{{ route('dev.listProduct.updDetailProject')}}" method="POST" id="updDetailProject">
+                                    @csrf
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <input type="hidden" id="id_product" name="id_product">
+                                            <div class="form-group">
+                                            <label for="">Nama Produk</label>
+                                            <input type="text" name="nama_product" id="nama_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
+                                            <span class="text-danger error-text nama_product_error" id="nama_product_error"></span>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label class="float-left">Jenis Produk</label>
-                                            <select class="form-control form-control-alternative" name="edit_jenis_produk" id="edit_jenis_produk" onchange="show_detail_kategori(this)"> 
-                                            </select>      
-                                        </div>
+                                            <div class="form-group">
+                                                <label class="float-left">Jenis Produk</label>
+                                                <select class="form-control form-control-alternative" name="edit_jenis_produk" id="edit_jenis_produk" onchange="show_detail_kategori(this)"> 
+                                                </select>      
+                                                <span class="text-danger error-text edit_jenis_produk_error" id="edit_jenis_produk_error"></span>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label class="float-left">Dalam Kategori</label>
-                                            <select class="form-control form-control-alternative" name="edit_detail_kategori" id="edit_detail_kategori">    
-                                            </select>
-                                        </div>
+                                            <div class="form-group">
+                                                <label class="float-left">Dalam Kategori</label>
+                                                <select class="form-control form-control-alternative" name="edit_detail_kategori" id="edit_detail_kategori">    
+                                                </select>
+                                                <span class="text-danger error-text edit_detail_kategori_error" id="edit_detail_kategori_error"></span>
+                                            </div>
 
-                                        <div class="form-group">
-                                            <label class="float-left">Domain Produk</label>
-                                            <input type="url" name="url_product" id="url_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="">
-                                        <div class="form-group">
-                                            <label class="float-left">Tanggal Perilisan produk</label>
-                                            <input type="date" name="rilis_product" id="rilis_product" class="form-control form-control-alternative" aria-describedby="helpId" >
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <label for="exampleInputFile">File input</label>
-                                                <input type="file" class="form-control-file"  name="image" id="exampleInputFile" aria-describedby="fileHelp" onchange="previewFile(this)">
-                                                <span class="text-danger error-text image_error"></span>
+                                            <div class="form-group">
+                                                <label class="float-left">Domain Produk</label>
+                                                <input type="url" name="url_product" id="url_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
+                                                <span class="text-danger error-text url_product_error" id="url_product_error"></span>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="">
+                                            <div class="form-group">
+                                                <label class="float-left">Tanggal Perilisan produk</label>
+                                                <input type="date" name="rilis_product" id="rilis_product" class="form-control form-control-alternative" aria-describedby="helpId" >
+                                                <span class="text-danger error-text rilis_product_error" id="rilis_product_error"></span>
+                                            </div>
 
-                                        <img id="previewImg" class="d-block user-select-none" width="100%" height="200" >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row py-2">
-                                <div class="col-md-12">
-                                    <div class="card">
-                                        <div class="form-group px-2">
-                                            <h6>Deskripsi</h6>
-                                            <label for="" id="desc"></label>
-                                        </div>
-                                    </div>
-                                   
-                                    <div class="card">
-                                        <div class="form-group px-2">
-                                            <h6>Team</h6>
-                                            <label for="" id="team"></label>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="card">
-                                        <div class="form-group px-2">
-                                            <h6>Reason</h6>
-                                            <label for="" id="reason"></label>
-                                        </div>
-                                    </div>
-                                   
-                                    <div class="card">
-                                        <div class="form-group px-2">
-                                            <h6>Benefit</h6>
-                                            <label for="" id="benefit"></label>
-                                        </div>
-                                    </div>
-                                   
-                                    <div class="card">
-                                        <div class="form-group px-2">
-                                            <h6>Solution</h6>
-                                            <label for="" id="solution"></label>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <label for="exampleInputFile">File input</label>
+                                                    <input type="file" class="form-control-file"  name="image" id="exampleInputFile" aria-describedby="fileHelp" onchange="previewFile(this)">
+                                                    <span class="text-danger error-text image_error"></span>
+                                                </div>
+                                            </div>
+
+                                            <img id="previewImg" class="d-block user-select-none" width="100%" height="200" >
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row py-2">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">Deskripsi</label>
+                                            <textarea class="form-control form-control-alternative" name="desc" id="desc" rows="3"></textarea>
+                                            <span class="text-danger error-text desc_error" id="desc_error"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="">Tim</label>
+                                            <textarea class="form-control form-control-alternative" name="team" id="team" rows="3"></textarea>
+                                            <span class="text-danger error-text team_error" id="team_error"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="">Alasan</label>
+                                            <textarea class="form-control form-control-alternative" name="reason" id="reason" rows="3"></textarea>
+                                            <span class="text-danger error-text reason_error" id="reason_error"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="">Kegunaan</label>
+                                            <textarea class="form-control form-control-alternative" name="benefit" id="benefit" rows="3"></textarea>
+                                            <span class="text-danger error-text benefit_error" id="benefit_error"></span>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="">Solusi</label>
+                                            <textarea class="form-control form-control-alternative" name="solution" id="solution" rows="3"></textarea>
+                                            <span class="text-danger error-text solution_error" id="solution_error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row py-2">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="next btn btn-primary float-right"> Simpan Perubahan </button>
+                                    </div>
+                                </div>
+                                </form>
                             </div>
-                        </div>
+                        
 
                         <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                            
@@ -232,6 +243,3 @@
       </div>
     </div>
 </div>
-
-
-<script src="/js/dev/listproduct.js"></script>

@@ -214,8 +214,6 @@ class ProductController extends Controller
                 ->addColumn('action', function($data){
                     $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct"  data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail </a>';
 
-                    $btn = $btn. ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct2"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Ubah </a>';
-
                     $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm nonAktifProject" data-tr="tr_{{$product->id}}">Nonaktifkan </a>';
                     return $btn;
                 })
@@ -388,12 +386,43 @@ class ProductController extends Controller
 
             
         }
+    }
 
-       
+    public function updDetailProject(Request $req)
+    {
+        $validator = Validator::make($req->all(),[
+            'nama_product'=>'required',
+            'edit_jenis_produk'=>'required',
+            'edit_detail_kategori'=>'required',
+            'url_product'=>'required',
+            'rilis_product'=>'required',
+            'desc'=>'required',
+            'team'=>'required',
+            'reason'=>'required',
+            'benefit'=>'required',
+            'solution'=>'required',
+        ]);
 
-        
-        
-        //return view('dev.listProduct');
+        if (!$validator->passes()) {
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            
+            DB::table('header_products')->
+            where('id',$req->id_product)->
+            update([
+                'name_product'=>$req->nama_product,
+                'id_detailcategory'=>$req->edit_detail_kategori,
+                'url'=>$req->url_product,
+                'rilis'=>$req->rilis_product,
+                'desc'=>$req->desc,
+                'team'=>$req->team,
+                'reason'=>$req->reason,
+                'benefit'=>$req->benefit,
+                'solution'=>$req->solution,
+            ]);
+
+            return response()->json(['status'=>1, 'msg'=>'Berhasil mengubah detail product']);
+        }
     }
 
     public function cek_pemasukan($id)

@@ -8,8 +8,6 @@ $(function () {
     show_listProject_select();
     show_jenis_produk();
 
-    var id = $('#edit_jenis_produk').val();
-    show_detail_kategori(id);
 });
     
 
@@ -195,46 +193,66 @@ function table_listProduct() {
 
 $('body').on('click', '.detailProject', function () {
     var product_id = $(this).data('id');
-    table_pemasukkan_pengeluaran(product_id);
-
-    $.get(url_table_listProduct_detailProject + product_id, function (data) {
-       
-        $("img#previewImg").attr("src", "/uploads/event/"+data.image);
-       $('#nama_product').val(data.name_product);  
-       $('#edit_detail_kategori').val(data.id_detailcategory); 
-       var id =data.id_detailcategory; 
-       //show_detail_kategori(id)
-       get_categoryID(id);
-
-       $('#url_product').val(data.url); 
-       $('#rilis_product').val(data.rilis); 
-       $('#desc').text(data.desc); 
-       $('#team').text(data.team);
-       $('#reason').text(data.reason); 
-       $('#benefit').text(data.benefit);
-       $('#solution').text(data.solution);
-   });
-
-
-});
-
-function get_categoryID(id) { 
-    
-    $('#edit_detail_kategori').val(id); 
+    $('#id_product').val(product_id); 
     $.ajax({
         type: "GET",
-        url: "/dev/listProduct/get_categoryID/" + id,
+        url: "/dev/listProduct/detailProject/"+ product_id,
+        contentType: 'application/json',
         success:function(data) 
         {
-            $('#edit_jenis_produk').val(data.category_id); 
-            show_detail_kategori(data.category_id);
+            $("img#previewImg").attr("src", "/uploads/event/"+data.image);
+            $('#nama_product').val(data.name_product);  
+            var id =data.id_detailcategory; 
+            
+            $.ajax({
+                type: "GET",
+                url: "/dev/listProduct/get_categoryID/" + id,
+                contentType: 'application/json',
+                success:function(data) 
+                {
+                    $('#edit_jenis_produk').val(data.category_id); 
+                    $.ajax({
+                        type: "GET",
+                        url: "/dev/listProduct/detailKategori/" + data.category_id,
+                        contentType: 'application/json',
+                        success:function(data) 
+                        {
+                            $('select[name="edit_detail_kategori"]').empty();
+                                $('select[name="edit_detail_kategori"]').append('<option value="" selected>-- pilih kota --</option>');
+                                $.each(data, function (key, value) {
+                                    var idnya = value["id"];
+                                    $('select[name="edit_detail_kategori"]').append('<option value="'+ idnya + '">' + value["name"] + '</option>');
+                                });
+                                $('select[name="edit_detail_kategori"]').find('option[value="'+id+'"]').attr("selected",true);
+                                
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+            
+                    });
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+        
+            });
+            $('#url_product').val(data.url); 
+            $('#rilis_product').val(data.rilis); 
+            $('#desc').val(data.desc); 
+            $('#team').val(data.team);
+            $('#reason').val(data.reason); 
+            $('#benefit').val(data.benefit);
+            $('#solution').val(data.solution);
         },
         error: function (data) {
             console.log('Error:', data);
         }
 
    });
-}
+   table_pemasukkan_pengeluaran(product_id);
+
+});
 
 $('body').on('click', '.deleteProject', function () {
     var id = $(this).data("id");
@@ -342,11 +360,10 @@ $('body').on('click', '.nonAktifProject', function () {
 
 //daftarProductBlade.php
 function show_listProject_select() {
-        
-    jQuery.ajax({
+    $.ajax({
+        type: "get",
         url: url_show_listProject_select,
-        type: "GET",
-        dataType: "json",
+        contentType: 'application/json',
         success: function (response) {
             
             $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').empty();
@@ -358,6 +375,7 @@ function show_listProject_select() {
             
         },
     });
+
 }
 
 //detailProduct Transaksi Pemasukkan dan Pengeluaran
@@ -688,7 +706,7 @@ function show_jenis_produk() {
                     var id = value["id"];
                     $('select[name="edit_jenis_produk"]').append('<option value="'+ id + '">' + value["name_category"] + '</option>');
                 });
-               // $('select[name="edit_jenis_produk"]').find('option[value="'+idcity+'"]').attr("selected",true);
+             
         },
         error: function (data) {
             console.log('Error:', data);
@@ -699,20 +717,21 @@ function show_jenis_produk() {
 
 
 function show_detail_kategori(id) { 
-    var id = $('#edit_jenis_produk').val();
-    
-
+    var id = $("#edit_jenis_produk").val();
+    console.log(id);
     $.ajax({
         type: "GET",
         url: "/dev/listProduct/detailKategori/" + id,
+        contentType: 'application/json',
         success:function(data) 
         {
             $('select[name="edit_detail_kategori"]').empty();
                 $('select[name="edit_detail_kategori"]').append('<option value="" selected>-- pilih kota --</option>');
                 $.each(data, function (key, value) {
-                    var id = value["id"];
-                    $('select[name="edit_detail_kategori"]').append('<option value="'+ id + '">' + value["name"] + '</option>');
+                    var idnya = value["id"];
+                    $('select[name="edit_detail_kategori"]').append('<option value="'+ idnya + '">' + value["name"] + '</option>');
                 });
+                
         },
         error: function (data) {
             console.log('Error:', data);
@@ -722,3 +741,37 @@ function show_detail_kategori(id) {
 
     
 }
+
+//detailproduct -- deskripsi - edit
+$("#updDetailProject").on("submit",function (e) {
+   
+    e.preventDefault();
+   
+    $.ajax({
+        url:$(this).attr('action'),
+        method:$(this).attr('method'),
+        data:new FormData(this),
+        processData:false,
+        dataType:'json',
+        contentType:false,
+        beforeSend:function() {
+            $(document).find('span.error-text').text('');
+        },
+        success:function(data) {
+            if (data.status == 0) {
+                $.each(data.error, function (prefix, val) {
+                    $('span.'+prefix+'_error').text(val[0]);
+                });
+            }
+            else{
+                table_listProduct();
+                swal({
+                    title: "Berhasil ubah detail",
+                    icon: "success",
+                    button: "Aww yiss!",
+                });
+               
+            }
+        }
+    });
+});
