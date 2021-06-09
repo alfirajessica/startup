@@ -119,9 +119,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row py-2">
+                                <div class="row py-2" id="submit_updDetail">
                                     <div class="col-md-12">
-                                        <button type="submit" class="next btn btn-primary float-right"> Simpan Perubahan </button>
+                                        <button type="submit" class="btn btn-primary float-right" > Simpan Perubahan </button>
                                     </div>
                                 </div>
                                 </form>
@@ -129,85 +129,96 @@
                         
 
                         <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                           
-                            <div class="row py-2">
-                                <div class="card col-md-12">
-                                    <h5 class="fs-title">Investor</h5>
-                                    <div class="col-md-12 py-2">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-hover table-sm" width="100%" id="table_listInv">
-                                              <thead>
-                                                  <tr>
-                                                      <th>#</th>
-                                                      <th>Investor</th>
-                                                      <th>Masa berakhir</th>
-                                                      <th>Jumlah</th>
-                                                      <th>Status</th>
-                                                  </tr>
-                                              </thead>
-                                              <tbody></tbody>
-                                              
-                                            </table>
-                                          <!-- AKHIR TABLE -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row py-2">
-                                <div class="card col-md-12">
-                                    <h5 class="fs-title">Pemasukkan</h5>
-                                    <div class="col-md-12 py-2">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-hover table-sm" width="100%" id="table_pemasukkan">
-                                              <thead>
-                                                  <tr>
-                                                      <th>#</th>
-                                                      <th>Tanggal</th>
-                                                      <th>Tipe Pemasukkan</th>
-                                                      <th>Jumlah</th>
-                                                  </tr>
-                                              </thead>
-                                              <tbody></tbody>
-                                              <tfoot>
-                                                <tr>
-                                                    <th colspan="3" style="text-align:right; font-weight:bold">Total Pemasukkan :</th>
-                                                    <th style="font-weight:bold"></th>
-                                                </tr>
-                                            </tfoot>
-                                            </table>
-                                          <!-- AKHIR TABLE -->
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             
-                            <div class="row py-4">
-                                <div class="card col-md-12">
-                                    <h5 class="fs-title">Pengeluaran</h5>
-                                    <div class="col-md-12">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-hover" width="100%" id="table_pengeluaran">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Tanggal</th>
-                                                    <th>Tipe Pengeluaran</th>
-                                                    <th>Jumlah</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th colspan="3" style="text-align:right; font-weight:bold">Total Pengeluaran :</th>
-                                                    <th style="font-weight:bold" id="totalsemua"></th>
-                                                </tr>
-                                            </tfoot>
-                                            </table>
-                                        <!-- AKHIR TABLE -->
+                            <div class="row py-2">
+                                <div class="col">
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="investor-tab" data-toggle="tab" href="#investor" role="tab" aria-controls="investor" aria-selected="false">Investor</a>
+                                        </li>
+                                        <li class="nav-item">
+                                          <a class="nav-link " id="pemasukkan-tab" data-toggle="tab" href="#pemasukkan" role="tab" aria-controls="pemasukkan" aria-selected="true">Pemasukkan</a>
+                                        </li>
+                                        <li class="nav-item">
+                                          <a class="nav-link" id="pengeluaran-tab" data-toggle="tab" href="#pengeluaran" role="tab" aria-controls="pengeluaran" aria-selected="false">Pengeluaran</a>
+                                        </li>
+                                    </ul>
+    
+                                    <div class="tab-content py-4 bg-white" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="investor" role="tabpanel" aria-labelledby="investor-tab">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover table-sm" width="100%" id="table_listInv">
+                                                      <thead>
+                                                          <tr>
+                                                              <th>#</th>
+                                                              <th>Investor</th>
+                                                              <th>Masa berakhir</th>
+                                                              <th>Jumlah</th>
+                                                              <th>Status</th>
+                                                          </tr>
+                                                      </thead>
+                                                      <tbody></tbody>
+                                                      
+                                                    </table>
+                                                  <!-- AKHIR TABLE -->
+                                                </div>
+                                            </div>
+                                            
                                         </div>
+
+                                        <div class="tab-pane fade" id="pemasukkan" role="tabpanel" aria-labelledby="pemasukkan-tab">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover table-sm" width="100%" id="table_pemasukkan">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Tanggal</th>
+                                                                <th>Tipe Pemasukkan</th>
+                                                                <th>Jumlah</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody></tbody>
+                                                        <tfoot>
+                                                          <tr>
+                                                              <th colspan="3" style="text-align:right; font-weight:bold">Total Pemasukkan :</th>
+                                                              <th style="font-weight:bold"></th>
+                                                          </tr>
+                                                      </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="pengeluaran" role="tabpanel" aria-labelledby="pengeluaran-tab">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-hover" width="100%" id="table_pengeluaran">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Tanggal</th>
+                                                            <th>Tipe Pengeluaran</th>
+                                                            <th>Jumlah</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="3" style="text-align:right; font-weight:bold">Total Pengeluaran :</th>
+                                                            <th style="font-weight:bold" id="totalsemua"></th>
+                                                        </tr>
+                                                    </tfoot>
+                                                    </table>
+                                                <!-- AKHIR TABLE -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        
                                     </div>
-                                </div>
+                                </div>    
                             </div>
                         </div>
 

@@ -17,57 +17,6 @@ $(function () {
 });
 
 //pemasukkanProduct.blade.php
-    $("#pemasukkanProduct").on("submit",function (e) {
-        e.preventDefault();
-        console.log($(['name="action"']).attr('id'));
-        $.ajax({
-            url:$(this).attr('action'),
-            method:$(this).attr('method'),
-            data:new FormData(this),
-            processData:false,
-            dataType:'json',
-            contentType:false,
-            beforeSend:function() {
-                $(document).find('span.error-text').text('');
-            },
-            success:function(data) {
-                console.log(data)
-                if (data == 1) {
-                    
-                    table_listPemasukkan();
-                    var terpilih_before = $("#nama_project_dipilih_masuk").text();
-                    $("#pilih_project_masuk").find(":selected").text(terpilih_before);
-                    $('#tipe_pemasukkan').val(0);
-                    $('#jumlah').val('');
-                    swal({
-                        title: "Berhasil",
-                        text: "You clicked the button!",
-                        icon: "success",
-                    });
-                    
-                }
-                else if(data == -1){
-                    var terpilih_before = $("#nama_project_dipilih_masuk").text();
-                    $("#pilih_project_masuk").find(":selected").text(terpilih_before);
-                    $('#tipe_pemasukkan').val(0);
-                    $('#jumlah').val('');
-                    swal({
-                        title: "Sudah ada",
-                        text: "You clicked the button!",
-                        icon: "warning",
-                    });
-                    
-                }
-                else if (data.status == 0) {
-                    $.each(data.error, function (prefix, val) {
-                        $('span.'+prefix+'_error').text(val[0]);
-                    });
-                }
-                
-            }
-        });
-    });
-
     function pilih_proyek() {
         $("#card_masuk").removeClass('d-none');
 
@@ -132,6 +81,7 @@ $(function () {
             $('#id_detail_product_kas').val(data.id);
             $('#edit_jumlah').val(data.jumlah);
             $('#status_kas').val("Pemasukkan");
+            
         })  
     });
 
@@ -168,57 +118,6 @@ $(function () {
 // end of pemasukkanProduct.blade.php
 
 //pengeluaranProduct.blade.php
-    $("#pengeluaranProduct").on("submit",function (e) {
-        e.preventDefault();
-        console.log($(['name="action"']).attr('id'));
-        $.ajax({
-            url:$(this).attr('action'),
-            method:$(this).attr('method'),
-            data:new FormData(this),
-            processData:false,
-            dataType:'json',
-            contentType:false,
-            beforeSend:function() {
-                $(document).find('span.error-text').text('');
-            },
-            success:function(data) {
-                if (data.status == 0) {
-                    $.each(data.error, function (prefix, val) {
-                        $('span.'+prefix+'_error').text(val[0]);
-                    });
-                }
-                else if (data.status == -1) { 
-                    //$('#pengeluaranProduct')[0].reset();
-                    var terpilih_before = $("#nama_project_dipilih_keluar").text();
-                    $("#pilih_project_keluar").find(":selected").text(terpilih_before);
-                    $('#tipe_pengeluaran').val(0);
-                    $('#jumlah_keluar').val('');
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
-                        icon: "warning",
-                    });
-
-                }
-                else{
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
-                        icon: "success",
-                    });
-                    table_listPengeluaran();
-                    var terpilih_before = $("#nama_project_dipilih_keluar").text();
-                    $("#pilih_project_keluar").find(":selected").text(terpilih_before);
-                    $('#tipe_pengeluaran').val(0);
-                    $('#jumlah_keluar').val('');
-                    
-                    
-                }
-            }
-        });
-    });
-
-
     function pilih_proyek_keluar() {
         $("#card_keluar").removeClass('d-none');
 
@@ -337,6 +236,7 @@ $(function () {
                     });
                 }
                 else{
+                    $('#ubahJumlah').modal('hide');
                     $('#modal_ubahJumlah')[0].reset();
                     //$('#modal_ubahJumlah').hide();
                     swal({

@@ -192,7 +192,20 @@ function table_listProduct() {
 }
 
 $('body').on('click', '.detailProject', function () {
+    var cekTabel = $(this).attr("id");
+    if (cekTabel == "table_listProductNonAktif" || cekTabel == "table_listProductInvestor" ) {
+        $("#submit_updDetail").addClass("d-none");
+        $('#nama_product, #edit_jenis_produk, #edit_detail_kategori, #url_product, #rilis_product, #desc,#team, #reason, #benefit,#solution ').attr('disabled', 'disabled').css("background-color", "white");
+    }
+    else{
+        $('#nama_product, #edit_jenis_produk, #edit_detail_kategori, #url_product, #rilis_product, #desc,#team, #reason, #benefit,#solution ').removeAttr('disabled', 'disabled');
+        $("#submit_updDetail").removeClass("d-none");
+    }
+    
+    console.log(cekTabel);
     var product_id = $(this).data('id');
+    table_pemasukkan_pengeluaran(product_id);
+    
     $('#id_product').val(product_id); 
     $.ajax({
         type: "GET",
@@ -250,7 +263,7 @@ $('body').on('click', '.detailProject', function () {
         }
 
    });
-   table_pemasukkan_pengeluaran(product_id);
+   
 
 });
 

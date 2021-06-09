@@ -2,7 +2,7 @@
   <!-- Modal -->
   <form action="{{ route('dev.product.updatePemasukkan')}}" method="POST" id="modal_ubahJumlah">
     @csrf
-  <div class="modal fade" id="ubahJumlah"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal fade" id="ubahJumlah"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -19,8 +19,8 @@
           <span class="text-danger error-text edit_jumlah_error"></span>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save changes</button>
+          {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+          <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
         </div>
       </div>
     </div>

@@ -375,7 +375,7 @@ class EventController extends Controller
                         'status' => "1",
                     ]);
             return 1;
-            //return back()->with('status', 'Berhasil join Event kembali');
+            
         }
         if ($isExist == null) {
             $detailevent = new detailEvent;
@@ -387,7 +387,7 @@ class EventController extends Controller
     
             if ($query) {
                 return 2;
-                //return back()->with('status', 'Berhasil join Event');
+              
             }
         }
         

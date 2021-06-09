@@ -75,5 +75,54 @@
 
     const url_table_listPengeluaran = "{{ route('dev.product') }}" + '/listPengeluaran/';
 
+    $("#pengeluaranProduct").on("submit",function (e) {
+        e.preventDefault();
+        console.log($(['name="action"']).attr('id'));
+        $.ajax({
+            url:$(this).attr('action'),
+            method:$(this).attr('method'),
+            data:new FormData(this),
+            processData:false,
+            dataType:'json',
+            contentType:false,
+            beforeSend:function() {
+                $(document).find('span.error-text').text('');
+            },
+            success:function(data) {
+                if (data.status == 0) {
+                    $.each(data.error, function (prefix, val) {
+                        $('span.'+prefix+'_error').text(val[0]);
+                    });
+                }
+                else if (data.status == -1) { 
+                    //$('#pengeluaranProduct')[0].reset();
+                    var terpilih_before = $("#nama_project_dipilih_keluar").text();
+                    $("#pilih_project_keluar").find(":selected").text(terpilih_before);
+                    $('#tipe_pengeluaran').val(0);
+                    $('#jumlah_keluar').val('');
+                    swal({
+                        title: data.msg,
+                        text: "You clicked the button!",
+                        icon: "warning",
+                    });
+
+                }
+                else{
+                    swal({
+                        title: data.msg,
+                        text: "You clicked the button!",
+                        icon: "success",
+                    });
+                    table_listPengeluaran();
+                    var terpilih_before = $("#nama_project_dipilih_keluar").text();
+                    $("#pilih_project_keluar").find(":selected").text(terpilih_before);
+                    $('#tipe_pengeluaran').val(0);
+                    $('#jumlah_keluar').val('');
+                    
+                    
+                }
+            }
+        });
+    });
 </script>
 <script src="/js/dev/product.js"></script>

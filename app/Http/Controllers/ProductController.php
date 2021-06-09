@@ -193,7 +193,7 @@ class ProductController extends Controller
 
                 return datatables()->of($list_proyek0)
                 ->addColumn('action', function($data){
-                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProductConfirmYet">Detail</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -212,7 +212,7 @@ class ProductController extends Controller
 
                 return datatables()->of($list_proyek1)
                 ->addColumn('action', function($data){
-                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct"  data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail </a>';
+                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct"  data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProduct">Detail </a>';
 
                     $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm nonAktifProject" data-tr="tr_{{$product->id}}">Nonaktifkan </a>';
                     return $btn;
@@ -234,7 +234,7 @@ class ProductController extends Controller
                 return datatables()->of($list_proyek2)
                 ->addColumn('action', function($data){
                     
-                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
+                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProductInvestor">Detail</a>';
 
                    // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm aktifProject" data-tr="tr_{{$product->id}}">Aktifkan</a>';
 
@@ -258,7 +258,7 @@ class ProductController extends Controller
                     return datatables()->of($list_proyek3)
                     ->addColumn('action', function($data){
                         
-                        $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
+                        $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProductNonAktif">Detail</a>';
 
                         $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject" data-tr="tr_{{$product->id}}">Hapus</a>';
 
@@ -464,9 +464,16 @@ class ProductController extends Controller
             $minToday = $today. " 00:00:00";
             $maxToday = $today. " 23:59:59";
            
-            $isExist = DetailProductKas::where('id_headerproduct','=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->where('created_at', '>=', $minToday)->where('created_at', '<=', $maxToday)->first();
+            $isExist = 
+            DetailProductKas::where('id_headerproduct','=',$req->pilih_project_masuk)
+            ->where('id_typetrans', '=', $req->tipe_pemasukkan)
+            ->where('created_at', '>=', $minToday)->where('created_at', '<=', $maxToday)
+            ->orderByDesc('created_at')
+            ->first();
 
-            if ($isExist === null)
+            if (DetailProductKas::where('id_headerproduct','=',$req->pilih_project_masuk)
+            ->where('id_typetrans', '=', $req->tipe_pemasukkan)
+            ->where('created_at', '>=', $minToday)->where('created_at', '<=', $maxToday)->doesntExist())
             {
                 //save to db detail_product_kas
                 $newPemasukkan = new DetailProductKas;
@@ -477,13 +484,19 @@ class ProductController extends Controller
                 $newPemasukkan->status = "1";
                 $query = $newPemasukkan->save();
 
-                return 1;
+                if ($query) {
+                    return 1;
+                }
+                
                 
             }
-            else if (DetailProductKas::where('id_headerproduct','=',$req->pilih_project_masuk)->where('id_typetrans', '=', $req->tipe_pemasukkan)->where('created_at', '>=', $minToday)->where('created_at', '<=', $maxToday)->exists()) {
+            if (DetailProductKas::where('id_headerproduct','=',$req->pilih_project_masuk)
+            ->where('id_typetrans', '=', $req->tipe_pemasukkan)
+            ->where('created_at', '>=', $minToday)->where('created_at', '<=', $maxToday)->exists())
+            {
                 return -1;
-                //response()->json(['status'=>-1, 'msg'=>'sudah ada, silakan ubah']);
             }
+            
         }
     }
 
