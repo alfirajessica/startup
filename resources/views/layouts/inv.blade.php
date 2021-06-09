@@ -157,10 +157,7 @@
             
             @yield('content')
         </main>
-        @if (Route::currentRouteName() != "home")
-            @include('units.footer')
-            
-        @endif
+        
     </div>
        
 </body>

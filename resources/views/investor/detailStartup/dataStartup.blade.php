@@ -13,11 +13,11 @@
             </div>
             <div class="col-md-7 p-0 m-0 ">
                 <div class="card-body">
-                    <h5 class="card-title m-0">{{$item->name_product}}</h5>
+                    <h5 class="card-title m-0 font-weight-bold">{{$item->name_product}}</h5>
                     <p class="card-text">
                         <div class="d-flex flex-nowrap justify-content-between">
                             <div>
-                            <div class="text-muted">Type</div>
+                            <div class="text-muted">Tipe</div>
                             <div class="font-weight-bold text-truncate ng-binding">{{$item->name_category}} - {{$item->name}}</div>
                             </div>
                             
@@ -39,7 +39,7 @@
     </div>  
 </a>    
 @empty
-<p class="bg-danger text-white p-1">No product</p>
+<p class="text-black">Tidak ada project tersedia</p>
 @endforelse
 
 <div class="">

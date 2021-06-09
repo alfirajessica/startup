@@ -124,16 +124,13 @@ class HomeController extends Controller
 
     public function updStatusTrans()
     {
-       
         
-        $data = HeaderInvest::all()->toArray();
+        $data = HeaderInvest::where('status_invest','!=','4')->get()->toArray();
         for ($i=0; $i < count($data); $i++) { 
 
             //get status dari midtrans berdasarkan order_id nya
             $status = \Midtrans\Transaction::status($data[$i]['invest_id']);
             $status = json_decode(json_encode($status),true);
-
-             
 
             if ($status['transaction_status'] == "cancel" || $status['transaction_status'] == "expire") {
                 DB::table('header_invests')->

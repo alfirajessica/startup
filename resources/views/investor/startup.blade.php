@@ -1,7 +1,7 @@
 @extends('layouts.inv')
 
 @section('content')
-<div class="header pb-6 d-flex align-items-center" style="min-height: 300px; background-image: url(/images/person-using-tablet.jpg); background-size: cover; background-position: center top;">
+{{-- <div class="header pb-6 d-flex align-items-center" style="min-height: 300px; background-image: url(/images/person-using-tablet.jpg); background-size: cover; background-position: center top;">
     <!-- Mask -->
     <span class="mask bg-gradient-default opacity-8"></span>
     <!-- Header container -->
@@ -13,15 +13,14 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- Page content -->
 <div class="container">
     <div class="row py-4">
         <div class="col-md-3">
-            {{-- @include('investor.filterStartup') --}}
             <a name="" id="" class="btn-block" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">
               <i class="fas fa-filter"></i>
-              Filter By
+              FILTER
           </a>
           <div class="collapse multi-collapse show bg-white" id="multiCollapseExample1">    
               <div class="card-body shadow border-1"> <!-- card-body -->
@@ -29,11 +28,8 @@
                     @include('units.search')
                     <hr>
                   
-                  <a name="" id="" class="btn-block" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
-                    <h5>Tipe <i class="fas fa-chevron-down float-right"></i> </h5>
-                  </a> 
+                    <h5 class="font-weight-bold">Tipe</h5>
 
-                  <div class="collapse multi-collapse show" id="multiCollapseExample2">
                     <div class="form-group">
 
                       @foreach($list_category as $category)
@@ -53,13 +49,13 @@
                       @endforeach
 
                     </div>   
-                  </div>
+                 
               </div>  
           </div><!-- END COLLAPSE --> 
 
         </div><!--end tabs -->
         
-        <div id="user_data" class="col-md-9 justify-content-center">
+        <div id="user_data" class="col-md-9 justify-content-center py-2">
             <div class="card border-0 py-4" style="background-color: #f7f3e9">  
                 
               <div class="alert alert-danger d-none" id="search_nullData" role="alert">
@@ -73,8 +69,8 @@
 </div>
 @endsection
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
-<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
 
 <script>
   //semua function ini ada pada /js/inv/startup.js

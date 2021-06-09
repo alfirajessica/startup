@@ -1,6 +1,12 @@
 <div class="card border-0">
     <div class="card-body px-0" style="background-color: #f7f3e9">
         <div class="row">
+            <div class="col-md-12">
+                <h1 id="id_product" name="id_product" class="d-none">{{$item->id}}</h1>
+                <h4 class="card-title font-weight-bold" name="name_project" id="name_project">{{$item->name_product}}</h4>
+            </div>
+        </div>
+        <div class="row">
            <div class="col-md-8  mb-0">
                 @if (session('fail'))
                 <script>
@@ -10,11 +16,8 @@
                 </script>
                 @endif
 
-                {{-- class="d-none" --}}
-                <h1 id="id_product" name="id_product" class="d-none">{{$item->id}}</h1>
-                <h5 class="card-title font-weight-bold" name="name_project" id="name_project">{{$item->name_product}}</h5>
                 
-                <img id="previewImg2" class="d-block user-select-none shadow" width="100%" max-height="400" src="/uploads/event/{{$item->image}}" > </a>
+                <img id="previewImg2" class="d-block user-select-none shadow" width="100%" max-height="500" src="/uploads/event/{{$item->image}}" > </a>
             </div>
             <div class="col-md-4 ">
                <div class="row py-2">
@@ -27,7 +30,7 @@
                     <div class="col-md-12">
                         <div class="card shadow border-0">
                             <div class="card-body ">
-                                <h5>Site Info</h5>
+                                <h5>Informasi Produk</h5>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -65,7 +68,7 @@
             <div class="col-md-8">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
-                      <a class="nav-link active" id="about_product-tab" data-toggle="tab" href="#about_product" role="tab" aria-controls="about_product" aria-selected="true">Deskripsi Produk</a>
+                      <a class="nav-link active" id="about_product-tab" data-toggle="tab" href="#about_product" role="tab" aria-controls="about_product" aria-selected="true">Tentang Produk</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -75,27 +78,27 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <p style="font-size:10pt">
-                                            <strong for="">Desc</strong> <br>
+                                            <strong for="">Deskripsi</strong> <br>
                                             {{$item->desc}}
                                         <p>
                         
                                         <p style="font-size:10pt">
-                                            <strong for="">Team</strong> <br>
+                                            <strong for="">Tim pada proyek</strong> <br>
                                             {{$item->team}}
                                         <p>
                         
                                         <p style="font-size:10pt">
-                                            <strong for="">Reason</strong> <br>
+                                            <strong for="">Alasan pembuatan proyek ini</strong> <br>
                                             {{$item->reason}}
                                         <p>
                                 
                                         <p style="font-size:10pt">
-                                            <strong for="">Benefit</strong> <br>
+                                            <strong for="">Manfaat yang didapatkan</strong> <br>
                                             {{$item->benefit}}
                                         <p>
                         
                                         <p style="font-size:10pt">
-                                            <strong for="">Solusi</strong> <br>
+                                            <strong for="">Solusi yang ditawarkan</strong> <br>
                                             {{$item->solution}}
                                         <p>
                                     </div>

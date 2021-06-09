@@ -1,5 +1,6 @@
 $(function () {
     $('#invest_number').val(0);
+    listInvest();
     updStatusTrans();
 });
 
@@ -25,6 +26,7 @@ function payButton() {
          $.ajax({
          type: "GET",
          url: url_pay + id + '/' + invest,
+         contentType: "application/json",
          data:{
              "nama_project":nama_project,
              "invest_exp_date":invest_exp_date
@@ -39,21 +41,21 @@ function payButton() {
              }else{
                  $('#invest_number').val(0);
                  $('#exampleModal').modal('hide');
-                 
+                 updStatusTrans();
                  snap.pay(data, {
                  // Optional
                  onSuccess: function(result){
-                     updStatusTrans();
+                     
                      document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
                  },
                  // Optional
                  onPending: function(result){
-                     updStatusTrans();
+                    // updStatusTrans();
                      document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
                  },
                  // Optional
                  onError: function(result){
-                     updStatusTrans();
+                     //updStatusTrans();
                      //document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
                  }
                  });
@@ -74,11 +76,10 @@ function updStatusTrans() {
     $.ajax({
         type: "get",
         url: '/updStatus',
+        contentType: "application/json",
         success: function (data) {
-            listInvestPending();
-            listInvestSettlement();
-            listInvestCancel();
-           
+            listInvest();
+          
         },
         error: function (data) {
             console.log('Error:', data);
@@ -88,7 +89,8 @@ function updStatusTrans() {
 // end of product/desc.blade.php
 
 // invest/listinvest.blade.php
-function listInvestPending() {
+function listInvest() { 
+    
     $('#table_listInvestPending').DataTable({
         destroy:true,
         processing: true,
@@ -97,7 +99,7 @@ function listInvestPending() {
         deferRender:true,
         aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
         ajax: {
-            url: url_table_listInvestPending,
+            url: "/inv/invest/listInvestPending/",
             type: 'GET',
         },
         order: [
@@ -141,9 +143,7 @@ function listInvestPending() {
         ],
         
     });
-}
 
-function listInvestSettlement() {
     $('#table_listInvestSettlement').DataTable({
         destroy:true,
         processing: true,
@@ -152,7 +152,7 @@ function listInvestSettlement() {
         deferRender:true,
         aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
         ajax: {
-            url: url_table_listInvestSettlement,
+            url: "/inv/invest/listInvestSettlement/",
             type: 'GET',
         },
         order: [
@@ -182,9 +182,7 @@ function listInvestSettlement() {
         ],
         
     });
-}
 
-function listInvestCancel() {
     $('#table_listInvestCancel').DataTable({
         destroy:true,
         processing: true,
@@ -193,7 +191,7 @@ function listInvestCancel() {
         deferRender:true,
         aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
         ajax: {
-            url: url_table_listInvestCancel,
+            url: "/inv/invest/listInvestCancel/",
             type: 'GET',
         },
         order: [
@@ -228,9 +226,13 @@ function listInvestCancel() {
 $('body').on('click', '.detailProject', function () {
     var id = $(this).data('id');
     projectDetails(id);
-    $.get(url_detailInvest + id, function (data) {
-    
-        var tipe_pay = "";
+
+    $.ajax({
+        type: "get",
+        url: '/detailInvest' + '/' + id,
+        contentType: "application/json",
+        success: function (data) {
+            var tipe_pay = "";
 
         if (data['payment_type'] == "bank_transfer") {
             tipe_pay="Bank Transfer";
@@ -387,24 +389,36 @@ $('body').on('click', '.detailProject', function () {
             "</tr>";
             $('#table_payDetails tbody').html(showPayDetail);
         }
-   });
-
-   //get status_invest
-   $.get(url_detailStatusInvest + id, function (data) {
-        
-        $('#invest_exp').text(moment(data['invest_expire']).format('DD-MMM-YYYY')); 
-        if (data['status_invest'] == "0") {
-            $('#msg_admin').text('Menunggu Konfirmasi Admin');
-        }else if (data['status_invest'] == "1") {
-         $('#msg_admin').text('Telah Dikonfirmasi Admin');
-        }
-        else if (data['status_invest'] == "2") {
-         $('#msg_admin').text('Investasi telah dinonaktifkan');
-        }
-        else if (data['status_invest'] == "4") {
-         $('#msg_admin').text('Investasi Gagal');
+        },
+        error: function (data) {
+            console.log('Error:', data);
         }
     });
+
+   //get status_invest
+    $.ajax({
+        type: "get",
+        url: '/detailStatusInvest' + '/' + id,
+        contentType: "application/json",
+        success: function (data) {
+            $('#invest_exp').text(moment(data['invest_expire']).format('DD-MMM-YYYY')); 
+            if (data['status_invest'] == "0") {
+                $('#msg_admin').text('Menunggu Konfirmasi Admin');
+            }else if (data['status_invest'] == "1") {
+            $('#msg_admin').text('Telah Dikonfirmasi Admin');
+            }
+            else if (data['status_invest'] == "2") {
+            $('#msg_admin').text('Investasi telah dinonaktifkan');
+            }
+            else if (data['status_invest'] == "4") {
+            $('#msg_admin').text('Investasi Gagal');
+            }
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+
 });
 
 $('body').on('click', '.sudahKirim', function () {
@@ -425,6 +439,7 @@ $('body').on('click', '.cancelInvest', function () {
             $.ajax({
                 type: "get",
                 url: '/cancleInvest/' + id ,
+                contentType: "application/json",
                 success: function (data) {
                     updStatusTrans();
                 },
@@ -456,7 +471,7 @@ function projectDetails(id) {
         ordering:false,
         info:false,
         ajax: {
-            url: url_table_projectDetails  + id,
+            url: '/projectdetailInvest' + '/'  + id,
             type: 'GET',
         },
         
@@ -514,11 +529,6 @@ function projectDetails(id) {
                 .reduce( function (a, b) {
                     return intVal(a) + intVal(b);
                 }, 0 );
-
-            // // Update footer
-            // $( api.column( 4 ).footer() ).html(
-            //     $.fn.dataTable.render.number('.','.','2','Rp').display(total)
-            // );
 
             fee = ((total * 1)/100);
             getTotal = total - fee;

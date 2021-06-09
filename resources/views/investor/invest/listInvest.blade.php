@@ -78,25 +78,6 @@
     <!-- end card -->
 </div>
 
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>  
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-
-<script>
-    //tabel listInvestPending --> untuk daftar transaksi investasi yang BELUM dikirim uangnya.
-    const url_table_listInvestPending = "{{ route('inv.invest.listInvestPending') }}" + '/';
-
-    //tabel listInvestSettlement --> untuk daftar transaksi investasi yang SUDAH dikirim uangnya.
-    const url_table_listInvestSettlement = "{{ route('inv.invest.listInvestSettlement') }}" + '/';
-
-    //tabel listInvestCancel --> untuk daftar transaksi investasi yang DI CANCLE OR EXPIRE 
-    const url_table_listInvestCancel= "{{ route('inv.invest.listInvestCancel') }}" + '/';
-
-    const url_detailInvest = '/detailInvest' + '/';
-    const url_detailStatusInvest = '/detailStatusInvest' + '/';
-    const url_table_projectDetails = '/projectdetailInvest' + '/';
-
-</script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>  
 
 <script src="/js/inv/invest.js"></script>
