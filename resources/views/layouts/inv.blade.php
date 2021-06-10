@@ -17,7 +17,7 @@
         background-color: none
     }
   </style>
-<body class="landing-page"  data-spy="scroll" data-offset="60" data-target="#navbar-main">
+<body class="landing-page"  data-spy="scroll" data-offset="60" data-target="#navbar-main" id="produk">
   <!-- Navbar -->
   
   <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg position-sticky top-0 shadow py-2">
@@ -110,11 +110,16 @@
                         </form>
                     </div>
                 </li>
+                
             @endguest
           </ul>
+          
       </div>
+      
     </div>
-  </nav>
+    </nav>
+    
+    
   <!-- End Navbar -->
   @if (Route::currentRouteName() == "home")
         <section class="background up-scroll">

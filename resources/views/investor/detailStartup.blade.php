@@ -2,10 +2,23 @@
 
 @section('content')
 <div class="container">
+    <div class="row">
+        <nav>
+            <ol class="breadcrumb fixed-top" style="top:60px;justify-content: center;">
+                <li class="breadcrumb-item active"><a href="#produk">Produk</a></li>
+                <li class="breadcrumb-item"><a href="#tentang_produk">Tentang Produk</a></li>
+                <li class="breadcrumb-item"><a href="#financial">Keuangan</a></li>
+                <li class="breadcrumb-item"><a href="#review">Review</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<div class="container">
 
-    <div class="row py-4">
+    <div class="row" >
         <div class="py-4"></div>
             <div class="col-md-12">
+                
                 @foreach ($list_project as $item)
                     {{-- image, desc site info, about product --}}
                     @include('investor.detailStartup.desc') 

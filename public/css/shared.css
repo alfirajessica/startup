@@ -203,11 +203,25 @@
   font-size: 1.5rem;
   padding: 0 0rem; /* space out the stars */
 }
+.starUlasan{
+  color: goldenrod;
+  font-size: 1.5rem;
+  padding: 0 0rem; /* space out the stars */
+}
+
 .star::before{
   content: '\2606';    /* star outline */
   cursor: pointer;
 }
+.starUlasan::before{
+  content: '\2606';    /* star outline */
+}
+
 .star.rated::before{
+  /* the style for a selected star */
+  content: '\2605';  /* filled star */
+}
+.starUlasan.rated::before{
   /* the style for a selected star */
   content: '\2605';  /* filled star */
 }
@@ -217,12 +231,23 @@
     font-size: 1.0rem;
     font-weight: 900;
 }
+/* .starsUlasan{
+  counter-reset: rateme 0;   
+  font-size: 1.0rem;
+  font-weight: 900;
+} */
 .star.rated{
     counter-increment: rateme 1;
 }
+/* .starUlasan.rated{
+  counter-increment: rateme 1;
+} */
 .stars::after{
     content: counter(rateme) '/5';
 }
+/* .starsUlasan::after{
+  content: counter(rateme) '/5';
+} */
 
 .card-img-top {
   width: 100%;

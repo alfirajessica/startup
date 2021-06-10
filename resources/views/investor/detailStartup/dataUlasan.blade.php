@@ -17,9 +17,22 @@
     </div>
 
     <div class="card-header">
-        
-        Rating : {{$item->rating}}/5 <br>
-        Review : {{$item->isi_review}}
+        <?php
+            $coba="<label> <div class='starsUlasan' data-rating='0'>";
+            $data = $item->rating;
+            $sisa = 5 - $data;
+
+            for ($i=0; $i <$data; $i++) { 
+                $coba= $coba."<span class='starUlasan rated' data-rating='".$i."'>&nbsp;</span>";
+            }
+            for ($i=0; $i <$sisa; $i++) { 
+                $coba= $coba."<span class='starUlasan' data-rating='".$i."'>&nbsp;</span>";
+            }
+            $coba = $coba."</div>";
+
+            echo $coba;
+        ?>
+        {{$item->isi_review}}
     </div>
 </div>
 <hr>

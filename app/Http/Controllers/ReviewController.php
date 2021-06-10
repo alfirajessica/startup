@@ -92,6 +92,7 @@ class ReviewController extends Controller
     //developer - product - detailProduct.blade.php
     public function detailProjectReview(Request $req, $id)
     {
+        
         $list_reviews = 
             DB::table('reviews')
             ->join('users', 'users.id','=','reviews.user_id')

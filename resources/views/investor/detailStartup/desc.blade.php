@@ -1,13 +1,14 @@
-<div class="card border-0">
-    <div class="card-body px-0" style="background-color: #f7f3e9">
+<div class="card border-0" id="produk">
+    <div class="card-body px-0" style="background-color: #f7f3e9" >
+
         <div class="row">
             <div class="col-md-12">
                 <h1 id="id_product" name="id_product" class="d-none">{{$item->id}}</h1>
-                <h4 class="card-title font-weight-bold" name="name_project" id="name_project">{{$item->name_product}}</h4>
+                <h4 class="card-title font-weight-bold py-4" name="name_project" id="name_project">{{$item->name_product}}</h4>
             </div>
         </div>
         <div class="row">
-           <div class="col-md-8  mb-0">
+           <div class="col-md-8">
                 @if (session('fail'))
                 <script>
                     $(document).ready(function () {
@@ -16,7 +17,6 @@
                 </script>
                 @endif
 
-                
                 <img id="previewImg2" class="d-block user-select-none shadow" width="100%" max-height="500" src="/uploads/event/{{$item->image}}" > </a>
             </div>
             <div class="col-md-4 ">
@@ -63,9 +63,9 @@
                 
            </div>
         </div>    
-        
-        <div class="row py-4">
-            <div class="col-md-8">
+        <div class="row"  ></div>
+        <div class="row py-4"  id="tentang_produk">
+            <div class="col-md-8" >
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
                       <a class="nav-link active" id="about_product-tab" data-toggle="tab" href="#about_product" role="tab" aria-controls="about_product" aria-selected="true">Tentang Produk</a>
@@ -120,48 +120,50 @@
                         <p class="card-text">{{$item->province_name}}, {{$item->city_name}}</p>
                         </div>  
                     </div>
-                    
-                    
-                    {{-- @include('investor.detailStartup.profilStartup') --}}
                 @endforeach
 
                 @foreach ($reviews as $review)
                 <div class="card shadow text-center py-2">
                         
                     <div class="card-body">
-                        <h3 style='font-size:24pt;'>{{$review->rate}} <span style='font-size:18pt;'> /5 </span></h3>
-                        <?php 
-                            $rate = $review->rate;
-                            $sisa = 5 - $rate;
-                            $star = "";
-                            if ($rate == 0) {
-                                $star = "Belum ada ulasan";
+                        
+                        <h2 style='font-size:32pt;'>
+                            @if ($review->rate == 0)
+                                0
+                            @else
+                                {{$review->rate}}
+                            @endif
+                             
+                            <span style='font-size:18pt;'> /5 </span>
+                        </h2>
+                        <?php
+                            $coba="<label> <div class='starsUlasan' data-rating='0'>";
+                            $data = $review->rate;
+                            $sisa = 5 - $data;
+
+
+                            for ($i=0; $i <$data; $i++) { 
+                                $coba= $coba."<span class='starUlasan rated' data-rating='".$i."'>&nbsp;</span>";
                             }
-                            else if ($rate != 0){
-                                $star = "<div class='stars' data-rating='0'>";
-                                for ($i=0; $i < $rate ; $i++) { 
-                                    $star= $star."<span class='star rated' data-rating='".$i."'>&nbsp;</span>";
-                                }
-                                for ($i=0; $i <$sisa; $i++) { 
-                                    $star= $star."<span class='star' data-rating='".$i."'>&nbsp;</span>";
-                                }
-                                $star = $star."</div>";
-                                
+                            for ($i=0; $i <$sisa; $i++) { 
+                                $coba= $coba."<span class='starUlasan' data-rating='".$i."'>&nbsp;</span>";
                             }
-                            echo $star;
+                            $coba = $coba."</div>";
+                            echo $coba;
                         ?>
-                        <p class="card-text">{{$review->ulasan}} Ulasan</p>
+                       
+                        <p class="card-text">({{$review->ulasan}}) Ulasan</p>
                     </div>  
                 </div>
                 @endforeach
             </div>
         </div>
-        <div class="row py-2">
+        <div class="row py-2" id="financial">
             <div class="col-md-8">
                 @include('investor.detailStartup.financial')
             </div>
         </div>
-        <div class="row py-2">
+        <div class="row py-2" id="review">
             <div class="col-md-8">
                 <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <li class="nav-item">
@@ -183,10 +185,6 @@
                     </div>
                 </div>
                 
-                {{-- @include('investor.detailStartup.ulasan') --}} 
-                {{-- @foreach ($reviews as $item)
-                    @include('investor.detailStartup.ulasan')
-                @endforeach --}}
             </div>
         </div>
     </div>
