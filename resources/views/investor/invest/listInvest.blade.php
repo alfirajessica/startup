@@ -71,6 +71,24 @@
                   </div>
             </div>
             <!-- end of table_listInvestCancel -->
+
+            <div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel" aria-labelledby="tabs-icons-text-4-tab">
+              <div class="table-responsive">
+                  <table class="table table-bordered table-hover" width="100%" id="table_listInvestFinished">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nama Event</th>
+                            <th>Diadakan Secara</th>
+                            <th>Jadwal Acara</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                <!-- AKHIR TABLE -->
+                </div>
+            </div>
         </div> <!-- end of tab content -->
       </div> <!--end of card body -->
       </div>

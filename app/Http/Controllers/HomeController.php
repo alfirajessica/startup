@@ -163,8 +163,7 @@ class HomeController extends Controller
                     'header_products.status' => '2',
                 ]);
             }
-
-             
+   
         }
     }
 
@@ -219,7 +218,10 @@ class HomeController extends Controller
                     ->addIndexColumn()
                     ->make(true);
         }
+        
     }
+
+    
     
     //jika investor meng-cancle investasi/Batal Invest pada saat transaksi investasi masih berstatus "Pending"
     //status product dikembalikan menjadi 0
@@ -232,6 +234,28 @@ class HomeController extends Controller
         $cancel = \Midtrans\Transaction::cancel($investID);
 
         return $cancel;
+        
+    }
+
+    //ubah status_invest di tabel header invest menjadi 5 --> investasi telah berakhir/finished/sesuai waktu kontrak
+    public function invest_haspassed(Request $req)
+    {
+        $date = Carbon::now();
+        //dd($date->toDateString());
+
+        $data = HeaderInvest::where('status_invest','=','1')->get()->toArray();
+        
+        $upd_headerInv = DB::table('header_invests')
+                        ->where(function ($query) use($data)
+                        {
+                            for ($i=0; $i <count($data) ; $i++) { 
+                                $query->orwhere('id','=', $data[$i]['id']);
+                            }
+                        })
+                        ->where('invest_expire','<',$date->toDateString())
+                        ->update([
+                            'status_invest' =>'5',
+                        ]);
         
     }
 

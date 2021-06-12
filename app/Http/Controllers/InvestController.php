@@ -114,7 +114,7 @@ class InvestController extends Controller
 
     //note: investor tdk bisa menonaktifkan investasi yang sudah berhasil
 
-    //status_invest -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif oleh inv), 4(tdk aktif krna gagal byr/cancle/expire), 5 (investasi sudah expire)
+    //status_invest -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif oleh inv), 4(tdk aktif krna gagal byr/cancle/expire), 5 (investasi sudah finished/melewati masa kontrak)
 
     public function listInvestPending(Request $req)
     {
@@ -203,7 +203,75 @@ class InvestController extends Controller
         return view('inv.listInvest');
     }
 
+    public function listInvestFinished(Request $req)
+    {
+        $user = auth()->user();
+       
+        $listInvestFinished = DB::table('header_invests')
+        ->leftJoin('header_products', 'header_products.id','=','header_invests.project_id')
+        ->select('header_invests.id', 'header_products.name_product', 'header_invests.invest_id','header_invests.status_transaction')
+        ->where('header_invests.user_id', '=', $user->id)
+        ->where('header_invests.status_transaction','=','settlement')
+        ->where('header_invests.status_invest','=','5')
+        ->get();
+        
+       
+        if($req->ajax()){
+            return datatables()->of($listInvestFinished)
+                    ->addColumn('action', function($data){
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
 
-    
+                        return $btn;
+                     })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+        }
+
+    }
+
+
+
+    //detail laporan keuangan inv di inv/invest/listInvestasi
+    public function detailFinance(Request $req, $id)
+    {
+        $data = HeaderInvest::find($id);
+        $projectID = $data->project_id;
+        $date_inv_awal = $data->created_at->format('Y-m-01') ." 00:00:00";
+        $date_inv_exp = \Carbon\Carbon::parse($data->invest_expire)->format('Y-m-01'). " 23:59:59";
+       // dd($date_inv_awal);
+
+        if($req->ajax()){
+
+            if ($req->getTabel == "#table_pemasukkan_inv") {
+                $list_kas0 = DB::table('detail_product_kas')
+                    ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
+                    ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
+                    ->where('detail_product_kas.id_headerproduct','=',$projectID)
+                    ->whereBetween('detail_product_kas.created_at', [$date_inv_awal, $date_inv_exp])
+                    ->orderBy('detail_product_kas.created_at','asc')
+                    ->get();
+            }
+            
+            if ($req->getTabel == "#table_pengeluaran_inv") {
+                $list_kas0 = DB::table('detail_product_kas')
+                    ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
+                    ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
+                    ->where('detail_product_kas.id_headerproduct','=',$projectID)
+                    ->where('detail_product_kas.tipe','=','2')
+                    ->whereBetween('detail_product_kas.created_at', [$date_inv_awal, $date_inv_exp])
+                    ->get();
+            }
+
+            return datatables()->of($list_kas0)
+            ->addColumn('action', function($data){
+            $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKas">Ubah</a>';
+            return $btn;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        }
+    }
     
 }

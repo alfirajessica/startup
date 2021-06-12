@@ -2,6 +2,8 @@ $(function () {
     $('#invest_number').val(0);
     listInvest();
     updStatusTrans();
+    investPassed();
+    
 });
 
 // product/desc.blade.php  --> saat user menekan tombol Investasikan pada modal
@@ -220,12 +222,54 @@ function listInvest() {
         ],
         
     });
+
+    $('#table_listInvestFinished').DataTable({
+        destroy:true,
+        processing: true,
+        serverSide: true, //aktifkan server-side 
+        responsive:true,
+        deferRender:true,
+        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+        ajax: {
+            url: "/inv/invest/listInvestFinished",
+            type: 'GET',
+        },
+        order: [
+            [0, 'asc']
+        ],
+        columns: [
+            {
+                data: 'name_product',
+                name: 'name_product',
+              
+            },
+            {
+                data: 'invest_id',
+                name: 'invest_id',
+              
+            },
+            {
+                data: 'status_transaction',
+                name: 'status_transaction',
+              
+            },
+            {
+                data: 'action',
+                name: 'action', 
+            },
+        ],
+        
+    });
 }
 
 
 $('body').on('click', '.detailProject', function () {
     var id = $(this).data('id');
     projectDetails(id);
+
+   
+    table_lapFinance(id);
+
 
     $.ajax({
         type: "get",
@@ -284,7 +328,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td>Jumlah Transfer </td>" +
-                "<td>" + data['gross_amount'] + "</td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
                 "<td>Time </td>" +
@@ -309,7 +353,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td>Jumlah Transfer </td>" +
-                "<td>" + data['gross_amount'] + "</td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
                 "<td>Time </td>" +
@@ -333,7 +377,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td>Jumlah Transfer </td>" +
-                "<td>" + data['gross_amount'] + "</td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
                 "<td>Time </td>" +
@@ -357,7 +401,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td>Jumlah Transfer </td>" +
-                "<td>" + data['gross_amount'] + "</td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
                 "<td>Time </td>" +
@@ -401,24 +445,33 @@ $('body').on('click', '.detailProject', function () {
         url: '/detailStatusInvest' + '/' + id,
         contentType: "application/json",
         success: function (data) {
+            $('#invest_awal').text(moment(data['created_at']).format('DD-MMM-YYYY'));
             $('#invest_exp').text(moment(data['invest_expire']).format('DD-MMM-YYYY')); 
+
+            $('#invest_awal_m').text(moment(data['created_at']).format('MMM-YYYY'));
+            $('#invest_exp_m').text(moment(data['invest_expire']).format('MMM-YYYY')); 
+
             if (data['status_invest'] == "0") {
                 $('#msg_admin').text('Menunggu Konfirmasi Admin');
             }else if (data['status_invest'] == "1") {
-            $('#msg_admin').text('Telah Dikonfirmasi Admin');
+                $('#msg_admin').text('Telah Dikonfirmasi Admin');
             }
             else if (data['status_invest'] == "2") {
-            $('#msg_admin').text('Investasi telah dinonaktifkan');
+                $('#msg_admin').text('Investasi telah dinonaktifkan');
             }
             else if (data['status_invest'] == "4") {
-            $('#msg_admin').text('Investasi Gagal');
+                $('#msg_admin').text('Investasi Gagal');
+            }
+            else if (data['status_invest'] == "5") {
+                $('#msg_admin').text('Selesai');
             }
         },
         error: function (data) {
             console.log('Error:', data);
         }
     });
-
+    
+    
 });
 
 $('body').on('click', '.sudahKirim', function () {
@@ -543,4 +596,255 @@ function projectDetails(id) {
         
     });
 }
+
+function investPassed() { 
+    $.ajax({
+        type: "get",
+        url: '/investPassed',
+        // contentType: "application/json",
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+}
+
+//rekap, pemasukkan dan pengeluaran berdasrkan bulan
+function table_lapFinance(id) {
+    console.log(id);
+    $('#table_pemasukkan_inv').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                messageTop: "The information in this table is copyright to Sirius Cybernetics Corp.",
+                messageBottom: "okw",
+                footer:true,
+                title: 'Data export', //filename
+            }
+        ],
+        destroy:true,
+        processing: true,
+        serverSide: true, //aktifkan server-side 
+        responsive:true,
+        deferRender:true,
+        language: {
+            "emptyTable": "Belum ada data pemasukkan oleh Startup"
+        },
+        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+        ajax: {
+            url: "/detailFinance/" + id,
+            type: 'GET',
+            data:{
+                "getTabel":"#table_pemasukkan_inv",
+            },
+        },
+        order: [
+            [0, 'asc']
+        ],
+        columns: [
+            {
+                data: null,
+                name: 'tipe',
+                render: data => {
+                    var tipe="";
+                    if (data.tipe == "1") {
+                        tipe = "+";
+                    }else{
+                        tipe = "-"
+                    }
+                    return tipe;
+                }
+            },
+            {
+                data: null,
+                name: 'created_at',
+                render: data => {
+                    return moment(data.created_at).format('DD/MMM/YYYY')
+                }
+            },
+            {
+                data: 'keterangan',
+                name: 'keterangan',
+              
+            },
+            {
+                data: null,
+                name: 'jumlah',
+                render: data => {
+                    var jumlah="";
+                    if (data.tipe == "1") {
+                        jumlah = data.jumlah;
+                    }else{
+                        jumlah = "0";
+                    }
+                    return $.fn.dataTable.render.number( '.', ',', 2, 'Rp').display(jumlah);
+                }
+               
+              
+            },
+            {
+                data: null,
+                name: 'jumlah',
+                render: data => {
+                    var jumlah="";
+                    if (data.tipe == "2") {
+                        jumlah = data.jumlah;
+                    }else{
+                        jumlah = "0";
+                    }
+                    return $.fn.dataTable.render.number( '.', ',', 2, 'Rp').display(jumlah);
+                }
+            },
+        ],
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+          
+            //Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+
+            // Total over all pages
+            totalmasuk = api
+                .column( 3 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+            
+            
+            // Total over this page
+            pageTotal = api
+                .column( 3, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+
+            // Update footer
+
+            $("#total_masuk").html(
+                $.fn.dataTable.render.number('.','.','2','Rp').display(totalmasuk)
+            ); 
+
+            $("#total_keluar").html(
+                $.fn.dataTable.render.number('.','.','2','Rp').display(0)
+            );                        
+
+            // $( api.column( 3 ).footer() ).html(
+            //     $.fn.dataTable.render.number('.','.','2','Rp').display(totalmasuk)
+            // );
+
+            // $( api.column( 4 ).footer() ).html(
+            //     $.fn.dataTable.render.number('.','.','2','Rp').display(totalkeluar)
+            // );
+            
+                                 
+        }
+        
+    });
+
+    $('#table_pengeluaran_inv').DataTable({
+        destroy:true,
+        processing: true,
+        serverSide: true, //aktifkan server-side 
+        responsive:true,
+        deferRender:true,
+        language: {
+            "emptyTable": "Belum ada data pemasukkan oleh Startup"
+        },
+        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+        ajax: {
+            url: "/detailFinance/" + id,
+            type: 'GET',
+            data:{
+                "getTabel":"#table_pengeluaran_inv",
+            },
+        },
+        order: [
+            [0, 'asc']
+        ],
+        columns: [
+            {
+                data: null,
+                name: 'tipe',
+                render: data => {
+                    var tipe="";
+                    if (data.tipe == "1") {
+                        tipe = "+";
+                    }else{
+                        tipe = "-"
+                    }
+                    return tipe;
+                }
+            },
+            {
+                data: null,
+                name: 'created_at',
+                render: data => {
+                    return moment(data.created_at).format('DD/MMM/YYYY')
+                }
+            },
+            {
+                data: 'keterangan',
+                name: 'keterangan',
+              
+            },
+            {
+                data: 'jumlah',
+                name: 'jumlah',
+                className: 'dt-body-right',
+                render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp')
+              
+            },
+        ],
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+          
+            //Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+
+            // Total over all pages
+            total = api
+                .column( 3 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+
+            // Total over this page
+            pageTotal = api
+                .column( 3, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+
+            // Update footer
+            $( api.column( 3 ).footer() ).html(
+                $.fn.dataTable.render.number('.','.','2','Rp').display(total)
+            );
+            
+                                 
+        }
+        
+    });
+
+  }
+
+
+  function btn_d_lapFinanceInv() { 
+    
+   }
 // end of invest/listinvest.blade.php

@@ -58,6 +58,9 @@ Route::get('/eventPassed', [HomeController::class, 'event_haspassed'])->name('ev
 //upd global di investor dan dev -- update status transaction di header invests
 Route::get('/updStatus', [HomeController::class, 'updStatusTrans'])->name('updStatus');
 
+//upd global in inv and dev when event has passed
+Route::get('/investPassed', [HomeController::class, 'invest_haspassed'])->name('investPassed');
+
 //get detail transaksi invest
 Route::get('/detailInvest/{id}', [HomeController::class, 'detailInvest'])->name('detailInvest');
 Route::get('/detailStatusInvest/{id}', [HomeController::class, 'detailStatusInvest'])->name('detailStatusInvest');
@@ -160,6 +163,12 @@ Route::get('/inv/investTo/{id}/{invest}', [InvestController::class, 'investTo'])
 Route::get('/inv/invest/listInvestPending', [InvestController::class, 'listInvestPending'])->name('inv.invest.listInvestPending');
 Route::get('/inv/invest/listInvestSettlement', [InvestController::class, 'listInvestSettlement'])->name('inv.invest.listInvestSettlement');
 Route::get('/inv/invest/listInvestCancel', [InvestController::class, 'listInvestCancel'])->name('inv.invest.listInvestCancel');
+Route::get('/inv/invest/listInvestFinished', [InvestController::class, 'listInvestFinished'])->name('inv.invest.listInvestFinished');
+
+//detailLaporan Keuangan Startup
+Route::get('/detailFinance/{id}', [InvestController::class, 'detailFinance'])->name('detailFinance');
+
+
 
 //reviews - ulasan
 Route::post('/inv/review', [ReviewController::class, 'beriReview'])->name('inv.beriReview'); //buat event

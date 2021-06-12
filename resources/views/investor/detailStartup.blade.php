@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <nav>
-            <ol class="breadcrumb fixed-top" style="top:60px;justify-content: center;">
+            <ol class="breadcrumb fixed-top" style="top:60px;justify-content: center;z-index:2;">
                 <li class="breadcrumb-item active"><a href="#produk">Produk</a></li>
                 <li class="breadcrumb-item"><a href="#tentang_produk">Tentang Produk</a></li>
                 <li class="breadcrumb-item"><a href="#financial">Keuangan</a></li>
