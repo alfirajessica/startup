@@ -30,7 +30,7 @@
                       <div class="tab-pane fade show active" id="detailInv" role="tabpanel" aria-labelledby="detailInv-tab">
                         <div class="row">
                           <div class="col-md-12">
-                            
+                            <input type="text" id="project_id">
                               <div class="card">
                                   <div class="card-header">Project Details</div>
                                   <div class="card-body">
@@ -121,10 +121,11 @@
                     </div>
                     <div class="tab-pane fade show" id="lapfinance" role="tabpanel" aria-labelledby="lapfinance-tab">
                         <div class="alert alert-info" role="alert">
-                          <strong>info</strong> Laporan Keuangan terhitung sejak 
+                          <strong>info</strong> Laporan Keuangan pada proyek
+                          <strong id="proyek_nama"></strong> terhitung sejak 
                           <strong id="invest_awal_m"> </strong> sampai dengan <strong id="invest_exp_m"> </strong>
                         </div>
-                        <button type="submit" id="d_lapFinanceInv" onclick="btn_d_lapFinanceInv()">Download Laporan</button>
+                        <button type="submit" id="d_lapFinanceInv" >Download Laporan</button>
                         <div class="row">
                           <div class="col">
                             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -140,6 +141,7 @@
                                 
                                 <div class="tab-pane fade show active" id="pemasukkan" role="tabpanel" aria-labelledby="pemasukkan-tab">
                                     <div class="col-md-12">
+                                      <a class="btn" target="_blank" onclick="btn_d_lapFinanceInv()">Cetak PDF</a>
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-hover table-sm" width="100%" id="table_pemasukkan_inv">
                                               <thead>
@@ -147,25 +149,28 @@
                                                     <th>#</th>
                                                     <th>Tanggal</th>
                                                     <th>Tipe</th>
-                                                    <th>Jumlah Masuk</th>
-                                                    <th>Jumlah Keluar</th>
+                                                    <th>Masuk</th>
+                                                    <th>Keluar</th>
+                                                    <th>Akhir</th>
                                                 </tr>
                                             </thead>
                                             <tbody></tbody>
                                             <tfoot>
-                                                <tr>
-                                                    <th colspan="3" style="font-weight:bold">Total Pemasukkan :</th>
-                                                    <th style="font-weight:bold" id="total_masuk"></th>
-                                                </tr>
-                                                <tr>
-                                                  <th colspan="4" style="font-weight:bold">Total Pengeluaran :</th>
-                                                  <th style="font-weight:bold" id="total_keluar"></th>
+                                              <tr>
+                                                <th colspan="3"></th>
+                                                <th id="total_masuk"></th>
+                                                <th id="total_keluar"></th>
+                                                <th id="total_akhir"></th>
                                               </tr>
+                                             
+                                             
                                             </tfoot>
+                                            
                                             </table>
                                         </div>
                                     </div>
                                 </div>
+                                
 
                                 <div class="tab-pane fade" id="pengeluaran" role="tabpanel" aria-labelledby="pengeluaran-tab">
                                     <div class="col-md-12">

@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\InvestController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ReportController;
 
 use App\Http\Controllers\ValuationToolsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -167,8 +168,9 @@ Route::get('/inv/invest/listInvestFinished', [InvestController::class, 'listInve
 
 //detailLaporan Keuangan Startup
 Route::get('/detailFinance/{id}', [InvestController::class, 'detailFinance'])->name('detailFinance');
-
-
+Route::get('/totalpemasukkan/{id}', [InvestController::class, 'totalpemasukkan'])->name('totalpemasukkan');
+Route::get('/totalpengeluaran/{id}', [InvestController::class, 'totalpengeluaran'])->name('totalpengeluaran');
+Route::get('/inv/report/cetak_keuanganStartup/{id}', [ReportController::class, 'cetak_keuanganStartup'])->name('inv.report.cetak_keuanganStartup');
 
 //reviews - ulasan
 Route::post('/inv/review', [ReviewController::class, 'beriReview'])->name('inv.beriReview'); //buat event

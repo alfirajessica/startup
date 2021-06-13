@@ -265,6 +265,7 @@ function listInvest() {
 
 $('body').on('click', '.detailProject', function () {
     var id = $(this).data('id');
+    $("#project_id").val(id);
     projectDetails(id);
 
    
@@ -450,6 +451,7 @@ $('body').on('click', '.detailProject', function () {
 
             $('#invest_awal_m').text(moment(data['created_at']).format('MMM-YYYY'));
             $('#invest_exp_m').text(moment(data['invest_expire']).format('MMM-YYYY')); 
+            
 
             if (data['status_invest'] == "0") {
                 $('#msg_admin').text('Menunggu Konfirmasi Admin');
@@ -534,8 +536,13 @@ function projectDetails(id) {
                 name: 'id'
             },
             {
-                data: 'name_product',
+                data: null,
                 name: 'name_product',
+                render: data => {
+                    $("#proyek_nama, #proyek").text(data.name_product);
+                    return data.name_product;
+                    
+                }
             },
             {
                 data: null,
@@ -547,7 +554,8 @@ function projectDetails(id) {
             {
                 data: 'name',
                 name: 'name',
-              
+                
+                
             },
             {
                 data: 'jumlah_invest',
@@ -614,15 +622,54 @@ function investPassed() {
 //rekap, pemasukkan dan pengeluaran berdasrkan bulan
 function table_lapFinance(id) {
     console.log(id);
+    var $masuk, $keluar,$totalakhir, $temptotalakhir= 0;
+    
+    $.ajax({
+        type: "get",
+        url: '/totalpemasukkan/' + id,
+        contentType: "application/json",
+        success: function (data) {
+            $masuk = data.table_pemasukkan_inv[0]['total_masuk'];
+            $totalmasuk = Number(data.table_pemasukkan_inv[0]['total_masuk'].toLocaleString(['ban', 'id'])) + ",00";
+            $('#total_masuk').html("Rp"+$totalmasuk);
+            $.ajax({
+                type: "get",
+                url: '/totalpengeluaran/' + id,
+                contentType: "application/json",
+                success: function (data) {
+                    $keluar = data.table_pengeluaran_inv[0]['total_keluar'];
+                    $totalkeluar = Number(data.table_pengeluaran_inv[0]['total_keluar'].toLocaleString(['ban', 'id'])) + ",00";
+                    $('#total_keluar').html("Rp"+$totalkeluar);
+
+                    $totalakhir = $masuk-$keluar;
+                    $temptotalakhir = $totalakhir;
+                    $("#total_akhir").html("Rp"+$totalakhir);
+                   
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+        
+    });
+
+   
     $('#table_pemasukkan_inv').DataTable({
         dom: 'Bfrtip',
         buttons: [
             {
                 extend: 'print',
-                messageTop: "The information in this table is copyright to Sirius Cybernetics Corp.",
-                messageBottom: "okw",
+                title: 'Data Laporan Startup', //filename
                 footer:true,
-                title: 'Data export', //filename
+                header:true,
+            },
+            {
+                extend: 'pdfHtml5',
+                messageTop: 'PDF created by PDFMake with Buttons for DataTables.'
             }
         ],
         destroy:true,
@@ -678,12 +725,11 @@ function table_lapFinance(id) {
                     if (data.tipe == "1") {
                         jumlah = data.jumlah;
                     }else{
-                        jumlah = "0";
+                        jumlah = "-"
                     }
                     return $.fn.dataTable.render.number( '.', ',', 2, 'Rp').display(jumlah);
                 }
                
-              
             },
             {
                 data: null,
@@ -693,158 +739,29 @@ function table_lapFinance(id) {
                     if (data.tipe == "2") {
                         jumlah = data.jumlah;
                     }else{
-                        jumlah = "0";
+                        jumlah = "-"
                     }
                     return $.fn.dataTable.render.number( '.', ',', 2, 'Rp').display(jumlah);
                 }
             },
-        ],
-        "footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
-          
-            //Remove the formatting to get integer data for summation
-            var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                    i.replace(/[\$,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
-            };
-
-            // Total over all pages
-            totalmasuk = api
-                .column( 3 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-            
-            
-            // Total over this page
-            pageTotal = api
-                .column( 3, { page: 'current'} )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-
-            // Update footer
-
-            $("#total_masuk").html(
-                $.fn.dataTable.render.number('.','.','2','Rp').display(totalmasuk)
-            ); 
-
-            $("#total_keluar").html(
-                $.fn.dataTable.render.number('.','.','2','Rp').display(0)
-            );                        
-
-            // $( api.column( 3 ).footer() ).html(
-            //     $.fn.dataTable.render.number('.','.','2','Rp').display(totalmasuk)
-            // );
-
-            // $( api.column( 4 ).footer() ).html(
-            //     $.fn.dataTable.render.number('.','.','2','Rp').display(totalkeluar)
-            // );
-            
-                                 
-        }
-        
-    });
-
-    $('#table_pengeluaran_inv').DataTable({
-        destroy:true,
-        processing: true,
-        serverSide: true, //aktifkan server-side 
-        responsive:true,
-        deferRender:true,
-        language: {
-            "emptyTable": "Belum ada data pemasukkan oleh Startup"
-        },
-        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
-        ajax: {
-            url: "/detailFinance/" + id,
-            type: 'GET',
-            data:{
-                "getTabel":"#table_pengeluaran_inv",
-            },
-        },
-        order: [
-            [0, 'asc']
-        ],
-        columns: [
-            {
-                data: null,
-                name: 'tipe',
-                render: data => {
-                    var tipe="";
-                    if (data.tipe == "1") {
-                        tipe = "+";
-                    }else{
-                        tipe = "-"
-                    }
-                    return tipe;
-                }
-            },
-            {
-                data: null,
-                name: 'created_at',
-                render: data => {
-                    return moment(data.created_at).format('DD/MMM/YYYY')
-                }
-            },
-            {
-                data: 'keterangan',
-                name: 'keterangan',
-              
-            },
             {
                 data: 'jumlah',
                 name: 'jumlah',
-                className: 'dt-body-right',
-                render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp')
-              
+                render: data => {
+                    return "";
+                }
             },
-        ],
-        "footerCallback": function ( row, data, start, end, display ) {
-            var api = this.api(), data;
-          
-            //Remove the formatting to get integer data for summation
-            var intVal = function ( i ) {
-                return typeof i === 'string' ?
-                    i.replace(/[\$,]/g, '')*1 :
-                    typeof i === 'number' ?
-                        i : 0;
-            };
-
-            // Total over all pages
-            total = api
-                .column( 3 )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-
-            // Total over this page
-            pageTotal = api
-                .column( 3, { page: 'current'} )
-                .data()
-                .reduce( function (a, b) {
-                    return intVal(a) + intVal(b);
-                }, 0 );
-
-            // Update footer
-            $( api.column( 3 ).footer() ).html(
-                $.fn.dataTable.render.number('.','.','2','Rp').display(total)
-            );
             
-                                 
-        }
-        
+        ], 
     });
 
+    
+    
   }
 
 
   function btn_d_lapFinanceInv() { 
-    
+      var id = $("#project_id").val();
+      window.open("/inv/report/cetak_keuanganStartup/"+id);
    }
 // end of invest/listinvest.blade.php
