@@ -171,6 +171,7 @@ Route::get('/detailFinance/{id}', [InvestController::class, 'detailFinance'])->n
 Route::get('/totalpemasukkan/{id}', [InvestController::class, 'totalpemasukkan'])->name('totalpemasukkan');
 Route::get('/totalpengeluaran/{id}', [InvestController::class, 'totalpengeluaran'])->name('totalpengeluaran');
 Route::get('/inv/report/cetak_keuanganStartup/{id}', [ReportController::class, 'cetak_keuanganStartup'])->name('inv.report.cetak_keuanganStartup');
+Route::get('/inv/report/cetak_riwayatInv/{dateawal}/{dateakhir}/{jenislap}', [ReportController::class, 'cetak_riwayatInv'])->name('inv.report.cetak_riwayatInv');
 
 //reviews - ulasan
 Route::post('/inv/review', [ReviewController::class, 'beriReview'])->name('inv.beriReview'); //buat event

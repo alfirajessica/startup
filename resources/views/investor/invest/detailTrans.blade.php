@@ -125,80 +125,47 @@
                           <strong id="proyek_nama"></strong> terhitung sejak 
                           <strong id="invest_awal_m"> </strong> sampai dengan <strong id="invest_exp_m"> </strong>
                         </div>
-                        <button type="submit" id="d_lapFinanceInv" >Download Laporan</button>
+                       
                         <div class="row">
-                          <div class="col">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item">
-                                  <a class="nav-link " id="pemasukkan-tab" data-toggle="tab" href="#pemasukkan" role="tab" aria-controls="pemasukkan" aria-selected="true">Pemasukkan</a>
-                                </li>
-                                <li class="nav-item">
-                                  <a class="nav-link" id="pengeluaran-tab" data-toggle="tab" href="#pengeluaran" role="tab" aria-controls="pengeluaran" aria-selected="false">Pengeluaran</a>
-                                </li>
-                            </ul>
-
-                            <div class="tab-content py-4 bg-white" id="myTabContent">
-                                
-                                <div class="tab-pane fade show active" id="pemasukkan" role="tabpanel" aria-labelledby="pemasukkan-tab">
-                                    <div class="col-md-12">
-                                      <a class="btn" target="_blank" onclick="btn_d_lapFinanceInv()">Cetak PDF</a>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-hover table-sm" width="100%" id="table_pemasukkan_inv">
-                                              <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Tanggal</th>
-                                                    <th>Tipe</th>
-                                                    <th>Masuk</th>
-                                                    <th>Keluar</th>
-                                                    <th>Akhir</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody></tbody>
-                                            <tfoot>
-                                              <tr>
-                                                <th colspan="3"></th>
-                                                <th id="total_masuk"></th>
-                                                <th id="total_keluar"></th>
-                                                <th id="total_akhir"></th>
-                                              </tr>
-                                             
-                                             
-                                            </tfoot>
-                                            
-                                            </table>
-                                        </div>
-                                    </div>
+                          <div class="col-md-12">
+                            <div class="card">
+                              <div class="card-header">Invest Details</div>
+                              <div class="card-body">
+                                <button class="btn btn-outline-default" target="_blank" onclick="btn_d_lapFinanceInv()">Cetak PDF</button> <br>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-hover table-sm" width="100%" id="table_pemasukkan_inv">
+                                      <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Tanggal</th>
+                                            <th>Tipe</th>
+                                            <th>Masuk</th>
+                                            <th>Keluar</th>
+                                          
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                    <tfoot>
+                                      <tr>
+                                        <th colspan="3"></th>
+                                        <th id="total_masuk"></th>
+                                        <th id="total_keluar"></th>
+                                        
+                                      </tr>
+                                      <tr>
+                                        <th colspan="4"></th>
+                                       
+                                        <th id="total_akhir"></th>
+                                      </tr>
+                                     
+                                    </tfoot>
+                                    
+                                    </table>
                                 </div>
-                                
-
-                                <div class="tab-pane fade" id="pengeluaran" role="tabpanel" aria-labelledby="pengeluaran-tab">
-                                    <div class="col-md-12">
-                                        <div class="table-responsive">
-                                          <table class="table table-bordered table-hover table-sm" width="100%" id="table_pengeluaran_inv">
-                                            <thead>
-                                              <tr>
-                                                  <th>#</th>
-                                                  <th>Tanggal</th>
-                                                  <th>Tipe Pengeluaran</th>
-                                                  <th>Jumlah</th>
-                                              </tr>
-                                          </thead>
-                                          <tbody></tbody>
-                                          <tfoot>
-                                              <tr>
-                                                  <th colspan="3" style="font-weight:bold">Total Pengeluaran :</th>
-                                                  <th style="font-weight:bold" id="totalsemua"></th>
-                                              </tr>
-                                          </tfoot>
-                                          </table>
-                                        <!-- AKHIR TABLE -->
-                                        </div>
-                                    </div>
-                                </div>
-                                
+                              </div>
                             </div>
-                        </div>  
+                          </div>
+                          
                         </div>
                       </div>
                 </div>

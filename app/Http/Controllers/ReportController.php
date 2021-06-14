@@ -71,4 +71,102 @@ class ReportController extends Controller
         $pdf = PDF::loadview('investor.report.cetak_keuanganStartup', ['list_kas' => $list_kas, 'table_pemasukkan_inv' => $table_pemasukkan_inv, 'table_pengeluaran_inv' => $table_pengeluaran_inv, 'detail' => $detail]);
         return $pdf->stream();
     }
+
+    public function cetak_riwayatInv($dateawal, $dateakhir, $jenislap)
+    {
+        //ada 4 pilihan cetak
+        //semua investasi 
+        //investasi aktif
+        //investasi gagal/cancel
+        //investasi selesai
+        //semua berdasarkan date awal dan date akhir
+
+        $user = auth()->user();
+        $date_awal = \Carbon\Carbon::parse($dateawal)->format('Y-m-d'). " 00:00:00";
+        $date_akhir = \Carbon\Carbon::parse($dateakhir)->format('Y-m-d'). " 23:59:59";
+
+        //semua investasi
+        if ($jenislap == 0) {
+                $list_inv = 
+                DB::table('header_invests')
+                ->join('header_products', 'header_products.id','=','header_invests.project_id')
+                ->select('header_invests.invest_id','header_invests.jumlah_invest','header_invests.jumlah_final','header_invests.status_transaction','header_invests.status_invest','header_invests.created_at','header_invests.invest_expire','header_products.id','header_products.name_product')
+                ->where('header_invests.user_id','=',$user->id)
+                ->whereBetween('header_invests.created_at', [$date_awal, $date_akhir])
+                ->get();
+
+                $countdata =
+                DB::table('header_invests')
+                ->select(\DB::raw('COUNT(header_invests.id) as total'))
+                ->where('header_invests.user_id','=',$user->id)
+                ->whereBetween('header_invests.created_at', [$date_awal, $date_akhir])
+                ->get();
+        }
+
+        //investasi aktif
+        else if ($jenislap == 1) {
+               $list_inv = 
+                DB::table('header_invests')
+                ->join('header_products', 'header_products.id','=','header_invests.project_id')
+                ->select('header_invests.invest_id','header_invests.jumlah_invest','header_invests.jumlah_final','header_invests.status_transaction','header_invests.status_invest','header_invests.created_at','header_invests.invest_expire','header_products.id','header_products.name_product')
+                ->where('header_invests.user_id','=',$user->id)
+                ->whereBetween('header_invests.created_at', [$date_awal, $date_akhir])
+                ->where('header_invests.status_invest','=',1)
+                ->get();
+
+                $countdata =
+                DB::table('header_invests')
+                ->select(\DB::raw('COUNT(header_invests.id) as total'))
+                ->where('header_invests.user_id','=',$user->id)
+                ->whereBetween('header_invests.created_at', [$date_awal, $date_akhir])
+                ->where('header_invests.status_invest','=',1)
+                ->get();
+        }
+
+        //investasi gagal/cancel
+        else if ($jenislap == 2) {
+                $list_inv = 
+                 DB::table('header_invests')
+                 ->join('header_products', 'header_products.id','=','header_invests.project_id')
+                 ->select('header_invests.invest_id','header_invests.jumlah_invest','header_invests.jumlah_final','header_invests.status_transaction','header_invests.status_invest','header_invests.created_at','header_invests.invest_expire','header_products.id','header_products.name_product')
+                 ->where('header_invests.user_id','=',$user->id)
+                 ->whereBetween('header_invests.created_at', [$date_awal, $date_akhir])
+                 ->where('header_invests.status_invest','=',4)
+                 ->get();
+
+                $countdata =
+                DB::table('header_invests')
+                ->select(\DB::raw('COUNT(header_invests.id) as total'))
+                ->where('header_invests.user_id','=',$user->id)
+                ->whereBetween('header_invests.created_at', [$date_awal, $date_akhir])
+                ->where('header_invests.status_invest','=',4)
+                ->get();
+        }
+
+        //investasi selesai
+        else if ($jenislap == 3) {
+                $list_inv = 
+                 DB::table('header_invests')
+                 ->join('header_products', 'header_products.id','=','header_invests.project_id')
+                 ->select('header_invests.invest_id','header_invests.jumlah_invest','header_invests.jumlah_final','header_invests.status_transaction','header_invests.status_invest','header_invests.created_at','header_invests.invest_expire','header_products.id','header_products.name_product')
+                 ->where('header_invests.user_id','=',$user->id)
+                 ->whereBetween('header_invests.created_at', [$date_awal, $date_akhir])
+                 ->where('header_invests.status_invest','=',5)
+                 ->get();
+
+                $countdata =
+                 DB::table('header_invests')
+                 ->select(\DB::raw('COUNT(header_invests.id) as total'))
+                 ->where('header_invests.user_id','=',$user->id)
+                 ->whereBetween('header_invests.created_at', [$date_awal, $date_akhir])
+                 ->where('header_invests.status_invest','=',5)
+                 ->get();
+        }
+        
+        $date = Carbon::now();
+        //$date->toDateTimeString();
+        
+        $pdf = PDF::loadview('investor.report.cetak_riwayatInv', ['date' => $date, 'list_inv' => $list_inv, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir, 'jenislap' => $jenislap, 'countdata'=>$countdata]);
+        return $pdf->stream();
+    }
 }

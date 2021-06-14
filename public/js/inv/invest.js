@@ -659,19 +659,6 @@ function table_lapFinance(id) {
 
    
     $('#table_pemasukkan_inv').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'print',
-                title: 'Data Laporan Startup', //filename
-                footer:true,
-                header:true,
-            },
-            {
-                extend: 'pdfHtml5',
-                messageTop: 'PDF created by PDFMake with Buttons for DataTables.'
-            }
-        ],
         destroy:true,
         processing: true,
         serverSide: true, //aktifkan server-side 
@@ -744,13 +731,7 @@ function table_lapFinance(id) {
                     return $.fn.dataTable.render.number( '.', ',', 2, 'Rp').display(jumlah);
                 }
             },
-            {
-                data: 'jumlah',
-                name: 'jumlah',
-                render: data => {
-                    return "";
-                }
-            },
+            
             
         ], 
     });
@@ -764,4 +745,11 @@ function table_lapFinance(id) {
       var id = $("#project_id").val();
       window.open("/inv/report/cetak_keuanganStartup/"+id);
    }
+
+   function cetak_riwayatInv() { 
+        var dateawal = $("#date_awal").val();
+        var dateakhir = $("#date_akhir").val();
+        var piljenisLap = $("#select_jenislaporan").val();
+        window.open("/inv/report/cetak_riwayatInv/"+dateawal+"/"+dateakhir+"/"+piljenisLap);
+    }
 // end of invest/listinvest.blade.php
