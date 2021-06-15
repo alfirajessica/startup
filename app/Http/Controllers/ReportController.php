@@ -169,4 +169,101 @@ class ReportController extends Controller
         $pdf = PDF::loadview('investor.report.cetak_riwayatInv', ['date' => $date, 'list_inv' => $list_inv, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir, 'jenislap' => $jenislap, 'countdata'=>$countdata]);
         return $pdf->stream();
     }
+
+    public function cetak_riwayatEvent($dateawal, $dateakhir, $jenisEvent, $statusEvent)
+    {
+        //ada 3 pilihan cetak jenisevent
+        //semua //online //offline
+
+        //ada 3 pilihan status event
+        //semua //aktif //tidak aktif //selesai
+
+        //semua berdasarkan date awal dan date akhir
+
+        $user = auth()->user();
+        $date_awal = \Carbon\Carbon::parse($dateawal)->format('Y-m-d'). " 00:00:00";
+        $date_akhir = \Carbon\Carbon::parse($dateakhir)->format('Y-m-d'). " 23:59:59";
+
+        //semua
+        if ($jenisEvent == 0) {
+
+                //semua
+                if ($statusEvent == 0) {
+                        $list_event =
+                        DB::table('header_events')
+                        ->where('user_id','=',$user->id)
+                        ->whereBetween('created_at', [$date_awal, $date_akhir])
+                        ->get();
+
+                        $countdata =
+                        DB::table('header_events')
+                        ->select(\DB::raw('COUNT(id) as total'))
+                        ->where('user_id','=',$user->id)
+                        ->whereBetween('created_at', [$date_awal, $date_akhir])
+                        ->get();
+                }else{
+                        $list_event =
+                        DB::table('header_events')
+                        ->where('header_events.user_id','=',$user->id)
+                        ->whereBetween('header_events.created_at', [$date_awal, $date_akhir])
+                        ->where('header_events.status','=',$statusEvent)
+                        ->get();
+
+                        $countdata =
+                        DB::table('header_events')
+                        ->select(\DB::raw('COUNT(id) as total'))
+                        ->where('user_id','=',$user->id)
+                        ->whereBetween('created_at', [$date_awal, $date_akhir])
+                        ->where('status','=',$statusEvent)
+                        ->get();
+                }
+        }
+        else{
+             if ($jenisEvent == 1) {
+                $jenisEvent = "Online";
+             }else if($jenisEvent == 2){
+                $jenisEvent = "Offline";
+             }
+
+                //semua
+                if ($statusEvent == 0) {
+                        $list_event =
+                        DB::table('header_events')
+                        ->where('header_events.user_id','=',$user->id)
+                        ->where('header_events.held','=',$jenisEvent)
+                        ->whereBetween('header_events.created_at', [$date_awal, $date_akhir])
+                        ->get();
+
+                        $countdata =
+                        DB::table('header_events')
+                        ->select(\DB::raw('COUNT(id) as total'))
+                        ->where('header_events.user_id','=',$user->id)
+                        ->where('header_events.held','=',$jenisEvent)
+                        ->whereBetween('header_events.created_at', [$date_awal, $date_akhir])
+                        ->get();
+                }
+                else{
+                        $list_event =
+                        DB::table('header_events')
+                        ->where('header_events.user_id','=',$user->id)
+                        ->where('header_events.held','=',$jenisEvent)
+                        ->whereBetween('header_events.created_at', [$date_awal, $date_akhir])
+                        ->where('header_events.status','=',$statusEvent)
+                        ->get();
+
+                        $countdata =
+                        DB::table('header_events')
+                        ->select(\DB::raw('COUNT(id) as total'))
+                        ->where('header_events.user_id','=',$user->id)
+                        ->where('header_events.held','=',$jenisEvent)
+                        ->whereBetween('header_events.created_at', [$date_awal, $date_akhir])
+                        ->where('header_events.status','=',$statusEvent)
+                        ->get();
+                }
+
+        }
+
+        $pdf = PDF::loadview('investor.report.cetak_riwayatEvent',['list_event' => $list_event, 'countdata' => $countdata, 'jenisEvent'=> $jenisEvent, 'statusEvent'=>$statusEvent]);
+        return $pdf->stream();
+    }
 }

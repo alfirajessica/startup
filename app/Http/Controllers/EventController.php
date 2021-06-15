@@ -163,13 +163,7 @@ class EventController extends Controller
         if($req->ajax()){
             return datatables()->of($list_dev)
                     ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailEventModal" data-id="'.$data->id.'" data-original-title="Detail" class="edit btn btn-warning btn-sm detailEvent">Detail</a>';
-
-                        // $btn = $btn. ' <a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
-   
-                        // $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent" data-tr="tr_{{$product->id}}"
-                        // >Hapus</a>';
-    
+                        $btn = '';
                         return $btn;
                      })
                     ->rawColumns(['action'])
@@ -295,13 +289,36 @@ class EventController extends Controller
         
     }
 
-    public function deleteEvent($id)
+    public function nonaktifEvent($id)
     {
-        DB::table("header_events")->delete($id);
-    	return response()->json(['success'=>"Berhasil menghapus event", 'tr'=>'tr_'.$id]);
+        //cek dulu apakah ada participant di event ini
+        $isExist = detailEvent::where('id_header_events', '=', $id)->where('status','=','1')->first();
+        
+        //tidak ada
+        if ($isExist == null) {
+            DB::table('header_events')
+            ->where('id',$id)
+            ->update([
+                        'status' => "4",
+                    ]);
+            return 1; //data participant tidak ada maka status event jadi 4 (nonaktif)
+        }
+        else{
+            return 0; //data participant ada, maka status tdk berubah
+        }
     }
 
+    public function aktifEvent($id)
+    {
+        DB::table('header_events')
+            ->where('id',$id)
+            ->update([
+                        'status' => "1",
+                    ]);
+            return 1;
+    }
 
+   
 
     // developer event
     public function devEvent()

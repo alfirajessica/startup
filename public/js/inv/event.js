@@ -88,7 +88,7 @@ $(function () {
 
     function table_listParticipant(id) {
         //var id = $("#coba_id2").text(); 
-        $('#table_participant').DataTable({
+        var t = $('#table_participant').DataTable({
             destroy:true,
             processing: true,
             serverSide: true, //aktifkan server-side 
@@ -96,7 +96,7 @@ $(function () {
             deferRender:true,
             aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
             ajax: {
-                url: url_list_participant + id,
+                url: '/inv/listEvent/listParticipant/' + id,
                 type: 'GET'
             },
             order: [
@@ -113,13 +113,15 @@ $(function () {
                     
                 },
                 
-                {
-                    data:'action',
-                    name:'action',
-                },
             ],
             
         });
+
+        t.on( 'order.dt search.dt', function () {
+            t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw();
     }
 //end of detailEvent.blade.php
 
@@ -190,7 +192,7 @@ $(function () {
             deferRender:true,
             aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
             ajax: {
-                url: url_listEvent,
+                url: '/inv/listEvent',
                 type: 'GET'
             },
             order: [
@@ -264,16 +266,19 @@ $(function () {
                     render: data => {
                         var status="";
                         var action="";
-                        if(data.status == "2")
+                        
+                        action += '<a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'+data.id+'" data-original-title="Edit" class="edit btn btn-warning btn-sm editEvent">Detail</a>';
+
+                        //aktif
+                        if (data.status == "1") {
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm nonaktifEvent">Nonaktifkan</a>';
+                        }
+
+                        //tidak aktif
+                        else if(data.status == "4")
                         {
-                            action += '<a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'+data.id+'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct disabled">Ubah</a>';
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm aktifEvent">Aktifkan</a>';
 
-                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent disabled">Hapus</a>';
-
-                        }else{
-                            action += '<a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'+data.id+'" data-original-title="Edit" class="edit btn btn-primary btn-sm editProduct">Ubah</a>';
-
-                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm deleteEvent">Hapus</a>';
                         }
                         
                         return data.action + action;
@@ -283,30 +288,6 @@ $(function () {
             
         });
     }
-
-    $('body').on('click', '.detailEvent', function () {
-        var product_id = $(this).data('id');
-        table_listParticipant(product_id);
-        $.get(url_detailEvent + product_id, function (data) {
-           $('#coba_id2').val(data.id);    
-           $('#title_detailevent').text(" " + data.name);
-           $('#desc_detailevent').text(data.desc);
-           $('#held_detailEvent').text(data.held);
-           $("img#previewImg").attr("src", "/uploads/event/"+data.image);
-           held_detailEvent();
-           $('#link_detailEvent').html("<i class='fas fa-map-marker-alt none'></i>").text(data.link);
-           $('#add_detailEvent').text(data.address);
-           
-           var status = "detailEvent";
-           open_city(data.id_province, data.id_city, status);
-           
-           var jadwal = moment(data.event_schedule).format('DD/MMM/YYYY');
-           var jam = data.event_time;
-           
-           $('#date_detailEvent').text(jadwal);
-           $('#time_detailEvent').text(jam);
-       });
-    });
 
     function open_city(idprovince, idcity, status) {   
         console.log("id city :" + idcity);
@@ -340,9 +321,42 @@ $(function () {
         }
     }
 
-    $('body').on('click', '.editProduct', function () {
+    $('body').on('click', '.editEvent', function () {
         var product_id = $(this).data('id');
-        $.get(url_editProduct + product_id, function (data) {
+        table_listParticipant(product_id);
+
+        $.ajax({
+            type: "get",
+            url: '/inv/listEvent/editEvent' + '/' + product_id,
+            contentType: "application/json",
+            success: function (data) {
+                $('#coba_id').val(data.id);
+                $('#edit_nama_event').val(data.name);
+                $('#edit_desc_event').val(data.desc);
+                $('#edit_will_beheld').val(data.held);
+    
+                edit_event_willbe_held();    
+                var held = $('#edit_will_beheld').val(data.held);
+                $('#edit_link_event').val(data.link);
+                $('#edit_provinsi_event').val(data.id_province);
+                
+                var status = "editProduct";
+                open_city(data.id_province, data.id_city, status);
+                
+                $('#edit_address_event').val(data.address);
+                $('#edit_jadwal_event').val(data.event_schedule);
+                $('#edit_time_event').val(data.event_time);
+    
+                var gmbr = "/uploads/event/"+data.image;
+                console.log(gmbr);
+                $("#previewImg2").attr("src", gmbr);
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+
+        /*$.get(url_editProduct + product_id, function (data) {
               $('#coba_id').val(data.id);
               $('#edit_nama_event').val(data.name);
               $('#edit_desc_event').val(data.desc);
@@ -364,18 +378,14 @@ $(function () {
               console.log(gmbr);
               $("#previewImg2").attr("src", gmbr);
              
-        })
+        })*/
     });
 
-    
-
-    $('body').on('click', '.deleteEvent', function () {
-        
+    $('body').on('click', '.nonaktifEvent', function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Are You sure want to delete?",
-            text: "Once deleted, you will not be able to recover this event!",
+            title: "Apakah Anda yakin ingin menonaktifkan event ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -384,22 +394,68 @@ $(function () {
             if (willDelete) {
                     $.ajax({
                         type: "get",
-                        url: url_deleteEvent + id,
+                        url: '/inv/listEvent/nonaktifEvent/' + id,
                         success: function (data) {
+                            if (data == 0) {
+                                swal("Gagal menonaktifkan event, karena ada participant", {
+                                    icon: "warning",
+                                });
+                            }
+                            else{
+                                swal("Berhasil menonaktifkan event", {
+                                    icon: "success",
+                                });
+                            }
                             table_listEvent();
                         },
                         error: function (data) {
                             console.log('Error:', data);
                         }
                     });
-                
-                swal("Poof! Your imaginary file has been deleted!", {
-                icon: "success",
-            });
             } else {
                 swal("Your imaginary file is safe!");
             }
         });
+    }); 
 
+    $('body').on('click', '.aktifEvent', function () {
+        var id = $(this).data("id");
+        var txt;
+        swal({
+            title: "Apakah Anda yakin ingin menonaktifkan event ini?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                    $.ajax({
+                        type: "get",
+                        url: '/inv/listEvent/aktifEvent/' + id,
+                        success: function (data) {
+                            if (data == 1) {
+                                swal("Berhasil meng-aktifkan event", {
+                                    icon: "success",
+                                });
+                            }
+                            table_listEvent();
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+                    });
+            } else {
+                swal("Your imaginary file is safe!");
+            }
+        });
     });
+
+    function cetak_riwayatEvent() { 
+        var dateawal = $("#date_awal").val();
+        var dateakhir = $("#date_akhir").val();
+        var piljenisEvent = $("#select_jenisEvent").val();
+        var pilstatusEvent = $("#select_statusEvent").val();
+        window.open("/inv/report/cetak_riwayatEvent/"+dateawal+"/"+dateakhir+"/"+piljenisEvent+"/"+pilstatusEvent);
+     }
+    
 //end of listEvent.blade.php

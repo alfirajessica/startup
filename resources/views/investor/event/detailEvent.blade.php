@@ -128,7 +128,7 @@
 </div>
 
 <script>
-    const url_list_participant = "{{ route('inv.listEvent') }}" +'/listParticipant' + '/';
+    //const url_list_participant = "{{ route('inv.listEvent') }}" +'/listParticipant' + '/';
 </script>
 
 <script src="/js/inv/event.js"></script>

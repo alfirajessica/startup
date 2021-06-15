@@ -136,11 +136,10 @@ Route::post('/inv/event', [EventController::class, 'buatEvent'])->name('inv.buat
 Route::get('/inv/listEvent', [EventController::class, 'listEvent'])->name('inv.listEvent'); //show list event
 Route::get('/cities/{province_id}', [EventController::class, 'getCities']); //get all cities in buat event
 
-Route::get('/inv/listEvent/editEvent/{id}', [EventController::class, 'editEvent'])->name('inv.listEvent.editEvent'); //get all cities in buat event
-Route::post('/inv/listEvent/updateEvent', [EventController::class, 'updateEvent'])->name('inv.listEvent.updateEvent'); //get all cities in buat event
-Route::get('/inv/listEvent/deleteEvent/{id}', [EventController::class, 'deleteEvent'])->name('inv.listEvent.deleteEvent'); //get all cities in buat event
-
-Route::get('/inv/listEvent/detailEvent/{id}', [EventController::class, 'detailEvent'])->name('inv.listEvent.detailEvent'); //get all cities in buat event
+Route::get('/inv/listEvent/editEvent/{id}', [EventController::class, 'editEvent'])->name('inv.listEvent.editEvent'); 
+Route::post('/inv/listEvent/updateEvent', [EventController::class, 'updateEvent'])->name('inv.listEvent.updateEvent'); 
+Route::get('/inv/listEvent/nonaktifEvent/{id}', [EventController::class, 'nonaktifEvent'])->name('inv.listEvent.nonaktifEvent'); 
+Route::get('/inv/listEvent/aktifEvent/{id}', [EventController::class, 'aktifEvent'])->name('inv.listEvent.aktifEvent'); 
 Route::get('/inv/listEvent/listParticipant/{id}', [EventController::class, 'listParticipant'])->name('inv.listEvent.listParticipant'); //get all cities in buat event
 //investor -- end of event
 
@@ -170,8 +169,6 @@ Route::get('/inv/invest/listInvestFinished', [InvestController::class, 'listInve
 Route::get('/detailFinance/{id}', [InvestController::class, 'detailFinance'])->name('detailFinance');
 Route::get('/totalpemasukkan/{id}', [InvestController::class, 'totalpemasukkan'])->name('totalpemasukkan');
 Route::get('/totalpengeluaran/{id}', [InvestController::class, 'totalpengeluaran'])->name('totalpengeluaran');
-Route::get('/inv/report/cetak_keuanganStartup/{id}', [ReportController::class, 'cetak_keuanganStartup'])->name('inv.report.cetak_keuanganStartup');
-Route::get('/inv/report/cetak_riwayatInv/{dateawal}/{dateakhir}/{jenislap}', [ReportController::class, 'cetak_riwayatInv'])->name('inv.report.cetak_riwayatInv');
 
 //reviews - ulasan
 Route::post('/inv/review', [ReviewController::class, 'beriReview'])->name('inv.beriReview'); //buat event
@@ -180,6 +177,11 @@ Route::get('/inv/review/refreshUlasan/{id}', [ReviewController::class, 'refreshU
 //history review
 Route::get('/inv/riwayatReview', [ReviewController::class, 'riwayatReview'])->name('inv.riwayatReview');
 Route::get('/inv/riwayatReview/listReviews', [ReviewController::class, 'listReviews'])->name('inv.riwayatReview.listReviews');
+
+//report
+Route::get('/inv/report/cetak_keuanganStartup/{id}', [ReportController::class, 'cetak_keuanganStartup'])->name('inv.report.cetak_keuanganStartup');
+Route::get('/inv/report/cetak_riwayatInv/{dateawal}/{dateakhir}/{jenislap}', [ReportController::class, 'cetak_riwayatInv'])->name('inv.report.cetak_riwayatInv');
+Route::get('/inv/report/cetak_riwayatEvent/{dateawal}/{dateakhir}/{jenisEvent}/{statusEvent}', [ReportController::class, 'cetak_riwayatEvent'])->name('inv.report.cetak_riwayatEvent');
 
 //-----------------------------end of INVESTOR---------------------------
 

@@ -16,7 +16,7 @@
         <div class="alert alert-primary" role="alert">
           <strong>Cetak Laporan dengan menekan tombol ini</strong>
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-            Launch demo modal
+            Cetak Laporan Investasi
           </button>
         </div>
         <div class="tab-content" id="myTabContent">
@@ -112,7 +112,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Cetak Laporan Investasi</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
