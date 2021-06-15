@@ -1,5 +1,6 @@
 $(function () {
     table_listEvent();
+    event_hasPassed();
 });
 //buatEvent.blade.php
     //do hide and show if event_held had choosen -- onchange select
@@ -458,4 +459,25 @@ $(function () {
         window.open("/inv/report/cetak_riwayatEvent/"+dateawal+"/"+dateakhir+"/"+piljenisEvent+"/"+pilstatusEvent);
      }
     
+     function cetak_participantEvent() {  
+         var id = $("#coba_id").val();
+        
+        window.open("/inv/report/cetak_participantEvent/"+id);
+     }
+
+     function event_hasPassed() {  
+        $.ajax({
+            type: "get",
+            url: "/eventPassed",
+            success: function (data) {
+                console.log('ok');
+               
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+    
+    
+    }
 //end of listEvent.blade.php

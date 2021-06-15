@@ -111,15 +111,16 @@ class HomeController extends Controller
         $data = HeaderEvent::where('status','=','2')->get()->toArray();
         
         $upd_details = DB::table('detail_events')
+                        ->where('status','=','1')
                         ->where(function ($query) use($data)
                         {
                             for ($i=0; $i <count($data) ; $i++) { 
                                 $query->orwhere('id_header_events','=', $data[$i]['id']);
                             }
                         })
-                ->update([
-                    'status' =>'2',
-                ]);
+                        ->update([
+                            'status' =>'2',
+                        ]);
     }
 
     public function updStatusTrans()

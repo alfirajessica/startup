@@ -399,7 +399,7 @@ class EventController extends Controller
             $detailevent->id_header_events = $id;
             $detailevent->id_participant = $user->id;
             $detailevent->status = "1";
-            //1 - aktif, 0 - Tidak aktif
+            //1 - aktif, 0 - Tidak aktif, 2-selesai
             $query = $detailevent->save();
     
             if ($query) {

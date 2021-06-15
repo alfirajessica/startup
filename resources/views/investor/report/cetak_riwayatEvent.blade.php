@@ -8,14 +8,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-    <h2>Laporan Investasi</h2>
-    
+    <h2>Laporan Event</h2>
+   
+    Laporan ini mencetak data Event 
     @if ($jenisEvent == 0)
-        Laporan ini mencetak semua Event yang berstatus 
+        <strong> {{$jenisEvent}}</strong> dengan status
     @else
-        Laporan ini mencetak Event yang diadakan secara <strong>{{$jenisEvent}}</strong> dengan status 
+        <strong> {{$jenisEvent}}</strong> dengan status
     @endif
-
+    
     
     @if ($statusEvent == 0)
         <strong>Aktif, Tidak aktif, Selesai</strong>
@@ -26,7 +27,12 @@
     @elseif ($statusEvent == 4)
         <strong>Tidak aktif</strong>
     @endif
-    
+    <br>
+    Data yang dimuat pada laporan ini adalah data pada periode 
+        <strong>{{ Carbon\Carbon::parse($dateawal)->format('d-m-Y') }}</strong> hingga 
+        <strong>{{ Carbon\Carbon::parse($dateakhir)->format('d-m-Y') }}</strong>
+
+    <br>
     <br>
     @foreach ($countdata as $item)
     Total Data : {{$item->total}}

@@ -182,6 +182,7 @@ Route::get('/inv/riwayatReview/listReviews', [ReviewController::class, 'listRevi
 Route::get('/inv/report/cetak_keuanganStartup/{id}', [ReportController::class, 'cetak_keuanganStartup'])->name('inv.report.cetak_keuanganStartup');
 Route::get('/inv/report/cetak_riwayatInv/{dateawal}/{dateakhir}/{jenislap}', [ReportController::class, 'cetak_riwayatInv'])->name('inv.report.cetak_riwayatInv');
 Route::get('/inv/report/cetak_riwayatEvent/{dateawal}/{dateakhir}/{jenisEvent}/{statusEvent}', [ReportController::class, 'cetak_riwayatEvent'])->name('inv.report.cetak_riwayatEvent');
+Route::get('/inv/report/cetak_participantEvent/{id}', [ReportController::class, 'cetak_participantEvent'])->name('inv.report.cetak_participantEvent');
 
 //-----------------------------end of INVESTOR---------------------------
 

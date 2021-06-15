@@ -186,7 +186,7 @@ class ReportController extends Controller
 
         //semua
         if ($jenisEvent == 0) {
-
+               $jenisEvent = "Semua";
                 //semua
                 if ($statusEvent == 0) {
                         $list_event =
@@ -263,7 +263,42 @@ class ReportController extends Controller
 
         }
 
-        $pdf = PDF::loadview('investor.report.cetak_riwayatEvent',['list_event' => $list_event, 'countdata' => $countdata, 'jenisEvent'=> $jenisEvent, 'statusEvent'=>$statusEvent]);
+        $date = Carbon::now();
+        $pdf = PDF::loadview('investor.report.cetak_riwayatEvent',['date' => $date, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir, 'list_event' => $list_event, 'countdata' => $countdata, 'jenisEvent'=> $jenisEvent, 'statusEvent'=>$statusEvent]);
+        return $pdf->stream();
+    }
+
+    public function cetak_participantEvent($id)
+    {   
+        $list_participant = 
+        DB::table('detail_events')
+        ->select('users.name', 'users.email', 'users.province_name', 'users.city_name', 'detail_events.status')
+        ->join('users','users.id','=','detail_events.id_participant')
+        ->where('detail_events.id_header_events','=',$id)
+        ->get();
+
+        $detail =
+        DB::table('header_events')
+        ->where('id','=',$id)
+        ->get();
+
+        $count_join =  
+        DB::table('detail_events')
+        ->select(\DB::raw('COUNT(id) as total_join'))
+        ->where('status','=','1')
+        ->orwhere('status','=','2')
+        ->where('detail_events.id_header_events','=',$id)
+        ->get();
+
+        $count_bataljoin =  
+        DB::table('detail_events')
+        ->select(\DB::raw('COUNT(id) as total_bataljoin'))
+        ->where('status','=','0')
+        ->where('detail_events.id_header_events','=',$id)
+        ->get();
+
+
+        $pdf = PDF::loadview('investor.report.cetak_participantEvent', ['list_participant'=>$list_participant, 'detail'=>$detail, 'count_join'=>$count_join, 'count_bataljoin'=>$count_bataljoin]);
         return $pdf->stream();
     }
 }

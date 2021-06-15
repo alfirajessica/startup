@@ -125,6 +125,12 @@
                             </form>
                         </div>
                         <div class="tab-pane fade" id="tabs_participant" role="tabpanel" aria-labelledby="tabs_participant-tab">
+                            <div class="alert alert-primary" role="alert">
+                                <strong>Cetak Laporan dengan menekan tombol ini</strong>
+                                <button type="button" class="btn btn-danger" onclick="cetak_participantEvent()">
+                                  Cetak Laporan Event
+                                </button>
+                              </div>
                             <div class="row py-4">
                                 <div class="col">
                                   <div class="table-responsive">
