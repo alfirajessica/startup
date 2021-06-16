@@ -379,11 +379,11 @@ function show_listProject_select() {
         contentType: 'application/json',
         success: function (response) {
             
-            $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').empty();
-            $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').append('<option value="" disabled>-- pilih Project Anda --</option>');
+            $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"],  select[name="pilih_project_cetak"]').empty();
+            $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"],  select[name="pilih_project_cetak"]').append('<option value="" disabled>-- pilih Project Anda --</option>');
             $.each(response, function (key, value) {
                 var id = value["id"];
-                $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"]').append('<option value="'+ id + '"> #' + value['id'] + ' - '+  value["name_product"] + '</option>');
+                $('select[name="pilih_project_masuk"], select[name="pilih_project_keluar"], select[name="pilih_project_cetak"]').append('<option value="'+ id + '"> #' + value['id'] + ' - '+  value["name_product"] + '</option>');
             });
             
         },

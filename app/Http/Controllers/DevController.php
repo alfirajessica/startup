@@ -172,5 +172,8 @@ class DevController extends Controller
         return view('developer.review');
     }
 
-    
+    public function laporan()
+    {
+        return view('developer.product.laporan');
+    }
 }

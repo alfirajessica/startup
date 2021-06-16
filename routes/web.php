@@ -207,6 +207,7 @@ Route::get('/dev/product/{id}', [DevController::class, 'detail_category_filter']
 Route::post('/dev/product', [ProductController::class, 'addNewProduct'])->name('dev.product.addNewProduct'); 
 Route::get('/dev/listProject/select', [ProductController::class, 'listProject_select'])->name('dev.listProject.select');
 Route::get('/dev/listProduct', [ProductController::class, 'listProduct'])->name('dev.listProduct'); //show list product in daftar product
+Route::get('/dev/laporan', [DevController::class, 'laporan'])->name('dev.laporan');
 
 //jenisproduct/project
 Route::get('/dev/listProduct/get_categoryID/{id}', [ProductController::class, 'get_categoryID'])->name('dev.listProduct.get_categoryID'); 
@@ -244,12 +245,15 @@ Route::get('/dev/product/detailPemasukkan/{id}', [ProductController::class, 'det
 Route::post('/dev/product/updatePemasukkan', [ProductController::class, 'updatePemasukkan'])->name('dev.product.updatePemasukkan'); //show list product
 
 
-
-
 Route::get('/dev/review', [DevController::class, 'review'])->name('dev.review');
 
 //search
 Route::get('/dev/event/searchEvent/{id}', [EventController::class, 'searchEvent'])->name('dev.event.searchEvent');
 Route::get('get-more-users', [EventController::class, 'getMoreUsers'])->name('users.get-more-users');
 
-
+//report
+Route::get('/dev/report/cetak_semuaProyek/{dateawal}/{dateakhir}/{statusproyek}', [ReportController::class, 'cetak_semuaProyek'])->name('dev.report.cetak_semuaProyek');
+Route::get('/dev/report/cetak_detailProyek/{idproyek}', [ReportController::class, 'cetak_detailProyek'])->name('dev.report.cetak_detailProyek');
+Route::get('/dev/report/cetak_allDetailProyek/{idproyek}', [ReportController::class, 'cetak_allDetailProyek'])->name('dev.report.cetak_allDetailProyek');
+Route::get('/dev/report/cetak_invProyek/{dateawal}/{dateakhir}/{idproyek}', [ReportController::class, 'cetak_invProyek'])->name('dev.report.cetak_invProyek');
+Route::get('/dev/report/cetak_transProyek/{dateawal}/{dateakhir}/{idproyek}', [ReportController::class, 'cetak_transProyek'])->name('dev.report.cetak_transProyek');
