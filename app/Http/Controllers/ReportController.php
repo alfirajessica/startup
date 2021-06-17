@@ -19,6 +19,7 @@ use PDF;
 
 class ReportController extends Controller
 {
+        //investor
     public function cetak_keuanganStartup($id)
     {
         // $headerinvest = HeaderInvest::all();
@@ -356,15 +357,54 @@ class ReportController extends Controller
     public function cetak_allDetailProyek($idproyek)
     {
       
-        $detail =
-        DB::table('header_products')
-        ->select('header_products.id','header_products.name_product','category_products.name_category', 'detail_category_products.name', 'header_products.created_at', 'header_products.status')
-        ->join('detail_category_products','detail_category_products.id','=','header_products.id_detailcategory')
-        ->join('category_products','category_products.id','=','detail_category_products.category_id')
-        ->where('header_products.id','=',$idproyek)
-        ->get();
+        $detailproyek =
+                DB::table('header_products')
+                ->select('header_products.id','header_products.name_product','category_products.name_category', 'detail_category_products.name', 'header_products.url', 'header_products.rilis', 'header_products.image', 'header_products.created_at', 'header_products.status', 'header_products.desc', 'header_products.team', 'header_products.benefit', 'header_products.reason', 'header_products.solution')
+                ->join('detail_category_products','detail_category_products.id','=','header_products.id_detailcategory')
+                ->join('category_products','category_products.id','=','detail_category_products.category_id')
+                ->where('header_products.id','=',$idproyek)
+                ->get();
 
-        $pdf = PDF::loadview('developer.report.cetak_allDetailProyek',['detail',$detail]);
+        $list_kas = DB::table('detail_product_kas')
+                ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
+                ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
+                ->where('detail_product_kas.id_headerproduct','=',$idproyek)
+                ->orderBy('detail_product_kas.created_at','asc')
+                ->get();
+
+        $table_pemasukkan_inv = 
+                DB::table('detail_product_kas')
+                ->select(\DB::raw('SUM(detail_product_kas.jumlah) as total_masuk'))
+                ->where('detail_product_kas.id_headerproduct','=',$idproyek)
+                ->where('detail_product_kas.tipe','=','1')
+                ->groupBy(\DB::raw('detail_product_kas.tipe'))
+                ->orderBy('detail_product_kas.created_at','asc')
+                ->get();
+
+        $table_pengeluaran_inv = 
+                DB::table('detail_product_kas')
+                ->select(\DB::raw('SUM(detail_product_kas.jumlah) as total_keluar'))
+                ->where('detail_product_kas.id_headerproduct','=',$idproyek)
+                ->where('detail_product_kas.tipe','=','2')
+                ->groupBy(\DB::raw('detail_product_kas.tipe'))
+                ->orderBy('detail_product_kas.created_at','asc')
+                ->get();
+
+        $listInvestor = DB::table('header_invests')
+                ->leftJoin('users', 'users.id', '=', 'header_invests.user_id')
+                ->select('header_invests.id','users.name','header_invests.invest_id','header_invests.jumlah_final','header_invests.status_invest','header_invests.invest_expire')
+                ->where('header_invests.project_id','=',$idproyek)
+                ->get();
+
+        $listreviews = 
+                DB::table('reviews')
+                ->join('users', 'users.id','=','reviews.user_id')
+                ->select('reviews.id','users.name','reviews.rating','reviews.isi_review', 'reviews.created_at')
+                ->where('reviews.project_id','=',$idproyek)
+                ->get();
+
+
+        $pdf = PDF::loadview('developer.report.cetak_allDetailProyek',['detailproyek'=>$detailproyek, 'list_kas'=>$list_kas, 'table_pemasukkan_inv'=>$table_pemasukkan_inv, 'table_pengeluaran_inv'=>$table_pengeluaran_inv, 'listreviews'=>$listreviews, 'listInvestor'=>$listInvestor]);
         return $pdf->stream();
     }
 
@@ -441,5 +481,31 @@ class ReportController extends Controller
         return $pdf->stream();
     }
 
+    public function cetak_reviewProyek($dateawal, $dateakhir, $idproyek)
+    {
+        $user = auth()->user();
+        $date_awal = \Carbon\Carbon::parse($dateawal)->format('Y-m-d'). " 00:00:00";
+        $date_akhir = \Carbon\Carbon::parse($dateakhir)->format('Y-m-d'). " 23:59:59";
+
+        $listreviews = 
+        DB::table('reviews')
+        ->join('users', 'users.id','=','reviews.user_id')
+        ->select('reviews.id','users.name','reviews.rating','reviews.isi_review', 'reviews.created_at')
+        ->where('reviews.project_id','=',$idproyek)
+        ->whereBetween('reviews.created_at', [$date_awal, $date_akhir])
+        ->get();
+
+
+        $detailproyek =
+                DB::table('header_products')
+                ->select('header_products.id','header_products.name_product','category_products.name_category', 'detail_category_products.name', 'header_products.url', 'header_products.rilis', 'header_products.image', 'header_products.created_at', 'header_products.status', 'header_products.desc', 'header_products.team', 'header_products.benefit', 'header_products.reason', 'header_products.solution')
+                ->join('detail_category_products','detail_category_products.id','=','header_products.id_detailcategory')
+                ->join('category_products','category_products.id','=','detail_category_products.category_id')
+                ->where('header_products.id','=',$idproyek)
+                ->get();
+
+        $pdf = PDF::loadview('developer.report.cetak_reviewProyek', ['detailproyek'=>$detailproyek, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir, 'listreviews'=>$listreviews]);
+        return $pdf->stream();
+    }
     
 }

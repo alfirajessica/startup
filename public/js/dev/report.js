@@ -40,14 +40,15 @@ function cetak_laporanProyek() {
         //cetak investor
         window.open("/dev/report/cetak_invProyek/"+dateawal+"/"+dateakhir+"/"+idproyek);
     }
-
+    else if (idcetak == 4) {
+        //cetak review
+        window.open("/dev/report/cetak_reviewProyek/"+dateawal+"/"+dateakhir+"/"+idproyek);
+    }
     //belum selesai
     else if (idcetak == 5)  {
         //cetak semua detail, transaksi, investor dan review     
         window.open("/dev/report/cetak_allDetailProyek/"+idproyek);
     }
-    else if (idcetak == 4) {
-        //cetak review
-        window.open("/dev/report/cetak_reviewProyek/"+dateawal+"/"+dateakhir+"/"+idproyek);
-    }
+    
 }
+
