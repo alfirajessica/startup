@@ -407,6 +407,7 @@ class ProductController extends Controller
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
             
+
             DB::table('header_products')->
             where('id',$req->id_product)->
             update([

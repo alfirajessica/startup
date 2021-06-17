@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($listproyek as $item)
+                @forelse ($listproyek as $item)
                     <tr>
                         <td>#{{$item->id}}</td>
                         <td>{{ Carbon\Carbon::parse($item->created_at)->format('d-m-Y h:i:s') }}</td>
@@ -54,7 +54,12 @@
                             @endif
                         </td>
                     </tr>
-                @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="5" style="text-align: center">Tidak ada data</td>
+                       
+                    </tr>
+                @endforelse
             </tbody>
             <tfoot>
                 

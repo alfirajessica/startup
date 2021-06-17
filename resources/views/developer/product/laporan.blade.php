@@ -25,16 +25,16 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="">Periode awal</label>
-                <input type="date" name="" id="date_awal" class="form-control" placeholder="" aria-describedby="helpId">
-                <small id="helpId" class="text-muted">Help text</small>
+                <input type="date" name="" id="date_awal" class="form-control" placeholder="" aria-describedby="help_date_awal">
+                <small id="help_date_awal" class="text-muted"></small>
             </div>
         </div>
        
         <div class="col-md-6">
             <div class="form-group">
                 <label for="">Periode akhir</label>
-                <input type="date" name="" id="date_akhir" class="form-control" placeholder="" aria-describedby="helpId">
-                <small id="helpId" class="text-muted">Help text</small>
+                <input type="date" name="" id="date_akhir" class="form-control" placeholder="" aria-describedby="help_date_akhir">
+                <small id="help_date_akhir" class="text-muted"></small>
             </div>
         </div>
     </div>

@@ -24,9 +24,25 @@ function cetak_laporanProyek() {
     var statusproyek = $("#status_proyek").val();
     var idproyek = $("#pilih_project_cetak").val();
 
+    console.log(dateawal);
     if (idcetak == 0) {
         //cetak semua proyek terdaftar
-        window.open("/dev/report/cetak_semuaProyek/"+dateawal+"/"+dateakhir+"/"+statusproyek);
+        if (dateawal == "") {
+            $('#help_date_awal').text("error");
+        }
+        if (dateawal != "") {
+            $('#help_date_awal').text("");
+        }
+        if (dateakhir == "") {
+            $('#help_date_akhir').text("error");
+        }
+        if (dateakhir != "") {
+            $('#help_date_akhir').text("");
+        }
+        if (dateawal != "" && dateakhir != "") {
+            window.open("/dev/report/cetak_semuaProyek/"+dateawal+"/"+dateakhir+"/"+statusproyek);
+        }
+        
     }
     else if (idcetak == 1)  {
         //cetak detail      
@@ -34,15 +50,60 @@ function cetak_laporanProyek() {
     }
     else if (idcetak == 2)  {
         //cetak transaksi
-        window.open("/dev/report/cetak_transProyek/"+dateawal+"/"+dateakhir+"/"+idproyek);
+        if (dateawal == "") {
+            $('#help_date_awal').text("error");
+        }
+        if (dateawal != "") {
+            $('#help_date_awal').text("");
+        }
+        if (dateakhir == "") {
+            $('#help_date_akhir').text("error");
+        }
+        if (dateakhir != "") {
+            $('#help_date_akhir').text("");
+        }
+        if (dateawal != "" && dateakhir != "") {
+            window.open("/dev/report/cetak_transProyek/"+dateawal+"/"+dateakhir+"/"+idproyek);
+        }
+        
     }
     else if (idcetak == 3)  {
         //cetak investor
-        window.open("/dev/report/cetak_invProyek/"+dateawal+"/"+dateakhir+"/"+idproyek);
+        if (dateawal == "") {
+            $('#help_date_awal').text("error");
+        }
+        if (dateawal != "") {
+            $('#help_date_awal').text("");
+        }
+        if (dateakhir == "") {
+            $('#help_date_akhir').text("error");
+        }
+        if (dateakhir != "") {
+            $('#help_date_akhir').text("");
+        }
+        if (dateawal != "" && dateakhir != "") {
+            window.open("/dev/report/cetak_invProyek/"+dateawal+"/"+dateakhir+"/"+idproyek);
+        }
+        
     }
     else if (idcetak == 4) {
         //cetak review
-        window.open("/dev/report/cetak_reviewProyek/"+dateawal+"/"+dateakhir+"/"+idproyek);
+        if (dateawal == "") {
+            $('#help_date_awal').text("error");
+        }
+        if (dateawal != "") {
+            $('#help_date_awal').text("");
+        }
+        if (dateakhir == "") {
+            $('#help_date_akhir').text("error");
+        }
+        if (dateakhir != "") {
+            $('#help_date_akhir').text("");
+        }
+        if (dateawal != "" && dateakhir != "") {
+            window.open("/dev/report/cetak_reviewProyek/"+dateawal+"/"+dateakhir+"/"+idproyek);
+        }
+        
     }
     //belum selesai
     else if (idcetak == 5)  {

@@ -74,13 +74,13 @@
                                                 <span class="text-danger error-text rilis_product_error" id="rilis_product_error"></span>
                                             </div>
 
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <div class="input-group">
                                                     <label for="exampleInputFile">File input</label>
                                                     <input type="file" class="form-control-file"  name="image" id="exampleInputFile" aria-describedby="fileHelp" onchange="previewFile(this)">
                                                     <span class="text-danger error-text image_error"></span>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
                                             <img id="previewImg" class="d-block user-select-none" width="100%" height="200" >
                                         </div>

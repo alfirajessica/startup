@@ -28,7 +28,7 @@ function table_listProduct() {
         deferRender:true,
         aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
         ajax: {
-            url: url_table_listProduct,
+            url: "/dev/listProduct",
             type: 'GET',
             data:{
                 "tabel0":tabel0,
@@ -70,7 +70,7 @@ function table_listProduct() {
         deferRender:true,
         aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
         ajax: {
-            url: url_table_listProduct,
+            url: "/dev/listProduct",
             type: 'GET',
             data:{
                 "tabel1":tabel1,
@@ -114,7 +114,7 @@ function table_listProduct() {
         deferRender:true,
         aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
         ajax: {
-            url: url_table_listProduct,
+            url: "/dev/listProduct",
             type: 'GET',
             data:{
                 "tabel2":tabel2,
@@ -156,7 +156,7 @@ function table_listProduct() {
         deferRender:true,
         aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
         ajax: {
-            url: url_table_listProduct,
+            url: "/dev/listProduct",
             type: 'GET',
             data:{
                 "tabel3":tabel3,
@@ -282,7 +282,7 @@ $('body').on('click', '.deleteProject', function () {
         if (willDelete) {
             $.ajax({
                 type: "get",
-                url: url_table_listProduct_deleteProject + id,
+                url: "/dev/listProduct/deleteProject/" + id,
                 success: function (data) {
                     table_listProduct();
                 },
@@ -316,7 +316,7 @@ $('body').on('click', '.aktifProject', function () {
         if (willDelete) {
             $.ajax({
                 type: "get",
-                url: url_table_listProduct_activeProject + id,
+                url: "/dev/listProduct/activeProject/" + id,
                 success: function (data) {
                     table_listProduct();
                 },
@@ -350,7 +350,7 @@ $('body').on('click', '.nonAktifProject', function () {
         if (willDelete) {
             $.ajax({
                 type: "get",
-                url: url_table_listProduct_nonactiveProject + id,
+                url: "/dev/listProduct/nonactiveProject/" + id,
                 success: function (data) {
                     table_listProduct();
                 },

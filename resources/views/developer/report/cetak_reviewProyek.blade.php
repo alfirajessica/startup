@@ -68,7 +68,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($listreviews as $item)
+                @forelse ($listreviews as $item)
                     <tr>
                         <td style="text-align: center">#{{$item->id}}</td>
                         <td>{{ Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
@@ -80,7 +80,9 @@
                         </td>
 
                     </tr>
-                @endforeach
+                    @empty
+                    <tr><td colspan="4">Tidak ada review</td></tr>
+                @endforelse
             </tbody>
         </table>
     </div>

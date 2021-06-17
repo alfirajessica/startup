@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-    <h2>Laporan Transaksi Proyek</h2>
+    <h2>Laporan Investor Proyek</h2>
 
     Laporan ini mencetak data pada
     <div class="row">
@@ -68,7 +68,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($listInvestor as $item)
+                @forelse ($listInvestor as $item)
                     <tr>
                         <td>{{$item->invest_id}}</td>
                         <td>{{$item->name}}</td>
@@ -86,7 +86,9 @@
                             @endif
                             </td>
                     </tr>
-                @endforeach
+                    @empty
+                    <tr><td colspan="5">Tidak ada investor</td></tr>
+                @endforelse
             </tbody>
         </table>
     </div>

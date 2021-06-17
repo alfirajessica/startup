@@ -67,7 +67,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($list_kas as $item)
+                @forelse ($list_kas as $item)
                     <tr>
                         <td style="text-align: center">
                             @if ($item->tipe == "1")
@@ -95,41 +95,41 @@
                             @endif
                         </td>
                     </tr>
-                @endforeach
+                    @empty
+                    <tr><td colspan="5">Tidak ada transaksi</td></tr>
+                @endforelse
                 
             </tbody>
             <tfoot>
-                <tr>
-                    <th colspan="3" style="text-align: right">Total</th>
-                    {{-- <th></th>
-                    <th></th> --}}
-                @foreach ($table_pemasukkan_inv as $item)
+                @forelse ($list_kas as $item)
+                    <tr>
+                        <th colspan="3" style="text-align: right">Total</th>
+                    
+                    @foreach ($table_pemasukkan_inv as $item)
                     
                         <th style="text-align: right">
                             {{ number_format($item->total_masuk, 2, ',', '.') }}
-                        
                         </th>
                         
-                @endforeach
-                @foreach ($table_pengeluaran_inv as $item)
-                    
-                        <th style="text-align: right">{{ number_format($item->total_keluar, 2, ',', '.') }}</th>
-                        
-                @endforeach
-                </tr>
-                <tr>
+                    @endforeach
+                    @foreach ($table_pengeluaran_inv as $item)
+                            <th style="text-align: right">{{ number_format($item->total_keluar, 2, ',', '.') }}</th>
+                    @endforeach
+                    </tr>
+                    <tr>
                     <th colspan="4"></th>
-                    
                     @foreach ($table_pemasukkan_inv as $item1)
                         @foreach ($table_pengeluaran_inv as $item2)
                                 
-                            <th style="text-align: right">{{ number_format($item1->total_masuk - $item2->total_keluar , 2, ',', '.') }}</th>
-                            
-                    @endforeach
+                            <th style="text-align: right">{{ number_format($item1->total_masuk - $item2->total_keluar , 2, ',', '.') }}</th> 
+                        @endforeach
                         
-                @endforeach
+                    @endforeach
+                    </tr>
+                @empty
                 
-                </tr>
+                @endforelse
+                
             </tfoot>
         </table>
     </div>

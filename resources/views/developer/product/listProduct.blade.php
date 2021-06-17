@@ -101,19 +101,19 @@
     //semua function disini ada pada --> public/js/dev/listproduct.js
 
     //call function pada tabel --> table_listProduct --> tab Project Terdaftar Aktif
-    const url_table_listProduct = @json(route('dev.listProduct'));
+    //const url_table_listProduct = @json(route('dev.listProduct'));
 
     //call function pada tabel --> table_listProduct /deleteProject
-    const url_table_listProduct_deleteProject = "{{ route('dev.listProduct') }}"+'/deleteProject' + '/';
+    //const url_table_listProduct_deleteProject = "{{ route('dev.listProduct') }}"+'/deleteProject' + '/';
 
     //call function pada tabel --> table_listProduct /detailProject
     //const url_table_listProduct_detailProject = "{{ route('dev.listProduct') }}" +'/detailProject' + '/';
 
     //call function pada tabel --> table_listProduct /aktifProject
-    const url_table_listProduct_activeProject = "{{ route('dev.listProduct') }}" +'/activeProject' + '/';
+    //const url_table_listProduct_activeProject = "{{ route('dev.listProduct') }}" +'/activeProject' + '/';
 
     //call function pada tabel --> table_listProduct /aktifProject
-    const url_table_listProduct_nonactiveProject = "{{ route('dev.listProduct') }}" +'/nonactiveProject' + '/';
+    //const url_table_listProduct_nonactiveProject = "{{ route('dev.listProduct') }}" +'/nonactiveProject' + '/';
  
    
 </script>
