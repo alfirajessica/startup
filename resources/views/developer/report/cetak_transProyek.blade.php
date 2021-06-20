@@ -101,7 +101,7 @@
                 
             </tbody>
             <tfoot>
-                @forelse ($list_kas as $item)
+               
                     <tr>
                         <th colspan="3" style="text-align: right">Total</th>
                     
@@ -126,10 +126,7 @@
                         
                     @endforeach
                     </tr>
-                @empty
-                
-                @endforelse
-                
+               
             </tfoot>
         </table>
     </div>

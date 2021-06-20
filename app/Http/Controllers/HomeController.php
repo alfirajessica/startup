@@ -61,37 +61,10 @@ class HomeController extends Controller
         else if ($user_role == "2") {
             
              $get_id = DB::table('header_events')->select('id')->where('status','=','2')->get();
-            // dd($get_id);
-             /*for ($i=0; $i <=count($get_id) ; $i++) { 
-                 dd($get_id);
-                 
-             }*/
-
-            /*UPDATE detail_events SET status=2
-            WHERE (SELECT id FROM header_events 
-            WHERE header_events.id=detail_events.id_header_events AND
-            header_events.status=2)
-
-             $upd_details = 
-             DB::table('detail_events')
-                ->where(
-                    DB::table('header_events')
-                    ->where('header_events.id','=','detail_events.id_header_events')
-                    ->where('header_events.status','=','2')
-                )
-                ->update([
-                    'detail_events.status' =>'2',
-                ]);
-
-            */
+        
             return view('investor.home'); 
         }
-        // //admin
-        // else{
-            
-        //     return view('investor.home');
-        // }
-        
+       
     }
 
     //check event if has passed

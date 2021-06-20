@@ -3,16 +3,7 @@
 @section('content')
 <body class="landing-page">
     <section class="section section-shaped">
-        <div class="shape shape-style-1 bg-gradient-default">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        
         <div class="container">
             <div class="row justify-content-center">
             <div class="col-lg-6 py-4">

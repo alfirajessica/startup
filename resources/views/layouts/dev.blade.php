@@ -14,7 +14,7 @@
         background-color: #f7f3e9;
     }
     .jumbotron {
-        background-color: none
+        background-image: none
     }
   </style>
 <body class="landing-page">
