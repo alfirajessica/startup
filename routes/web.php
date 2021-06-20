@@ -127,6 +127,7 @@ Route::prefix('admin')->group(function () {
 
 //valuation tools -- all of user can use it
 Route::get('/valuation', [ValuationToolsController::class, 'valuation'])->name('valuation');
+Route::get('/valuation/addnew', [ValuationToolsController::class, 'addnew'])->name('valuation.addnew');
 
 //-----------------------------INVESTOR-------------------
 

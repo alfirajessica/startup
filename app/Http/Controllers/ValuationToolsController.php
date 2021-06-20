@@ -10,4 +10,9 @@ class ValuationToolsController extends Controller
     {
         return view('guest.valTools');
     }
+
+    public function addnew()
+    {
+        dd("ok");
+    }
 }
