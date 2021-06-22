@@ -15,8 +15,8 @@ class CreateValuationsTable extends Migration
     {
         Schema::create('valuations', function (Blueprint $table) {
             $table->id();
-            $table->integer('first_year'); //tahun ke-1
-            $table->integer('last_year'); //tahun ke-5
+            $table->bigInteger('user_id')->unsigned(); //selain guest
+            $table->string('email_user'); //utk guest
             $table->bigInteger('net_profit');
             $table->integer('cost_equity'); //%
             $table->integer('growth_rate'); //%

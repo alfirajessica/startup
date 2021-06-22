@@ -28,14 +28,26 @@ class ValuationToolsController extends Controller
 
     public function addnew(Request $req)
     {
+        $user = auth()->user();
+        
+        
         $now = Carbon::now();
         $thnskrg = $now->year;
         $netprofit = (int)Str::replaceArray(',', ['', ''], $req->net_profit); //money
         $growthrate = ((double)$req->growth_rate)/100; //percentage
 
         $values = new Valuation;
-        $values->first_year = $now->year-1;
-        $values->last_year = $now->year+3;
+        if(Auth::guest())
+        {
+            $values->user_id = 0;
+            $values->email_user = $req->email_user;
+        }
+        if(Auth::user())
+        {
+            $values->user_id = $user->id;
+            $values->email_user = $req->email_user;
+        }
+        
         $values->net_profit = (int)Str::replaceArray(',', ['', ''], $req->net_profit);
         $values->cost_equity = ((double)$req->cost_equity);
         $values->growth_rate = ((double)$req->growth_rate);
@@ -57,15 +69,16 @@ class ValuationToolsController extends Controller
         $value = DB::table('valuations')->find($getLastId->id);
 
         $total_pv_fcfe=0;
-        $terminal_value=0;
-        for ($i=0; $i <5 ; $i++) { 
+        //$terminal_value=0;
+        for ($i=0; $i <6 ; $i++) { 
             $val_details = new DValuation;
             $val_details->valuation_id = $getLastId->id;
-            $val_details->user_id = 0;
+            //$val_details->user_id = 0;
             $val_details->name_year = ($now->year - 1) + $i;
-            $val_details->n_year = $i+1;
+            $val_details->n_year = $i;
             
             if ($i == 0) {
+                
                 $val_details->n_sales_forecast = 0; //TIDAK PAKAI SALES
                 $val_details->n_profit_forecast = $value->net_profit;
                 $val_details->n_current_assets = $value->current_assets;
@@ -85,7 +98,7 @@ class ValuationToolsController extends Controller
                 
 
             }else{
-
+              
                 $val_details->n_sales_forecast = 0;
                 $val_details->n_profit_forecast = $value->net_profit + ($value->net_profit * $value->growth_rate/100);
                 $val_details->n_current_assets = $value->current_assets + ($value->current_assets * $value->growth_rate/100);
@@ -114,22 +127,33 @@ class ValuationToolsController extends Controller
                 $val_details->n_pv_fcfe = ($profit - $changein + $depExtAsset - $purNewAsset + $depNewAsset - $loanre + $newLoan + $sde)/pow(1+$value->cost_equity/100, $i);
 
                 $total_pv_fcfe = $value->total_pv_fcfe + ($profit - $changein + $depExtAsset - $purNewAsset + $depNewAsset - $loanre + $newLoan + $sde)/pow(1+$value->cost_equity/100, $i);
-                $terminal_value = ($profit - $changein + $depExtAsset - $purNewAsset + $depNewAsset - $loanre + $newLoan + $sde)*((1-(1/ pow(1+$value->cost_equity/100, $i))/$value->cost_equity/100));
-                $value->pv_terminal_value = $value->terminal_value/pow(1+$value->cost_equity/100, $i);
-                $value->business_value = $value->total_pv_fcfe + $value->pv_terminal_value;
 
-                //$value->sales_revenue = $value->sales_revenue + ($value->sales_revenue * $value->growth_rate/100);
+                $terminal_value = (int)$val_details->n_cash_flow_fcfe*((1-(1/pow(1+ $value->cost_equity/100, $i)))/($value->cost_equity/100));
+                $pv_terminal_value = $terminal_value/pow(1+ $value->cost_equity/100, $i);
+                $business_value = $total_pv_fcfe +$pv_terminal_value;
+
+                //temp
                 $value->net_profit = $value->net_profit + ($value->net_profit * $value->growth_rate/100);
                 $value->current_assets = $value->current_assets + ($value->current_assets * $value->growth_rate/100);
                 $value->current_liabilities = $value->current_liabilities + ($value->current_liabilities * $value->growth_rate/100);
                 $value->working_capital = $value->working_capital + ($value->working_capital * $value->growth_rate/100);
                 $value->total_pv_fcfe = $total_pv_fcfe;
-            
+                $value->terminal_value = $terminal_value;
+
+                //dd($ok2);
+                DB::table('valuations')->
+                where('id',$getLastId->id)->
+                update([
+                    'total_pv_fcfe' => $total_pv_fcfe,
+                    'terminal_value' => $terminal_value,
+                    'pv_terminal_value' =>$pv_terminal_value,
+                    'business_value' =>$business_value,
+                ]);
+
                 
             }
             
-            DB::table('valuations')->where('id', $value->id)->update(['total_pv_fcfe' => $total_pv_fcfe],
-            ['terminal_value' => $terminal_value]);
+           
             $val_details->save();
 
         }

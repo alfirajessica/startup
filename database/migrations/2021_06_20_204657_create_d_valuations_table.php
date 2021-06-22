@@ -15,8 +15,7 @@ class CreateDValuationsTable extends Migration
     {
         Schema::create('d_valuations', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('valuation_id')->unsigned();
-            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('valuation_id')->unsigned();    
             $table->integer('name_year');
             $table->integer('n_year');
             $table->bigInteger('n_sales_forecast');

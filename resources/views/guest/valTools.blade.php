@@ -69,26 +69,41 @@
 <form action="{{ route('valuation.addnew')}}" method="get">
 <section style="height: 100vh">
     <div class="col-md-12 py-6"><div class="row"></div></div>
-    <div class="col-md-12">
+    
+
+    <div class="col-md-12" >
         <div class="row">
             <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="form-group">
+                  <label for=""></label>
+                  <input type="text" name="email_user" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                  <small id="helpId" class="text-muted">Help text</small>
+                </div>
+                <button onclick="simpan_email()" class="btn btn-primary" type="button">Simpan</button>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+
+    <div class="col-md-12 d-none" id="result_calc">
+        <div class="row">
             <div class="col-md-8">
                 <div class="card">
                    <h4>Business value</h4>
                    <a href="#" target="_blank">Lihat lampiran</a>
                 </div>
             </div>
-            <div class="col-md-2"></div>
         </div>
     </div>
-    <div class="col-md-12">
+   
+    <div class="col-md-12 d-none" id="val_calc">
         <div class="row mx-3">
             <div class="col-md-12 px-2">
                 <button type="submit" class="btn btn-primary">Hitung</button>
             </div>
         </div>
-    </div>
-    <div class="col-md-12">
+
         <div class="row ">
             <div class="col-md-6">
                 <div id="accordion">
@@ -104,11 +119,11 @@
                         <div id="collapseKeyInput" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="">Berapa profitmu tahun lalu {{ now()->year-1 }}</label>
+                                    <label for="">Berapa profitmu tahun lalu ({{ now()->year-1 }})</label>
                                     <input type="text" name="net_profit" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="100,000"   class="form-control form-control-alternative">
                                 </div>
                                 
-                                <label for="">Masukkan Tingkat Pertumbuhan tahunan Anda untuk periode perkiraan {{ now()->year }}-{{ now()->year+3 }}</label>
+                                <label for="">Masukkan Tingkat Pertumbuhan tahunan Anda untuk periode perkiraan 5 tahun kedepan ({{ now()->year }}-{{ now()->year+4 }})</label>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="input-group input-group-alternative mb-4">
@@ -164,6 +179,14 @@
                                                 <small id="helpId" class="text-muted">Help text</small>
                                             </div>
                                         </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group"> 
+                                        <label for="">{{ now()->year+4 }}</label>
+                                        <input type="text" name="n_purchase_new_assets_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
+                                        <small id="helpId" class="text-muted">Help text</small>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -174,7 +197,7 @@
                                         <small id="helpId" class="text-muted">Help text</small>
                                         </div>
 
-                                        <label for="">Berapa rata-rata Tingkat Penyusutan (%) tahunan untuk Aktiva Tetap baru selama 4 tahun ke depan?</label>
+                                        <label for="">Berapa rata-rata Tingkat Penyusutan (%) tahunan untuk Aktiva Tetap baru selama 5 tahun ke depan?</label>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -260,6 +283,13 @@
                                             <small id="helpId" class="text-muted">Help text</small>
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group"> 
+                                            <label for="">{{ now()->year+4 }}</label>
+                                            <input type="text" name="n_loans_returned_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
+                                            <small id="helpId" class="text-muted">Help text</small>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -302,6 +332,13 @@
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year+3 }}</label>
                                             <input type="text" name="n_new_loan_[4]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
+                                            <small id="helpId" class="text-muted">Help text</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group"> 
+                                            <label for="">{{ now()->year+4 }}</label>
+                                            <input type="text" name="n_new_loan_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
                                             <small id="helpId" class="text-muted">Help text</small>
                                         </div>
                                     </div>
@@ -432,6 +469,11 @@ function formatCurrency(input, blur) {
   input[0].setSelectionRange(caret_pos, caret_pos);
 }
 
+function simpan_email() { 
+    //$("#result_calc").removeClass('d-none');
+    $("#val_calc").removeClass('d-none');
+    
+}
 
 
  </script>
