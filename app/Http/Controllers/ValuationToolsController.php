@@ -18,6 +18,7 @@ use Validator;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use PDF;
 
 class ValuationToolsController extends Controller
 {
@@ -155,8 +156,38 @@ class ValuationToolsController extends Controller
             
            
             $val_details->save();
-
+            
         }
+
+        return $business_value;
+    }
+
+    public function cetak_hasilValuation($email)
+    {
+        if(Auth::guest())
+        {
+            $user_id = 0;
+            
+        }
+        if(Auth::user())
+        {
+            $user_id = $user->user_id; 
+        }
+
+        //CEK LAST ID yang ada pada tabel valuation
+        $getLast =  DB::table('valuations')->where('email_user','=',$email)->orderBy('id','desc')->first();
+
+        $getDetailLast =  DB::table('d_valuations')
+                        ->select('d_valuations.id','d_valuations.name_year','d_valuations.n_profit_forecast','d_valuations.n_current_assets','d_valuations.n_current_liabilities','d_valuations.n_working_capital','d_valuations.n_change_working_capital','d_valuations.n_purchase_new_assets','d_valuations.n_depreciation_new_assets','d_valuations.n_loans_returned','d_valuations.n_new_loan','d_valuations.n_seller_discretionary_expend','d_valuations.n_cash_flow_fcfe','d_valuations.n_pv_fcfe','d_valuations.n_seller_discretionary_expend','valuations.depreciation_exist_assets','valuations.depreciation_rate','valuations.total_pv_fcfe')
+                        ->join('valuations','valuations.id','=','d_valuations.valuation_id')
+                        ->where('d_valuations.valuation_id','=',$getLast->id)
+                        ->get();
+
         
+           
+
+        $pdf = PDF::loadview('guest.report.cetak_hasilValuation',['email'=>$email, 'getDetailLast'=>$getDetailLast, 'getLast'=>$getLast]);
+        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream();
     }
 }

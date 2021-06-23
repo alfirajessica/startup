@@ -66,19 +66,34 @@
     </div>
 </section>
 
-<form action="{{ route('valuation.addnew')}}" method="get">
+
 <section style="height: 100vh">
     <div class="col-md-12 py-6"><div class="row"></div></div>
     
+    <div class="col-md-12 d-none" id="result_calc">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                   <h4>Business value</h4>
+                   <h6 id="result_value"></h6>
 
+                   <button class="btn btn-outline-default" target="_blank" onclick="btn_d_valuation()">Cetak PDF</button> <br>
+                   {{-- <a href="#" target="_blank">Lihat lampiran</a> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <form action="{{ route('valuation.addnew')}}" method="post" id="valtools" enctype="multipart/form-data">
+        @csrf
     <div class="col-md-12" >
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
                 <div class="form-group">
                   <label for=""></label>
-                  <input type="text" name="email_user" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                  <small id="helpId" class="text-muted">Help text</small>
+                  <input type="email" name="email_user" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                  <small id="helpemail_user" class="text-muted">Help text</small>
                 </div>
                 <button onclick="simpan_email()" class="btn btn-primary" type="button">Simpan</button>
             </div>
@@ -86,16 +101,7 @@
         </div>
     </div>
 
-    <div class="col-md-12 d-none" id="result_calc">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
-                   <h4>Business value</h4>
-                   <a href="#" target="_blank">Lihat lampiran</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    
    
     <div class="col-md-12 d-none" id="val_calc">
         <div class="row mx-3">
@@ -105,6 +111,8 @@
         </div>
 
         <div class="row ">
+            <input type="hidden" name="email" id="" class="form-control" placeholder="" aria-describedby="helpId">
+
             <div class="col-md-6">
                 <div id="accordion">
                     <div class="card">
@@ -375,8 +383,9 @@
             </div> {{-- end of accordion 2 --}}
         </div>
     </div>
+    </form>
 </section>
-</form>
+
  <script>
      if($('.scroll-to-next-section').length>0) {
    $(".scroll-to-next-section button").click(function () {
@@ -470,10 +479,64 @@ function formatCurrency(input, blur) {
 }
 
 function simpan_email() { 
-    //$("#result_calc").removeClass('d-none');
-    $("#val_calc").removeClass('d-none');
+  
+    if ( $("input[name='email_user']").val() == "") {
+
+        $("#helpemail_user").text('silakan isi email');
+        
+    }else{
+        
+        $("input[name='email']").text($("input[name='email']").val());
+        console.log($("input[name='email']").val());
+       
+        $("#val_calc").removeClass('d-none');
+    }
+   
     
 }
 
+$("#valtools").on("submit",function (e) {
+   
+   e.preventDefault();
+  
+   $.ajax({
+       url:$(this).attr('action'),
+       method:$(this).attr('method'),
+       data:new FormData(this),
+       processData:false,
+       dataType:'json',
+       contentType:false,
+       beforeSend:function() {
+           $(document).find('span.error-text').text('');
+       },
+       success:function(data) {
+           if (data == 0) {
+               $.each(data.error, function (prefix, val) {
+                   $('span.'+prefix+'_error').text(val[0]);
+               });
+           }
+           else{
+               var result = parseInt(data);
+                $("#result_value").text("Rp"+result.toLocaleString());
+               console.log(data);
+                $("#result_calc").removeClass('d-none');
+                // $.ajax({
+                //     type: "get",
+                //     url: "/valuation/getResult/" + id + "/" + email,
+                //     success: function (data) {
+                //         $("#result_value").val("20000");
+                //     },
+                //     error: function (data) {
+                //         console.log('Error:', data);
+                //     }
+                // });
+           }
+       }
+   });
+});
 
+function btn_d_valuation() { 
+    var email = $("input[name='email_user']").val();
+    window.open("/valuation/cetak_hasilValuation/"+email);
+}
  </script>
