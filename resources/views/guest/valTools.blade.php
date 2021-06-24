@@ -70,19 +70,7 @@
 <section style="height: 100vh">
     <div class="col-md-12 py-6"><div class="row"></div></div>
     
-    <div class="col-md-12 d-none" id="result_calc">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
-                   <h4>Business value</h4>
-                   <h6 id="result_value"></h6>
-
-                   <button class="btn btn-outline-default" target="_blank" onclick="btn_d_valuation()">Cetak PDF</button> <br>
-                   {{-- <a href="#" target="_blank">Lihat lampiran</a> --}}
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <form action="{{ route('valuation.addnew')}}" method="post" id="valtools" enctype="multipart/form-data">
         @csrf
@@ -90,19 +78,36 @@
         <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-8">
+                <h5>Masukkan email anda</h5>
                 <div class="form-group">
-                  <label for=""></label>
-                  <input type="email" name="email_user" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                  <small id="helpemail_user" class="text-muted">Help text</small>
-                </div>
-                <button onclick="simpan_email()" class="btn btn-primary" type="button">Simpan</button>
+                    <div class="input-group input-group-alternative mb-4" id="select_project">
+                        <input type="email" name="email_user" id="" class="form-control" placeholder="" aria-describedby="helpemail_user">    
+                        <div class="input-group-append">
+                            <button class="btn btn-default" type="button" id="simpanEmail" onclick="simpan_email()">Simpan</button>
+                        </div>
+                    </div>
+                    <small id="helpemail_user" class="text-muted"></small>
+                </div> 
             </div>
             <div class="col-md-2"></div>
         </div>
     </div>
 
-    
-   
+    <div class="col-md-12 d-none" id="result_calc">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Business value</h5>
+                        <h4 id="result_value"></h4>
+                        <button class="btn btn-outline-default" target="_blank" onclick="btn_d_valuation()">Lihat hasil perhitungan</button> <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="col-md-12 d-none" id="val_calc">
         <div class="row mx-3">
             <div class="col-md-12 px-2">
@@ -110,7 +115,7 @@
             </div>
         </div>
 
-        <div class="row ">
+        <div class="row py-2">
             <input type="hidden" name="email" id="" class="form-control" placeholder="" aria-describedby="helpId">
 
             <div class="col-md-6">
@@ -163,28 +168,28 @@
                                             <div class="form-group"> 
                                                 <label for="">{{ now()->year }}</label>
                                                 <input type="text" name="n_purchase_new_assets_[1]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                                <small id="helpId" class="text-muted">Help text</small>
+                                                <span class="text-danger error-text n_purchase_new_assets_[1]_error"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group"> 
                                                 <label for="">{{ now()->year+1 }}</label>
                                                 <input type="text" name="n_purchase_new_assets_[2]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0"   class="form-control form-control-alternative">
-                                                <small id="helpId" class="text-muted">Help text</small>
+                                                <span class="text-danger error-text n_purchase_new_assets_[2]_error"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group"> 
                                                 <label for="">{{ now()->year+2 }}</label>
                                                 <input type="text" name="n_purchase_new_assets_[3]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                                <small id="helpId" class="text-muted">Help text</small>
+                                                <span class="text-danger error-text n_purchase_new_assets_[3]_error"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="form-group"> 
                                                 <label for="">{{ now()->year+3 }}</label>
                                                 <input type="text" name="n_purchase_new_assets_[4]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                                <small id="helpId" class="text-muted">Help text</small>
+                                                <span class="text-danger error-text n_purchase_new_assets_[4]_error"></span>
                                             </div>
                                         </div>
                                         
@@ -194,7 +199,7 @@
                                     <div class="form-group"> 
                                         <label for="">{{ now()->year+4 }}</label>
                                         <input type="text" name="n_purchase_new_assets_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                        <small id="helpId" class="text-muted">Help text</small>
+                                        <span class="text-danger error-text n_purchase_new_assets_[5]_error"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -202,7 +207,7 @@
                                         <label for="">Berapa total biaya untuk Beban Penyusutan aset tetap untuk tahun buku terakhir yang Anda laporkan?</label>
                                         <input type="text" name="depreciation_exist_assets" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="20,000" class="form-control form-control-alternative">
                                       
-                                        <small id="helpId" class="text-muted">Help text</small>
+                                        <span class="text-danger error-text depreciation_exist_assets_error"></span>
                                         </div>
 
                                         <label for="">Berapa rata-rata Tingkat Penyusutan (%) tahunan untuk Aktiva Tetap baru selama 5 tahun ke depan?</label>
@@ -215,6 +220,7 @@
                                                 <span class="input-group-text">%</span>
                                             </div>
                                         </div>
+                                        <span class="text-danger error-text depreciation_rate_error"></span>
                                     </div>
                                 </div>
                             </div>
@@ -234,12 +240,12 @@
                                 <div class="form-group">
                                     <label for="">Current Assets</label>
                                     <input type="text" name="current_assets" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="40,000" class="form-control form-control-alternative">
-                                    <small id="helpId" class="text-muted">Help text</small>
+                                    <span class="text-danger error-text current_assets_error"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Current liabilities</label>
                                     <input type="text" name="current_liabilities" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="20,000" class="form-control form-control-alternative">
-                                    <small id="helpId" class="text-muted">Help text</small>
+                                    <span class="text-danger error-text current_liabilities_error"></span>
                                 </div>
                             </div>
                         </div>
@@ -267,35 +273,35 @@
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year }}</label>
                                             <input type="text" name="n_loans_returned_[1]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <small id="helpId" class="text-muted">Help text</small>
+                                            <span class="text-danger error-text n_loans_returned_[1]_error"></span>
                                             </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year+1 }}</label>
                                             <input type="text" name="n_loans_returned_[2]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <small id="helpId" class="text-muted">Help text</small>
+                                            <span class="text-danger error-text n_loans_returned_[2]_error"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year+2 }}</label>
                                             <input type="text" name="n_loans_returned_[3]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <small id="helpId" class="text-muted">Help text</small>
+                                            <span class="text-danger error-text n_loans_returned_[3]_error"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year+3 }}</label>
                                             <input type="text" name="n_loans_returned_[4]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <small id="helpId" class="text-muted">Help text</small>
+                                            <span class="text-danger error-text n_loans_returned_[4]_error"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year+4 }}</label>
                                             <input type="text" name="n_loans_returned_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <small id="helpId" class="text-muted">Help text</small>
+                                            <span class="text-danger error-text n_loans_returned_[5]_error"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -319,35 +325,35 @@
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year }}</label>
                                             <input type="text" name="n_new_loan_[1]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <small id="helpId" class="text-muted">Help text</small>
+                                            <span class="text-danger error-text n_new_loan_[1]_error"></span>
                                             </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year+1 }}</label>
                                             <input type="text" name="n_new_loan_[2]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <small id="helpId" class="text-muted">Help text</small>
+                                            <span class="text-danger error-text n_new_loan_[2]_error"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year+2 }}</label>
                                             <input type="text" name="n_new_loan_[3]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <small id="helpId" class="text-muted">Help text</small>
+                                            <span class="text-danger error-text n_new_loan_[3]_error"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year+3 }}</label>
                                             <input type="text" name="n_new_loan_[4]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <small id="helpId" class="text-muted">Help text</small>
+                                            <span class="text-danger error-text n_new_loan_[4]_error"></span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year+4 }}</label>
                                             <input type="text" name="n_new_loan_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <small id="helpId" class="text-muted">Help text</small>
+                                            <span class="text-danger error-text n_new_loan_[5]_error"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -374,6 +380,7 @@
                                             <span class="input-group-text">%</span>
                                         </div>
                                         </div>
+                                        <span class="text-danger error-text cost_equity_error"></span>
                                     </div>
                                 </div> 
                             </div>
@@ -481,14 +488,14 @@ function formatCurrency(input, blur) {
 function simpan_email() { 
   
     if ( $("input[name='email_user']").val() == "") {
-
+        
         $("#helpemail_user").text('silakan isi email');
         
     }else{
-        
+        $('#simpanEmail').prop('disabled', true);
+        $("input[name='email_user']").attr('readonly', true);
         $("input[name='email']").text($("input[name='email']").val());
-        console.log($("input[name='email']").val());
-       
+        $("#helpemail_user").text("");
         $("#val_calc").removeClass('d-none');
     }
    

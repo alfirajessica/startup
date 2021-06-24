@@ -16,7 +16,7 @@
                     <hr>
                     
                     <a name="" id="" class="btn-block" data-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample2">
-                      <h5>Tipe <i class="fas fa-chevron-down float-right"></i> </h5>
+                      <h5>Tipe event<i class="fas fa-chevron-down float-right"></i> </h5>
                     </a>
 
                     <div class="collapse multi-collapse show" id="multiCollapseExample2">

@@ -31,6 +31,15 @@ class ValuationToolsController extends Controller
     {
         $user = auth()->user();
         
+        //validate request
+        $validator = Validator::make($req->all(),[
+            'net_profit'=>'required',
+            'cost_equity'=>'required',
+            'growth_rate'=>'required',
+            'current_assets'=>'required',
+            'current_liabilities'=>'required',
+            
+        ]);
         
         $now = Carbon::now();
         $thnskrg = $now->year;
@@ -164,6 +173,7 @@ class ValuationToolsController extends Controller
 
     public function cetak_hasilValuation($email)
     {
+        $user = auth()->user();
         if(Auth::guest())
         {
             $user_id = 0;
