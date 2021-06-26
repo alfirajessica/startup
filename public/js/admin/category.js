@@ -15,7 +15,8 @@ $(function () {
                 url: "/admin/kategoriProduk",
                 type: 'GET'
             },
-            columns: [{
+            columns: [
+                {
                     data: 'id',
                     name: 'id'
                 },
@@ -34,19 +35,18 @@ $(function () {
                         }
                     }
                 },
-                
                 {
-                    data: null,
-                    name: 'action',
+                    data:null,
+                    name:'action',
                     render: data => {
-                        //cek apakah kategori tsb sedang digunakan oleh developer-produk
-                        $.ajax({
-                            type: "GET",
-                            url:"/admin/kategoriProduk/cek/"+ data.id,
-                            success:function(data) {
-                              
-                            }
-                          });
+                        var action="";
+
+                        if (data.status == 1) {
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm nonAktifKategori">Nonaktifkan</a>';
+                        }else{
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm aktifKategori">Aktifkan</a>';
+                        }
+                        return data.action + action;
                     }
                 },
             ],
@@ -104,12 +104,12 @@ $(function () {
         $('#categoryID').val(id);
     });
 
-    $('body').on('click', '.deleteKategori', function () {
+    //nonaktifkan
+    $('body').on('click', '.nonAktifKategori', function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Are You sure want to delete?",
-            text: "Once deleted, you will not be able to recover this event!",
+            title: "Apakah anda yakin ingin menonaktifkan kategori ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -118,20 +118,60 @@ $(function () {
             if (willDelete) {
                 $.ajax({
                     type: "get",
-                    url: "/admin/kategoriProduk/deleteKategori" + '/' + id,
+                    url: "/admin/kategoriProduk/nonAktifKategori" + '/' + id,
                     success: function (data) {
+                        if (data == 0) {
+                            swal("Poof! kategori sedang digunakan!", {
+                                icon: "warning",
+                            });
+                        }else{
+                            swal("Poof! Your imaginary file has been deleted!", {
+                                icon: "success",
+                            });
+                        }
+                        
                         table1();
                     },
                     error: function (data) {
                         console.log('Error:', data);
                     }
                 });
-                
-                swal("Poof! Your imaginary file has been deleted!", {
-                icon: "success",
-            });
             } else {
-                swal("Your imaginary file is safe!");
+                //swal("Your imaginary file is safe!");
+            }
+        });
+    });
+
+    //aktifkan
+    $('body').on('click', '.aktifKategori', function () {
+        var id = $(this).data("id");
+        var txt;
+        swal({
+            title: "Apakah anda yakin mengaktifkan kembali?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "get",
+                    url: "/admin/kategoriProduk/aktifKategori" + '/' + id,
+                    success: function (data) {
+                        table1();
+                        if (data == 1) {
+                            swal("Berhasil mengaktifkan kembali", {
+                                icon: "success",
+                            });
+                        }
+                       
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            } else {
+                //swal("Your imaginary file is safe!");
             }
         });
     });
@@ -225,8 +265,18 @@ $(function () {
                 },
                 
                 {
-                    data: 'action',
-                    name: 'action'
+                    data:null,
+                    name:'action',
+                    render: data => {
+                        var action="";
+
+                        if (data.status == 1) {
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm nonaktifDetailKategori">Nonaktifkan</a>';
+                        }else{
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm aktifDetailKategori">Aktifkan</a>';
+                        }
+                        return data.action + action;
+                    }
                 },
             ],
             order: [
@@ -277,12 +327,12 @@ $(function () {
         });
     });
 
-    $('body').on('click', '.deleteDetailKategori', function () {
+    //nonaktifkan detail kategori - sub kategori
+    $('body').on('click', '.nonaktifDetailKategori', function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Are You sure want to delete?",
-            text: "Once deleted, you will not be able to recover this event!",
+            title: "Apakah anda yakin menonaktifkan sub kategori ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -291,21 +341,62 @@ $(function () {
             if (willDelete) {
                 $.ajax({
                     type: "get",
-                    url: "/admin/kategoriProduk"+'/deleteDetailKategori' + '/' + id,
+                    url: "/admin/kategoriProduk"+'/nonaktifDetailKategori' + '/' + id,
                     success: function (data) {
-                        var idkategori = $("#categoryID").val();
-                        table2(idkategori);
+                        if (data == 0) {
+                            swal("Poof! sub kategori sedang digunakan!", {
+                                icon: "warning",
+                            });
+                        }else{
+                            var idkategori = $("#categoryID").val();
+                            table2(idkategori);
+                            swal("Poof! Berhasil menonaktifkan sub kategori!", {
+                                icon: "success",
+                            });
+                        }
                     },
                     error: function (data) {
                         console.log('Error:', data);
                     }
                 });
-                
-                swal("Poof! Your imaginary file has been deleted!", {
-                icon: "success",
-            });
             } else {
-                swal("Your imaginary file is safe!");
+                //swal("Your imaginary file is safe!");
+            }
+        });
+    });
+
+    //aktifkan detail kategori - sub kategori
+    $('body').on('click', '.aktifDetailKategori', function () {
+        var id = $(this).data("id");
+        var txt;
+        swal({
+            title: "Apakah anda yakin mengaktifkan sub-kategori ini kembali?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: "get",
+                    url: "/admin/kategoriProduk/aktifDetailKategori" + '/' + id,
+                    success: function (data) {
+                        table1();
+                        if (data == 1) {
+                            var idkategori = $("#categoryID").val();
+                            table2(idkategori);
+                            swal("Berhasil mengaktifkan kembali", {
+                                icon: "success",
+                            });
+                        }
+                       
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+            } else {
+                //swal("Your imaginary file is safe!");
             }
         });
     });

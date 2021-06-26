@@ -8,6 +8,7 @@ use Validator;
 use DataTables;
 use App\Models\User;
 use App\Models\typeTrans;
+use App\Models\DetailProductKas;
 
 class TypeTransController extends Controller
 {
@@ -99,4 +100,32 @@ class TypeTransController extends Controller
         }
     }
 
+    public function nonAktifTypeTrans($id)
+    {
+        //cek dipakai atau tdk di headerproduct
+        $isExist = DetailProductKas::where('id_typetrans','=',$id)->first();
+        if (DetailProductKas::where('id_typetrans','=',$id)->exists()) //available
+        { 
+            return 0;
+        }
+        if ($isExist == null)
+        {
+            DB::table('type_trans')->
+            where('id',$id)->
+            update([
+                'status' => "0",
+            ]);
+            return 1;
+        } 
+    }
+
+    public function aktifTypeTrans($id)
+    {
+        DB::table('type_trans')->
+            where('id',$id)->
+            update([
+                'status' => "1",
+            ]);
+            return 1;
+    }
 }

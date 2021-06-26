@@ -94,19 +94,23 @@ Route::prefix('admin')->group(function () {
     Route::post('/kategoriProduk/new', [CategoryproductController::class, 'addNewCategoryProduct'])->name('admin.addNewCategoryProduct');
     Route::get('/kategoriProduk/detailKategori/{id}', [CategoryproductController::class, 'detailCategoryProduct'])->name('admin.categoryProduct.detailKategori');
     Route::post('/kategoriProduk/detail', [CategoryproductController::class, 'addNewDetailCategoryProduct'])->name('admin.addNewDetailCategoryProduct');
-    Route::get('/kategoriProduk/deleteKategori/{id}', [CategoryproductController::class, 'deleteCategoryProduct'])->name('admin.categoryProduct.deleteCategoryProduct');
-    Route::get('/kategoriProduk/deleteDetailKategori/{id}', [CategoryproductController::class, 'deleteDetailCategoryProduct'])->name('admin.categoryProduct.deleteDetailCategoryProduct');
+    Route::get('/kategoriProduk/nonAktifKategori/{id}', [CategoryproductController::class, 'nonAktifKategori'])->name('admin.categoryProduct.nonAktifKategori');
+    Route::get('/kategoriProduk/aktifKategori/{id}', [CategoryproductController::class, 'aktifKategori'])->name('admin.categoryProduct.aktifKategori');
+
+    Route::get('/kategoriProduk/nonaktifDetailKategori/{id}', [CategoryproductController::class, 'nonaktifDetailKategori'])->name('admin.categoryProduct.nonaktifDetailKategori');
+    Route::get('/kategoriProduk/aktifDetailKategori/{id}', [CategoryproductController::class, 'aktifDetailKategori'])->name('admin.categoryProduct.aktifDetailKategori');
+
     Route::get('/kategoriProduk/editKategori/{id}', [CategoryproductController::class, 'editCategoryProduct'])->name('admin.categoryProduct.editCategoryProduct');
     Route::post('/kategoriProduk/updateKategori', [CategoryproductController::class, 'updateCategoryProduct'])->name('admin.updateCategoryProduct');
     
-    Route::get('/kategoriProduk/cek/{id}', [CategoryproductController::class, 'cekCategoryProduct'])->name('admin.cekCategoryProduct');
-
 
     //tipe transaksi
     Route::get('/typetrans', [TypeTransController::class, 'typeTrans'])->name('admin.typeTrans');
     Route::post('/typetrans/new', [TypeTransController::class, 'addNewtypeTrans'])->name('admin.addNewtypeTrans');
     Route::get('/typetrans/editTypeTrans/{id}', [TypeTransController::class, 'editTypeTrans'])->name('admin.typeTrans.editTypeTrans');
     Route::post('/typetrans/updateTypeTrans', [TypeTransController::class, 'updateTypeTrans'])->name('admin.updateTypeTrans');
+    Route::get('/typetrans/nonAktifTypeTrans/{id}', [TypeTransController::class, 'nonAktifTypeTrans'])->name('admin.typeTrans.nonAktifTypeTrans');
+    Route::get('/typetrans/aktifTypeTrans/{id}', [TypeTransController::class, 'aktifTypeTrans'])->name('admin.typeTrans.aktifTypeTrans');
 
     //tab nav - developer
     Route::get('/dev/daftarDeveloper', [AdminController::class, 'listdev'])->name('admin.dev.listDev');

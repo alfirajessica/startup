@@ -7,12 +7,46 @@
     <div class="row"> <!-- row untuk header categoryProduct -->
         <div class="col-md-12">
             
-            <div class="card border-0 py-4">
-                {{-- data-toggle="modal" data-target="#exampleModal"  --}}
-                <a data-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseExample">+ Tambah Kategori</a>
+            
+            {{-- data-toggle="modal" data-target="#exampleModal"  --}}
+            <a data-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseExample">+ Tambah Kategori</a>
 
-                @include('admin.transaksi.addTypeTrans')
+            <form action="{{ route('admin.addNewtypeTrans') }}" method="POST" id="addNewtypeTrans">
+                @csrf
+                <div class="collapse show" id="collapseCategory">
+                    <div class="card border-0 card-body card-shadow col-md-12" style="background-color: #0a1931; padding:0.5rem;">
+                        <div class="row px-2 py-2">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="float-left">Tipe Pemasukkan</label>
+                                    <select class="form-control form-control-alternative" name="tipe" id="">
+                                        <option value="1">Pemasukkan</option>
+                                        <option value="2">Pengeluaran</option>
+                                    </select>
+                                    <span class="text-danger error-text tipe_error"></span>
+                                </div>
+                            </div>
+                           
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label class="float-left">Keterangan</label>
+                                    <div class="input-group input-group-alternative mb-4">
+                                        <input type="text" class="form-control" name="keterangan" >
+                                        <div class="input-group-append">
+                                            <button name="action" type="submit" class="btn btn-primary" id="addCategory">Tambahkan</button>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <span class="text-danger error-text category_product_error"></span>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </form>
+                
 
+            <div class="card border-0 py-4 px-4">
                 <div class="table-responsive py-2">
                     <table class="table table-bordered table-hover" width="100%" id="table_typeTrans">
                     <thead>
@@ -36,139 +70,9 @@
 
 @include('admin.transaksi.editTypeTrans')
 
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-
-{{-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script>       --}}
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
-
-<script type="text/javascript">
-$(document).ready(function () {
-    table1();
-    // setTimeout(function(){
-    //     document.querySelector('#alert_success').classList.add('d-none');
-    //     document.querySelector('#alert_danger').classList.add('d-none');
-    // }, 5000 ); // 5 secs
-});
-
-
-
-function table1() {
-    $('#table_typeTrans').DataTable({
-        destroy:true,
-        processing: true,
-        serverSide: true, //aktifkan server-side 
-        responsive:true,
-        deferRender:true,
-        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
-        ajax: {
-            url: "{{ route('admin.typeTrans') }}",
-            type: 'GET'
-        },
-        columns: [{
-                data: 'id',
-                name: 'id'
-            },
-            {
-                data: null,
-                name: 'tipe',
-                render: data => {
-                    if (data.tipe == "1") {
-                        return "Pemasukkan";
-                    }else{
-                        return "Pengeluaran";
-                    }
-                }
-            },
-            {
-                data: 'keterangan',
-                name: 'keterangan'
-            },
-            {
-                data: null,
-                name: 'status',
-                render: data => {
-                    if (data.status == "1") {
-                        return "Aktif";
-                    }else{
-                        return "Tidak Aktif";
-                    }
-                }
-            },
-            {
-                data: 'action',
-                name: 'action'
-            },
-        ],
-        order: [
-            [0, 'asc']
-        ]
-    });
-}
-
-//if table_typeTrans has clicked in detail
-$('body').on('click', '.detailKategori', function () {
-    var id = $(this).data("id");
-    table2(id);
-    $('#categoryID').val(id);
-    document.querySelector('#row_detailCategory').classList.remove('d-none');
-});
-
-$('body').on('click', '.deleteKategori', function () {
-    var id = $(this).data("id");
-    var txt;
-    swal({
-        title: "Are You sure want to delete?",
-        text: "Once deleted, you will not be able to recover this event!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        })
-        .then((willDelete) => {
-        if (willDelete) {
-            $.ajax({
-                type: "get",
-                url: "{{ route('admin.categoryProduct') }}"+'/deleteKategori' + '/' + id,
-                success: function (data) {
-                    table1();
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-            });
-            
-            swal("Poof! Your imaginary file has been deleted!", {
-            icon: "success",
-        });
-        } else {
-            swal("Your imaginary file is safe!");
-        }
-    });
-});
-
-$('body').on('click', '.editTypeTrans', function () {
-    var id = $(this).data('id');
-    $('#collapseCategory').collapse('show');
-
-    //document.querySelector('#addCategory').classList.add('d-none');
-    $.get("{{ route('admin.typeTrans') }}" +'/editTypeTrans' + '/' + id, function (data) {
-        $('#edit_type_ID').val(id);
-        var tipeheader = data.tipe;
-        if (tipeheader == "1") {
-            $('#tipeTrans').val("Pemasukkan");
-        }else{
-            $('#tipeTrans').val("Pengeluaran");
-        }
-        
-        $('#edit_type_ket').val(data.keterangan);
-        console.log(data.tipe);
-    })
-});
-
-
-
-</script>
+<script src="/js/admin/tipeTrans.js"></script>
 
 @endsection
 
