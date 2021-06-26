@@ -79,5 +79,7 @@ Coded by www.creative-tim.com
 {{-- <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script> --}}
+
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 </head>
 

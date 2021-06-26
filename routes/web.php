@@ -25,6 +25,8 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\AdminForgotPasswordController;
 use App\Http\Controllers\Auth\AdminResetPasswordController;
 
+use App\Event\MyEvent;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -96,6 +98,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/kategoriProduk/deleteDetailKategori/{id}', [CategoryproductController::class, 'deleteDetailCategoryProduct'])->name('admin.categoryProduct.deleteDetailCategoryProduct');
     Route::get('/kategoriProduk/editKategori/{id}', [CategoryproductController::class, 'editCategoryProduct'])->name('admin.categoryProduct.editCategoryProduct');
     Route::post('/kategoriProduk/updateKategori', [CategoryproductController::class, 'updateCategoryProduct'])->name('admin.updateCategoryProduct');
+    
+    Route::get('/kategoriProduk/cek/{id}', [CategoryproductController::class, 'cekCategoryProduct'])->name('admin.cekCategoryProduct');
+
 
     //tipe transaksi
     Route::get('/typetrans', [TypeTransController::class, 'typeTrans'])->name('admin.typeTrans');

@@ -72,7 +72,7 @@
         </header>
         <div class="container-fluid" >
           <div class="row flex-xl-nowrap">
-            <div class="col-12 col-md-3 col-xl-2 ct-sidebar">
+            <div class="col-12 col-md-3 col-xl-2 ct-sidebar" style="background-color: #0a1931">
               <nav class="collapse ct-links" id="ct-docs-nav" >
                 <!-- Show links for all groups -->
                 <div class="ct-toc-item active">
@@ -157,22 +157,22 @@
                       
                   </ul>
                 </div>
-                <div class="dropdown-divider"></div>
+                {{-- <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
-                </a>
+                </a> --}}
               </nav>
             </div>
-            <div class="d-none d-xl-block col-xl-2 ct-toc">
+            {{-- <div class="d-none d-xl-block col-xl-2 ct-toc">
               <ul class="section-nav">
                   <li class="toc-entry toc-h3"><a href="#examples">Examples</a></li>
                   <li class="toc-entry toc-h3"><a href="#dark-table">Dark table</a></li>
               </ul>
-            </div>
+            </div> --}}
             
-            <main class="col-12 col-md-9 col-xl-8 py-md-3 pl-md-5 ct-content" role="main">
+            <main class="col-12 col-md-9 col-xl-10 py-md-3 pl-md-5 ct-content" style="background-color: #0a1931" role="main">
               @yield('content')
             </main>
           </div>

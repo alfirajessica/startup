@@ -15,10 +15,13 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "itsgoingd/clockwork": "^5.0",
         "kavist/rajaongkir": "1.1",
+        "laravel-notification-channels/pusher-push-notifications": "^2.3",
+        "laravel-notification-channels/webpush": "^5.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "midtrans/midtrans-php": "^2.3",
+        "pusher/pusher-php-server": "^7.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

@@ -75,7 +75,7 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('inv.event') }}">
                             <i class="ni ni-single-02"></i>
-                            {{ __('Buat Event') }}
+                            {{ __('Event') }}
                         </a>
 
                         <a class="dropdown-item" href="{{ route('inv.invest') }}">

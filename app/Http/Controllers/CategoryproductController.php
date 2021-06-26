@@ -11,6 +11,7 @@ use DataTables;
 use App\Models\User;
 use App\Models\CategoryProduct;
 use App\Models\detailCategoryProduct;
+use App\Models\HeaderProduct;
 
 class CategoryproductController extends Controller
 {
@@ -26,23 +27,15 @@ class CategoryproductController extends Controller
 
     //kategori produk
     public function categoryProduct(Request $request){
-        $list_category = DB::table('category_products')->get();
+        $list_category = DB::table('category_products')->where('status','=','1')->get();
         if($request->ajax()){
             return datatables()->of($list_category)
                 ->addColumn('action', function($data){
                     $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#editModal"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Ubah</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKategori" data-tr="tr_{{$product->id}}"
-                    data-toggle="confirmation"
-                    data-btn-ok-label="Delete" data-btn-ok-icon="fa fa-remove"
-                    data-btn-ok-class="btn btn-sm btn-danger"
-                    data-btn-cancel-label="Cancel"
-                    data-btn-cancel-icon="fa fa-chevron-circle-left"
-                    data-btn-cancel-class="btn btn-sm btn-default"
-                    data-title="Are you sure you want to delete ?"
-                    data-placement="left" data-singleton="true">Hapus</a>';
-
-                    $btn = $btn. ' <a href="#row_detailCategory" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailKategori">Detail</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKategori" data-tr="tr_{{$product->id}}">Nonaktifkan</a>';
+                    
+                    $btn = $btn. '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailCategorySub"  data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailKategori">Tampilkan Sub-kategori</a>';
 
                     return $btn;
                 })
@@ -51,6 +44,30 @@ class CategoryproductController extends Controller
                 ->make(true);
         }
         return view('admin.categoryProduct');
+    }
+
+    public function cekCategoryProduct($id)
+    {
+        //cek apakah category product pada id tsb sdg digunakan oleh developer
+        //lacak ke detail_categoryproduct dulu
+        //lanjut ke header_product
+
+        $data = detailCategoryProduct::where('category_id','=',$id)->get()->toArray();
+        for ($i=0; $i < count($data); $i++) { 
+
+            if (HeaderProduct::where('id_detailcategory','=', $data[$i]['id'])->exists()) //available
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+
+       
+        
     }
 
     public function addNewCategoryProduct(Request $req)
@@ -119,7 +136,11 @@ class CategoryproductController extends Controller
 
     public function deleteCategoryProduct($id)
     {
-        DB::table("category_products")->delete($id);
+        DB::table('category_products')->
+        where('id',$id)->
+        update([
+            'status' => "0",
+        ]);
     	return response()->json(['success'=>"Berhasil menghapus kategori", 'tr'=>'tr_'.$id]);
     }
 
@@ -162,10 +183,21 @@ class CategoryproductController extends Controller
     }
 
     public function updateCategoryProduct(Request $req){
-        DB::table('category_products')->where('id',$req->edit_categoryID)->update([
-             'name_category' => $req->edit_category_product,
-             ]);
-        return response()->json(['status'=>1, 'msg'=>'Berhasil mengubah kategori']);
+
+        $validator = Validator::make($req->all(),[
+            'edit_category_product'=>'required',
+        ]);
+
+        //check the request is validated or not
+        if (!$validator->passes()) {
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            DB::table('category_products')->where('id',$req->edit_categoryID)->update([
+                'name_category' => $req->edit_category_product,
+                ]);
+           return response()->json(['status'=>1, 'msg'=>'Berhasil mengubah kategori']);
+        }
+        
     }
 
 

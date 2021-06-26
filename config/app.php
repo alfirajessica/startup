@@ -176,6 +176,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
+        NotificationChannels\WebPush\WebPushServiceProvider::class,
 
     ],
 
@@ -231,6 +233,7 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Clockwork' => Clockwork\Support\Laravel\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        
     ],
 
 ];
