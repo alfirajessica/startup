@@ -57,17 +57,17 @@ class AdminController extends Controller
                     ->get();
         if($request->ajax()){
             return datatables()->of($list_dev)
-                    ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailDev" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailDev">Detail</a>';
+                ->addColumn('action', function($data){
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailDev" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailDev">Detail</a>';
 
-                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Nonaktifkan</a>';
+                    $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Nonaktifkan</a>';
 
-                        return $btn;
+                    return $btn;
 
-                        })
-                        ->rawColumns(['action'])
-                        ->addIndexColumn()
-                        ->make(true);
+                    })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
         }
 
         return view('admin.dev.listDev');
@@ -90,9 +90,9 @@ class AdminController extends Controller
         if($req->ajax()){
             return datatables()->of($list_project)
                 ->addColumn('action', function($data){
-                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-info btn-sm detailProject">Detail</a>';
+                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-danger btn-sm confirmProject" data-tr="tr_{{$product->id}}">Confirm</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-success btn-sm confirmProject" data-tr="tr_{{$product->id}}">Konfirmasi</a>';
 
                     $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="notConfirm" class="btn btn-danger btn-sm notConfirmProject" data-tr="tr_{{$product->id}}">Tidak Dikonfirmasi</a>';
                     return $btn;
@@ -104,10 +104,47 @@ class AdminController extends Controller
         return view('admin.dev.listProductDev');
     }
 
+    public function detailDev($id, Request $req)
+    {
+        if($req->ajax()){
+            
+            //semua produk terdaftar pada developer dengan id tsb
+            $list_proyek0 = DB::table('header_products')
+                ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
+                ->select('header_products.id','header_products.name_product','detail_category_products.name','header_products.status','header_products.created_at')
+                ->where('header_products.user_id','!=',$id)
+                ->where('header_products.status','=','1')
+                ->orWhere('header_products.status','=','2')
+                ->orWhere('header_products.status','=','3')
+                ->get();
+
+                return datatables()->of($list_proyek0)
+                ->addColumn('action', function($data){
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProductConfirmYet">Detail</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+
+        }
+    }
+
     public function detailProject($id)
     {
          $HeaderProduct = HeaderProduct::find($id);
          return response()->json($HeaderProduct);
+    }
+
+    public function getDetailKategori($id)
+    {
+        $DHeaderProduct = DB::table('detail_category_products')
+        ->select('category_products.name_category','detail_category_products.name')
+        ->join('category_products','category_products.id','=','detail_category_products.category_id')
+        ->where('detail_category_products.id','=',$id)
+        ->get();
+        return response()->json($DHeaderProduct);
+
     }
 
     public function confirmProject($id)
@@ -134,7 +171,8 @@ class AdminController extends Controller
     {
         $list_project = 
         DB::table('header_products')
-        ->select('id','name_product','status')
+        ->select('header_products.id','header_products.user_id','header_products.name_product','header_products.status','users.name','users.email')
+        ->join('users','users.id','=','header_products.user_id')
         ->where('status','!=','0')
         ->get();
 
@@ -234,9 +272,9 @@ class AdminController extends Controller
         if($req->ajax()){
             return datatables()->of($list_invest)
                 ->addColumn('action', function($data){
-                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-primary btn-sm detailProject">Detail</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-danger btn-sm confirmInvest" data-tr="tr_{{$product->id}}">Confirm</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-success btn-sm confirmInvest" data-tr="tr_{{$product->id}}">Confirm</a>';
 
                     $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="notConfirm" class="btn btn-danger btn-sm notConfirmInvest" data-tr="tr_{{$product->id}}">Tidak Dikonfirmasi</a>';
                     return $btn;

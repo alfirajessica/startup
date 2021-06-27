@@ -29,7 +29,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="float-left">Jenis Produk</label>
+                                            <label class="float-left">Jenis Kategori</label>
                                             <select class="form-control form-control-alternative" name="jenis_produk" id="jenis_produk" onchange="show_detail(this)" required data-parsley-error-message="pilih jenis proyek">
                                                 @foreach($list_category as $category)
                                                 <option value="{{$category->id}}"> {{$category->name_category}}</option>
@@ -40,7 +40,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="float-left">Dalam Kategori</label>
+                                            <label class="float-left">Sub Kategori</label>
                                             <select class="form-control form-control-alternative" name="detail_kategori" id="detail_kategori" required data-parsley-error-message="Pilih kategori proyek">    
                                             </select>
                                             <span class="text-danger error-text detail_kategori_error"></span>
@@ -218,4 +218,3 @@
 
     });
 </script>
-<script src="/js/dev/listproduct.js"></script>

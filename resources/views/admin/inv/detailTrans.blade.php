@@ -26,7 +26,7 @@
                                 <tfoot>
                                   <tr>
                                     <th colspan="4" style="text-align:right; font-weight:bold">Fee Investasi</th>
-                                    <th style="font-weight:bold">1%</th>
+                                    <th style="font-weight:bold" id="fee"></th>
                                   </tr>
                                   <tr>
                                       <th colspan="4" style="text-align:right; font-weight:bold">Total Investasi :</th>
@@ -48,6 +48,10 @@
                       <div class="table-responsive-lg">
                         <table class="table table-sm padding-0" width="100%" id="table_detailOrder">
                           <tbody>
+                            <tr>
+                              <td>Waktu Awal Investasi</td>
+                              <td id='invest_awal'></td>
+                            </tr>
                             <tr>
                               <td>Masa Berlaku Investasi</td>
                               <td id='invest_exp'></td>

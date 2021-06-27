@@ -181,7 +181,7 @@ class ProductController extends Controller
        
         if($req->ajax()){
             
-            //status 0 -- belum dikonfirmasi
+            //status 0 -- belum dikonfirmasi dan tdk dikonfirmasi admin
             if ($req->tabel0 == "#table_listProductConfirmYet"){
                 $list_proyek0 = DB::table('header_products')
                 ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
@@ -299,6 +299,17 @@ class ProductController extends Controller
     {
         DB::table("header_products")->delete($id);
     	return response()->json(['success'=>"Berhasil menghapus kas", 'tr'=>'tr_'.$id]);
+    }
+
+    public function konfirmasiUlang($id)
+    {
+        DB::table('header_products')->
+            where('id',$id)->
+            update([
+                'status' => '0',
+            ]);
+        return 1;
+        
     }
 
     public function detailProject($id)

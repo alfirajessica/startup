@@ -114,11 +114,13 @@ Route::prefix('admin')->group(function () {
 
     //tab nav - developer
     Route::get('/dev/daftarDeveloper', [AdminController::class, 'listdev'])->name('admin.dev.listDev');
+    Route::get('/dev/detailDev/{id}', [AdminController::class, 'detailDev'])->name('admin.dev.detailDev');
     Route::get('/dev/produkDeveloper', [AdminController::class, 'produkdev'])->name('admin.dev.produkDev');
     Route::get('/dev/listProductDev', [AdminController::class, 'listProductDev'])->name('admin.dev.listProductDev'); 
     Route::get('/dev/listProductDev/detailProject/{id}', [AdminController::class, 'detailProject'])->name('admin.dev.listProductDev.detailProject'); 
     Route::get('/dev/listProductDev/confirmProject/{id}', [AdminController::class, 'confirmProject'])->name('admin.dev.listProductDev.confirmProject');
     Route::get('/dev/listProductDev/notConfirmProject/{id}', [AdminController::class, 'notConfirmProject'])->name('admin.dev.listProductDev.notConfirmProject');
+    Route::get('/dev/listProductDev/getDetailKategori/{id}', [AdminController::class, 'getDetailKategori'])->name('admin.dev.listProductDev.getDetailKategori');
 
     //tab nav- developer - produk terdata
     Route::get('/dev/allListProduct', [AdminController::class, 'allListProduct'])->name('admin.dev.allListProduct');
@@ -234,6 +236,8 @@ Route::post('/dev/listProduct/updDetailProject', [ProductController::class, 'upd
 Route::get('/dev/listProduct/deleteProject/{id}', [ProductController::class, 'deleteProject'])->name('dev.listProduct.deleteProject'); 
 Route::get('/dev/listProduct/activeProject/{id}', [ProductController::class, 'activeProject'])->name('dev.listProduct.activeProject'); 
 Route::get('/dev/listProduct/nonactiveProject/{id}', [ProductController::class, 'nonactiveProject'])->name('dev.listProduct.nonactiveProject'); 
+Route::get('/dev/listProduct/konfirmasiUlang/{id}', [ProductController::class, 'konfirmasiUlang'])->name('dev.listProduct.konfirmasiUlang'); 
+
 
 //product -- ubah
 Route::get('/dev/listProduct/ubahProject', [ProductController::class, 'ubahProject'])->name('dev.listProduct.ubahProject'); 

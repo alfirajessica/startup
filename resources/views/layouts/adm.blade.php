@@ -72,8 +72,8 @@
         </header>
         <div class="container-fluid" >
           <div class="row flex-xl-nowrap">
-            <div class="col-12 col-md-3 col-xl-2 ct-sidebar" style="background-color: #0a1931">
-              <nav class="collapse ct-links" id="ct-docs-nav" >
+            <div class="col-12 col-md-3 col-xl-2 ct-sidebar" style="background-color: #0a1931; text-color:white">
+              <nav class="collapse ct-links" id="ct-docs-nav" style="color:white">
                 <!-- Show links for all groups -->
                 <div class="ct-toc-item active">
                   <a class="ct-toc-link" href="../../docs/getting-started/overview.html">Getting started</a>

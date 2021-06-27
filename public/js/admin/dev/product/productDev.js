@@ -12,7 +12,7 @@ function table_listProject_ConfirmYet() {
         deferRender:true,
         aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
         ajax: {
-            url: url_table_listProductConfirmYet,
+            url: "/admin/dev/listProductDev",
             type: 'GET',
         },
         order: [
@@ -47,11 +47,11 @@ function table_listProject_ConfirmYet() {
 $('body').on('click', '.detailProject', function () {
     var product_id = $(this).data('id');
     console.log('masuk dengan');
-    $.get(url_table_listProductConfirmYet_detailProject + product_id, function (data) {
-       //table_detailProduct(product_id);
-       //$('#nama_product').text('coba');
+    $.get("/admin/dev/listProductDev/detailProject/" + product_id, function (data) {
+       //table_detailProduct(product_id); 
+       $("img#previewImg").attr("src", "/uploads/event/"+data.image);
        $('#nama_product').text(data.name_product);    
-       $('#tipe_product').text(data.id_detailcategory); 
+       
        $('#url_product').text(data.url); 
        $('#rilis_product').text(moment(data.rilis).format('DD/MMM/YYYY')); 
        $('#desc').text(data.desc); 
@@ -59,6 +59,20 @@ $('body').on('click', '.detailProject', function () {
        $('#reason').text(data.reason); 
        $('#benefit').text(data.benefit);
        $('#solution').text(data.solution);
+
+       var idsubkategori = data.id_detailcategory;
+       $.ajax({
+            type: "get",
+            url: "/admin/dev/listProductDev/getDetailKategori/" + idsubkategori,
+            success: function (data) {
+                $("#kategori_product").text(data[0]['name_category']+"/"+data[0]['name']);
+                console.log(data);
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+       
    });
 });
 
@@ -76,20 +90,21 @@ $('body').on('click', '.confirmProject', function () {
         if (willDelete) {
             $.ajax({
                 type: "get",
-                url: url_table_listProductConfirmYet_confirmProject + id,
+                url: "/admin/dev/listProductDev/confirmProject/" + id,
                 success: function (data) {
                     table_listProject_ConfirmYet();
+                    //jika sukses, call swal
+                    swal("Berhasil Konfirmasi", {
+                        icon: "success",
+                    });
                 },
                 error: function (data) {
                     console.log('Error:', data);
                 }
             });
-            //jika sukses, call swal
-            swal("Berhasil Konfirmasi", {
-            icon: "success",
-        });
+            
         } else {
-            swal("Kamu meng-cancle konfirmasi proyek ini");
+           // swal("Kamu meng-cancle konfirmasi proyek ini");
         }
     });
 });
@@ -108,7 +123,7 @@ $('body').on('click', '.notConfirmProject', function () {
         if (willDelete) {
             $.ajax({
                 type: "get",
-                url: url_table_listProductConfirmYet_notConfirmProject + id,
+                url: "/admin/dev/listProductDev/notConfirmProject/" + id,
                 success: function (data) {
                     table_listProject_ConfirmYet();
                 },
@@ -121,7 +136,7 @@ $('body').on('click', '.notConfirmProject', function () {
             icon: "success",
         });
         } else {
-            swal("Kamu meng-cancle untuk tidak konfirmasi proyek ini");
+           // swal("Kamu meng-cancle untuk tidak konfirmasi proyek ini");
         }
     });
 });

@@ -70,10 +70,7 @@
 
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script> 
-<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script> 
 
 
 <script>
@@ -136,7 +133,7 @@ function show_detail() {
 
     $.get("{{ route('dev.product') }}" + '/' + id, function (data) {
         $('#detail_kategori').empty();
-        
+        $('select[name="detail_kategori"]').append('<option value="" selected>-- pilih Sub kategori --</option>');
          for (let i = 0; i < data.list_detailcategory.length; i++) {
              console.log(data.list_detailcategory[i]["id"])
 
@@ -150,5 +147,6 @@ function show_detail() {
      })
 }
 </script>
+<script src="/js/dev/listproduct.js"></script>
 @endsection
 

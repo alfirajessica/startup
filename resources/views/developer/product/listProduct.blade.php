@@ -20,15 +20,23 @@
         </div>
         <div class="tab-content py-4 bg-white" id="myTabContent">
             <div class="tab-pane fade" id="confirm" role="tabpanel" aria-labelledby="confirm-tab">
-                {{-- <div class="alert alert-info" role="alert">
-                    <strong>Project Terdaftar Aktif</strong> adalah project yang ditampilkan pada katalog Startup
-                </div> --}}
+                <div class="col-md-12">
+                    <div class="alert alert-warning py-2 px-2" role="alert" id="alert_konfirmasiUlang">
+                        <strong>Info</strong> Mohon cek kembali data yang dimasukkan. <br>
+                        Kriteria dan alasan kenapa tidak dikonfirmasi Admin
+                        <ul>
+                            <li>Data Tidak sesuai</li>
+                            <li>Dll</li>
+                        </ul>
+                    </div>
+                </div>
+                
                 <div class="table-responsive py-2 px-2">
-                    <table class="table table-bordered table-hover table_listProduct" width="100%" id="table_listProductConfirmYet">
+                    <table class="table table-bordered table-hover table_listProduct" style="width:100%" id="table_listProductConfirmYet">
                       <thead>
                           <tr>
                               <th>#</th>
-                              <th>Created at</th>
+                              <th>Dimuat</th>
                               <th>Proyek</th>
                               <th>Detail</th>
                           </tr>
@@ -95,26 +103,4 @@
 </div>
 
 @include('developer.product.detailProduct')
-
-
-<script>
-    //semua function disini ada pada --> public/js/dev/listproduct.js
-
-    //call function pada tabel --> table_listProduct --> tab Project Terdaftar Aktif
-    //const url_table_listProduct = @json(route('dev.listProduct'));
-
-    //call function pada tabel --> table_listProduct /deleteProject
-    //const url_table_listProduct_deleteProject = "{{ route('dev.listProduct') }}"+'/deleteProject' + '/';
-
-    //call function pada tabel --> table_listProduct /detailProject
-    //const url_table_listProduct_detailProject = "{{ route('dev.listProduct') }}" +'/detailProject' + '/';
-
-    //call function pada tabel --> table_listProduct /aktifProject
-    //const url_table_listProduct_activeProject = "{{ route('dev.listProduct') }}" +'/activeProject' + '/';
-
-    //call function pada tabel --> table_listProduct /aktifProject
-    //const url_table_listProduct_nonactiveProject = "{{ route('dev.listProduct') }}" +'/nonactiveProject' + '/';
- 
-   
-</script>
-<script src="/js/dev/listproduct.js"></script>
+{{-- <script src="/js/dev/listproduct.js"></script> --}}

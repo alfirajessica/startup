@@ -13,7 +13,7 @@ function table_listInvestConfirmYet() {
         deferRender:true,
         aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
         ajax: {
-            url: url_table_listInvestConfirmYet,
+            url: "/admin/inv/transaksiInv",
             type: 'GET',
         },
         order: [
@@ -21,17 +21,27 @@ function table_listInvestConfirmYet() {
         ],
         columns: [
             {
-                data: 'id',
-                name: 'id',
+                data: null,
+                name: 'invest_id',
+                render: data => {
+                    return "#"+data.invest_id;
+                    
+                }
+              
             },
             {
-                data: 'invest_id',
-                name: 'invest_id',
-              
+                data: null,
+                name: 'created_at',
+                render: data => {
+                    return moment(data.created_at).format('DD-MMM-YYYY');
+                    
+                }
+                
             },
             {
                 data: 'jumlah_invest',
                 name: 'jumlah_invest',
+                render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )
               
             },
             {
@@ -51,8 +61,7 @@ function table_listInvestConfirmYet() {
     console.log(id);
     var txt;
     swal({
-        title: "Are You sure want to delete?",
-        text: "Once deleted, you will not be able to recover this project!",
+        title: "Yakin ingin mengkonfirmasi transaksi ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -61,20 +70,20 @@ function table_listInvestConfirmYet() {
         if (willDelete) {
             $.ajax({
                 type: "get",
-                url: url_table_listInvestConfirmYet_confirmInvest + id,
+                url: "/admin/inv/transaksiInv/confirmInvest/" + id,
                 success: function (data) {
                     table_listInvestConfirmYet();
+                    swal("Poof! Transaksi berhasil dikonfirmasi!", {
+                        icon: "success",
+                    });
                 },
                 error: function (data) {
                     console.log('Error:', data);
                 }
             });
-            //jika sukses, call swal
-            swal("Poof! Your imaginary file has been deleted!", {
-            icon: "success",
-        });
+           
         } else {
-            swal("Your imaginary file is safe!");
+            //swal("Your imaginary file is safe!");
         }
     });
 });
@@ -84,8 +93,7 @@ $('body').on('click', '.notConfirmInvest', function () {
     console.log(id);
     var txt;
     swal({
-        title: "Are You sure want to delete?",
-        text: "Once deleted, you will not be able to recover this project!",
+        title: "Yakin ingin TIDAK MENGKONFIRMASI transaksi ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -94,20 +102,21 @@ $('body').on('click', '.notConfirmInvest', function () {
         if (willDelete) {
             $.ajax({
                 type: "get",
-                url: url_table_listInvestConfirmYet_notConfirmInvest + id,
+                url: "/admin/inv/transaksiInv/notConfirmInvest/" + id,
                 success: function (data) {
                     table_listInvestConfirmYet();
+                    //jika sukses, call swal
+                    swal("Poof! Transaksi tidak dikonfirmasi!", {
+                        icon: "success",
+                    });
                 },
                 error: function (data) {
                     console.log('Error:', data);
                 }
             });
-            //jika sukses, call swal
-            swal("Poof! Your imaginary file has been deleted!", {
-            icon: "success",
-        });
+            
         } else {
-            swal("Your imaginary file is safe!");
+          //  swal("Your imaginary file is safe!");
         }
     });
 });
@@ -116,9 +125,12 @@ $('body').on('click', '.notConfirmInvest', function () {
 $('body').on('click', '.detailProject', function () {
     var id = $(this).data('id');
     projectDetails(id);
-    $.get(url_detailInvest + id, function (data) {
-    
-        var tipe_pay = "";
+    $.ajax({
+        type: "get",
+        url: '/detailInvest' + '/' + id,
+        contentType: "application/json",
+        success: function (data) {
+            var tipe_pay = "";
 
         if (data['payment_type'] == "bank_transfer") {
             tipe_pay="Bank Transfer";
@@ -132,10 +144,11 @@ $('body').on('click', '.detailProject', function () {
         else if (data['payment_type'] == "echannel") {
             tipe_pay="Mandiri Bill";
         }
-    
+
+        
+        
         $('#invest_id').text(data['order_id']);    
         $('#pay_type').text(tipe_pay);
-        $('#jumlah').text(data['gross_amount']);
         $('#transaction_id').text(data['transaction_id']);
         
         //Card   --> payment_type:credit_card , masked-card
@@ -168,6 +181,10 @@ $('body').on('click', '.detailProject', function () {
                 "<td>" + data['masked_card'] + "</td>" +
             "</tr>" +
             "<tr>" +
+                "<td>Jumlah Transfer </td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
+            "</tr>" +
+            "<tr>" +
                 "<td>Time </td>" +
                 "<td>" + data['transaction_time'] + "</td>" +
             "</tr>" +
@@ -187,6 +204,10 @@ $('body').on('click', '.detailProject', function () {
             "<tr>" +
                 "<td>Virtual Account </td>" +
                 "<td>" + data['va_numbers'][0]['va_number'] + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>Jumlah Transfer </td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
                 "<td>Time </td>" +
@@ -209,6 +230,10 @@ $('body').on('click', '.detailProject', function () {
                 "<td>" + data['bill_key'] + "</td>" +
             "</tr>" +
             "<tr>" +
+                "<td>Jumlah Transfer </td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
+            "</tr>" +
+            "<tr>" +
                 "<td>Time </td>" +
                 "<td>" + data['transaction_time'] + "</td>" +
             "</tr>" +
@@ -218,22 +243,87 @@ $('body').on('click', '.detailProject', function () {
             "</tr>";
             $('#table_payDetails tbody').html(showPayDetail);
         }
-   });
+        else if (data['payment_type'] == "gopay") {
+            showPayDetail = 
+            "<tr>" +
+                "<td>Tipe Bayar</td>" +
+                "<td>Gopay</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>QR CODE </td>" +
+                "<td><img width='200px' height='200px' class='qr' src='https://api.sandbox.veritrans.co.id/v2/gopay/" + data['transaction_id'] + "/qr-code'> </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>Jumlah Transfer </td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>Time </td>" +
+                "<td>" + data['transaction_time'] + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>Status</td>" +
+                "<td>" + detail_time_settle + "</td>" +
+            "</tr>";
+            $('#table_payDetails tbody').html(showPayDetail);
+        }
+        else if (data['payment_type'] == "qris") {
+            showPayDetail = 
+            "<tr>" +
+                "<td>Tipe Bayar</td>" +
+                "<td> " + data['acquirer'] + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>QR CODE </td>" +
+                "<td><img width='200px' height='200px' class='qr' src='https://api.sandbox.veritrans.co.id/v2/qris/shopeepay/sppq_" + data['transaction_id'] + "/qr-code'> </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>Time </td>" +
+                "<td>" + data['transaction_time'] + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td>Status</td>" +
+                "<td>" + detail_time_settle + "</td>" +
+            "</tr>";
+            $('#table_payDetails tbody').html(showPayDetail);
+        }
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
 
    //get status_invest
-   $.get(url_detailStatusInvest + id, function (data) {
-    $('#invest_exp').text(moment(data['invest_expire']).format('DD-MMM-YYYY')); 
-    if (data['status_invest'] == "0") {
-        $('#msg_admin').text('Menunggu Konfirmasi Admin');
-    }else if (data['status_invest'] == "1") {
-     $('#msg_admin').text('Telah Dikonfirmasi Admin');
-    }
-    else if (data['status_invest'] == "2") {
-     $('#msg_admin').text('Investasi telah dinonaktifkan');
-    }
-    else if (data['status_invest'] == "4") {
-     $('#msg_admin').text('Investasi Gagal');
-    }
+    $.ajax({
+        type: "get",
+        url: '/detailStatusInvest' + '/' + id,
+        contentType: "application/json",
+        success: function (data) {
+            $('#invest_awal').text(moment(data['created_at']).format('DD-MMM-YYYY'));
+            $('#invest_exp').text(moment(data['invest_expire']).format('DD-MMM-YYYY')); 
+
+            $('#invest_awal_m').text(moment(data['created_at']).format('MMM-YYYY'));
+            $('#invest_exp_m').text(moment(data['invest_expire']).format('MMM-YYYY')); 
+            
+
+            if (data['status_invest'] == "0") {
+                $('#msg_admin').text('Menunggu Konfirmasi Admin');
+            }else if (data['status_invest'] == "1") {
+                $('#msg_admin').text('Telah Dikonfirmasi Admin');
+            }
+            else if (data['status_invest'] == "2") {
+                $('#msg_admin').text('Investasi telah dinonaktifkan');
+            }
+            else if (data['status_invest'] == "4") {
+                $('#msg_admin').text('Investasi Gagal');
+            }
+            else if (data['status_invest'] == "5") {
+                $('#msg_admin').text('Selesai');
+            }
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
     });
 });
 
@@ -250,7 +340,7 @@ function projectDetails(id) {
         ordering:false,
         info:false,
         ajax: {
-            url: url_table_projectDetails  + id,
+            url: "/projectdetailInvest/"  + id,
             type: 'GET',
         },
         
@@ -309,16 +399,15 @@ function projectDetails(id) {
                     return intVal(a) + intVal(b);
                 }, 0 );
 
-            // // Update footer
-            // $( api.column( 4 ).footer() ).html(
-            //     $.fn.dataTable.render.number('.','.','2','Rp').display(total)
-            // );
-
-            getTotal = total - ((total * 1)/100);
+            fee = ((total * 1)/100);
+            getTotal = total - fee;
+            $("#fee").html(
+                $.fn.dataTable.render.number('.','.','2','Rp').display(fee)
+            ); 
 
             $("#totalsemua").html(
                 $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
-            );                        
+            );                    
         }
         
     });

@@ -10,18 +10,31 @@ function table_allListProductDev() {
             deferRender:true,
             aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
             ajax: {
-                url: url_table_allListProductDev,
+                url: "/admin/dev/allListProduct",
                 type: 'GET'
             },
             columns: [
                 {
-                    data: 'id',
+                    data: null,
                     name: 'id',
+                    render: data => {
+                        return "#"+data.id;
+                    }
                 },
                 {
-                    data: 'name_product',
+                    data: null,
+                    name: 'user_id',
+                    render: data => {
+                        return "#"+data.user_id+" - "+data.name;
+                    }
+                },
+                {
+                    data: null,
                     name: 'name_product',
-                  
+                    render: data => {
+                        
+                        return "#"+data.id+" - " + data.name_product;
+                    }
                 },
                 {
                     data: null,
@@ -118,4 +131,35 @@ function table_detailProjectTerdata(id) {
         ]
     });
  }
-  
+
+ $('body').on('click', '.detailProject', function () {
+    var product_id = $(this).data('id');
+    console.log('masuk dengan');
+    $.get("/admin/dev/listProductDev/detailProject/" + product_id, function (data) {
+       //table_detailProduct(product_id); 
+       $("img#previewImg").attr("src", "/uploads/event/"+data.image);
+       $('#nama_product').text(data.name_product);    
+       
+       $('#url_product').text(data.url); 
+       $('#rilis_product').text(moment(data.rilis).format('DD/MMM/YYYY')); 
+       $('#desc').text(data.desc); 
+       $('#team').text(data.team);
+       $('#reason').text(data.reason); 
+       $('#benefit').text(data.benefit);
+       $('#solution').text(data.solution);
+
+       var idsubkategori = data.id_detailcategory;
+       $.ajax({
+            type: "get",
+            url: "/admin/dev/listProductDev/getDetailKategori/" + idsubkategori,
+            success: function (data) {
+                $("#kategori_product").text(data[0]['name_category']+"/"+data[0]['name']);
+                console.log(data);
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+       
+   });
+});

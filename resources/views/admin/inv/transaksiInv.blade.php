@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-  <h3>Transaksi Investasi</h3>
+  <h3 style="color: white">Transaksi Investasi</h3>
     <div class="row">
       {{-- <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-2 px-2"> --}}
         <div class="col-md-12">
@@ -69,21 +69,8 @@
 {{-- end of modal detail dari transaksi investasi --}}
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script>
-  //semua function disini ada pada --> public/js/admin/dev/product/productDev.js
-  const url_table_listInvestConfirmYet = @json(route('admin.inv.transaksiInv'));
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
-  //call function pada tabel --> table_listProduct /aktifProject
-  const url_table_listInvestConfirmYet_confirmInvest = "{{ route('admin.inv.transaksiInv') }}" +'/confirmInvest' + '/';
-
-  //call function pada tabel --> table_listProduct /nonaktif
-  const url_table_listInvestConfirmYet_notConfirmInvest = "{{ route('admin.inv.transaksiInv') }}" +'/notConfirmInvest' + '/';
-
-  const url_detailInvest = '/detailInvest' + '/';
-  const url_detailStatusInvest = '/detailStatusInvest' + '/';
-  const url_table_projectDetails = '/projectdetailInvest' + '/';
-</script>
 <script src="/js/admin/inv/transaksi/listInvest.js"></script>
 
 

@@ -33,6 +33,7 @@
                     <div class="tab-content" id="myTabContent">
                        
                             <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+
                                 <form action="{{ route('dev.listProduct.updDetailProject')}}" method="POST" id="updDetailProject">
                                     @csrf
                                 <div class="row">
@@ -73,14 +74,6 @@
                                                 <input type="date" name="rilis_product" id="rilis_product" class="form-control form-control-alternative" aria-describedby="helpId" >
                                                 <span class="text-danger error-text rilis_product_error" id="rilis_product_error"></span>
                                             </div>
-
-                                            {{-- <div class="form-group">
-                                                <div class="input-group">
-                                                    <label for="exampleInputFile">File input</label>
-                                                    <input type="file" class="form-control-file"  name="image" id="exampleInputFile" aria-describedby="fileHelp" onchange="previewFile(this)">
-                                                    <span class="text-danger error-text image_error"></span>
-                                                </div>
-                                            </div> --}}
 
                                             <img id="previewImg" class="d-block user-select-none" width="100%" height="200" >
                                         </div>

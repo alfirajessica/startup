@@ -43,8 +43,12 @@ function table_listProduct() {
                 name: 'id'
             },
             {
-                data: 'created_at',
+                data: null,
                 name: 'created_at',
+                render: data => {
+                    return moment(data.created_at).format('DD-MMM-YYYY');
+                    
+                }
               
             },
             {
@@ -53,11 +57,23 @@ function table_listProduct() {
               
             },
             {
-                data: 'action',
+                data: null,
                 name: 'action',
-              
-            },
+                render: data => {
+                    var action="";
+                    if (data.status == "4") {
+                        action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm konfirmasiUlang">Konfirmasi ulang</a>';
+                    }
+                    return data.action + action;
+                }
+            }
         ],
+        "rowCallback": function( row, data, index ) {
+            if ( data.status == "4" )
+            {
+                $('td', row).css('background-color', '#f0aaaa');
+            }
+        }
         
     });
 
@@ -231,7 +247,7 @@ $('body').on('click', '.detailProject', function () {
                         success:function(data) 
                         {
                             $('select[name="edit_detail_kategori"]').empty();
-                                $('select[name="edit_detail_kategori"]').append('<option value="" selected>-- pilih kota --</option>');
+                                $('select[name="edit_detail_kategori"]').append('<option value="" selected>-- pilih Sub kategori --</option>');
                                 $.each(data, function (key, value) {
                                     var idnya = value["id"];
                                     $('select[name="edit_detail_kategori"]').append('<option value="'+ idnya + '">' + value["name"] + '</option>');
@@ -266,6 +282,42 @@ $('body').on('click', '.detailProject', function () {
    
 
 });
+
+$('body').on('click', '.konfirmasiUlang', function () {
+    var id = $(this).data("id");
+    
+    var txt;
+    swal({
+        title: "Apakah anda yakin ingin mengkonfirmasi ulang?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                type: "get",
+                url: "/dev/listProduct/konfirmasiUlang/" + id,
+                success: function (data) {
+                    if (data == 1) {
+                        table_listProduct();
+                        //jika sukses, call swal
+                        swal("Poof! Anda berhasil mengkonfirmasi ulang!", {
+                            icon: "success",
+                        });
+                    }
+                   
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });  
+        } else {
+          //  swal("Your imaginary file is safe!");
+        }
+    });
+});
+
 
 $('body').on('click', '.deleteProject', function () {
     var id = $(this).data("id");
@@ -714,7 +766,7 @@ function show_jenis_produk() {
         success:function(data) 
         {
             $('select[name="edit_jenis_produk"]').empty();
-                $('select[name="edit_jenis_produk"]').append('<option value="" selected>-- pilih kota --</option>');
+                $('select[name="edit_jenis_produk"]').append('<option value="" selected>-- pilih Kategori --</option>');
                 $.each(data, function (key, value) {
                     var id = value["id"];
                     $('select[name="edit_jenis_produk"]').append('<option value="'+ id + '">' + value["name_category"] + '</option>');
@@ -739,7 +791,7 @@ function show_detail_kategori(id) {
         success:function(data) 
         {
             $('select[name="edit_detail_kategori"]').empty();
-                $('select[name="edit_detail_kategori"]').append('<option value="" selected>-- pilih kota --</option>');
+                $('select[name="edit_detail_kategori"]').append('<option value="" selected>-- pilih Sub kategori --</option>');
                 $.each(data, function (key, value) {
                     var idnya = value["id"];
                     $('select[name="edit_detail_kategori"]').append('<option value="'+ idnya + '">' + value["name"] + '</option>');
