@@ -70,30 +70,28 @@ $(function () {
                 $(document).find('span.error-text').text('');
             },
             success:function(data) {
-                if (data.status == 0) {
+                
+                if (data == 1) {
+                    swal({
+                        title: "Kategori baru berhasil ditambahkan",
+                        icon: "success",
+                    });
+                     $('#addNewCategoryProduct')[0].reset();
+                     table1();
+                }
+                else if (data == -1) {
+                    $('#addNewCategoryProduct')[0].reset();
+                    swal({
+                        title: "Kategori telah tersedia",
+                        icon: "warning",
+                    });
+                }
+                else {
                     $.each(data.error, function (prefix, val) {
                         $('span.'+prefix+'_error').text(val[0]);
                     });
                 }
-                else if (data.status == -1) { 
-                    $('#addNewCategoryProduct')[0].reset();
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
-                        icon: "warning",
-                    });
-    
-                }
-                else{
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
-                        icon: "success",
-                    });
-                     $('#addNewCategoryProduct')[0].reset();
-                    // $("#addNewCategoryProduct").attr('data-dismiss','modal');
-                     table1();
-                }
+                
             }
         });
     });
@@ -307,7 +305,6 @@ $(function () {
                 if (data.status == -1) { 
                     swal({
                         title: data.msg,
-                        text: "You clicked the button!",
                         icon: "warning",
                     });
                     $('#addNewDetailCategoryProduct')[0].reset();
@@ -319,7 +316,6 @@ $(function () {
                     table2(id);
                     swal({
                         title: data.msg,
-                        text: "You clicked the button!",
                         icon: "success",
                     });
                 }

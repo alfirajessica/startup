@@ -117,7 +117,7 @@
     </div>
   </nav>
   <!-- End Navbar -->
-    @if (Route::currentRouteName() == "home")
+    {{-- @if (Route::currentRouteName() == "home")
         <section class="background up-scroll">
         <div class="content-wrapper">
           <p class="content-title">Full Page Parallax Effect</p>
@@ -148,7 +148,7 @@
           <p class="content-subtitle">Long-exposure photo of fireflies in a darkened Japanese forest</p>
         </div>
       </section>
-    @endif
+    @endif --}}
 
   
 

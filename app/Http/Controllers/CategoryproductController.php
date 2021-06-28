@@ -26,7 +26,7 @@ class CategoryproductController extends Controller
     }
 
     //kategori produk
-    public function categoryProduct(Request $request){
+    public function kategoriProduk(Request $request){
         $list_category = 
         DB::table('category_products')->get();
         if($request->ajax()){
@@ -44,7 +44,7 @@ class CategoryproductController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('admin.categoryProduct');
+        return view('admin.category.categoryProduct');
     }
 
     public function addNewCategoryProduct(Request $req)
@@ -54,7 +54,7 @@ class CategoryproductController extends Controller
         ]);
 
         if (!$validator->passes()) {
-            $re = 0;
+            //return 0;
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
 
@@ -62,7 +62,8 @@ class CategoryproductController extends Controller
         
             if (CategoryProduct::where('name_category','=', $req->category_product)->exists()) //available
             {
-                return response()->json(['status'=>-1, 'msg'=>'Kategori telah tersedia']);
+                return -1;
+                //return response()->json(['status'=>-1, 'msg'=>'Kategori telah tersedia']);
             }
             if ($isExist == null) {
                 $category = new CategoryProduct;
@@ -71,7 +72,8 @@ class CategoryproductController extends Controller
                 $query = $category->save();
         
                 if ($query) {
-                    return response()->json(['status'=>1, 'msg'=>'Kategori baru berhasil ditambahkan']);
+                    return 1;
+                    //return response()->json(['status'=>1, 'msg'=>'Kategori baru berhasil ditambahkan']);
                 }
             }
            
@@ -156,7 +158,7 @@ class CategoryproductController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('admin.categoryProduct');
+        return view('admin.categoryProduct.categoryProduct');
     }
 
     public function nonaktifDetailKategori($id)

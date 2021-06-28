@@ -11,14 +11,14 @@
         <div class="col-md-12">
             <a data-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseExample">+ Tambah Kategori</a>
 
-                <form action="{{ route('admin.addNewCategoryProduct') }}" method="POST" id="addNewCategoryProduct">
+                <form action="{{ route('admin.kategoriProduk.addNewCategoryProduct') }}" method="POST" id="addNewCategoryProduct">
                     @csrf
                     <div class="collapse show" id="collapseCategory">
-                        <div class="card border-0 card-body card-shadow col-md-8" style="background-color: #0a1931; padding:0.5rem;">
+                        <div class="card border-0 card-body card-shadow col-md-8" style="padding:0.5rem;">
                             <div class="form-group">
                                 <label for="category_product" class="col-form-label">Masukkan Kategori:</label>
                                 <div class="input-group input-group-alternative mb-4" >
-                                    <input type="text" class="form-control" name="category_product" >
+                                    <input type="text" class="form-control" name="category_product" id="category_product" >
                                     <div class="input-group-append">
                                         <button class="btn btn-default" type="submit">Tambahkan</button>
                                     </div>
@@ -50,7 +50,7 @@
         </div>
     </div><!-- end of row untuk header categoryProduct -->
 
-    @include('admin.category.detailcategory')
+    @include('admin.category.detailCategory')
 
     
 </div>

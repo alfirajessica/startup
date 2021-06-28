@@ -57,7 +57,7 @@ class TypeTransController extends Controller
         
             if (TypeTrans::where('keterangan','=', $ket)->exists()) //available
             {
-                return response()->json(['status'=>-1, 'msg'=>' telah tersedia']);
+                return -1;
             }
             if ($isExist == null) {
                 $tipe = new TypeTrans;
@@ -67,7 +67,7 @@ class TypeTransController extends Controller
                 $query = $tipe->save();
         
                 if ($query) {
-                    return response()->json(['status'=>1, 'msg'=>'berhasil ditambahkan']);
+                    return 1;
                 }
             }
            
@@ -82,22 +82,31 @@ class TypeTransController extends Controller
 
     public function updateTypeTrans(Request $req){
 
-        $ket = ucwords(strtolower($req->edit_type_ket));
+        $validator = Validator::make($req->all(),[
+            'edit_type_ket'=>'required',
+        ]);
+
+        if (!$validator->passes()) {
+            //return 0;
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            $ket = ucwords(strtolower($req->edit_type_ket));
        
+            $isExist = TypeTrans::where('keterangan','=', $ket)->first();
+    
+            if (TypeTrans::where('keterangan','=', $ket)->exists()) //available
+            {
+                return -1;
+            }
+            if ($isExist == null) {
+                DB::table('type_trans')->where('id',$req->edit_type_ID)->update([
+                    'keterangan' => $ket,
+                    ]);
 
-        $isExist = TypeTrans::where('keterangan','=', $ket)->first();
-
-        if (TypeTrans::where('keterangan','=', $ket)->exists()) //available
-        {
-            return response()->json(['status'=>-1, 'msg'=>' telah tersedia']);
+                    return 1;
+            }
         }
-        if ($isExist == null) {
-            DB::table('type_trans')->where('id',$req->edit_type_ID)->update([
-                'keterangan' => $ket,
-                ]);
-
-                return response()->json(['status'=>1, 'msg'=>'update']);
-        }
+        
     }
 
     public function nonAktifTypeTrans($id)

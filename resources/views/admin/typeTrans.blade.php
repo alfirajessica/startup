@@ -10,8 +10,7 @@
             
             {{-- data-toggle="modal" data-target="#exampleModal"  --}}
             <a data-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseExample">+ Tambah Kategori</a>
-
-            <form action="{{ route('admin.addNewtypeTrans') }}" method="POST" id="addNewtypeTrans">
+            <form action="{{ route('admin.typeTrans.addNewtypeTrans') }}" method="POST" id="addNewtypeTrans">
                 @csrf
                 <div class="collapse show" id="collapseCategory">
                     <div class="card border-0 card-body card-shadow col-md-12" style="background-color: #0a1931; padding:0.5rem;">
@@ -19,7 +18,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="float-left">Tipe Pemasukkan</label>
-                                    <select class="form-control form-control-alternative" name="tipe" id="">
+                                    <select class="form-control form-control-alternative" name="tipe" id="tipe">
                                         <option value="1">Pemasukkan</option>
                                         <option value="2">Pengeluaran</option>
                                     </select>
@@ -31,13 +30,13 @@
                                 <div class="form-group">
                                     <label class="float-left">Keterangan</label>
                                     <div class="input-group input-group-alternative mb-4">
-                                        <input type="text" class="form-control" name="keterangan" >
+                                        <input type="text" class="form-control" name="keterangan" id="keterangan" >
                                         <div class="input-group-append">
                                             <button name="action" type="submit" class="btn btn-primary" id="addCategory">Tambahkan</button>
                                         </div>
                                     </div>
                                 </div> 
-                                <span class="text-danger error-text category_product_error"></span>
+                                <span class="text-danger error-text keterangan_error"></span>
                             </div>
                         </div>
                        

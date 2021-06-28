@@ -60,7 +60,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('admin.categoryProduct') }}">
+              <a class="nav-link" href="{{ route('admin.kategoriProduk') }}">
                 <i class="ni ni-planet text-orange"></i>
                 <span class="nav-link-text">{{ __('Produk Kategori') }}</span>
               </a>
@@ -214,10 +214,7 @@
                 </ol>
               </nav>
             </div>
-            <div class="col-lg-6 col-5 text-right">
-              <a href="#" class="btn btn-sm btn-neutral">New</a>
-              <a href="#" class="btn btn-sm btn-neutral">Filters</a>
-            </div>
+            
           </div>
           <!-- Card stats -->
         </div>
@@ -244,7 +241,7 @@
   <script src="/../assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/../assets/vendor/js-cookie/js.cookie.js"></script>
   <script src="/../assets/vendor/jquery.scrollbar/jquery.scrollbar.min.js"></script>
-  <script src="/../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
+  <script src="../assets/vendor/jquery-scroll-lock/dist/jquery-scrollLock.min.js"></script>
   <!-- Optional JS -->
   <script src="/../assets/vendor/chart.js/dist/Chart.min.js"></script>
   <script src="/../assets/vendor/chart.js/dist/Chart.extension.js"></script>

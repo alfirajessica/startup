@@ -10,7 +10,7 @@
         <div class="modal-body">
             <div class="row">
               <div class="col-md-12">
-                <form action="{{ route('admin.addNewDetailCategoryProduct') }}" method="POST" id="addNewDetailCategoryProduct">
+                <form action="{{ route('admin.kategoriProduk.addNewDetailCategoryProduct') }}" method="POST" id="addNewDetailCategoryProduct">
                     @csrf
                     <input type="hidden" id="categoryID" name="categoryID"/>
                     <div class="form-group">

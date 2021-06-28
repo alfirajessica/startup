@@ -1,4 +1,4 @@
-<form action="{{ route('admin.updateTypeTrans') }}" method="POST" id="editTypeTrans">
+<form action="{{ route('admin.typeTrans.updateTypeTrans') }}" method="POST" id="editTypeTrans">
     @csrf
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

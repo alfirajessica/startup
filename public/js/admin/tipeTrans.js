@@ -11,7 +11,7 @@ $(function () {
             deferRender:true,
             aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
             ajax: {
-                url: "/admin/typetrans",
+                url: "/admin/typeTrans",
                 type: 'GET'
             },
             columns: [{
@@ -70,7 +70,7 @@ $(function () {
         $('#collapseCategory').collapse('show');
 
         //document.querySelector('#addCategory').classList.add('d-none');
-        $.get("/admin/typetrans/editTypeTrans" + '/' + id, function (data) {
+        $.get("/admin/typeTrans/editTypeTrans" + '/' + id, function (data) {
             $('#edit_type_ID').val(id);
             var tipeheader = data.tipe;
             if (tipeheader == "1") {
@@ -98,30 +98,28 @@ $(function () {
                 $(document).find('span.error-text').text('');
             },
             success:function(data) {
-                if (data.status == 0) {
-                    $.each(data.error, function (prefix, val) {
-                        $('span.'+prefix+'_error').text(val[0]);
-                    });
-                }
-                else if (data.status == -1) { 
-                    $('#addNewtypeTrans')[0].reset();
+                if (data == 1) {
                     swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
-                        icon: "warning",
-                    });
-
-                }
-                else{
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
+                        title: "Tipe Berhasil ditambahkan",
                         icon: "success",
                     });
                     $('#addNewtypeTrans')[0].reset();
                     $("#addNewtypeTrans").attr('data-dismiss','modal');
                     table1();
                 }
+                else if (data == -1) {
+                    $('#addNewtypeTrans')[0].reset();
+                    swal({
+                        title: "Tipe Telah tersedia",
+                        icon: "warning",
+                    });
+                }
+                else { 
+                    $.each(data.error, function (prefix, val) {
+                        $('span.'+prefix+'_error').text(val[0]);
+                    });
+                }
+               
             }
         });
     });
@@ -140,29 +138,25 @@ $(function () {
                 $(document).find('span.error-text').text('');
             },
             success:function(data) {
-                if (data.status == 0) {
-                    $.each(data.error, function (prefix, val) {
-                        $('span.'+prefix+'_error').text(val[0]);
-                    });
-                }
-                else if (data.status == -1) { 
-                    //$('#addNewCategoryProduct')[0].reset();
+                if (data == 1) {
                     swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
-                        icon: "warning",
-                    });
-    
-                }
-                else{
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
+                        title: "Berhasil mengubah tipe",
                         icon: "success",
                     });
                      $('#editTypeTrans')[0].reset();
                      $("#editModal").modal('hide');
                      table1();
+                }
+                else if (data == -1) {
+                    swal({
+                        title: "Tipe Telah tersedia",
+                        icon: "warning",
+                    });
+                }
+                else{
+                    $.each(data.error, function (prefix, val) {
+                        $('span.'+prefix+'_error').text(val[0]);
+                    });
                 }
             }
         });
@@ -182,7 +176,7 @@ $(function () {
             if (willDelete) {
                 $.ajax({
                     type: "get",
-                    url: "/admin/typetrans/nonAktifTypeTrans" + '/' + id,
+                    url: "/admin/typeTrans/nonAktifTypeTrans" + '/' + id,
                     success: function (data) {
                         if (data == 0) {
                             swal("Poof! tipe sedang digunakan!", {
@@ -220,7 +214,7 @@ $(function () {
             if (willDelete) {
                 $.ajax({
                     type: "get",
-                    url: "/admin/typetrans/aktifTypeTrans" + '/' + id,
+                    url: "/admin/typeTrans/aktifTypeTrans" + '/' + id,
                     success: function (data) {
                         table1();
                         if (data == 1) {
