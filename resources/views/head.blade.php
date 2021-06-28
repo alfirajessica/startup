@@ -22,7 +22,6 @@ Coded by www.creative-tim.com
   <link rel="icon" type="image/png" href="./assets/img/favicon.png">
   <title>{{ config('app.name', 'Startupss') }}</title>
 
-  {{-- <link type="text/css" href="/argon/assets/css/argonDocs.min.css?v=1.0.0" rel="stylesheet"> --}}
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -34,8 +33,13 @@ Coded by www.creative-tim.com
   <link href="/argon/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="/argon/assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
-  {{-- <link href="/argon/assets/css/argonDocs.min.css?v=1.0.0" rel="stylesheet" /> --}}
-  
+
+  <link rel="icon" href="/../assets/img/brand/favicon.png" type="image/png">
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+  <!-- Icons -->
+  <link rel="stylesheet" href="/../assets/vendor/nucleo/css/nucleo.css" type="text/css">
+  <link rel="stylesheet" href="/../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
   
 
   <!-- jQuery library -->
@@ -70,16 +74,12 @@ Coded by www.creative-tim.com
 
   <!-- Sweet alert -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.min.js" integrity="sha512-eyHL1atYNycXNXZMDndxrDhNAegH2BDWt1TmkXJPoGf1WLlNYt08CSjkqF5lnCRmdm3IrkHid8s2jOUY4NIZVQ==" crossorigin="anonymous"></script> --}}
-
+  
   <!-- parsley.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.js" integrity="sha512-Fq/wHuMI7AraoOK+juE5oYILKvSPe6GC5ZWZnvpOO/ZPdtyA29n+a5kVLP4XaLyDy9D1IBPYzdFycO33Ijd0Pg==" crossorigin="anonymous"></script>
 
   <script src="https://code.highcharts.com/highcharts.js"></script>
-{{-- <script src="https://code.highcharts.com/modules/data.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script> --}}
 
-<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+  <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 </head>
 
