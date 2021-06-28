@@ -37,7 +37,7 @@
 
 <body>
   <!-- Sidenav -->
-  <nav class="sidenav navbar navbar-vertical fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+  <nav class="sidenav navbar navbar-vertical fixed-left  navbar-expand-xs" id="sidenav-main" style="background-color: #0a1931">
     <div class="scrollbar-inner">
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
@@ -138,7 +138,7 @@
   <!-- Main content -->
   <div class="main-content" id="panel">
     <!-- Topnav -->
-    <nav class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
+    <nav class="navbar navbar-top navbar-expand border-bottom" style="background-color: #0a1931">
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Search form -->
@@ -200,7 +200,7 @@
     </nav>
     <!-- Header -->
     <!-- Header -->
-    <div class="header bg-primary pb-6">
+    <div class="header pb-6" style="background-color: #0a1931">
       <div class="container-fluid">
         <div class="header-body">
           <div class="row align-items-center py-4">
