@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 use Validator;
 use DataTables;
 use App\Models\User;
@@ -36,7 +38,7 @@ class TypeTransController extends Controller
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('admin.typeTrans');
+        return view('admin.transaksi.typeTrans');
     }
 
     public function addNewtypeTrans(Request $req)
@@ -47,7 +49,6 @@ class TypeTransController extends Controller
         ]);
 
         if (!$validator->passes()) {
-            $re = 0;
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
 
@@ -66,12 +67,11 @@ class TypeTransController extends Controller
                 $tipe->status = "1";
                 $query = $tipe->save();
         
-                if ($query) {
-                    return 1;
-                }
+                return 1;
             }
            
         }
+        return view('admin.transaksi.typeTrans');
     }
 
     public function editTypeTrans($id)

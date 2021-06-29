@@ -7,7 +7,7 @@
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
-              <form>
+              
                   <input type="hidden" id="edit_type_ID" name="edit_type_ID" />
                   <input type="hidden" id="tipeTrans" />
                 <div class="form-group">
@@ -15,7 +15,7 @@
                   <input type="text" class="form-control" id="edit_type_ket" name="edit_type_ket">
                   <span class="text-danger error-text edit_type_ket_error"></span>
                 </div>
-              </form>
+             
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary">Simpan Perubahan</button>

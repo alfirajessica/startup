@@ -64,23 +64,23 @@
                                 <button type="submit" class="btn btn-primary my-2">
                                     {{ __('Login') }}
                                 </button>
-                            </div>
-                        </div>
-                        <div class="row mt-3 px-lg-5">
-                            <div class="col-6">
+                                <br>
                                 @if (Route::has('password.request'))
-                                    <a class="text-dark" href="{{ route('password.request') }}">
-                                    <small> {{ __('Lupa Password?') }} </small>
-                                </a>
-                                @endif
+                                <a class="text-dark" href="{{ route('password.request') }}">
+                                <small> {{ __('Lupa Password?') }} </small>
+                            </a>
+                            @endif
                             </div>
-                            <div class="col-6 text-right">
-                                @if (Route::has('register'))
-                                <div class="form-group row">
-                                    <a class="text-dark" href="{{ route('register') }}"><small> {{ __('Belum punya akun? Register Disini') }} </small></a>
-                                </div>
-                                @endif
+                            
+                        </div>
+                        <div class="row mt-3 px-lg-5 px-2">
+                            
+                            @if (Route::has('register'))
+                            <div class="form-group px-4">
+                                <a class="text-dark" href="{{ route('register') }}"><small> {{ __('Belum punya akun? Register Disini') }} </small></a>
                             </div>
+                            @endif
+                           
                         </div>
                         </form>
                     </div>

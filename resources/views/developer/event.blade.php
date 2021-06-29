@@ -1,5 +1,16 @@
 @extends('layouts.dev')
+<style>
+  .card{
+  margin: 5% 0%;
+}
 
+.card-body{
+  margin: 0% 0% 0% 3%;
+  padding: 6% 0%;
+}
+
+
+</style>
 @section('content')
 <div class="container">
     <div class="row py-4">
@@ -45,7 +56,7 @@
 </div>
 @endsection
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>      
 <script>
   //semua function ini ada pada /js/inv/startup.js
 
@@ -54,41 +65,3 @@
 
 </script>
 <script src="/js/dev/event.js"></script>
-
-
-<script>
-
-// $(document).ready(function () {
-
-//   $('#search_input').on('keyup', function() {
-//     $value = $(this).val();
-//     getMoreUsers(1);
-//   });
-
-//   $('#held_check').on('change', function() {
-//           getMoreUsers();
-//   });
-
-// });
-
-//     function getMoreUsers(page) {
-//       var search = $('#search_input').val();
-
-//       var held = $('#held_check option:selected').val();
-//       console.log(held);
-      
-//       $.ajax({
-//         type: "GET",
-//         data: {
-//           'search_query':search,
-//           'held_query':held,
-//         },
-//         url: "{{ route('users.get-more-users') }}" + "?page=" + page,
-//         success:function(data) {
-//           $('#user_data').html(data);
-//         }
-//       });
-//     }
-
-
-// </script>

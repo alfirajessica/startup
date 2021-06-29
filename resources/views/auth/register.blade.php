@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<body class="register-page" style="background-color: blanchedalmond">
+<body class="register-page" style="background-color: #f7f3e9">
   <div class="container py-2" style="overflow: hidden; overflow-y: no scroll;">
     <div class="row justify-content-center">
       <div class="col-lg-8 py-2">
@@ -9,7 +9,7 @@
           
           <div class="card-body">
             <div class="text-center text-muted mb-2">
-              <h3 class="font-weight-bold">Register</h3><small> Sebagai</small>
+              <h3 class="font-weight-bold">Register</h3><small> Sebagai (Pilih salah satu)</small>
             </div>
             <form role="form" method="POST" action="{{ route('register') }}">
               @csrf
