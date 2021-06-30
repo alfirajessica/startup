@@ -19,6 +19,7 @@ class ReviewController extends Controller
         $user = auth()->user();
         $validator = Validator::make($req->all(),[
             'isi_review'=>'required',
+            'stars_rating'=>'required|not in:0',
         ]);
 
         if (!$validator->passes()) {
@@ -35,7 +36,8 @@ class ReviewController extends Controller
             $query = $newReview->save();
 
             if ($query) {
-                return response()->json(['status'=>1, 'msg'=>'Berhasil beri review']);
+                return 1;
+                //return response()->json(['status'=>1, 'msg'=>'Berhasil beri review']);
             }
         }
     }

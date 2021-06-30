@@ -18,8 +18,8 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <p>Saat ini sedang memasukkan pemasukkan pada proyek : 
-                <label id="nama_project_dipilih_keluar"></label>
+            <p style="color: black">Saat ini sedang memasukkan pemasukkan pada proyek : 
+                <label id="nama_project_dipilih_keluar" style="color:blue" class="font-weight-bold"></label>
             </p>
         </div>
     </div>
@@ -44,7 +44,7 @@
                     <div class="input-group input-group-alternative mb-4">
                       <input class="form-control" type="number" name="jumlah_keluar" id="jumlah_keluar">
                       <div class="input-group-append">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
+                        <button type="submit" class="btn btn-default">Simpan</button>
                       </div>
                     </div>
                 </div> 
@@ -102,7 +102,6 @@
                     $('#jumlah_keluar').val('');
                     swal({
                         title: data.msg,
-                        text: "You clicked the button!",
                         icon: "warning",
                     });
 
@@ -110,7 +109,6 @@
                 else{
                     swal({
                         title: data.msg,
-                        text: "You clicked the button!",
                         icon: "success",
                     });
                     table_listPengeluaran();

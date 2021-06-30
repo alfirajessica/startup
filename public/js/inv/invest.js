@@ -77,7 +77,7 @@ function payButton() {
 function updStatusTrans() { 
     $.ajax({
         type: "get",
-        url: '/updStatus',
+        url: "/updStatus",
         contentType: "application/json",
         success: function (data) {
             listInvest();

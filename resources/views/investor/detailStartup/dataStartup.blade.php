@@ -1,6 +1,6 @@
 
 @forelse ($list_project as $item)
-<a href="{{ url('inv/detailstartup', $item->id) }}">
+<a href="{{ url('inv/startup/detailstartup', $item->id) }}">
     <div class="card shadow mb-3 card-lift--hover" style="max-width: 1024px;">
         <div class="row no-gutters">
             <div class="col-md-4 mx-2 my-5 p-0">

@@ -595,7 +595,7 @@ class ProductController extends Controller
             update([
                 'jumlah' => $req->edit_jumlah,
             ]);
-           return response()->json(['status'=>1, 'msg'=>'Berhasil mengubah detail product kas']);
+            return 1;
         }
     }
 
@@ -614,7 +614,8 @@ class ProductController extends Controller
     public function startup()
     {
         $list_category['list_category'] = 
-        DB::table('category_products')->get();
+        DB::table('category_products')
+        ->where('status','=','1')->get();
 
         $list_dtcategory['list_dtcategory'] = 
         DB::table('detail_category_products')->get();
@@ -629,6 +630,59 @@ class ProductController extends Controller
        
         
         return view('investor.startup')->with($list_dtcategory)->with($list_category)->with($list_project);
+    }
+
+    public function detailstartup(Request $req, $id){
+
+        /*(SELECT created_at, id, SUM(jumlah) as jumlah1
+        FROM detail_product_kas WHERE tipe='1' AND id_headerproduct=10)
+        UNION
+        (SELECT created_at, id, SUM(jumlah) as jumlah2
+        FROM detail_product_kas WHERE tipe='2' AND id_headerproduct=10)*/
+
+        $list_project['list_project'] = 
+        DB::table('header_products')
+        ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
+        ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
+        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url', 'header_products.rilis','header_products.team','header_products.reason','header_products.benefit','header_products.solution')
+        ->where('header_products.id','=',$id)
+        ->get();
+
+        $list_finance['list_finance'] = 
+        DB::table('detail_product_kas')
+        ->select(\DB::raw('SUM(jumlah) as total_masuk,DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
+        ->where('id_headerproduct','=',$id)
+        ->where('tipe','=','1')
+        ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->orderBy('created_at' )
+        ->get();
+        
+
+        $list_finance_keluar['list_finance_keluar'] = 
+        DB::table('detail_product_kas')
+        ->select(\DB::raw('SUM(jumlah) as total_keluar,DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
+        ->where('id_headerproduct','=',$id)
+        ->where('tipe','=','2')
+        ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->orderBy('detail_product_kas.created_at')
+        ->get();
+
+        $user = auth()->user();
+        $detail_user['detail_user'] = DB::table('users')->where('id','=',$user->id)->get();
+
+        $reviews['reviews'] = 
+        DB::table('reviews')
+        ->select(\DB::raw('round(avg(rating)) as rate, count(id) as ulasan'))
+        ->where('project_id','=',$id)->get();
+
+        $list_reviews ['list_reviews']  = 
+        DB::table('reviews')
+        ->join('users', 'users.id','=','reviews.user_id')
+        ->select('reviews.id', 'users.name', 'reviews.created_at','reviews.rating','reviews.isi_review')
+        ->where('reviews.project_id','=',$id)
+        ->get();
+       
+        return view('investor.detailstartup.desc')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews)->with($reviews);
     }
 
     //search di startup investor

@@ -11,12 +11,14 @@
         <span class='star' data-rating='5'>&nbsp;</span>
     </div>
     <input type="hidden" id="stars_rating" name="stars_rating">
+    <span class="text-danger error-text stars_rating_error"></span>
 
     <div class="form-group">
         <label for="">Komentar Anda</label>
         <textarea class="form-control" name="isi_review" id="isi_review" rows="3"></textarea>
+        <span class="text-danger error-text isi_review_error"></span>
     </div>
-    <button type="submit" class="btn btn-info float-right">Submit</button>
+    <button type="submit" class="btn btn-default float-right">Beri ulasan</button>
 </form>
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      

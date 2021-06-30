@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Input;
 use Validator;
 use DataTables;
 use App\Models\User;
-use App\Models\typeTrans;
+use App\Models\TypeTrans;
 use App\Models\DetailProductKas;
 
 class TypeTransController extends Controller
@@ -49,25 +49,28 @@ class TypeTransController extends Controller
         ]);
 
         if (!$validator->passes()) {
+            //return 0;
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
 
-            $ket = ucwords(strtolower($req->keterangan));
-
-            $isExist = TypeTrans::where('keterangan','=', $ket)->first();
+            $isExist = TypeTrans::where('keterangan','=', ucwords(strtolower($req->keterangan)))->first();
         
-            if (TypeTrans::where('keterangan','=', $ket)->exists()) //available
+            if (TypeTrans::where('keterangan','=', ucwords(strtolower($req->keterangan)))->exists()) //available
             {
                 return -1;
+                //return response()->json(['status'=>-1, 'msg'=>'Kategori telah tersedia']);
             }
             if ($isExist == null) {
                 $tipe = new TypeTrans;
                 $tipe->tipe = $req->tipe;
-                $tipe->keterangan = $ket;
+                $tipe->keterangan = ucwords(strtolower($req->keterangan));
                 $tipe->status = "1";
                 $query = $tipe->save();
-        
-                return 1;
+
+                if ($query) {
+                    return 1;
+                    //return response()->json(['status'=>1, 'msg'=>'Kategori baru berhasil ditambahkan']);
+                }
             }
            
         }

@@ -89,8 +89,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Are You sure want to delete?",
-            text: "Once deleted, you will not be able to recover this event!",
+            title: "Apakah anda yakin ingin menghapus ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -101,17 +100,18 @@ $(function () {
                     type: "get",
                     url: "/dev/product/deletePemasukkan" + '/' + id,
                     success: function (data) {
+                        swal("Poof! Anda berhasil menghapus data pemasukkan!", {
+                            icon: "success",
+                        });
                         table_listPemasukkan();
                     },
                     error: function (data) {
                         console.log('Error:', data);
                     }
                 });
-                swal("Poof! Your imaginary file has been deleted!", {
-                icon: "success",
-            });
+                
             } else {
-                swal("Your imaginary file is safe!");
+                //swal("Your imaginary file is safe!");
             }
         });
     });
@@ -187,8 +187,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Are You sure want to delete?",
-            text: "Once deleted, you will not be able to recover this event!",
+            title: "Apakah anda yakin ingin menghapus ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -200,16 +199,18 @@ $(function () {
                     url: "/dev/product/deletePengeluaran" + '/' + id,
                     success: function (data) {
                         table_listPengeluaran();
+                        swal("Poof! Anda berhasil menghapus data pengeluaran ini!", {
+                            icon: "success",
+                        });
+                       
                     },
                     error: function (data) {
                         console.log('Error:', data);
                     }
                 });
-                swal("Poof! Your imaginary file has been deleted!", {
-                icon: "success",
-            });
+                
             } else {
-                swal("Your imaginary file is safe!");
+                //swal("Your imaginary file is safe!");
             }
         });
     });
@@ -230,24 +231,19 @@ $(function () {
                 $(document).find('span.error-text').text('');
             },
             success:function(data) {
-                if (data.status == 0) {
-                    $.each(data.error, function (prefix, val) {
-                        $('span.'+prefix+'_error').text(val[0]);
-                    });
-                }
-                else{
+                if (data == 1) {
                     $('#ubahJumlah').modal('hide');
                     $('#modal_ubahJumlah')[0].reset();
-                    //$('#modal_ubahJumlah').hide();
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
+                    swal("Poof! Anda berhasil mengubah!", {
                         icon: "success",
-                        button: "Aww yiss!",
                     });
                     table_listPemasukkan();
                     table_listPengeluaran();
-                   
+                }
+                else {
+                    $.each(data.error, function (prefix, val) {
+                        $('span.'+prefix+'_error').text(val[0]);
+                    });
                 }
             }
         });

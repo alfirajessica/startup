@@ -21,9 +21,9 @@
                             <div class="form-section">
                                 {{-- <h2 class="fs-title">Informasi Proyek</h2>  --}}
                                 <div class="form-group">
-                                    <label class="float-left">Nama Proyek</label>
+                                    <label class="float-left">Masukkan Nama Proyek</label>
                                     
-                                    <input type="text" name="nama_produk" id="nama_produk" class="form-control form-control-alternative" aria-describedby="nama_produk_error" placeholder="Nama proyek" required data-parsley-error-message="Nama proyek belum terisi">
+                                    <input type="text" name="nama_produk" id="nama_produk" class="form-control form-control-alternative" aria-describedby="nama_produk_error" required data-parsley-error-message="Nama proyek belum terisi">
                                     <span class="text-danger error-text nama_produk_error" id="nama_produk_error"></span>
                                 </div>
                                 <div class="row">
@@ -50,7 +50,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="float-left">Domain Produk</label>
+                                            <label class="float-left">Domain/Url Produk</label>
                                             <input type="url" name="url" id="url" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId" required data-parsley-error-message="Domain proyek belum terisi">
                                             <span class="text-danger error-text url_error"></span>
                                         </div>
@@ -125,7 +125,7 @@
     </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>      
 
 <script>
    

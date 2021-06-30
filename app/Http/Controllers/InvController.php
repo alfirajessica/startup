@@ -224,7 +224,7 @@ class InvController extends Controller
         ->where('reviews.project_id','=',$id)
         ->get();
        
-        return view('investor.detailstartup')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews)->with($reviews);
+        return view('investor.detailstartup.desc')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews)->with($reviews);
     }
 
     /*public function listFinance(Request $req, $id)
@@ -254,7 +254,7 @@ class InvController extends Controller
     public function detail_category_filter($id)
     {
         $list_detailcategory['list_detailcategory'] = DB::table('detail_category_products')->where('category_id', '=', $id)->get();
-        return $list_detailcategory;
+       // return $list_detailcategory;
         
     }
 

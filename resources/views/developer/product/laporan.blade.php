@@ -4,7 +4,7 @@
         <div class="form-group">
             <div class="input-group input-group-alternative mb-4" id="select_project">
               <select name="pilih_cetaklap" id="pilih_cetaklap" class="form-control form-control-alternative" type="text"> 
-                <option value="-1" disabled>Pilih jenis laporan yang akan di cetak</option>
+                <option value="-1" disabled>-- Pilih jenis laporan yang akan di cetak -- </option>
                 <option value="0">Cetak Semua proyek terdaftar</option>
                 <option value="1">Cetak detail proyek</option>
                 <option value="2">Cetak transaksi proyek</option>
@@ -61,7 +61,7 @@
     </div>
     <div class="row px-2 py-2">
         <div class="col-md-12">
-            <button type="button" class="btn btn-primary" onclick="cetak_laporanProyek()">Cetak Laporan</button>
+            <button type="button" class="btn btn-outline-default float-right" onclick="cetak_laporanProyek()">Cetak Laporan</button>
         </div>
     </div>
 </div>

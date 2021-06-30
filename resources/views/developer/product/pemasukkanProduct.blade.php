@@ -19,8 +19,8 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <p>Saat ini sedang memasukkan pemasukkan pada proyek : 
-                <label id="nama_project_dipilih_masuk"></label>
+            <p style="color: black">Saat ini sedang memasukkan pemasukkan pada proyek : 
+                <label id="nama_project_dipilih_masuk" style="color:blue" class="font-weight-bold"></label>
             </p>
         </div>
     </div>
@@ -98,8 +98,7 @@
                 console.log(data)
                 if (data == 1) {
                     swal({
-                        title: "Berhasil",
-                        text: "You clicked the button!",
+                        title: "Berhasil menambah data",
                         icon: "success",
                     });
                     table_listPemasukkan();
@@ -116,8 +115,7 @@
                     $('#tipe_pemasukkan').val(0);
                     $('#jumlah').val('');
                     swal({
-                        title: "Sudah ada",
-                        text: "You clicked the button!",
+                        title: "Sudah terdata",
                         icon: "warning",
                     });
                     

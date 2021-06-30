@@ -324,8 +324,7 @@ $('body').on('click', '.deleteProject', function () {
     
     var txt;
     swal({
-        title: "Are You sure want to delete?",
-        text: "Once deleted, you will not be able to recover this project!",
+        title: "Apakah anda yakin ingin menghapus ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -337,18 +336,17 @@ $('body').on('click', '.deleteProject', function () {
                 url: "/dev/listProduct/deleteProject/" + id,
                 success: function (data) {
                     table_listProduct();
+                    //jika sukses, call swal
+                        swal("Poof! Anda berhasil menghapus!", {
+                        icon: "success",
+                    });
                 },
                 error: function (data) {
                     console.log('Error:', data);
                 }
             });
-            
-            //jika sukses, call swal
-            swal("Poof! Your imaginary file has been deleted!", {
-            icon: "success",
-        });
         } else {
-            swal("Your imaginary file is safe!");
+          //  swal("Your imaginary file is safe!");
         }
     });
 });
@@ -358,8 +356,7 @@ $('body').on('click', '.aktifProject', function () {
     
     var txt;
     swal({
-        title: "Are You sure want to activate?",
-        text: "Once deleted, you will not be able to recover this project!",
+        title: "Apakah anda yakin ingin mengaktifkan ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -371,18 +368,16 @@ $('body').on('click', '.aktifProject', function () {
                 url: "/dev/listProduct/activeProject/" + id,
                 success: function (data) {
                     table_listProduct();
+                    swal("Poof! Anda berhasil mengaktifkan", {
+                        icon: "success",
+                    });
                 },
                 error: function (data) {
                     console.log('Error:', data);
                 }
             });
-            
-            //jika sukses, call swal
-            swal("Poof! Your imaginary file has been deleted!", {
-            icon: "success",
-        });
         } else {
-            swal("Your imaginary file is safe!");
+           // swal("Your imaginary file is safe!");
         }
     });
 });
@@ -392,8 +387,7 @@ $('body').on('click', '.nonAktifProject', function () {
    
     var txt;
     swal({
-        title: "Are You sure want to nonactivate?",
-        text: "Once deleted, you will not be able to recover this project!",
+        title: "Apakah anda yakin ingin menonaktifkan ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -405,18 +399,17 @@ $('body').on('click', '.nonAktifProject', function () {
                 url: "/dev/listProduct/nonactiveProject/" + id,
                 success: function (data) {
                     table_listProduct();
+                    //jika sukses, call swal
+                    swal("Poof! Anda berhasil menonaktifkan", {
+                    icon: "success",
+                });
                 },
                 error: function (data) {
                     console.log('Error:', data);
                 }
-            });
-            
-            //jika sukses, call swal
-            swal("Poof! Your imaginary file has been deleted!", {
-            icon: "success",
-        });
+            }); 
         } else {
-            swal("Your imaginary file is safe!");
+            //swal("Your imaginary file is safe!");
         }
     });
 });
