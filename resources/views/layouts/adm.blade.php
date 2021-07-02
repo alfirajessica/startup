@@ -125,7 +125,7 @@
           <hr class="my-3">
           <ul class="navbar-nav mb-md-3">
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('admin.inv.listInv')}}">
+              <a class="nav-link" href="{{ route('admin.report')}}">
                 <i class="ni ni-tv-2 text-primary"></i>
                 <span class="nav-link-text">Laporan</span>
               </a>

@@ -133,6 +133,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/inv/transaksiInv', [AdminController::class, 'transaksiInv'])->name('admin.inv.transaksiInv');
     Route::get('/inv/transaksiInv/confirmInvest/{id}', [AdminController::class, 'confirmInvest'])->name('admin.inv.transaksiInv.confirmInvest');
     Route::get('/inv/transaksiInv/notConfirmInvest/{id}', [AdminController::class, 'notConfirmInvest'])->name('admin.inv.transaksiInv.notConfirmInvest');
+
+    //report
+    Route::get('/report', [AdminController::class, 'report'])->name('admin.report');
+    Route::get('/report/laporan/{dateawal}/{dateakhir}/{jenislap}', [ReportController::class, 'laporan'])->name('report.laporan');
 });
 
 

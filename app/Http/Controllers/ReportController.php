@@ -507,5 +507,61 @@ class ReportController extends Controller
         $pdf = PDF::loadview('developer.report.cetak_reviewProyek', ['detailproyek'=>$detailproyek, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir, 'listreviews'=>$listreviews]);
         return $pdf->stream();
     }
+
+    public function laporan($dateawal, $dateakhir, $jenislap)
+    {
+        //-- status_invest -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif oleh inv), 4(tdk aktif krna gagal byr/cancle/expire), 5 (investasi sudah expire) --}}
+
+        $date_awal = \Carbon\Carbon::parse($dateawal)->format('Y-m-d'). " 00:00:00";
+        $date_akhir = \Carbon\Carbon::parse($dateakhir)->format('Y-m-d'). " 23:59:59";
+
+        if ($jenislap == 0) {
+                //laporan pemasukkan
+                $pdf = PDF::loadview('admin.report.lap_Pemasukkan');
+        }
+    
+        else if ($jenislap == 1) {
+                //laporan Transaksi investasi
+                $detailTransInv = 
+                DB::table('header_invests')
+                ->select('header_invests.invest_id','users.name','header_invests.jumlah_invest','header_invests.jumlah_final','header_invests.status_transaction','header_invests.status_invest','header_invests.invest_expire','header_invests.created_at','header_products.name_product')
+                ->join('users','users.id','=','header_invests.user_id')
+                ->join('header_products','header_products.id','=','header_invests.project_id')
+                ->whereBetween('header_invests.created_at', [$date_awal, $date_akhir])
+                ->get();
+                
+                $pdf = PDF::loadview('admin.report.lap_TransInv',['detailTransInv'=>$detailTransInv, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir]);
+                $pdf->setPaper('A4', 'landscape');
+        }
+
+        else if ($jenislap == 2) {
+                //laporan Developer dan Startup Terbaik
+                $detailbestDev =
+                DB::table('reviews')
+                ->select('users.name','header_products.id','header_products.name_product', 
+                \DB::raw('round(avg(reviews.rating)) as rate, count(reviews.id) as ulasan'))
+                ->join('header_products','header_products.id','=','reviews.project_id')
+                ->join('users','users.id','=','header_products.user_id')
+                ->whereBetween('reviews.created_at', [$date_awal, $date_akhir])
+                ->groupBy('users.name','header_products.id','header_products.name_product')
+                ->orderBy('rate','desc')
+                ->get();
+                $pdf = PDF::loadview('admin.report.lap_BestDev',['detailbestDev'=>$detailbestDev, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir]);
+        }
+        
+        else if ($jenislap == 3) {
+                //laporan Event Terdaftar
+                $detaiListEvent = 
+                DB::table('header_events')
+                ->select('users.email','header_events.id','header_events.name','header_events.event_schedule','header_events.event_time','header_events.held','header_events.link','header_events.province_name','header_events.city_name','header_events.status')
+                ->join('users','users.id','=','header_events.user_id')
+                ->get();
+                $pdf = PDF::loadview('admin.report.lap_Event',['detaiListEvent'=>$detaiListEvent, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir]);
+                $pdf->setPaper('A4', 'landscape');
+        }
+        
+        
+        return $pdf->stream();
+    }
     
 }

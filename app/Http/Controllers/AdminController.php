@@ -305,4 +305,10 @@ class AdminController extends Controller
         ]);
         return response()->json(['success'=>"Berhasil menonaktifkan", 'tr'=>'tr_'.$id]);
     }
+
+    //Admin - laporan
+    public function report()
+    {
+        return view('admin.laporan');
+    }
 }
