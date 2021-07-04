@@ -1,3 +1,4 @@
+@guest
 @extends('head')
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
@@ -25,9 +26,10 @@
   <!-- Navbar -->
   <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg position-sticky top-0 shadow py-2">
     <div class="container">
-        <a class="navbar-brand mr-lg-5 text-white" href="{{ url('/home') }}">
-            {{ config('app.name', 'Startup') }}
-        </a>
+      <a class="navbar-brand mr-lg-5 text-white" href="{{ url('/home') }}">
+        <img src="../images/Logo-Startupinow-used.png" class="navbar-brand-img" alt="...">
+      </a>
+      
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"><i class="fas fa-bars" style="color: #f7f3e9"></i></span>
         </button>
@@ -48,7 +50,6 @@
                 </div>
             </div>
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-              
               <li class="nav-item">
                   <a class="nav-link text-white" href="{{ route('valuation') }}">{{ __('Valuation Tools') }}</a>
               </li>
@@ -211,4 +212,9 @@ function previousItem() {
 }
  
 </script>
+
+
+    @else 
+    <script>window.location = "/home";</script>   
+@endguest
 
