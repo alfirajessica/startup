@@ -1,7 +1,6 @@
 $(function () {
     $('#invest_number').val(0);
     listInvest();
-    updStatusTrans();
     investPassed();
     
 });
@@ -43,25 +42,24 @@ function payButton() {
              }else{
                  $('#invest_number').val(0);
                  $('#exampleModal').modal('hide');
-                 updStatusTrans();
-                 snap.pay(data, {
-                 // Optional
-                 onSuccess: function(result){
-                     
-                     document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                 },
-                 // Optional
-                 onPending: function(result){
-                    // updStatusTrans();
-                     document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                 },
-                 // Optional
-                 onError: function(result){
-                     //updStatusTrans();
-                     //document.getElementById('result-json').innerHTML += JSON.stringify(result, null, 2);
-                 }
-                 });
-
+                 
+                 window.snap.pay(data, {
+                    onSuccess: function(result){
+                      /* You may add your own implementation here */
+                      alert("payment success!"); console.log(result);
+                    },
+                    onPending: function(result){
+                      updStatusTrans();
+                      window.location.href = "/inv/invest";
+                    },
+                    onError: function(result){
+                      /* You may add your own implementation here */
+                      alert("payment failed!"); console.log(result);
+                    },
+                    onClose: function(){
+                      window.location.href = "/inv/invest";
+                    }
+                  })
              }
             
          },
@@ -78,9 +76,9 @@ function updStatusTrans() {
     $.ajax({
         type: "get",
         url: "/updStatus",
-        contentType: "application/json",
         success: function (data) {
-            listInvest();
+           // listInvest();
+           console.log('update');
           
         },
         error: function (data) {
@@ -92,7 +90,7 @@ function updStatusTrans() {
 
 // invest/listinvest.blade.php
 function listInvest() { 
-    
+    updStatusTrans();
     $('#table_listInvestPending').DataTable({
         destroy:true,
         processing: true,
@@ -477,7 +475,7 @@ $('body').on('click', '.detailProject', function () {
 });
 
 $('body').on('click', '.sudahKirim', function () {
-    updStatusTrans();
+    listInvest();
 });
 
 $('body').on('click', '.cancelInvest', function () {
@@ -496,7 +494,7 @@ $('body').on('click', '.cancelInvest', function () {
                 url: '/cancleInvest/' + id ,
                 contentType: "application/json",
                 success: function (data) {
-                    updStatusTrans();
+                    listInvest();
                 },
                 error: function (data) {
                     console.log('Error:', data);

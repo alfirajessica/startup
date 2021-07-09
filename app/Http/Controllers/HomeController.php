@@ -102,7 +102,6 @@ class HomeController extends Controller
         $data = HeaderInvest::where('status_invest','!=','4')->get()->toArray();
         for ($i=0; $i < count($data); $i++) { 
 
-            //get status dari midtrans berdasarkan order_id nya
             $status = \Midtrans\Transaction::status($data[$i]['invest_id']);
             $status = json_decode(json_encode($status),true);
 

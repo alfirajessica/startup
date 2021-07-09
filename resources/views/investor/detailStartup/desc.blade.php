@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <h1 id="id_product" name="id_product" class="d-none">{{$item->id}}</h1>
-                                    <h4 class="card-title font-weight-bold py-4" name="name_project" id="name_project">{{$item->name_product}}</h4>
+                                    <h4 class="card-title font-weight-bold py-4 mb-0" name="name_project" id="name_project">{{$item->name_product}}</h4>
                                 </div>
                             </div>
                             <div class="row">
@@ -134,18 +134,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    @foreach ($detail_user as $item)
-                                        <div class="card shadow text-center">
-                                            <div class="card-header">
-                                            Tentang Startup
-                                            </div>
-                                            <div class="card-body">
-                                            <h5>{{$item->name}}</h5>
-                                            <p class="card-text">{{$item->province_name}}, {{$item->city_name}}</p>
-                                            </div>  
+                                    <div class="card shadow text-center">
+                                        <div class="card-header">
+                                        Tentang Developer
                                         </div>
-                                    @endforeach
-                    
+                                        <div class="card-body">
+                                        <h5>{{$item->email}}</h5>
+                                        <p class="card-text">{{$item->province_name}}, {{$item->city_name}}</p>
+                                        </div>  
+                                    </div>
+                                   
                                     @foreach ($reviews as $review)
                                     <div class="card shadow text-center py-2">
                                             
@@ -223,14 +221,13 @@
 
 {{-- modal --}}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog bg-secondary" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
+        
         <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
           <form>
             <div class="form-group">
               <label for="invest-invest_number" class="col-form-label">Jumlah Yang Akan di Investasikan (Rp) :</label>
@@ -246,10 +243,9 @@
                 </select>
             </div>
           </form>
+          <button type="button" class="btn btn-default float-right" id="pay-button" onclick="payButton()">Investasikan Sekarang</button>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="pay-button" onclick="payButton()">Investasikan</button>
-        </div>
+        
       </div>
     </div>
 </div>

@@ -27,7 +27,7 @@
   <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg position-sticky top-0 shadow py-2">
     <div class="container">
         <a class="navbar-brand mr-lg-5 text-white" href="{{ url('/home') }}">
-          <img src="../images/Logo-Startupinow-used.png" class="navbar-brand-img" alt="..." >
+          <img src="/../images/Logo-Startupinow-used.png" class="navbar-brand-img" alt="..." >
         </a> 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"><i class="fas fa-bars" style="color: #f7f3e9"></i></span>
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="{{ url('/home') }}">
-                            <img src="../images/Logo-Startupinow-used2.png" class="navbar-brand-img" alt="...">
+                            <img src="/../images/Logo-Startupinow-used2.png" class="navbar-brand-img" alt="...">
                         </a>
                     </div>
                     <div class="col-6 collapse-close">

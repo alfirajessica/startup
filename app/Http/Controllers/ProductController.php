@@ -644,7 +644,8 @@ class ProductController extends Controller
         DB::table('header_products')
         ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
         ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
-        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url', 'header_products.rilis','header_products.team','header_products.reason','header_products.benefit','header_products.solution')
+        ->join('users','users.id','=','header_products.user_id')
+        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url', 'header_products.rilis','header_products.team','header_products.reason','header_products.benefit','header_products.solution','users.email', 'users.province_name', 'users.city_name')
         ->where('header_products.id','=',$id)
         ->get();
 
@@ -667,7 +668,7 @@ class ProductController extends Controller
         ->orderBy('detail_product_kas.created_at')
         ->get();
 
-        $user = auth()->user();
+       $user = auth()->user();
         $detail_user['detail_user'] = DB::table('users')->where('id','=',$user->id)->get();
 
         $reviews['reviews'] = 

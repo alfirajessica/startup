@@ -42,7 +42,7 @@
       <!-- Brand -->
       <div class="sidenav-header  align-items-center">
         <a class="navbar-brand mr-lg-5 text-white" href="{{ url('/home') }}">
-          <img src="../images/Logo-Startupinow-used.png" class="navbar-brand-img" alt="...">
+          <img src="/../images/Logo-Startupinow-used.png" class="navbar-brand-img" alt="...">
         </a>
       </div>
       <div class="navbar-inner">

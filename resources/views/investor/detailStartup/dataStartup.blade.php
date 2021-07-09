@@ -23,15 +23,12 @@
                             
                             <div>
                             <div class="text-muted text-truncate"> </div>
-                            <div class="font-weight-bold text-truncate">
-                                {{-- <!-- ngIf: listing.profit_average --><span ng-if="listing.profit_average" class="ng-binding ng-scope">{{$item->url}} </span><!-- end ngIf: listing.profit_average -->
-                                <!-- ngIf: !listing.profit_average --> --}}
-                            </div>
+                            
                             </div>
                         </div>
                     </p>
                     {{-- <a href="{{$item->url}}">{{$item->url}}</a> --}}
-                    <p class="card-text">{{substr($item->desc,0,40)}}</p>
+                    <p class="card-text" style="color: black">{{substr($item->desc,0,40)}} ...</p>
                     <p class="card-text"><small class="text-muted">{{$item->url}}</small></p>
                 </div>
             </div>
@@ -39,7 +36,7 @@
     </div>  
 </a>    
 @empty
-<p class="text-black">Tidak ada project tersedia</p>
+<p class="text-black text-bold">Tidak ada project tersedia</p>
 @endforelse
 
 <div class="">
