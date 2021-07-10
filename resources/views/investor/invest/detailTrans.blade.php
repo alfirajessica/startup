@@ -30,10 +30,10 @@
                       <div class="tab-pane fade show active" id="detailInv" role="tabpanel" aria-labelledby="detailInv-tab">
                         <div class="row">
                           <div class="col-md-12">
-                            <input type="text" id="project_id">
+                            <input type="hidden" id="project_id">
                               <div class="card">
-                                  <div class="card-header">Project Details</div>
                                   <div class="card-body">
+                                    <strong>Detail Startup/Produk</strong>
                                     <div class="table-responsive-lg">
                                       <table class="table table-sm padding-0" width="100%" id="table_projectDetails">
                                           <thead>
@@ -41,17 +41,17 @@
                                               <th>Project</th>
                                               <th>Dev</th>
                                               <th>Tipe</th>
-                                              <th>Aksi</th>
+                                              <th>Jumlah (Rp)</th>
                                           </thead>
                                           <tbody></tbody>
                                           <tfoot>
                                             <tr>
-                                              <th colspan="4" style="text-align:right; font-weight:bold">Fee Investasi : </th>
-                                              <th style="font-weight:bold" id="fee"></th>
+                                              <th colspan="4" style="text-align:right; font-weight:bold">Fee Investasi (Rp) : </th>
+                                              <th style="text-align:right; font-weight:bold" id="fee"></th>
                                             </tr>
                                             <tr>
-                                                <th colspan="4" style="text-align:right; font-weight:bold">Total Investasi : </th>
-                                                <th style="font-weight:bold" id="totalsemua"></th>
+                                                <th colspan="4" style="text-align:right; font-weight:bold">Total Investasi (Rp) : </th>
+                                                <th style="text-align:right; font-weight:bold" id="totalsemua"></th>
                                             </tr>
                                           </tfoot>
                                       </table>
@@ -65,33 +65,33 @@
                         {{-- payment information --}}
                         <div class="col-md-6">
                           <div class="card">
-                            <div class="card-header">Invest Details</div>
                             <div class="card-body">
+                              <strong>Detail Investasi pada Startup/Produk</strong>
                               <div class="table-responsive-lg">
                                 <table class="table table-sm padding-0" width="100%" id="table_detailOrder">
                                   <tbody>
                                     <tr>
-                                      <td>Waktu Awal Investasi</td>
+                                      <td> <strong> Awal Investasi </strong></td>
                                       <td id='invest_awal'></td>
                                     </tr>
                                     <tr>
-                                      <td>Masa Berlaku Investasi</td>
+                                      <td> <strong> Masa Berlaku Investasi</strong></td>
                                       <td id='invest_exp'></td>
                                     </tr>
                                     <tr>
-                                      <td>Invest Id</td>
+                                      <td><strong> Invest Id</strong></td>
                                       <td id='invest_id'></td>
                                     </tr>
                                     <tr>
-                                        <td>Transaksi ID</td>
+                                        <td> <strong>Transaksi ID</strong></td>
                                         <td id='transaction_id'></td>
                                     </tr>
                                     <tr>
-                                      <td>Tipe Pembayaran</td>
+                                      <td> <strong> Tipe Pembayaran</strong></td>
                                       <td id='pay_type'></td>
                                     </tr>
                                     <tr>
-                                        <td>Status Investasi</td>
+                                        <td><strong>Status Investasi</strong></td>
                                         <td id='msg_admin'></td>
                                     </tr>
                                   </tbody>
@@ -105,8 +105,8 @@
                         {{-- investor and developer information --}}
                         <div class="col-md-6">
                             <div class="card">
-                              <div class="card-header">Payment Details</div>
                               <div class="card-body">
+                                <strong>Detail Pembayaran</strong>
                                 <div class="table-responsive-lg">
                                   <table class="table table-sm padding-0" width="100%" id="table_payDetails">
                                     <tbody></tbody>
@@ -120,54 +120,83 @@
 
                     </div>
                     <div class="tab-pane fade show" id="lapfinance" role="tabpanel" aria-labelledby="lapfinance-tab">
-                        <div class="alert alert-info" role="alert">
+                        {{-- <div class="alert alert-info" role="alert">
                           <strong>info</strong> Laporan Keuangan pada proyek
                           <strong id="proyek_nama"></strong> terhitung sejak 
                           <strong id="invest_awal_m"> </strong> sampai dengan <strong id="invest_exp_m"> </strong>
-                        </div>
+                        </div> --}}
+
+                        <button class="btn btn-outline-default" target="_blank" onclick="btn_d_lapFinanceInv()">Cetak Laporan Keuangan Ini</button> <br>
                        
-                        <div class="row">
-                          <div class="col-md-12">
-                            <div class="card">
-                              <div class="card-header">Invest Details</div>
-                              <div class="card-body">
-                                <button class="btn btn-outline-default" target="_blank" onclick="btn_d_lapFinanceInv()">Cetak PDF</button> <br>
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-hover table-sm" width="100%" id="table_pemasukkan_inv">
-                                      <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>Tanggal</th>
-                                            <th>Tipe</th>
-                                            <th>Masuk</th>
-                                            <th>Keluar</th>
-                                          
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                    <tfoot>
-                                      <tr>
-                                        <th colspan="3"></th>
-                                        <th id="total_masuk"></th>
-                                        <th id="total_keluar"></th>
-                                        
-                                      </tr>
-                                      <tr>
-                                        <th colspan="4"></th>
-                                       
-                                        <th id="total_akhir"></th>
-                                      </tr>
-                                     
-                                    </tfoot>
-                                    
-                                    </table>
-                                </div>
+                        <div class="row py-2">
+                          <div class="col">
+                              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                  <li class="nav-item">
+                                    <a class="nav-link active" id="pemasukkan-tab" data-toggle="tab" href="#pemasukkan" role="tab" aria-controls="pemasukkan" aria-selected="true">Pemasukkan</a>
+                                  </li>
+                                  <li class="nav-item">
+                                    <a class="nav-link" id="pengeluaran-tab" data-toggle="tab" href="#pengeluaran" role="tab" aria-controls="pengeluaran" aria-selected="false">Pengeluaran</a>
+                                  </li>
+                              </ul>
+
+                              <div class="tab-content py-4 bg-white" id="myTabContent">
+                                  
+
+                                  <div class="tab-pane fade show active" id="pemasukkan" role="tabpanel" aria-labelledby="pemasukkan-tab">
+                                      <div class="col-md-12">
+                                          <div class="table-responsive">
+                                              <table class="table table-bordered table-hover table-sm" width="100%" id="table_pemasukkan_inv">
+                                                  <thead>
+                                                      <tr>
+                                                          <th>#</th>
+                                                          <th>Tanggal</th>
+                                                          <th>Tipe Pemasukkan</th>
+                                                          <th>Jumlah (Rp)</th>
+                                                      </tr>
+                                                  </thead>
+                                                  <tbody></tbody>
+                                                  <tfoot>
+                                                    <tr>
+                                                        <th colspan="3" style="text-align:right; font-weight:bold">Total Pemasukkan (Rp) :</th>
+                                                        <th style="text-align:right; font-weight:bold"></th>
+                                                    </tr>
+                                                </tfoot>
+                                              </table>
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  <div class="tab-pane fade" id="pengeluaran" role="tabpanel" aria-labelledby="pengeluaran-tab">
+                                      <div class="col-md-12">
+                                          <div class="table-responsive">
+                                              <table class="table table-bordered table-hover" width="100%" id="table_pengeluaran_inv">
+                                              <thead>
+                                                  <tr>
+                                                      <th>#</th>
+                                                      <th>Tanggal</th>
+                                                      <th>Tipe Pengeluaran</th>
+                                                      <th>Jumlah (Rp)</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody></tbody>
+                                              <tfoot>
+                                                  <tr>
+                                                      <th colspan="3" style="text-align:right; font-weight:bold">Total Pengeluaran (Rp) :</th>
+                                                      <th style="text-align:right; font-weight:bold" id="totalsemua"></th>
+                                                  </tr>
+                                              </tfoot>
+                                              </table>
+                                          <!-- AKHIR TABLE -->
+                                          </div>
+                                      </div>
+                                  </div>
+
+                                  
                               </div>
-                            </div>
-                          </div>
-                          
-                        </div>
+                          </div>    
                       </div>
+                        
+                    </div>
                 </div>
             </div>
           </div>

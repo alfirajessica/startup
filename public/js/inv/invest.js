@@ -213,10 +213,7 @@ function listInvest() {
                 name: 'status_transaction',
               
             },
-            {
-                data: 'action',
-                name: 'action', 
-            },
+           
         ],
         
     });
@@ -275,6 +272,7 @@ $('body').on('click', '.detailProject', function () {
         url: '/detailInvest' + '/' + id,
         contentType: "application/json",
         success: function (data) {
+           
             var tipe_pay = "";
 
         if (data['payment_type'] == "bank_transfer") {
@@ -309,7 +307,7 @@ $('body').on('click', '.detailProject', function () {
         var showPayDetail ="";
         var detail_time_settle="";
         if (data['transaction_status'] == "settlement") {
-            detail_time_settle = data['transaction_status'] + "<br> " + data['settlement_time'];
+            detail_time_settle = data['transaction_status'] + "<br> " + (moment(data['settlement_time']).format('DD-MMM-YYYY h:mm:ss a'))
         }
         else{
             detail_time_settle = data['transaction_status'];
@@ -318,23 +316,23 @@ $('body').on('click', '.detailProject', function () {
         if (data['payment_type'] == "credit_card") {
             showPayDetail = 
             "<tr>" +
-                "<td>Bank</td>" +
+                "<td> <strong> Bank </strong> </td>" +
                 "<td>" + data['bank'].toUpperCase() + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Card </td>" +
+                "<td>  <strong> Card  </strong></td>" +
                 "<td>" + data['masked_card'] + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Jumlah Transfer </td>" +
+                "<td>  <strong>Jumlah Transfer </strong> </td>" +
                 "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Time </td>" +
-                "<td>" + data['transaction_time'] + "</td>" +
+                "<td> <strong>Waktu Kadaluarsa  </strong></td>" +
+                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Status</td>" +
+                "<td> <strong>Status Pembayaran </strong></td>" +
                 "<td>" + detail_time_settle + "</td>" +
             "</tr>";
             
@@ -343,23 +341,23 @@ $('body').on('click', '.detailProject', function () {
         else if (data['payment_type'] == "bank_transfer") {
             showPayDetail = 
             "<tr>" +
-                "<td>Bank</td>" +
+                "<td> <strong>Bank </strong></td>" +
                 "<td>" + data['va_numbers'][0]['bank'].toUpperCase() + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Virtual Account </td>" +
+                "<td> <strong>Virtual Account  </strong></td>" +
                 "<td>" + data['va_numbers'][0]['va_number'] + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Jumlah Transfer </td>" +
+                "<td> <strong>Jumlah Transfer  </strong> </td>" +
                 "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Time </td>" +
-                "<td>" + data['transaction_time'] + "</td>" +
+                "<td>  <strong> Waktu Kadaluarsa  </strong> </td>" +
+                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Status</td>" +
+                "<td>  <strong> Status Pembayaran  </strong></td>" +
                 "<td>" + detail_time_settle + "</td>" +
             "</tr>";
             $('#table_payDetails tbody').html(showPayDetail);
@@ -367,23 +365,23 @@ $('body').on('click', '.detailProject', function () {
         else if (data['payment_type'] == "echannel") {
             showPayDetail = 
             "<tr>" +
-                "<td>Bank</td>" +
+                "<td> <strong>Bank  </strong></td>" +
                 "<td>Mandiri Bill</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Bill Key </td>" +
+                "<td> <strong>Bill Key </strong> </td>" +
                 "<td>" + data['bill_key'] + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Jumlah Transfer </td>" +
+                "<td> <strong>Jumlah Transfer  </strong></td>" +
                 "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Time </td>" +
-                "<td>" + data['transaction_time'] + "</td>" +
+                "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
+                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Status</td>" +
+                "<td> <strong>Status Pembayaran </strong></td>" +
                 "<td>" + detail_time_settle + "</td>" +
             "</tr>";
             $('#table_payDetails tbody').html(showPayDetail);
@@ -391,23 +389,23 @@ $('body').on('click', '.detailProject', function () {
         else if (data['payment_type'] == "gopay") {
             showPayDetail = 
             "<tr>" +
-                "<td>Tipe Bayar</td>" +
+                "<td> <strong>Tipe Bayar </strong></td>" +
                 "<td>Gopay</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>QR CODE </td>" +
+                "<td> <strong>QR CODE  </strong></td>" +
                 "<td><img width='200px' height='200px' class='qr' src='https://api.sandbox.veritrans.co.id/v2/gopay/" + data['transaction_id'] + "/qr-code'> </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Jumlah Transfer </td>" +
+                "<td> <strong>Jumlah Transfer  </strong></td>" +
                 "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Time </td>" +
-                "<td>" + data['transaction_time'] + "</td>" +
+                "<td>Waktu Kadaluarsa </td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Status</td>" +
+                "<td>  <strong> Status Pembayaran  </strong></td>" +
                 "<td>" + detail_time_settle + "</td>" +
             "</tr>";
             $('#table_payDetails tbody').html(showPayDetail);
@@ -415,19 +413,19 @@ $('body').on('click', '.detailProject', function () {
         else if (data['payment_type'] == "qris") {
             showPayDetail = 
             "<tr>" +
-                "<td>Tipe Bayar</td>" +
+                "<td> <strong>Tipe Bayar </strong></td>" +
                 "<td> " + data['acquirer'] + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>QR CODE </td>" +
+                "<td> <strong>QR CODE  </strong></td>" +
                 "<td><img width='200px' height='200px' class='qr' src='https://api.sandbox.veritrans.co.id/v2/qris/shopeepay/sppq_" + data['transaction_id'] + "/qr-code'> </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Time </td>" +
-                "<td>" + data['transaction_time'] + "</td>" +
+                "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Status</td>" +
+                "<td> <strong>Status Pembayaran </strong></td>" +
                 "<td>" + detail_time_settle + "</td>" +
             "</tr>";
             $('#table_payDetails tbody').html(showPayDetail);
@@ -530,8 +528,8 @@ function projectDetails(id) {
         
         columns: [
             {
-                data: 'id',
-                name: 'id'
+                data: 'invest_id',
+                name: 'invest_id'
             },
             {
                 data: null,
@@ -558,7 +556,8 @@ function projectDetails(id) {
             {
                 data: 'jumlah_invest',
                 name: 'jumlah_invest',
-                render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )
+                className: 'dt-body-right',
+                render: $.fn.dataTable.render.number( '.', ',', 2, '' )
               
             },
         ],
@@ -592,11 +591,11 @@ function projectDetails(id) {
             fee = ((total * 1)/100);
             getTotal = total - fee;
             $("#fee").html(
-                $.fn.dataTable.render.number('.','.','2','Rp').display(fee)
+                $.fn.dataTable.render.number('.','.','2','').display(fee)
             ); 
 
             $("#totalsemua").html(
-                $.fn.dataTable.render.number('.','.','2','Rp').display(getTotal)
+                $.fn.dataTable.render.number('.','.','2','').display(getTotal)
             );                        
         }
         
@@ -620,42 +619,8 @@ function investPassed() {
 //rekap, pemasukkan dan pengeluaran berdasrkan bulan
 function table_lapFinance(id) {
     console.log(id);
-    var $masuk, $keluar,$totalakhir, $temptotalakhir= 0;
-    
-    $.ajax({
-        type: "get",
-        url: '/totalpemasukkan/' + id,
-        contentType: "application/json",
-        success: function (data) {
-            $masuk = data.table_pemasukkan_inv[0]['total_masuk'];
-            $totalmasuk = Number(data.table_pemasukkan_inv[0]['total_masuk'].toLocaleString(['ban', 'id'])) + ",00";
-            $('#total_masuk').html("Rp"+$totalmasuk);
-            $.ajax({
-                type: "get",
-                url: '/totalpengeluaran/' + id,
-                contentType: "application/json",
-                success: function (data) {
-                    $keluar = data.table_pengeluaran_inv[0]['total_keluar'];
-                    $totalkeluar = Number(data.table_pengeluaran_inv[0]['total_keluar'].toLocaleString(['ban', 'id'])) + ",00";
-                    $('#total_keluar').html("Rp"+$totalkeluar);
+    var $masuk, $keluar,$totalakhir, $temptotalakhir, $totalmasuk,$totalkeluar = 0;
 
-                    $totalakhir = $masuk-$keluar;
-                    $temptotalakhir = $totalakhir;
-                    $("#total_akhir").html("Rp"+$totalakhir);
-                   
-                },
-                error: function (data) {
-                    console.log('Error:', data);
-                }
-            });
-        },
-        error: function (data) {
-            console.log('Error:', data);
-        }
-        
-    });
-
-   
     $('#table_pemasukkan_inv').DataTable({
         destroy:true,
         processing: true,
@@ -703,35 +668,132 @@ function table_lapFinance(id) {
               
             },
             {
-                data: null,
+                data: 'jumlah',
                 name: 'jumlah',
+                className: 'dt-body-right',
+                render: $.fn.dataTable.render.number( '.', ',', 2, '')
+            },
+        ], 
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+          
+            //Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+
+            // Total over all pages
+            total = api
+                .column( 3 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+
+            // Total over this page
+            pageTotal = api
+                .column( 3, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+
+            // Update footer
+            $( api.column( 3 ).footer() ).html(
+                $.fn.dataTable.render.number('.','.','2','').display(total)
+            );                 
+        }
+        
+    });
+
+    $('#table_pengeluaran_inv').DataTable({
+        destroy:true,
+        processing: true,
+        serverSide: true, //aktifkan server-side 
+        responsive:true,
+        deferRender:true,
+        language: {
+            "emptyTable": "Belum ada data pengeluaran oleh Startup"
+        },
+        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+        ajax: {
+            url: "/detailFinance/" + id,
+            type: 'GET',
+            data:{
+                "getTabel":"#table_pengeluaran_inv",
+            },
+        },
+        order: [
+            [0, 'asc']
+        ],
+        columns: [
+            {
+                data: null,
+                name: 'tipe',
                 render: data => {
-                    var jumlah="";
+                    var tipe="";
                     if (data.tipe == "1") {
-                        jumlah = data.jumlah;
+                        tipe = "+";
                     }else{
-                        jumlah = "-"
+                        tipe = "-"
                     }
-                    return $.fn.dataTable.render.number( '.', ',', 2, 'Rp').display(jumlah);
+                    return tipe;
                 }
-               
             },
             {
                 data: null,
-                name: 'jumlah',
+                name: 'created_at',
                 render: data => {
-                    var jumlah="";
-                    if (data.tipe == "2") {
-                        jumlah = data.jumlah;
-                    }else{
-                        jumlah = "-"
-                    }
-                    return $.fn.dataTable.render.number( '.', ',', 2, 'Rp').display(jumlah);
+                    return moment(data.created_at).format('DD/MMM/YYYY')
                 }
             },
-            
-            
+            {
+                data: 'keterangan',
+                name: 'keterangan',
+              
+            },
+            {
+                data: 'jumlah',
+                name: 'jumlah',
+                className: 'dt-body-right',
+                render: $.fn.dataTable.render.number( '.', ',', 2, '')
+            },
         ], 
+        "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+          
+            //Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+            };
+
+            // Total over all pages
+            total = api
+                .column( 3 )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+
+            // Total over this page
+            pageTotal = api
+                .column( 3, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(a) + intVal(b);
+                }, 0 );
+
+            // Update footer
+            $( api.column( 3 ).footer() ).html(
+                $.fn.dataTable.render.number('.','.','2','').display(total)
+            );                 
+        }
     });
 
     

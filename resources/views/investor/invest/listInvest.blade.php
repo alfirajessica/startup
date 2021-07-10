@@ -13,25 +13,28 @@
       <div class="card shadow border-0">
       <div class="card-body"> <!-- card body -->
         <!-- tab content -->
-        <div class="alert alert-primary" role="alert">
-          <strong>Cetak Laporan dengan menekan tombol ini</strong>
-          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
+        
+        <strong>Cetak Laporan dengan menekan tombol ini </strong>
+         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModalCenter">
             Cetak Laporan Investasi
-          </button>
-        </div>
+         </button>
+         <br>
         <div class="tab-content" id="myTabContent">
             <!-- table_listInvestPending -->
             <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                <div class="alert alert-info" role="alert">
-                  <strong>info</strong> Mohon refresh halaman ini jika sudah melakukan pembayaran
+                <div class="col-md-12 py-1 px-0">
+                    <div class="alert alert-warning " role="alert">
+                        Mohon refresh halaman ini jika sudah melakukan pembayaran
+                    </div>
                 </div>
+                
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" width="100%" id="table_listInvestPending">
                       <thead>
                           <tr>
-                              <th>Invest_id</th>
-                              <th>Project</th>
-                              <th>Status</th>
+                              <th>Startup/Produk</th>
+                              <th>Invest id</th>
+                              <th>Status Bayar</th>
                               <th>Aksi</th>
                           </tr>
                       </thead>
@@ -49,11 +52,10 @@
                     <table class="table table-bordered table-hover" width="100%" id="table_listInvestSettlement">
                       <thead>
                           <tr>
-                              <th>#</th>
-                              <th>Nama Event</th>
-                              <th>Diadakan Secara</th>
+                              <th>Startup/Produk</th>
+                              <th>Invest id</th>
+                              <th>Status Bayar</th>
                               <th>Jadwal Acara</th>
-                             
                           </tr>
                       </thead>
                       <tbody></tbody>
@@ -69,11 +71,9 @@
                     <table class="table table-bordered table-hover" width="100%" id="table_listInvestCancel">
                       <thead>
                           <tr>
-                              <th>#</th>
-                              <th>Nama Event</th>
-                              <th>Diadakan Secara</th>
-                              <th>Jadwal Acara</th>
-                             
+                            <th>Startup/Produk</th>
+                            <th>Invest id</th>
+                            <th>Status Bayar</th>
                           </tr>
                       </thead>
                       <tbody></tbody>
@@ -157,6 +157,8 @@
   </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>  
-
+<script type="text/javascript"
+      src="https://app.sandbox.midtrans.com/snap/snap.js"
+      data-client-key="SB-Mid-client-cOQK7kRXSSPSVE3Y"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="/js/inv/invest.js"></script>

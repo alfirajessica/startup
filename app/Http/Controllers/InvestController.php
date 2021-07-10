@@ -248,7 +248,8 @@ class InvestController extends Controller
                     ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
                     ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
                     ->where('detail_product_kas.id_headerproduct','=',$projectID)
-                    ->whereBetween('detail_product_kas.created_at', [$date_inv_awal, $date_inv_exp])
+                    ->where('detail_product_kas.created_at','<=', $date_inv_exp)
+                    ->where('detail_product_kas.tipe','=','1')
                     ->orderBy('detail_product_kas.created_at','asc')
                     ->get();
             }
@@ -259,7 +260,7 @@ class InvestController extends Controller
                     ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
                     ->where('detail_product_kas.id_headerproduct','=',$projectID)
                     ->where('detail_product_kas.tipe','=','2')
-                    ->whereBetween('detail_product_kas.created_at', [$date_inv_awal, $date_inv_exp])
+                    ->where('detail_product_kas.created_at','<=', $date_inv_exp)
                     ->get();
             }
 
@@ -281,12 +282,13 @@ class InvestController extends Controller
         $date_inv_awal = $data->created_at->format('Y-m-01') ." 00:00:00";
         $date_inv_exp = \Carbon\Carbon::parse($data->invest_expire)->format('Y-m-01'). " 23:59:59";
 
+       
+
         $table_pemasukkan_inv['table_pemasukkan_inv'] = 
         DB::table('detail_product_kas')
-        ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
         ->select(\DB::raw('SUM(detail_product_kas.jumlah) as total_masuk'))
         ->where('detail_product_kas.id_headerproduct','=',$projectID)
-        ->whereBetween('detail_product_kas.created_at', [$date_inv_awal, $date_inv_exp])
+        ->where('detail_product_kas.created_at','<=', $date_inv_exp)
         ->where('detail_product_kas.tipe','=','1')
         ->groupBy(\DB::raw('detail_product_kas.tipe'))
         ->orderBy('detail_product_kas.created_at','asc')
@@ -304,10 +306,9 @@ class InvestController extends Controller
 
         $table_pengeluaran_inv['table_pengeluaran_inv'] = 
         DB::table('detail_product_kas')
-        ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
         ->select(\DB::raw('SUM(detail_product_kas.jumlah) as total_keluar'))
         ->where('detail_product_kas.id_headerproduct','=',$projectID)
-        ->whereBetween('detail_product_kas.created_at', [$date_inv_awal, $date_inv_exp])
+        ->where('detail_product_kas.created_at','<=', $date_inv_exp)
         ->where('detail_product_kas.tipe','=','2')
         ->groupBy(\DB::raw('detail_product_kas.tipe'))
         ->orderBy('detail_product_kas.created_at','asc')

@@ -30,13 +30,8 @@ function table_listInvestConfirmYet() {
               
             },
             {
-                data: null,
+                data: 'created_at',
                 name: 'created_at',
-                render: data => {
-                    return moment(data.created_at).format('DD-MMM-YYYY');
-                    
-                }
-                
             },
             {
                 data: 'jumlah_invest',
@@ -50,7 +45,7 @@ function table_listInvestConfirmYet() {
             },
             
         ],
-        
+       
     });
 
  }

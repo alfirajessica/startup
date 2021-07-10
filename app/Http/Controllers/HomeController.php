@@ -175,7 +175,7 @@ class HomeController extends Controller
                     ->leftJoin('detail_category_products', 'detail_category_products.id','=','header_products.id_detailcategory')
                     ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
                     ->leftJoin('users','users.id','=','header_products.user_id')
-                    ->select('header_products.id','header_products.name_product','detail_category_products.name','header_invests.jumlah_invest', 'users.name as nama_dev', 'users.email')
+                    ->select('header_products.id','header_products.name_product','detail_category_products.name','header_invests.jumlah_invest', 'users.name as nama_dev', 'users.email','header_invests.invest_id')
                     ->where('header_products.id', '=', $projectID)
                     ->where('header_invests.id','=',$id)
                     ->get();
