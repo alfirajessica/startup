@@ -29,7 +29,7 @@ function table_list_cancel_history() {
                 name: 'held',
                 render: data => {
                      if (data.held == "Offline") {
-                         return data.held+'<br><small>'+ data.province_name + '/' +data.city_name+'</small><br>';    
+                         return data.held+'<br><small>'+ data.province_name + '/' +data.city_name+'<br>'+data.address+"</small>";    
                      }
                      else if (data.held == "Online") {
                          return data.held+'<br><small><a href="'+ data.link +'">'+data.link+'</a></small><br>';    
