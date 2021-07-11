@@ -9,10 +9,10 @@
                     <!-- tabs -->
                     <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0 active" id="tab_desc-tab" data-toggle="tab" href="#tab_desc" role="tab" aria-controls="tab_desc" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Detail Event</a>
+                            <a class="nav-link mb-sm-3 mb-md-0 active" id="tab_desc-tab" data-toggle="tab" href="#tab_desc" role="tab" aria-controls="tab_desc" aria-selected="true">Detail Event</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs_participant-tab" data-toggle="tab" href="#tabs_participant" role="tab" aria-controls="tabs_participant" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Participant</a>
+                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs_participant-tab" data-toggle="tab" href="#tabs_participant" role="tab" aria-controls="tabs_participant" aria-selected="false">Peserta Event</a>
                         </li>
                     </ul>
                 </div>
@@ -50,7 +50,7 @@
                                         <div class="form-group">
                                             <label for="edit_event_held">Event akan diadakan secara</label>
                                             <select class="form-control form-control-alternative" name="edit_event_held" id="edit_will_beheld" onchange="edit_event_willbe_held()">
-                                                <option value="0">pilih</option>
+                                                <option value="0" disabled>-- Pilih --</option>
                                                 <option value="Online">Online</option>
                                                 <option value="Offline">Offline</option>
                                             </select>
@@ -119,26 +119,26 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary float-right">Simpan Perubahan</button>
+                                        <button type="submit" class="btn btn-default float-right">Simpan Perubahan Detail Event</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="tab-pane fade" id="tabs_participant" role="tabpanel" aria-labelledby="tabs_participant-tab">
-                            <div class="alert alert-primary" role="alert">
+                           
                                 <strong>Cetak Laporan dengan menekan tombol ini</strong>
-                                <button type="button" class="btn btn-danger" onclick="cetak_participantEvent()">
-                                  Cetak Laporan Event
+                                <button type="button" class="btn btn-outline-default" onclick="cetak_participantEvent()">
+                                  Cetak Peserta Event Ini
                                 </button>
-                              </div>
+                            
                             <div class="row py-4">
-                                <div class="col">
-                                  <div class="table-responsive">
+                                <div class="card col">
+                                  <div class="table-responsive px-2 pt-2">
                                       <table class="table table-bordered table-hover" width="100%" id="table_participant">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Participant</th>
+                                                <th>Peserta</th>
                                                 
                                             </tr>
                                         </thead>

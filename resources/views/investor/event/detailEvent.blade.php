@@ -9,10 +9,10 @@
                     <!-- tabs -->
                     <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0 active" id="tab_desc-tab" data-toggle="tab" href="#tab_desc" role="tab" aria-controls="tab_desc" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Deskripsi</a>
+                            <a class="nav-link mb-sm-3 mb-md-0 active" id="tab_desc-tab" data-toggle="tab" href="#tab_desc" role="tab" aria-controls="tab_desc" aria-selected="true">Detail Event</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs_participant-tab" data-toggle="tab" href="#tabs_participant" role="tab" aria-controls="tabs_participant" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Participant</a>
+                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs_participant-tab" data-toggle="tab" href="#tabs_participant" role="tab" aria-controls="tabs_participant" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Peserta Event</a>
                         </li>
                     </ul>
                 </div>

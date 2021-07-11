@@ -1,5 +1,10 @@
 @extends('layouts.inv')
-
+<style>
+  .scroll {
+  max-height: 400px;
+  overflow-y: auto;
+}
+</style>
 @section('content')
 <div class="container">
     
@@ -10,10 +15,10 @@
               <!-- tabs -->
               <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                   <li class="nav-item">
-                      <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Buka Event Baru</a>
+                      <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><strong>Buka Event Baru </strong></a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Event Saya</a>
+                      <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><strong>Semua Event Saya</strong></a>
                   </li>
               </ul>
           </div>
@@ -23,7 +28,7 @@
           <!-- card -->
           <div class="card">
             <div class="card shadow">
-            <div class="card-body"> <!-- card body -->
+            <div class="card-body border-0 scroll"> <!-- card body -->
               <!-- tab content -->
               <div class="tab-content" id="myTabContent">
                   <!-- profile -->

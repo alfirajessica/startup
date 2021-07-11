@@ -215,6 +215,16 @@ $(function () {
                 },
                 {
                     data: null,
+                    name: 'event_schedule',
+                    render: data => {
+                        
+                        moment.locale('id');
+                        var jadwal = moment(data.event_schedule).format('dddd, DD/MMM/YYYY');
+                        return jadwal+'<br> Jam : '+data.event_time+'<br>';
+                    }
+                },
+                {
+                    data: null,
                     name: 'status',
                     render: data => {
                         var status="";
@@ -230,37 +240,7 @@ $(function () {
                         return status;
                     }
                 },
-                {
-                    data: null,
-                    name: 'event_schedule',
-                    render: data => {
-                        
-                        var hari = moment(data.event_schedule).format('dddd');
-                        if (hari == "Sunday") {
-                            hari = "Minggu";
-                        }
-                        else if (hari == "Monday") {
-                            hari = "Senin";
-                        }
-                        else if (hari == "Tuesday") {
-                            hari = "Selasa";
-                        }
-                        else if (hari == "Wednesday") {
-                            hari = "Rabu";
-                        }
-                        else if (hari == "Thursday") {
-                            hari = "Kamis";
-                        }
-                        else if (hari == "Friday") {
-                            hari = "Jumat";
-                        }
-                        else if (hari == "Saturday") {
-                            hari = "Sabtu";
-                        }
-                        var jadwal = moment(data.event_schedule).format('DD/MMM/YYYY');
-                        return hari + ', ' + jadwal+'<br><small>'+data.event_time+'</small><br>';
-                    }
-                },
+                
                 {
                     data:null,
                     name:'action',
@@ -456,7 +436,24 @@ $(function () {
         var dateakhir = $("#date_akhir").val();
         var piljenisEvent = $("#select_jenisEvent").val();
         var pilstatusEvent = $("#select_statusEvent").val();
-        window.open("/inv/report/cetak_riwayatEvent/"+dateawal+"/"+dateakhir+"/"+piljenisEvent+"/"+pilstatusEvent);
+
+        if (dateawal == "") {
+            $('#help_date_awal').text("Tentukan Periode Awal");
+        }
+        if (dateawal != "") {
+            $('#help_date_awal').text("");
+        }
+        if (dateakhir == "") {
+            $('#help_date_akhir').text("Tentukan Periode Akhir");
+        }
+        if (dateakhir != "") {
+            $('#help_date_akhir').text("");
+        }
+        if (dateawal != "" && dateakhir != "") {
+            window.open("/inv/report/cetak_riwayatEvent/"+dateawal+"/"+dateakhir+"/"+piljenisEvent+"/"+pilstatusEvent);
+        }
+
+        
      }
     
      function cetak_participantEvent() {  
