@@ -810,6 +810,21 @@ function table_lapFinance(id) {
         var dateawal = $("#date_awal").val();
         var dateakhir = $("#date_akhir").val();
         var piljenisLap = $("#select_jenislaporan").val();
-        window.open("/inv/report/cetak_riwayatInv/"+dateawal+"/"+dateakhir+"/"+piljenisLap);
+
+        if (dateawal == "") {
+            $('#help_date_awal').text("Tentukan Periode Awal");
+        }
+        if (dateawal != "") {
+            $('#help_date_awal').text("");
+        }
+        if (dateakhir == "") {
+            $('#help_date_akhir').text("Tentukan Periode Akhir");
+        }
+        if (dateakhir != "") {
+            $('#help_date_akhir').text("");
+        }
+        if (dateawal != "" && dateakhir != "") {
+            window.open("/inv/report/cetak_riwayatInv/"+dateawal+"/"+dateakhir+"/"+piljenisLap);
+        } 
     }
 // end of invest/listinvest.blade.php

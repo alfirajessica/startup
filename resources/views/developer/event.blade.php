@@ -21,7 +21,7 @@
             </a>
             
             <div class="collapse multi-collapse show bg-white" id="multiCollapseExample1">    
-                <div class="card-body shadow border-1"> <!-- card-body -->
+                <div class="card-body border-0"> <!-- card-body -->
                    
                     @include('units.search')
                     <hr>

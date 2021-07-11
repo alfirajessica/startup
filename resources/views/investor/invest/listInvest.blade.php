@@ -121,16 +121,16 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <label for=""></label>
+              <label for="">Periode Awal</label>
               <input type="date" name="" id="date_awal" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
-              <small id="helpId" class="text-muted">Help text</small>
+              <small id="help_date_awal" class="text-muted"></small>
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label for=""></label>
+              <label for="">Periode Akhir</label>
               <input type="date" name="" id="date_akhir" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
-              <small id="helpId" class="text-muted">Help text</small>
+              <small id="help_date_akhir" class="text-muted"></small>
             </div>
           </div>
         </div>
@@ -149,7 +149,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <button type="button" class="btn btn-primary" onclick="cetak_riwayatInv()">Cetak Laporan</button>
+            <button type="button" class="btn btn-default float-right" onclick="cetak_riwayatInv()">Cetak Laporan</button>
           </div>
         </div>
       </div>

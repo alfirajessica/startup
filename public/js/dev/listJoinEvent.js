@@ -1,3 +1,4 @@
+moment.locale('id');
 $(function () {
     table_list_cancel_history();
     
@@ -41,30 +42,9 @@ function table_list_cancel_history() {
                 name: 'event_schedule',
                 render: data => {
                     
-                    var hari = moment(data.event_schedule).format('dddd');
-                    if (hari == "Sunday") {
-                        hari = "Minggu";
-                    }
-                    else if (hari == "Monday") {
-                        hari = "Senin";
-                    }
-                    else if (hari == "Tuesday") {
-                        hari = "Selasa";
-                    }
-                    else if (hari == "Wednesday") {
-                        hari = "Rabu";
-                    }
-                    else if (hari == "Thursday") {
-                        hari = "Kamis";
-                    }
-                    else if (hari == "Friday") {
-                        hari = "Jumat";
-                    }
-                    else if (hari == "Saturday") {
-                        hari = "Sabtu";
-                    }
-                    var jadwal = moment(data.event_schedule).format('DD/MMM/YYYY');
-                    return hari + ', ' + jadwal+'<br><small>'+data.event_time+'</small><br>';
+                    moment.locale('id');
+                    var jadwal = moment(data.event_schedule).format('dddd, DD/MMM/YYYY');
+                    return jadwal+'<br> Jam : '+data.event_time+'<br>';
                 }
             },
             {
@@ -117,30 +97,9 @@ function table_list_cancel_history() {
                 name: 'event_schedule',
                 render: data => {
                     
-                    var hari = moment(data.event_schedule).format('dddd');
-                    if (hari == "Sunday") {
-                        hari = "Minggu";
-                    }
-                    else if (hari == "Monday") {
-                        hari = "Senin";
-                    }
-                    else if (hari == "Tuesday") {
-                        hari = "Selasa";
-                    }
-                    else if (hari == "Wednesday") {
-                        hari = "Rabu";
-                    }
-                    else if (hari == "Thursday") {
-                        hari = "Kamis";
-                    }
-                    else if (hari == "Friday") {
-                        hari = "Jumat";
-                    }
-                    else if (hari == "Saturday") {
-                        hari = "Sabtu";
-                    }
-                    var jadwal = moment(data.event_schedule).format('DD/MMM/YYYY');
-                    return hari + ', ' + jadwal+'<br><small>'+data.event_time+'</small><br>';
+                    moment.locale('id');
+                    var jadwal = moment(data.event_schedule).format('dddd, DD/MMM/YYYY');
+                    return jadwal+'<br> Jam : '+data.event_time+'<br>';
                 }
             },
         ],
@@ -184,30 +143,9 @@ function table_list_cancel_history() {
                 name: 'event_schedule',
                 render: data => {
                     
-                    var hari = moment(data.event_schedule).format('dddd');
-                    if (hari == "Sunday") {
-                        hari = "Minggu";
-                    }
-                    else if (hari == "Monday") {
-                        hari = "Senin";
-                    }
-                    else if (hari == "Tuesday") {
-                        hari = "Selasa";
-                    }
-                    else if (hari == "Wednesday") {
-                        hari = "Rabu";
-                    }
-                    else if (hari == "Thursday") {
-                        hari = "Kamis";
-                    }
-                    else if (hari == "Friday") {
-                        hari = "Jumat";
-                    }
-                    else if (hari == "Saturday") {
-                        hari = "Sabtu";
-                    }
-                    var jadwal = moment(data.event_schedule).format('DD/MMM/YYYY');
-                    return hari + ', ' + jadwal+'<br><small>'+data.event_time+'</small><br>';
+                    moment.locale('id');
+                    var jadwal = moment(data.event_schedule).format('dddd, DD/MMM/YYYY');
+                    return jadwal+'<br> Jam : '+data.event_time+'<br>';
                 }
             },
         ],
