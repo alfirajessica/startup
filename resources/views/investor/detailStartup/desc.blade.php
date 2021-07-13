@@ -46,7 +46,7 @@
                                 <div class="col-md-4 ">
                                    <div class="row py-2">
                                        <div class="col-md-12">
-                                        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">Investasikan</button>
+                                        <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">Investasikan</button>
                                        </div>
                                    
                                    </div>

@@ -4,49 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Laporan Keuangan Startup</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
+    <img src="{{ public_path("images/Logo-Startupinow-used2.png") }}" width="180" height="50" margin-top="10px" alt="">
+    <br>
+    <a href="https://startupinow.com/">https://startupinow.com</a> <br>
+    <small>Dicetak pada : {{ now()->translatedFormat('d-F-Y h:i') }}</small> <br>
     <h2>Laporan Keuangan Startup</h2>
     
-    <table class="table table-sm padding-0 table table-borderless" width="100%" id="table_detailOrder">
+    <table class="table table-sm padding-0 table-borderless" width="100%" id="table_detailOrder">
         <tbody>
             @foreach ($detail as $item)
                 <tr>
                     <td>Proyek</td>
                     <td>: {{$item->name_product}}</td>
                     <td style="text-align: right">Masa Investasi</td>
-                    <td>: {{ Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }} s/d {{ Carbon\Carbon::parse($item->invest_expire)->format('d-m-Y') }}</td>
-                    <td></td>
+                    <td>: {{ Carbon\Carbon::parse($item->created_at)->format('d-M-Y') }} s/d {{ Carbon\Carbon::parse($item->invest_expire)->format('d-M-Y') }}</td>
+                    
                 </tr>
                 <tr>
                     <td>Tipe</td>
                     <td>: {{$item->name}}</td>
-                    <td style="text-align: right">Jumlah Investasi sebelum fee</td>
+                    <td style="text-align: right">Jumlah Investasi <br>sebelum fee</td>
                     <td>: Rp{{ number_format($item->jumlah_invest, 2, ',', '.') }}</td>
                 </tr>
                 <tr>
-                    <td>Developer</td>
-                    <td>: {{$item->nama_dev}}</td>
+                    <td>Pemilik</td>
+                    <td>: {{$item->nama_dev}}<br> <small>   {{$item->email}}</small></td>
                     <td style="text-align: right">Investasi Final</td>
                     <td>: Rp{{ number_format($item->jumlah_final, 2, ',', '.') }} <br> ( - Fee 1% : {{ number_format($item->jumlah_invest - $item->jumlah_final, 2, ',', '.') }})</td>
                 </tr>
-                <tr>
-                    
-                </tr>
             @endforeach
-          
         </tbody>
     </table>
     <br>
-    <div class="alert alert-primary" role="alert">
+    {{-- <div class="alert alert-primary" role="alert">
         @foreach ($detail as $item)
         *Data pada laporan ini ditampilkan dari <strong>{{ Carbon\Carbon::parse($item->created_at)->format('m-Y') }}</strong> hingga  
         <strong>{{ Carbon\Carbon::parse($item->invest_expire)->format('m-Y') }}</strong>
         @endforeach
-    </div>
-    <br>
+    </div> --}}
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm" width="100%">
             <thead class="thead-dark" style="text-align: center">

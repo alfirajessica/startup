@@ -28,6 +28,10 @@ class ReportController extends Controller
 
         $data = HeaderInvest::find($id);
         $projectID = $data->project_id;
+
+        $dataProduk = HeaderProduct::find($projectID);
+        $date_created = $dataProduk->created_at;
+
         $date_inv_awal = $data->created_at->format('Y-m-01') ." 00:00:00";
         $date_inv_exp = \Carbon\Carbon::parse($data->invest_expire)->format('Y-m-01'). " 23:59:59";
 
@@ -35,7 +39,7 @@ class ReportController extends Controller
                 ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
                 ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
                 ->where('detail_product_kas.id_headerproduct','=',$projectID)
-                ->whereBetween('detail_product_kas.created_at', [$date_inv_awal, $date_inv_exp])
+                ->whereBetween('detail_product_kas.created_at', [$date_created, $date_inv_exp])
                 ->orderBy('detail_product_kas.created_at','asc')
                 ->get();
 
@@ -44,7 +48,7 @@ class ReportController extends Controller
                 DB::table('detail_product_kas')
                 ->select(\DB::raw('SUM(detail_product_kas.jumlah) as total_masuk'))
                 ->where('detail_product_kas.id_headerproduct','=',$projectID)
-                ->whereBetween('detail_product_kas.created_at', [$date_inv_awal, $date_inv_exp])
+                ->whereBetween('detail_product_kas.created_at', [$date_created, $date_inv_exp])
                 ->where('detail_product_kas.tipe','=','1')
                 ->groupBy(\DB::raw('detail_product_kas.tipe'))
                 ->orderBy('detail_product_kas.created_at','asc')
@@ -54,7 +58,7 @@ class ReportController extends Controller
                 DB::table('detail_product_kas')
                 ->select(\DB::raw('SUM(detail_product_kas.jumlah) as total_keluar'))
                 ->where('detail_product_kas.id_headerproduct','=',$projectID)
-                ->whereBetween('detail_product_kas.created_at', [$date_inv_awal, $date_inv_exp])
+                ->whereBetween('detail_product_kas.created_at', [$date_created, $date_inv_exp])
                 ->where('detail_product_kas.tipe','=','2')
                 ->groupBy(\DB::raw('detail_product_kas.tipe'))
                 ->orderBy('detail_product_kas.created_at','asc')
@@ -168,6 +172,7 @@ class ReportController extends Controller
         //$date->toDateTimeString();
         
         $pdf = PDF::loadview('investor.report.cetak_riwayatInv', ['date' => $date, 'list_inv' => $list_inv, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir, 'jenislap' => $jenislap, 'countdata'=>$countdata]);
+        $pdf->setPaper('A4', 'landscape');
         return $pdf->stream();
     }
 
@@ -276,6 +281,7 @@ class ReportController extends Controller
         ->select('users.name', 'users.email', 'users.province_name', 'users.city_name', 'detail_events.status')
         ->join('users','users.id','=','detail_events.id_participant')
         ->where('detail_events.id_header_events','=',$id)
+        ->whereBetween('detail_events.status', ['1', '2'])
         ->get();
 
         $detail =
@@ -286,20 +292,19 @@ class ReportController extends Controller
         $count_join =  
         DB::table('detail_events')
         ->select(\DB::raw('COUNT(id) as total_join'))
-        ->where('status','=','1')
-        ->orwhere('status','=','2')
+        ->whereBetween('detail_events.status', ['1', '2'])
         ->where('detail_events.id_header_events','=',$id)
         ->get();
 
-        $count_bataljoin =  
-        DB::table('detail_events')
-        ->select(\DB::raw('COUNT(id) as total_bataljoin'))
-        ->where('status','=','0')
-        ->where('detail_events.id_header_events','=',$id)
-        ->get();
+        // $count_bataljoin =  
+        // DB::table('detail_events')
+        // ->select(\DB::raw('COUNT(id) as total_bataljoin'))
+        // ->where('status','=','0')
+        // ->where('detail_events.id_header_events','=',$id)
+        // ->get();
 
 
-        $pdf = PDF::loadview('investor.report.cetak_participantEvent', ['list_participant'=>$list_participant, 'detail'=>$detail, 'count_join'=>$count_join, 'count_bataljoin'=>$count_bataljoin]);
+        $pdf = PDF::loadview('investor.report.cetak_participantEvent', ['list_participant'=>$list_participant, 'detail'=>$detail, 'count_join'=>$count_join]);
         return $pdf->stream();
     }
 

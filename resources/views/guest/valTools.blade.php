@@ -36,12 +36,12 @@
                 transition: all 1.7s cubic-bezier(0.22, 0.44, 0, 1);
     }
     
-    #accordion .card-header div[aria-expanded="true"]:before {
+    #accordion .card div[aria-expanded="true"]:before {
     font-family: 'FontAwesome';
     content: "\f078";
     vertical-align: middle;  
     }
-    #accordion .card-header div[aria-expanded="false"]:before {
+    #accordion .card div[aria-expanded="false"]:before {
     font-family: 'FontAwesome';
     content: "\f077";
     vertical-align: middle;
@@ -109,19 +109,19 @@
     </div>
 
     <div class="col-md-12 d-none" id="val_calc">
-        <div class="row mx-3">
+        <div class="row mx-7">
             <div class="col-md-12 px-2">
-                <button type="submit" class="btn btn-primary">Hitung</button>
+                <button type="submit" class="btn btn-default">Hitung</button>
             </div>
         </div>
 
-        <div class="row py-2">
+        <div class="row mx-6 py-2">
             <input type="hidden" name="email" id="" class="form-control" placeholder="" aria-describedby="helpId">
 
             <div class="col-md-6">
                 <div id="accordion">
                     <div class="card">
-                        <div class="card-header" id="headingOne">
+                        <div class="card border-0 shadow" id="headingOne">
                             <h5 class="mb-0">
                             <div class="btn btn-link" data-toggle="collapse" data-target="#collapseKeyInput" aria-expanded="true" aria-controls="collapseKeyInput">
                                 Key input
@@ -152,7 +152,7 @@
                     </div>
 
                     <div class="card">
-                        <div class="card-header" id="headingTwo">
+                        <div class="card border-0 shadow" id="headingTwo">
                             <h5 class="mb-0">
                             <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFixedAssets" aria-expanded="false" aria-controls="collapseFixedAssets">
                                 Fixed Assets
@@ -164,43 +164,49 @@
                                 <div class="col-md-12">
                                     <label for="">Masukkan nilai perkiraan pembelian Aset Tetap Baru yang Anda rencanakan selama 4 tahun ke depan.</label>
                                         <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group"> 
                                                 <label for="">{{ now()->year }}</label>
                                                 <input type="text" name="n_purchase_new_assets_[1]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
                                                 <span class="text-danger error-text n_purchase_new_assets_[1]_error"></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group"> 
                                                 <label for="">{{ now()->year+1 }}</label>
                                                 <input type="text" name="n_purchase_new_assets_[2]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0"   class="form-control form-control-alternative">
                                                 <span class="text-danger error-text n_purchase_new_assets_[2]_error"></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <div class="form-group"> 
                                                 <label for="">{{ now()->year+2 }}</label>
                                                 <input type="text" name="n_purchase_new_assets_[3]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
                                                 <span class="text-danger error-text n_purchase_new_assets_[3]_error"></span>
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
+                                       
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
                                             <div class="form-group"> 
                                                 <label for="">{{ now()->year+3 }}</label>
                                                 <input type="text" name="n_purchase_new_assets_[4]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
                                                 <span class="text-danger error-text n_purchase_new_assets_[4]_error"></span>
                                             </div>
                                         </div>
-                                        
+                                        <div class="col-md-4">
+                                            <div class="form-group"> 
+                                                <label for="">{{ now()->year+4 }}</label>
+                                                <input type="text" name="n_purchase_new_assets_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
+                                                <span class="text-danger error-text n_purchase_new_assets_[5]_error"></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group"> 
-                                        <label for="">{{ now()->year+4 }}</label>
-                                        <input type="text" name="n_purchase_new_assets_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                        <span class="text-danger error-text n_purchase_new_assets_[5]_error"></span>
-                                    </div>
+                                    
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -228,7 +234,7 @@
                     </div>
 
                     <div class="card">
-                        <div class="card-header" id="headingThree">
+                        <div class="card border-0 shadow" id="headingThree">
                             <h5 class="mb-0">
                             <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseWorkCap" aria-expanded="false" aria-controls="collapseWorkCap">
                                 Working Capital
@@ -257,7 +263,7 @@
             <div class="col-md-6">
                 <div id="accordion">
                     <div class="card">
-                        <div class="card-header" id="headingOne">
+                        <div class="card border-0 shadow" id="headingOne">
                             <h5 class="mb-0">
                             <div class="btn btn-link" data-toggle="collapse" data-target="#collapseNonOpAs" aria-expanded="true" aria-controls="collapseNonOpAs">
                                 Non Operating Assets
@@ -267,41 +273,48 @@
                   
                         <div id="collapseNonOpAs" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
-                                <label for="">Loans returned</label>
+                                <div class="col-md-12">
+                                    <label for="">Loans returned</label>
                                     <div class="row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year }}</label>
                                             <input type="text" name="n_loans_returned_[1]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
                                             <span class="text-danger error-text n_loans_returned_[1]_error"></span>
                                             </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year+1 }}</label>
                                             <input type="text" name="n_loans_returned_[2]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
                                             <span class="text-danger error-text n_loans_returned_[2]_error"></span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div class="form-group"> 
                                             <label for="">{{ now()->year+2 }}</label>
                                             <input type="text" name="n_loans_returned_[3]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
                                             <span class="text-danger error-text n_loans_returned_[3]_error"></span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group"> 
-                                            <label for="">{{ now()->year+3 }}</label>
-                                            <input type="text" name="n_loans_returned_[4]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <span class="text-danger error-text n_loans_returned_[4]_error"></span>
+                                   
+                                </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group"> 
+                                                <label for="">{{ now()->year+3 }}</label>
+                                                <input type="text" name="n_loans_returned_[4]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
+                                                <span class="text-danger error-text n_loans_returned_[4]_error"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group"> 
-                                            <label for="">{{ now()->year+4 }}</label>
-                                            <input type="text" name="n_loans_returned_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <span class="text-danger error-text n_loans_returned_[5]_error"></span>
+                                        <div class="col-md-4">
+                                            <div class="form-group"> 
+                                                <label for="">{{ now()->year+4 }}</label>
+                                                <input type="text" name="n_loans_returned_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
+                                                <span class="text-danger error-text n_loans_returned_[5]_error"></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -310,7 +323,7 @@
                     </div>
 
                     <div class="card">
-                        <div class="card-header" id="headingTwo">
+                        <div class="card border-0 shadow" id="headingTwo">
                             <h5 class="mb-0">
                             <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseBorrow" aria-expanded="false" aria-controls="collapseBorrow">
                                 Borrowing
@@ -319,41 +332,48 @@
                         </div>
                         <div id="collapseBorrow" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                             <div class="card-body">
-                                <label for="">Pinjaman perkiraan yang akan dilakukan </label>
-                                    <div class="row">
-                                    <div class="col-md-3">
-                                        <div class="form-group"> 
-                                            <label for="">{{ now()->year }}</label>
-                                            <input type="text" name="n_new_loan_[1]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <span class="text-danger error-text n_new_loan_[1]_error"></span>
+                                <div class="col-md-12">
+                                    <label for="">Pinjaman perkiraan yang akan dilakukan </label>
+                                        <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group"> 
+                                                <label for="">{{ now()->year }}</label>
+                                                <input type="text" name="n_new_loan_[1]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
+                                                <span class="text-danger error-text n_new_loan_[1]_error"></span>
+                                                </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group"> 
+                                                <label for="">{{ now()->year+1 }}</label>
+                                                <input type="text" name="n_new_loan_[2]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
+                                                <span class="text-danger error-text n_new_loan_[2]_error"></span>
                                             </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group"> 
-                                            <label for="">{{ now()->year+1 }}</label>
-                                            <input type="text" name="n_new_loan_[2]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <span class="text-danger error-text n_new_loan_[2]_error"></span>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group"> 
-                                            <label for="">{{ now()->year+2 }}</label>
-                                            <input type="text" name="n_new_loan_[3]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <span class="text-danger error-text n_new_loan_[3]_error"></span>
+                                        <div class="col-md-4">
+                                            <div class="form-group"> 
+                                                <label for="">{{ now()->year+2 }}</label>
+                                                <input type="text" name="n_new_loan_[3]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
+                                                <span class="text-danger error-text n_new_loan_[3]_error"></span>
+                                            </div>
                                         </div>
+                                       
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group"> 
-                                            <label for="">{{ now()->year+3 }}</label>
-                                            <input type="text" name="n_new_loan_[4]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <span class="text-danger error-text n_new_loan_[4]_error"></span>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group"> 
+                                                <label for="">{{ now()->year+3 }}</label>
+                                                <input type="text" name="n_new_loan_[4]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
+                                                <span class="text-danger error-text n_new_loan_[4]_error"></span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group"> 
-                                            <label for="">{{ now()->year+4 }}</label>
-                                            <input type="text" name="n_new_loan_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                            <span class="text-danger error-text n_new_loan_[5]_error"></span>
+                                        <div class="col-md-4">
+                                            <div class="form-group"> 
+                                                <label for="">{{ now()->year+4 }}</label>
+                                                <input type="text" name="n_new_loan_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
+                                                <span class="text-danger error-text n_new_loan_[5]_error"></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -362,7 +382,7 @@
                     </div>
 
                     <div class="card">
-                        <div class="card-header" id="headingThree">
+                        <div class="card border-0 shadow" id="headingThree">
                             <h5 class="mb-0">
                             <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseCostEqu" aria-expanded="false" aria-controls="collapseCostEqu">
                                 Cost of Equity

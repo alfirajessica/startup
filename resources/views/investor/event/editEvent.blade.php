@@ -134,12 +134,13 @@
                             <div class="row py-4">
                                 <div class="card col">
                                   <div class="table-responsive px-2 pt-2">
+                                      
+                                      <label for="" >Jumlah Peserta Bergabung : <strong id="jumlah_join"> </strong> Peserta</label>
                                       <table class="table table-bordered table-hover" width="100%" id="table_participant">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
                                                 <th>Peserta</th>
-                                                
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -200,4 +201,4 @@ $("#updateEvent").on("submit",function (e) {
     });
 });
 </script>
-<script src="/js/inv/event.js"></script>
+{{-- <script src="/js/inv/event.js"></script> --}}

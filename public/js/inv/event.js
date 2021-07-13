@@ -1,6 +1,9 @@
 $(function () {
     table_listEvent();
     event_hasPassed();
+
+   // $('#table_participant').DataTable().rows().count();
+    
 });
 //buatEvent.blade.php
     //do hide and show if event_held had choosen -- onchange select
@@ -88,6 +91,7 @@ $(function () {
     }
 
     function table_listParticipant(id) {
+        
         //var id = $("#coba_id2").text(); 
         var t = $('#table_participant').DataTable({
             destroy:true,
@@ -123,6 +127,13 @@ $(function () {
                 cell.innerHTML = i+1;
             } );
         } ).draw();
+
+       // var table = $("#table_participant").DataTable();   
+        t.on('draw', function (data) {
+          
+            $("#jumlah_join").text(t.page.info().recordsDisplay);
+            
+        });
     }
 //end of detailEvent.blade.php
 

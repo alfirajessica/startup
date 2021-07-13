@@ -190,9 +190,11 @@ class EventController extends Controller
 
         $user = auth()->user();
         
+        //yang ditampilkan hanya yang berstatus 1 atau 2 saja //aktif dan //selesai
         $list_dev = DB::table('detail_events')
                     ->leftJoin('users', 'detail_events.id_participant', '=', 'users.id')
                     ->where('detail_events.id_header_events','=',$id)
+                    ->whereBetween('detail_events.status', ['1', '2'])
                     ->get();
                     
         if($req->ajax()){

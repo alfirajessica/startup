@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laporan</title>
+    <title>Laporan Investasi</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
+    <img src="{{ public_path("images/Logo-Startupinow-used2.png") }}" width="180" height="50" margin-top="10px" alt="">
+    <br>
+    <a href="https://startupinow.com/">https://startupinow.com</a> <br>
+    <small>Dicetak pada : {{ now()->translatedFormat('d-F-Y h:i') }}</small> <br>
     <h2>Laporan Investasi</h2>
-    <small>Dicetak pada : {{ Carbon\Carbon::parse($date)->format('d-m-Y h:i:s') }}</small> <br>
+    
     @if ($jenislap == 0)
         Laporan ini mencetak semua investasi Anda
     @elseif ($jenislap == 1)
@@ -37,7 +41,7 @@
             <thead class="thead-dark" style="text-align: center;" >
                 <tr>
                     <th>#</th>
-                    <th>Tanggal</th>
+                    <th>Tanggal Investasi</th>
                     <th>Produk</th>
                     <th>Investasi Awal (Rp)</th>
                     <th>Investasi final (- Fee 1%) (Rp)</th>
@@ -48,11 +52,11 @@
                 @foreach ($list_inv as $item)
                     <tr>
                         <td>#{{$item->invest_id}}</td>
-                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }} s/d {{ Carbon\Carbon::parse($item->invest_expire)->format('d-m-Y') }}</td>
+                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('d-M-Y') }} s/d {{ Carbon\Carbon::parse($item->invest_expire)->format('d-M-Y') }}</td>
                         <td>(#{{$item->id}}) {{$item->name_product}}</td>
                         <td style="text-align: right">{{ number_format($item->jumlah_invest, 2, ',', '.') }}</td>
                         <td style="text-align: right">{{ number_format($item->jumlah_final, 2, ',', '.') }}</td>
-                        <td>
+                        <td style="text-align: center">
                             {{-- status_invest -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif oleh inv), 4(tdk aktif krna gagal byr/cancle/expire), 5 (investasi sudah expire) --}}
                             @if ($item->status_invest == 0)
                                 Belum dikonfirmasi

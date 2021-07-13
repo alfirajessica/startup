@@ -89,10 +89,7 @@
                         </a>
                         
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="">
-                            {{ __('Laporan') }}
-                        </a>
-
+                       
                         <a class="dropdown-item" href="{{ route('akun') }}">
                             <i class="ni ni-settings"></i>
                             {{ __('Pengaturan Akun') }}

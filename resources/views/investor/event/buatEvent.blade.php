@@ -153,4 +153,3 @@ $("#buatEvent").on("submit",function (e) {
 });
 
 </script>
-<script src="/js/inv/event.js"></script>

@@ -5,11 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Laporan Transaksi Startup/Produk</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-    <h2>Laporan Transaksi Proyek</h2>
+    <img src="{{ public_path("images/Logo-Startupinow-used2.png") }}" width="180" height="50" margin-top="10px" alt="">
+    <br>
+    <a href="https://startupinow.com/">https://startupinow.com</a> <br>
+    <small>Dicetak pada : {{ now()->translatedFormat('d-F-Y h:i') }}</small> <br>
+    <h2>Laporan Transaksi Startup/Produk</h2>
 
     Laporan ini mencetak data pada
     <div class="row">
@@ -20,7 +24,7 @@
                     <tbody>
                         @foreach ($detailproyek as $item)
                             <tr>
-                               <td>Nama Proyek</td>
+                               <td>Nama Produk</td>
                                <td>:</td>
                                 <td>{{$item->name_product}}</td>
                             </tr>

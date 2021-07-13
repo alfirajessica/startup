@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Daftar Peserta Event</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-    <h2>Daftar Participant</h2>
-
+    <img src="{{ public_path("images/Logo-Startupinow-used2.png") }}" width="180" height="50" margin-top="10px" alt="">
+    <br>
+    <a href="https://startupinow.com/">https://startupinow.com</a> <br>
+    <small>Dicetak pada : {{ now()->translatedFormat('d-F-Y h:i') }}</small> <br>
+    <h2>Daftar Peserta Event</h2>
     <div class="col-md-4">
         <table class="table table-sm padding-0 table table-borderless" width="100%" id="table_detailOrder">
             <tbody>
@@ -25,10 +28,10 @@
                         <td>
                             @if ($item->held == "Online")
                                 {{$item->held}} <br>
-                                {{$item->link}}
+                                <a href="{{$item->link}}">{{$item->link}}</a>
                             @else
                                 {{$item->held}} <br>
-                                {{$item->province_name}}, {{$item->city_name}}<br>
+                                {{$item->province_name}}, {{$item->city_name}}, 
                                 {{$item->address}}
                             @endif
                         </td>
@@ -36,7 +39,7 @@
                     <tr>
                         <td>Pada</td>
                         <td>:</td>
-                        <td>{{ Carbon\Carbon::parse($item->event_schedule)->format('d-m-Y') }}/{{ Carbon\Carbon::parse($item->event_time)->format('h:i:s') }}</td>
+                        <td>{{ Carbon\Carbon::parse($item->event_schedule)->format('d-M-Y') }}/{{ Carbon\Carbon::parse($item->event_time)->format('h:i') }}</td>
                     </tr>
                     
                 @endforeach
@@ -46,13 +49,9 @@
     </div>
 
     @foreach ($count_join as $item)
-        Jumlah participant join : {{$item->total_join}}
+        Jumlah Peserta Bergabung : {{$item->total_join}} Peserta
     @endforeach
-    <br>
-    @foreach ($count_bataljoin as $item)
-        Jumlah participant batal join : {{$item->total_bataljoin}}
-    @endforeach
-   
+    
     <br>
    
     <div class="table-responsive">
@@ -62,8 +61,8 @@
                     <th>#</th>
                     <th>Nama</th>
                     <th>Email</th>
-                    <th>Asal</th>
-                    <th>Status Participant</th>
+                    <th>Asal Provinsi</th>
+                    <th>Asal Kota</th>
                     
                 </tr>
             </thead>
@@ -74,13 +73,9 @@
                         <td>{{ $loop->iteration}}</td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->email}}</td>
-                        <td>{{$item->province_name}}, {{$item->city_name}}</td>
+                        <td>{{$item->province_name}}</td>
                         <td>
-                            @if ($item->status == 0)
-                                Batal Join
-                            @else
-                                Join
-                            @endif
+                            {{$item->city_name}}
                         </td>
                     </tr>
                 @endforeach
