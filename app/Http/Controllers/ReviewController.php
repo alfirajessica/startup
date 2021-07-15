@@ -122,11 +122,14 @@ class ReviewController extends Controller
     //developer -- tab ulasan
     public function reviews(Request $req)
     {
+        $user = auth()->user();
         $list_reviews = 
             DB::table('reviews')
             ->join('users', 'users.id','=','reviews.user_id')
+            ->join('header_products', 'header_products.id','=','reviews.project_id')
             ->leftjoin('response_reviews','reviews.id','=','response_reviews.id_reviews')
             ->select('reviews.id','users.name','reviews.rating','reviews.isi_review', 'reviews.created_at', 'response_reviews.created_at as tgltanggapan','response_reviews.id as idresponse')
+            ->where('header_products.user_id','=',$user->id)
             ->get();
 
         if($req->ajax()) {
