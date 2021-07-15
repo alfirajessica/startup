@@ -8,8 +8,6 @@
   margin: 0% 0% 0% 3%;
   padding: 6% 0%;
 }
-
-
 </style>
 @section('content')
 <div class="container">
@@ -54,9 +52,7 @@
     </div>
 
 </div>
-@endsection
-
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>      
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
 <script>
   //semua function ini ada pada /js/inv/startup.js
 
@@ -65,3 +61,6 @@
 
 </script>
 <script src="/js/dev/event.js"></script>
+@endsection
+
+

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Http;
 use Validator;
 use App\Models\Review;
 use App\Models\User;
+use App\Models\ResponseReview;
 use Carbon\Carbon;
 
 class ReviewController extends Controller
@@ -117,4 +118,71 @@ class ReviewController extends Controller
         }
     }
     //end of developer - product - detailProduct.blade.php
+
+    //developer -- tab ulasan
+    public function reviews(Request $req)
+    {
+        $list_reviews = 
+            DB::table('reviews')
+            ->join('users', 'users.id','=','reviews.user_id')
+            ->leftjoin('response_reviews','reviews.id','=','response_reviews.id_reviews')
+            ->select('reviews.id','users.name','reviews.rating','reviews.isi_review', 'reviews.created_at', 'response_reviews.created_at as tgltanggapan','response_reviews.id as idresponse')
+            ->get();
+
+        if($req->ajax()) {
+            return datatables()->of($list_reviews)
+                    ->addColumn('action', function($data){
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#modal_BeriTanggapan" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailResponse">Lihat Tanggapan</a>';
+
+                        return $btn;
+                     })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+        }
+    }
+
+    public function getResponse($id)
+    {
+        $list_responsereviews= 
+            DB::table('response_reviews')
+                ->select('id','id_reviews','response','status')
+                ->where('id_reviews','=',$id)
+                ->get();
+        return $list_responsereviews;
+    }
+
+    public function postResponse(Request $req)
+    {
+        $validator = Validator::make($req->all(),[
+            'beri_response'=>'required',
+        ]);
+        if (!$validator->passes()) {
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else
+        {
+            if ($req->id_response == null) {
+                $newResponse = new ResponseReview;
+                $newResponse->id_reviews = $req->id_reviews;
+                $newResponse->response = $req->beri_response;
+                $newResponse->status = "1";
+                $query = $newResponse->save();
+    
+                if ($query) {
+                    return 1;
+                }
+            }
+            else{
+                DB::table('response_reviews')->
+                where('id',$req->id_response)->
+                update([
+                    'response' => $req->beri_response,
+                ]);
+
+                return 2;
+            }
+        }
+    }
+    
+    //end of developer -- tab ulasan 
 }

@@ -77,7 +77,7 @@
                             <select class="form-control form-control-alternative" name="" id="select_statusEvent">
                             <option value="0">Semua</option>
                             <option value="1" selected>Aktif</option>
-                            <option value="2">Tidak Aktif</option>
+                            <option value="4">Tidak Aktif</option>
                             <option value="2">Selesai</option>
                             </select>
                             <small id="help_select_statusEvent" class="text-muted"></small>
@@ -95,7 +95,3 @@
       </div>
     </div>
   </div>
-
-{{-- <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
-
-<script src="/js/inv/event.js"></script> --}}

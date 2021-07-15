@@ -33,8 +33,8 @@
     @endif
     <br>
     Data yang dimuat pada laporan ini adalah data pada periode 
-        <strong>{{ Carbon\Carbon::parse($dateawal)->format('d-m-Y') }}</strong> hingga 
-        <strong>{{ Carbon\Carbon::parse($dateakhir)->format('d-m-Y') }}</strong>
+        <strong>{{ Carbon\Carbon::parse($dateawal)->format('d-M-Y') }}</strong> hingga 
+        <strong>{{ Carbon\Carbon::parse($dateakhir)->format('d-M-Y') }}</strong>
 
     <br>
     <br>
@@ -46,11 +46,10 @@
             <thead class="thead-dark" style="text-align: center;" >
                 <tr>
                     <th>#</th>
-                    <th>Tanggal</th>
-                    <th>Produk</th>
-                    <th>Investasi Awal (Rp)</th>
-                    <th>Investasi final (- Fee 1%) (Rp)</th>
-                   
+                    <th>Event</th>
+                    <th>Tgl/Jam</th>
+                    <th>Diadakan Secara</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,7 +57,7 @@
                     <tr>
                         <td>{{$item->id}}</td>
                         <td>{{$item->name}}</td>
-                        <td>{{ Carbon\Carbon::parse($item->event_schedule)->format('d-m-Y') }}</td>
+                        <td>{{ Carbon\Carbon::parse($item->event_schedule)->format('d-M-Y') }}/{{ Carbon\Carbon::parse($item->event_time)->format('h:i') }}</td>
                         <td>
                                 {{$item->held}}
                             @if ($item->held == "Online")
@@ -66,7 +65,7 @@
                                 <label>{{$item->link}}</label>
                             @else
                                 <br>
-                                <label>{{$item->province_name}}, {{$item->city_name}}</label>
+                                <label>{{$item->province_name}}, {{$item->city_name}}, {{$item->address}}</label>
                             @endif
                              
                         </td>

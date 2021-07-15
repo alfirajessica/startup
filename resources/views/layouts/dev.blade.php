@@ -1,4 +1,5 @@
 @extends('head')
+
 <style>
     .modal-body {
     max-height: calc(100vh - 210px);
@@ -87,11 +88,6 @@
                             <span>{{ __('Event diikuti') }}</span>
                         </a>
 
-                        <a href="#" class="dropdown-item">
-                            <i class="ni ni-single-02"></i>
-                            <span>{{ __('Laporan') }}</span>
-                        </a>
-
                         <a href="{{ route('akun') }}" class="dropdown-item">
                             <i class="ni ni-settings"></i>
                             <span>{{ __('Pengaturan Akun') }}</span>
@@ -116,42 +112,7 @@
       </div>
     </div>
   </nav>
-  <!-- End Navbar -->
-    {{-- @if (Route::currentRouteName() == "home")
-        <section class="background up-scroll">
-        <div class="content-wrapper">
-          <p class="content-title">Full Page Parallax Effect</p>
-          <p class="content-subtitle">
-            <span class="scroll-btn">
-                <a href="#">
-                    <span class="mouse">
-                        <span>
-                        </span>
-                    </span>
-                </a>
-              <p style="margin-top:40px">scroll me</p>
-            
-            </span>
-            
-            </p>
-        </div>
-      </section>
-      <section class="background" id="intro2">
-        <div class="content-wrapper">
-          <p class="content-title">Amazon forest</p>
-          <p class="content-subtitle">All the rendered pixels are super reall</p>
-        </div>
-      </section>
-      <section class="background">
-        <div class="content-wrapper">
-          <p class="content-title">Fireflies.</p>
-          <p class="content-subtitle">Long-exposure photo of fireflies in a darkened Japanese forest</p>
-        </div>
-      </section>
-    @endif --}}
-
-  
-
+ 
     <!-- End Navbar -->
     <div class="wrapper">
         
@@ -159,13 +120,7 @@
             @yield('content')
             
         </main>
-        {{-- @if (Route::currentRouteName() != "home")
-            @include('units.footer')
-            
-        @endif --}}
-        
-
-        
+     
     </div>
     
 </body>

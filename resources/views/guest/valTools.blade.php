@@ -55,7 +55,6 @@
 <section class="bg-primary" style="min-height: 100vh; min-width: auto">
     <div class="content-wrapper">
         <h2>Oke</h2>
-        {{-- <p class="content-title">Full Page Parallax Effect</p> --}}
         <p class="content-subtitle">
             <span class="scroll-btn">
             <div class="scroll-to-next-section">
@@ -414,7 +413,7 @@
 </section>
 
  <script>
-     if($('.scroll-to-next-section').length>0) {
+if($('.scroll-to-next-section').length>0) {
    $(".scroll-to-next-section button").click(function () {
       $('html, body').animate({
          scrollTop: $(this).closest("section").next().offset().top
@@ -547,16 +546,6 @@ $("#valtools").on("submit",function (e) {
                 $("#result_value").text("Rp"+result.toLocaleString());
                console.log(data);
                 $("#result_calc").removeClass('d-none');
-                // $.ajax({
-                //     type: "get",
-                //     url: "/valuation/getResult/" + id + "/" + email,
-                //     success: function (data) {
-                //         $("#result_value").val("20000");
-                //     },
-                //     error: function (data) {
-                //         console.log('Error:', data);
-                //     }
-                // });
            }
        }
    });
@@ -566,4 +555,4 @@ function btn_d_valuation() {
     var email = $("input[name='email_user']").val();
     window.open("/valuation/cetak_hasilValuation/"+email);
 }
- </script>
+</script>

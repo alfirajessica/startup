@@ -1,10 +1,8 @@
 $(function () {
     table_listEvent();
     event_hasPassed();
-
-   // $('#table_participant').DataTable().rows().count();
-    
 });
+
 //buatEvent.blade.php
     //do hide and show if event_held had choosen -- onchange select
     function event_willbe_held() {
@@ -91,8 +89,7 @@ $(function () {
     }
 
     function table_listParticipant(id) {
-        
-        //var id = $("#coba_id2").text(); 
+
         var t = $('#table_participant').DataTable({
             destroy:true,
             processing: true,
@@ -127,12 +124,10 @@ $(function () {
                 cell.innerHTML = i+1;
             } );
         } ).draw();
-
-       // var table = $("#table_participant").DataTable();   
+ 
         t.on('draw', function (data) {
-          
             $("#jumlah_join").text(t.page.info().recordsDisplay);
-            
+            console.log(t.page.info().recordsDisplay);
         });
     }
 //end of detailEvent.blade.php
@@ -348,29 +343,6 @@ $(function () {
             }
         });
 
-        /*$.get(url_editProduct + product_id, function (data) {
-              $('#coba_id').val(data.id);
-              $('#edit_nama_event').val(data.name);
-              $('#edit_desc_event').val(data.desc);
-              $('#edit_will_beheld').val(data.held);
-  
-              edit_event_willbe_held();    
-              var held = $('#edit_will_beheld').val(data.held);
-              $('#edit_link_event').val(data.link);
-              $('#edit_provinsi_event').val(data.id_province);
-              
-              var status = "editProduct";
-              open_city(data.id_province, data.id_city, status);
-              
-              $('#edit_address_event').val(data.address);
-              $('#edit_jadwal_event').val(data.event_schedule);
-              $('#edit_time_event').val(data.event_time);
-  
-              var gmbr = "/uploads/event/"+data.image;
-              console.log(gmbr);
-              $("#previewImg2").attr("src", gmbr);
-             
-        })*/
     });
 
     $('body').on('click', '.nonaktifEvent', function () {
@@ -463,29 +435,24 @@ $(function () {
         if (dateawal != "" && dateakhir != "") {
             window.open("/inv/report/cetak_riwayatEvent/"+dateawal+"/"+dateakhir+"/"+piljenisEvent+"/"+pilstatusEvent);
         }
-
-        
      }
     
-     function cetak_participantEvent() {  
-         var id = $("#coba_id").val();
-        
-        window.open("/inv/report/cetak_participantEvent/"+id);
-     }
+    function cetak_participantEvent() {  
+    var id = $("#coba_id").val();
+    window.open("/inv/report/cetak_participantEvent/"+id);
+    }
 
-     function event_hasPassed() {  
+    function event_hasPassed() {  
         $.ajax({
             type: "get",
             url: "/eventPassed",
             success: function (data) {
                 console.log('ok');
-               
+                
             },
             error: function (data) {
                 console.log('Error:', data);
             }
         });
-    
-    
     }
 //end of listEvent.blade.php

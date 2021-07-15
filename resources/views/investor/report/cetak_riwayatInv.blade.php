@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Laporan Investasi</title>
+    <title>Laporan Riwayat Investasi</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
@@ -12,14 +12,14 @@
     <br>
     <a href="https://startupinow.com/">https://startupinow.com</a> <br>
     <small>Dicetak pada : {{ now()->translatedFormat('d-F-Y h:i') }}</small> <br>
-    <h2>Laporan Investasi</h2>
+    <h2>Laporan Riwayat Investasi</h2>
     
     @if ($jenislap == 0)
         Laporan ini mencetak semua investasi Anda
     @elseif ($jenislap == 1)
         Laporan ini mencetak semua investasi Anda yang berstatus <strong>Sedang Aktif</strong>
     @elseif ($jenislap == 2)
-        Laporan ini mencetak semua investasi berstatus <strong>Gagal/Cancel</strong> <br>
+        Laporan ini mencetak semua investasi berstatus <strong>Gagal/Cancel/Tidak Aktif</strong> <br>
         Dengan ketentuan keterlambatan membayar/dicancel/digagalkan oleh Investor
     @elseif ($jenislap == 3)
         Laporan ini mencetak semua investasi Anda berstatus <strong>Expire</strong> <br>
@@ -27,8 +27,8 @@
     @endif
     <br>
     Data yang dimuat pada laporan ini adalah data pada periode 
-        <strong>{{ Carbon\Carbon::parse($dateawal)->format('d-m-Y') }}</strong> hingga 
-        <strong>{{ Carbon\Carbon::parse($dateakhir)->format('d-m-Y') }}</strong>
+        <strong>{{ Carbon\Carbon::parse($dateawal)->format('d-M-Y') }}</strong> hingga 
+        <strong>{{ Carbon\Carbon::parse($dateakhir)->format('d-M-Y') }}</strong>
 
     <br>
     

@@ -4,8 +4,6 @@
 
     <form id="msform" action="{{ route('dev.product.addNewProduct')}}" method="POST" class="contact-form" novalidate>
             @csrf
-            <!-- progressbar -->
-            
             <ul id="progressbar" class="d-flex justify-content-center">
                 <li class="active" id="account"><strong>Singkat Produk</strong></li>
                 <li id="personal"><strong>Detail</strong></li>
@@ -19,7 +17,6 @@
                     <!-- fieldsets -->
                             
                             <div class="form-section">
-                                {{-- <h2 class="fs-title">Informasi Proyek</h2>  --}}
                                 <div class="form-group">
                                     <label class="float-left">Masukkan Nama Proyek</label>
                                     
@@ -73,7 +70,7 @@
                         
                                 <div class="form-group">
                                     <a href="#" id="pop">
-                                    <img id="previewImg" style="max-width: 250px; margin-top:20px" src="{{asset('images')}}">
+                                    <img id="previewImg" style="max-width: 250px; margin-top:20px" src="../images/sample-img.png">
                                     </a>  
                                 </div>
                             </div>
@@ -114,18 +111,16 @@
                         
                                 <button type="button" class="next btn btn-outline-primary float-right"> Lanjutkan Isi detail</button>
                         
-                               
                                 <button type="submit" class="btn btn-success float-right">Simpan proyek ini</button>
                             </div>
-                        {{-- </div> --}}
-                   
+
                 </div>
             </div>
         </div>
     </form>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>      
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
 
 <script>
    

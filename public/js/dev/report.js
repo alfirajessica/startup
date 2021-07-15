@@ -28,13 +28,13 @@ function cetak_laporanProyek() {
     if (idcetak == 0) {
         //cetak semua proyek terdaftar
         if (dateawal == "") {
-            $('#help_date_awal').text("error");
+            $('#help_date_awal').text("Tentukan Periode Awal");
         }
         if (dateawal != "") {
             $('#help_date_awal').text("");
         }
         if (dateakhir == "") {
-            $('#help_date_akhir').text("error");
+            $('#help_date_akhir').text("Tentukan Periode Akhir");
         }
         if (dateakhir != "") {
             $('#help_date_akhir').text("");
@@ -51,13 +51,13 @@ function cetak_laporanProyek() {
     else if (idcetak == 2)  {
         //cetak transaksi
         if (dateawal == "") {
-            $('#help_date_awal').text("error");
+            $('#help_date_awal').text("Tentukan Periode Awal");
         }
         if (dateawal != "") {
             $('#help_date_awal').text("");
         }
         if (dateakhir == "") {
-            $('#help_date_akhir').text("error");
+            $('#help_date_akhir').text("Tentukan Periode Akhir");
         }
         if (dateakhir != "") {
             $('#help_date_akhir').text("");
@@ -70,13 +70,13 @@ function cetak_laporanProyek() {
     else if (idcetak == 3)  {
         //cetak investor
         if (dateawal == "") {
-            $('#help_date_awal').text("error");
+            $('#help_date_awal').text("Tentukan Periode Awal");
         }
         if (dateawal != "") {
             $('#help_date_awal').text("");
         }
         if (dateakhir == "") {
-            $('#help_date_akhir').text("error");
+            $('#help_date_akhir').text("Tentukan Periode Akhir");
         }
         if (dateakhir != "") {
             $('#help_date_akhir').text("");
@@ -89,13 +89,13 @@ function cetak_laporanProyek() {
     else if (idcetak == 4) {
         //cetak review
         if (dateawal == "") {
-            $('#help_date_awal').text("error");
+            $('#help_date_awal').text("Tentukan Periode Awal");
         }
         if (dateawal != "") {
             $('#help_date_awal').text("");
         }
         if (dateakhir == "") {
-            $('#help_date_akhir').text("error");
+            $('#help_date_akhir').text("Tentukan Periode Akhir");
         }
         if (dateakhir != "") {
             $('#help_date_akhir').text("");

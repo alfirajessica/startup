@@ -227,6 +227,10 @@ Route::post('/dev/product', [ProductController::class, 'addNewProduct'])->name('
 Route::get('/dev/listProject/select', [ProductController::class, 'listProject_select'])->name('dev.listProject.select');
 Route::get('/dev/listProduct', [ProductController::class, 'listProduct'])->name('dev.listProduct'); //show list product in daftar product
 Route::get('/dev/laporan', [DevController::class, 'laporan'])->name('dev.laporan');
+//ulasan di tab ulasan
+Route::get('/dev/reviews', [ReviewController::class, 'reviews'])->name('dev.reviews'); 
+Route::get('/dev/reviews/getResponse/{id}', [ReviewController::class, 'getResponse'])->name('dev.reviews.getResponse'); 
+Route::post('/dev/reviews/postResponse', [ReviewController::class, 'postResponse'])->name('dev.reviews.postResponse'); 
 
 //jenisproduct/project
 Route::get('/dev/listProduct/get_categoryID/{id}', [ProductController::class, 'get_categoryID'])->name('dev.listProduct.get_categoryID'); 
@@ -265,8 +269,9 @@ Route::get('/dev/product/deletePengeluaran/{id}', [ProductController::class, 'de
 Route::get('/dev/product/detailPemasukkan/{id}', [ProductController::class, 'detailPemasukkan'])->name('dev.product.detailPemasukkan'); 
 Route::post('/dev/product/updatePemasukkan', [ProductController::class, 'updatePemasukkan'])->name('dev.product.updatePemasukkan'); //show list product
 
+//Route::get('/dev/review', [DevController::class, 'review'])->name('dev.review'); //gk dipakai
 
-Route::get('/dev/review', [DevController::class, 'review'])->name('dev.review');
+
 
 //search
 Route::get('/dev/event/searchEvent/{id}', [EventController::class, 'searchEvent'])->name('dev.event.searchEvent');

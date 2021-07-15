@@ -3,11 +3,9 @@
 $(function () {
     
     table_listProduct();
-
-    //daftarProductBaru.blade.php
     show_listProject_select();
     show_jenis_produk();
-
+    table_listUlasan();
 });
     
 
@@ -436,6 +434,160 @@ function show_listProject_select() {
 
 }
 
+//tab ulasan
+function table_listUlasan() { 
+    $('#table_listUlasan').DataTable({
+        destroy:true,
+        processing: true,
+        serverSide: true, //aktifkan server-side 
+        responsive:true,
+        deferRender:true,
+        language: {
+            "emptyTable": "Belum ada Ulasan"
+        },
+        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+        ajax: {
+            url: "/dev/reviews",
+            type: 'GET',
+        },
+        order: [
+            [0, 'asc']
+        ],
+        columns: [
+            {
+                data: null,
+                name: 'id',
+                render: data => {
+                    return "#" + data.id;
+                }
+              
+            },
+            {
+                data: null,
+                name: 'created_at',
+                render: data => {
+                    return moment(data.created_at).format('DD/MMM/YYYY');
+                }
+            },
+            {
+                data: 'name',
+                name: 'name',
+            },
+            {
+                data: null,
+                name: 'rating',
+                render: data => {
+                    var coba="<label> <div class='stars' data-rating='0'>";
+                    for (let index = 0; index < data.rating; index++) {
+                        coba = coba + "<span class='star rated' data-rating='" + index + "'>&nbsp;</span>";
+                    }
+                    coba = coba + "</div>" + data.isi_review + "</label>" ;
+                    return coba;
+                }
+            },
+            {
+                data: null,
+                name: 'tgltanggapan',
+                render: data => {
+                    if (data.tgltanggapan == null) {
+                        return "-";
+                    }else{
+                        return moment(data.tgltanggapan).format('DD/MMM/YYYY');
+                    }
+                    
+                }
+            },
+            {
+                data: null,
+                name: 'action',
+                render: data => {
+                    
+                    if (data.tgltanggapan == null) {
+                       
+                        return '<a href="javascript:void(0)" data-toggle="modal" data-target="#modal_BeriTanggapan" data-id="'+data.id+'" data-original-title="edit" class="btn btn-default btn-sm detailResponse">Beri Tanggapan</a>';
+                    }else{
+                       
+                        return data.action;
+                    }
+                    
+                }
+            },
+        ],
+        
+    });
+ }
+
+ $('body').on('click', '.detailResponse', function () {
+    var id = $(this).data("id");
+    $("#id_response").val("");
+    $("#id_reviews").val(id);
+    var showResponse ="";
+    $.ajax({
+        type: "get",
+        url: "/dev/reviews/getResponse/" + id,
+        success: function (data) {
+            console.log(data[0]);
+            if (data[0] == null) {
+                $('#beri_response').val('');
+                console.log(null);
+            }else
+            {
+                $('#beri_response').val(data[0]['response']);
+                $("#id_response").val(data[0]['id']);
+            }
+            
+           
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+    });
+});
+
+$("#modalBeriTanggapan").on("submit",function (e) {
+    e.preventDefault();
+    $.ajax({
+        url:$(this).attr('action'),
+        method:$(this).attr('method'),
+        data:new FormData(this),
+        processData:false,
+        dataType:'json',
+        contentType:false,
+        beforeSend:function() {
+            $(document).find('span.error-text').text('');
+        },
+        success:function(data) {
+            console.log(data)
+            if (data == 1) {
+                $('#modal_BeriTanggapan').modal('hide');
+                table_listUlasan();
+                swal({
+                    title: "Berhasil Memberi Tanggapan",
+                    icon: "success",
+                });
+               
+            }
+            else if(data == 2){
+                $('#modal_BeriTanggapan').modal('hide');
+                table_listUlasan();
+                swal({
+                    title: "Berhasil Mengubah Tanggapan",
+                    icon: "success",
+                });
+            }
+            else if (data.status == 0) {
+                $.each(data.error, function (prefix, val) {
+                    $('span.'+prefix+'_error').text(val[0]);
+                });
+            }
+            
+        }
+    });
+});
+
+//end of tab ulasan
+
+
 //detailProduct Transaksi Pemasukkan dan Pengeluaran
 var getTotal, getUangmuka, temptotal='';
 
@@ -529,7 +681,7 @@ function table_pemasukkan_pengeluaran(id) {
 
             // Update footer
             $( api.column( 3 ).footer() ).html(
-                $.fn.dataTable.render.number('.','.','2','Rp').display(total)
+                $.fn.dataTable.render.number('.',',','2','').display(total)
             );
             
                                  
@@ -587,7 +739,7 @@ function table_pemasukkan_pengeluaran(id) {
                 data: 'jumlah',
                 name: 'jumlah',
                 className: 'dt-body-right',
-                render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp')
+                render: $.fn.dataTable.render.number( '.', ',', 2, '')
               
             },
            
@@ -621,7 +773,7 @@ function table_pemasukkan_pengeluaran(id) {
 
             // Update footer
             $( api.column( 3 ).footer() ).html(
-                $.fn.dataTable.render.number('.','.','2','Rp').display(total)
+                $.fn.dataTable.render.number('.',',','2','').display(total)
             );
             
                                  
@@ -722,7 +874,7 @@ function table_pemasukkan_pengeluaran(id) {
               
             },
             {
-                data: 'created_at',
+                data: null,
                 name: 'created_at',
                 render: data => {
                     return moment(data.created_at).format('DD/MMM/YYYY');
