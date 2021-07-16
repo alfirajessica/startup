@@ -276,7 +276,7 @@ class AdminController extends Controller
 
                     $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-success btn-sm confirmInvest" data-tr="tr_{{$product->id}}">Confirm</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="notConfirm" class="btn btn-danger btn-sm notConfirmInvest" data-tr="tr_{{$product->id}}">Tidak Dikonfirmasi</a>';
+                    // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="notConfirm" class="btn btn-danger btn-sm notConfirmInvest" data-tr="tr_{{$product->id}}">Tidak Dikonfirmasi</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])

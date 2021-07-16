@@ -18,6 +18,7 @@ class CreateHeaderProductsTable extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->text('name_product');
             $table->bigInteger('id_detailcategory')->unsigned();
+            $table->bigInteger('id_substartuptag')->unsigned();
             $table->text('url');
             $table->date('rilis');
             $table->mediumText('image')->nullable();
@@ -30,6 +31,7 @@ class CreateHeaderProductsTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_detailcategory')->references('id')->on('detail_category_products')->onDelete('cascade')->onUpdate('cascade');
+            
         });
     }
 

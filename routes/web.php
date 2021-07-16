@@ -15,6 +15,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\InvestController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\StartupTagController;
 
 use App\Http\Controllers\ValuationToolsController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -106,22 +107,36 @@ Route::prefix('admin')->group(function () {
     
 
     //tipe transaksi
-    Route::get('/typeTrans', [TypeTransController::class, 'typeTrans'])->name('admin.typeTrans');
-    Route::post('/typeTrans/addNewtypeTrans', [TypeTransController::class, 'addNewtypeTrans'])->name('admin.typeTrans.addNewtypeTrans');
-    Route::get('/typeTrans/editTypeTrans/{id}', [TypeTransController::class, 'editTypeTrans'])->name('admin.typeTrans.editTypeTrans');
-    Route::post('/typeTrans/updateTypeTrans', [TypeTransController::class, 'updateTypeTrans'])->name('admin.typeTrans.updateTypeTrans');
-    Route::get('/typeTrans/nonAktifTypeTrans/{id}', [TypeTransController::class, 'nonAktifTypeTrans'])->name('admin.typeTrans.nonAktifTypeTrans');
-    Route::get('/typeTrans/aktifTypeTrans/{id}', [TypeTransController::class, 'aktifTypeTrans'])->name('admin.typeTrans.aktifTypeTrans');
+        Route::get('/typeTrans', [TypeTransController::class, 'typeTrans'])->name('admin.typeTrans');
+        Route::post('/typeTrans/addNewtypeTrans', [TypeTransController::class, 'addNewtypeTrans'])->name('admin.typeTrans.addNewtypeTrans');
+        Route::get('/typeTrans/editTypeTrans/{id}', [TypeTransController::class, 'editTypeTrans'])->name('admin.typeTrans.editTypeTrans');
+        Route::post('/typeTrans/updateTypeTrans', [TypeTransController::class, 'updateTypeTrans'])->name('admin.typeTrans.updateTypeTrans');
+        Route::get('/typeTrans/nonAktifTypeTrans/{id}', [TypeTransController::class, 'nonAktifTypeTrans'])->name('admin.typeTrans.nonAktifTypeTrans');
+        Route::get('/typeTrans/aktifTypeTrans/{id}', [TypeTransController::class, 'aktifTypeTrans'])->name('admin.typeTrans.aktifTypeTrans');
+
+   
+    //startup tags
+    Route::get('/startupTags', [StartupTagController::class, 'startupTags'])->name('admin.startupTags');
+    Route::post('/startupTags/addNewHStartupTag', [StartupTagController::class, 'addNewHStartupTag'])->name('admin.startupTags.addNewHStartupTag');
+    Route::get('/startupTags/editHStartupTag/{id}', [StartupTagController::class, 'editHStartupTag'])->name('admin.startupTags.editHStartupTag');
+    Route::post('/startupTags/updateHStartupTag', [StartupTagController::class, 'updateHStartupTag'])->name('admin.startupTags.updateHStartupTag');
+    Route::get('/startupTags/nonAktifHStartupTag/{id}', [StartupTagController::class, 'nonAktifHStartupTag'])->name('admin.startupTags.nonAktifHStartupTag');
+    Route::get('/startupTags/aktifHStartupTag/{id}', [StartupTagController::class, 'aktifHStartupTag'])->name('admin.startupTags.aktifHStartupTag');
+
+    Route::get('/startupTags/showSubStartupTag/{id}', [StartupTagController::class, 'showSubStartupTag'])->name('admin.startupTags.showSubStartupTag');
+    Route::post('/startupTags/addNewSubStartupTag', [StartupTagController::class, 'addNewSubStartupTag'])->name('admin.startupTags.addNewSubStartupTag');
+    Route::get('/startupTags/nonAktifSubStartupTag/{id}', [StartupTagController::class, 'nonAktifSubStartupTag'])->name('admin.startupTags.nonAktifSubStartupTag');
+    Route::get('/startupTags/aktifSubStartupTag/{id}', [StartupTagController::class, 'aktifSubStartupTag'])->name('admin.startupTags.aktifSubStartupTag');
 
     //tab nav - developer
-    Route::get('/dev/daftarDeveloper', [AdminController::class, 'listdev'])->name('admin.dev.listDev');
-    Route::get('/dev/detailDev/{id}', [AdminController::class, 'detailDev'])->name('admin.dev.detailDev');
-    Route::get('/dev/produkDeveloper', [AdminController::class, 'produkdev'])->name('admin.dev.produkDev');
-    Route::get('/dev/listProductDev', [AdminController::class, 'listProductDev'])->name('admin.dev.listProductDev'); 
-    Route::get('/dev/listProductDev/detailProject/{id}', [AdminController::class, 'detailProject'])->name('admin.dev.listProductDev.detailProject'); 
-    Route::get('/dev/listProductDev/confirmProject/{id}', [AdminController::class, 'confirmProject'])->name('admin.dev.listProductDev.confirmProject');
-    Route::get('/dev/listProductDev/notConfirmProject/{id}', [AdminController::class, 'notConfirmProject'])->name('admin.dev.listProductDev.notConfirmProject');
-    Route::get('/dev/listProductDev/getDetailKategori/{id}', [AdminController::class, 'getDetailKategori'])->name('admin.dev.listProductDev.getDetailKategori');
+        Route::get('/dev/daftarDeveloper', [AdminController::class, 'listdev'])->name('admin.dev.listDev');
+        Route::get('/dev/detailDev/{id}', [AdminController::class, 'detailDev'])->name('admin.dev.detailDev');
+        Route::get('/dev/produkDeveloper', [AdminController::class, 'produkdev'])->name('admin.dev.produkDev');
+        Route::get('/dev/listProductDev', [AdminController::class, 'listProductDev'])->name('admin.dev.listProductDev'); 
+        Route::get('/dev/listProductDev/detailProject/{id}', [AdminController::class, 'detailProject'])->name('admin.dev.listProductDev.detailProject'); 
+        Route::get('/dev/listProductDev/confirmProject/{id}', [AdminController::class, 'confirmProject'])->name('admin.dev.listProductDev.confirmProject');
+        Route::get('/dev/listProductDev/notConfirmProject/{id}', [AdminController::class, 'notConfirmProject'])->name('admin.dev.listProductDev.notConfirmProject');
+        Route::get('/dev/listProductDev/getDetailKategori/{id}', [AdminController::class, 'getDetailKategori'])->name('admin.dev.listProductDev.getDetailKategori');
 
     //tab nav- developer - produk terdata
     Route::get('/dev/allListProduct', [AdminController::class, 'allListProduct'])->name('admin.dev.allListProduct');

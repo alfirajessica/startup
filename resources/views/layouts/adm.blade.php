@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="/../assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
   <!-- Page plugins -->
   <!-- Argon CSS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
 
   <link rel="stylesheet" href="/../assets/css/argon.css?v=1.2.0" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -66,6 +68,12 @@
               <a class="nav-link" href="{{ route('admin.typeTrans') }}">
                 <i class="ni ni-tv-2 text-primary"></i>
                 <span class="nav-link-text">{{ __('Tipe Transaksi') }}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('admin.startupTags') }}">
+                <i class="ni ni-tv-2 text-primary"></i>
+                <span class="nav-link-text">{{ __('Startup Tags') }}</span>
               </a>
             </li>
           </ul>
