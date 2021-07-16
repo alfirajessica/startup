@@ -31,16 +31,16 @@
 </style>
 @section('content')
 <div class="container">
-    <div class="py-4"></div>
+    <div class="py-3"></div>
     <div class="row">
         <div class="col-md-3">
             <div class="nav flex-column nav-pills py-2" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link mb-2 active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Daftarkan Startup/Produk</a>
-                <a class="nav-link mb-2" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Pemasukkan</a>
-                <a class="nav-link mb-2" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Pengeluaran</a>
-                <a class="nav-link mb-2" id="v-pills-ulasan-tab" data-toggle="pill" href="#v-pills-ulasan" role="tab" aria-controls="v-pills-ulasan" aria-selected="false">Ulasan</a>
-                <a class="nav-link mb-2" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Semua Startup/Produk saya</a>
-                <a class="nav-link" id="v-pills-laporan-tab" data-toggle="pill" href="#v-pills-laporan" role="tab" aria-controls="v-pills-laporan" aria-selected="false">Laporan</a>
+                <a class="nav-link mb-2 active font-weight-bold" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true" >Daftarkan Startup/Produk</a>
+                <a class="nav-link mb-2 font-weight-bold" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Pemasukkan</a>
+                <a class="nav-link mb-2 font-weight-bold" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Pengeluaran</a>
+                <a class="nav-link mb-2 font-weight-bold" id="v-pills-ulasan-tab" data-toggle="pill" href="#v-pills-ulasan" role="tab" aria-controls="v-pills-ulasan" aria-selected="false">Ulasan</a>
+                <a class="nav-link mb-2 font-weight-bold" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Semua Startup/Produk saya</a>
+                <a class="nav-link font-weight-bold" id="v-pills-laporan-tab" data-toggle="pill" href="#v-pills-laporan" role="tab" aria-controls="v-pills-laporan" aria-selected="false">Laporan</a>
             </div>
         </div>
         <div class="col-md-9 py-2">
@@ -75,6 +75,7 @@
     $(document).ready(function () {
         
         show_detail();
+        show_subStartupTag();
     });
 
      //to show image what user had choosen in preview
@@ -104,6 +105,26 @@
                 var isi = data.list_detailcategory[i]["name"];
 
                 $('#detail_kategori').append('<option value="'+ idnya + '">' + isi + '</option>');
+                
+            }
+    
+        })
+    }
+
+    function show_subStartupTag() { 
+        var id = $('#hstartupTag_produk').val();
+        console.log(id);
+
+        $.get("{{ route('dev.product') }}" + '/subTag/' + id, function (data) {
+            $('#subTag_produk').empty();
+            $('select[name="subTag_produk"]').append('<option value="" selected>-- pilih Sub tag --</option>');
+            for (let i = 0; i < data.list_subStartupTag.length; i++) {
+                console.log(data.list_subStartupTag[i]["id"])
+
+                var idnya = data.list_subStartupTag[i]["id"];
+                var isi = data.list_subStartupTag[i]["name_subtag"];
+
+                $('#subTag_produk').append('<option value="'+ idnya + '">' + isi + '</option>');
                 
             }
     

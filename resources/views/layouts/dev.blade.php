@@ -7,13 +7,13 @@
     }
     .navbar{
         
-        background-color:#0a1931;
+        background-color:#0A1931;
     }
     .dropdown-menu{
         background-color:#0a1931;
     }
     .landing-page{
-        background-color: #f7f3e9;
+        background-color: #EFEFEF;
     }
     .jumbotron {
         background-image: none

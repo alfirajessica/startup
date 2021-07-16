@@ -36,6 +36,8 @@ class ProductController extends Controller
             'nama_produk'=>'required',
             'jenis_produk'=>'required',
             'detail_kategori'=>'required',
+            'hstartupTag_produk'=>'required',
+            'subTag_produk'=>'required',
             'url'=>'required',
             'rilis'=>'required',
             'desc'=>'required',
@@ -54,6 +56,7 @@ class ProductController extends Controller
             $newProduct->user_id = $user->id;
             $newProduct->name_product = ucfirst($req->nama_produk);
             $newProduct->id_detailcategory = $req->detail_kategori;
+            $newProduct->id_substartuptag = $req->subTag_produk;
             $newProduct->url = $req->url;
             $newProduct->rilis = $req->rilis;
 
@@ -79,30 +82,9 @@ class ProductController extends Controller
             $newProduct->status = "0";  
             $query = $newProduct->save();
 
-           // dd($newProduct->id);
             if ($query) {
-                // //set default utk detail_product_kas dengan jumlah 0
-                // $newKasMasuk = new DetailProductKas;
-                // $newKasMasuk->id_headerproduct = $newProduct->id;
-                // $newKasMasuk->tipe = 1;
-                // $newKasMasuk->id_typetrans = 1;
-                // $newKasMasuk->jumlah = 0;
-                // $newKasMasuk->status = 1;
-                // $query = $newKasMasuk->save();
-
-                // //set default utk detail_product_kas dengan jumlah 0
-                // $newKasKeluar = new DetailProductKas;
-                // $newKasKeluar->id_headerproduct = $newProduct->id;
-                // $newKasKeluar->tipe = 2;
-                // $newKasKeluar->id_typetrans = 5;
-                // $newKasKeluar->jumlah = 0;
-                // $newKasKeluar->status = 1;
-                // $query = $newKasKeluar->save();
-                
+            
                 return response()->json(['status'=>1, 'msg'=>'Berhasil menambah produk baru']);
-
-                
-
             }
         }
     }
@@ -448,13 +430,9 @@ class ProductController extends Controller
             return 0;
         }else{
             return 1;
-            //return response()->json($list_project);
-        }
-         
 
-        //$detail_product_kas = DetailProductKas::where('id_headerproduct','=',$id)->first();
-        // $detail_product_kas = DetailProductKas::find($id);
-        // return response()->json($detail_product_kas);
+        }
+
     }
 //end of Developer /listProduct/table_listProduct
     
@@ -634,12 +612,6 @@ class ProductController extends Controller
 
     public function detailstartup(Request $req, $id){
 
-        /*(SELECT created_at, id, SUM(jumlah) as jumlah1
-        FROM detail_product_kas WHERE tipe='1' AND id_headerproduct=10)
-        UNION
-        (SELECT created_at, id, SUM(jumlah) as jumlah2
-        FROM detail_product_kas WHERE tipe='2' AND id_headerproduct=10)*/
-
         $list_project['list_project'] = 
         DB::table('header_products')
         ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
@@ -698,9 +670,6 @@ class ProductController extends Controller
         ->where('header_products.status','=','1')
         ->where('header_products.name_product','=',$req->search_input)
         ->paginate(4);
-
-        // $list_category['list_category'] = DB::table('category_products')->get();
-        // $header_events['header_events'] = DB::table("header_events")->where('name','='.$req->search_input)->paginate(6);
         $output="";
       
     }
@@ -745,7 +714,4 @@ class ProductController extends Controller
            
         }
     }
-
-
-    
 }

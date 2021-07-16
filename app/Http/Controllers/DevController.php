@@ -34,16 +34,21 @@ class DevController extends Controller
         $list_category['list_category'] = DB::table('category_products')->where('status','=','1')->get();
         $type_trans['type_trans'] = DB::table('type_trans')->get();
         $list_project['list_project'] = DB::table('header_products')->where('user_id','=',$user->id)->get();
+        $list_hStartupTag['list_hStartupTag'] = DB::table('h_startup_tags')->get();
 
         
-        return view('developer.product')->with($list_category)->with($type_trans)->with($list_project);
+        return view('developer.product')->with($list_category)->with($type_trans)->with($list_project)->with($list_hStartupTag);
     }
 
     public function detail_category_filter($id)
     {
         $list_detailcategory['list_detailcategory'] = DB::table('detail_category_products')->where('category_id', '=', $id)->get();
         return $list_detailcategory;
-        
+    }
+    public function subTag($id)
+    {
+        $list_subStartupTag['list_subStartupTag'] = DB::table('sub_startup_tags')->where('startuptag_id', '=', $id)->get();
+        return $list_subStartupTag;
     }
 
     //dipindahkan ke homecontroller

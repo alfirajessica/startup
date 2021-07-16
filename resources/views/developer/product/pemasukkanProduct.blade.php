@@ -3,7 +3,7 @@
 <form action="{{ route('dev.listPemasukkan.addNewPemasukkan')}}" method="POST" id="pemasukkanProduct">
     @csrf
 <div class="form-group">
-    <h2 class="fs-title">Detail Pemasukkan</h2> 
+    <h4> <strong>Detail Pemasukkan</strong> </h4> 
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">

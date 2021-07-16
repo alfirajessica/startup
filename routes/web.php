@@ -238,6 +238,7 @@ Route::get('/dev/listHistoryEvent', [EventController::class, 'listHistoryEvent']
 //product
 Route::get('/dev/product', [DevController::class, 'product'])->name('dev.product');
 Route::get('/dev/product/{id}', [DevController::class, 'detail_category_filter'])->name('dev.product.detail_category_filter');
+Route::get('/dev/product/subTag/{id}', [DevController::class, 'subTag'])->name('dev.product.subTag');
 Route::post('/dev/product', [ProductController::class, 'addNewProduct'])->name('dev.product.addNewProduct'); 
 Route::get('/dev/listProject/select', [ProductController::class, 'listProject_select'])->name('dev.listProject.select');
 Route::get('/dev/listProduct', [ProductController::class, 'listProduct'])->name('dev.listProduct'); //show list product in daftar product

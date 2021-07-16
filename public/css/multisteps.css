@@ -52,18 +52,18 @@ html {
 
 #msform input,
 #msform textarea {
-    padding: 0px 8px 4px 8px;
+    /*padding: 0px 8px 4px 8px; 
     border: none;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;*/
     border-radius: 0px;
-    margin-bottom: 25px;
+    /* margin-bottom: 25px; */
     margin-top: 2px;
     width: 100%;
     box-sizing: border-box;
-    font-family: montserrat;
-    color: #2C3E50;
-    font-size: 16px;
-    letter-spacing: 1px
+    font-family: 'Open Sans';
+    color: #161616;
+    /* font-size: 16px; */
+    /* letter-spacing: 1px */
 }
 
 #msform input:focus,
@@ -72,8 +72,8 @@ html {
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
     border: none;
-    font-weight: bold;
-    border-bottom: 2px solid skyblue;
+    /* font-weight: bold; */
+    border-bottom: 2px solid;
     outline-width: 0
 }
 
@@ -188,9 +188,9 @@ select.list-dt:focus {
 }
 
 #progressbar li:before {
-    width: 50px;
-    height: 50px;
-    line-height: 45px;
+    width: 40px;
+    height: 40px;
+    line-height: 35px;
     display: block;
     font-size: 18px;
     color: #ffffff;
@@ -213,7 +213,7 @@ select.list-dt:focus {
 
 #progressbar li.active:before,
 #progressbar li.active:after {
-    background: skyblue
+    background: rgb(20, 55, 107)
 }
 
 .radio-group {

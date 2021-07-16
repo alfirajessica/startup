@@ -2,7 +2,7 @@
 <form action="{{ route('dev.listPengeluaran.addNewPengeluaran')}}" method="POST" id="pengeluaranProduct">
     @csrf
 <div class="form-group">
-    <h2 class="fs-title">Detail Pengeluaran</h2> 
+    <h4> <strong>Detail Pengeluaran</strong> </h4> 
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">

@@ -1,16 +1,21 @@
+<style>
+    .scroll {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  </style>
 <div class="col-md-12">
     <h4><strong>Daftarkan Proyek Baru Saya</strong></h4>
-        <p>Isi semua form untuk ke halaman selanjutnya</p>
+        <small class="text-dark">Isi semua form untuk ke halaman selanjutnya</small>
 
     <form id="msform" action="{{ route('dev.product.addNewProduct')}}" method="POST" class="contact-form" novalidate>
             @csrf
             <ul id="progressbar" class="d-flex justify-content-center">
                 <li class="active" id="account"><strong>Singkat Produk</strong></li>
                 <li id="personal"><strong>Detail</strong></li>
-                
             </ul>
 
-        <div class="card shadow px-2 py-2 pb-0 mb-3 border-0">
+        <div class="card shadow px-2 py-2 pb-0 mb-3 border-0 text-dark ">
             
             <div class="row">
                 <div class="col-md-12 mx-0">
@@ -19,7 +24,6 @@
                             <div class="form-section">
                                 <div class="form-group">
                                     <label class="float-left">Masukkan Nama Proyek</label>
-                                    
                                     <input type="text" name="nama_produk" id="nama_produk" class="form-control form-control-alternative" aria-describedby="nama_produk_error" required data-parsley-error-message="Nama proyek belum terisi">
                                     <span class="text-danger error-text nama_produk_error" id="nama_produk_error"></span>
                                 </div>
@@ -47,6 +51,27 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            <label class="float-left">Startup Tag</label>
+                                            <select class="form-control form-control-alternative" name="hstartupTag_produk" id="hstartupTag_produk" onchange="show_subStartupTag(this)" required data-parsley-error-message="Pilih Startup Tag">
+                                                @foreach($list_hStartupTag as $hStartupTag)
+                                                <option value="{{$hStartupTag->id}}"> {{$hStartupTag->name_startup_tag}}</option>
+                                                @endforeach
+                                            </select>
+                                            <span class="text-danger error-text hstartupTag_produk_error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="float-left">Sub tag</label>
+                                            <select class="form-control form-control-alternative" name="subTag_produk" id="subTag_produk" required data-parsley-error-message="Pilih Sub Tag">    
+                                            </select>
+                                            <span class="text-danger error-text subTag_produk_error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
                                             <label class="float-left">Domain/Url Produk</label>
                                             <input type="url" name="url" id="url" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId" required data-parsley-error-message="Domain proyek belum terisi">
                                             <span class="text-danger error-text url_error"></span>
@@ -60,24 +85,28 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <label for="exampleInputFile">File input</label>
-                                        <input type="file" class="form-control-file"  name="image" id="exampleInputFile" aria-describedby="fileHelp" onchange="previewFile(this)">
-                                        <span class="text-danger error-text image_error"></span>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <label for="exampleInputFile">File input</label>
+                                                <input type="file" class="form-control-file form-control-alternative"  name="image" id="exampleInputFile" aria-describedby="fileHelp" onchange="previewFile(this)">
+                                                <span class="text-danger error-text image_error"></span>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                        
-                                <div class="form-group">
-                                    <a href="#" id="pop">
-                                    <img id="previewImg" style="max-width: 250px; margin-top:20px" src="../images/sample-img.png">
-                                    </a>  
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <a href="#" id="pop">
+                                            <img id="previewImg" style="max-width: 250px; margin-top:20px" src="../images/sample-img.png">
+                                            </a>  
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         
                             <div class="form-section">
                                 <div class="form-group">
-                                    <h2 class="fs-title">Detail Informasi Produk</h2> 
                                     <div class="form-group">
                                         <label class="float-left">Deskripsikan produk anda</label>
                                         <textarea class="form-control form-control-alternative" name="desc" id="" rows="3"></textarea>
@@ -98,20 +127,20 @@
                                         <textarea class="form-control form-control-alternative" name="benefit" id="" rows="3"></textarea>
                                     </div>
                                 
-                                    <div class="form-group">
+                                    <div class="form-group d-none" >
                                         <label class="float-left">Solusi yang anda tawarkan</label>
-                                        <textarea class="form-control form-control-alternative" name="solution" id="" rows="3"></textarea>
+                                        <textarea class="form-control form-control-alternative" name="solution" id="" rows="3">-</textarea>
                                     </div>
                                 
                                 </div> 
                             </div>
                         
                             <div class="form-navigation">
-                                <button type="button" class="previous btn btn-info float-left">Sebelumnya</button>
+                                <button type="button" class="previous btn btn-warning float-left mx-2 my-0" style="text-transform: none">Sebelumnya</button>
                         
-                                <button type="button" class="next btn btn-outline-primary float-right"> Lanjutkan Isi detail</button>
+                                <button type="button" class="next btn btn-default float-right" style="text-transform: none"> Lanjutkan isi detail </button>
                         
-                                <button type="submit" class="btn btn-success float-right">Simpan proyek ini</button>
+                                <button type="submit" class="btn btn-default float-right" style="text-transform: none">Simpan Startup ini</button>
                             </div>
 
                 </div>

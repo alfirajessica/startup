@@ -1,23 +1,23 @@
 <div class="row">
     <div class="col-md-12">
         <h4><strong>List Semua Startup/Produk </strong></h4>
-        <p>Silakan Pilih Tab Status Startup/Produk Dibawah Ini</p>
+        <small class="text-dark">Silakan Pilih Tab Status Startup/Produk Dibawah Ini</small>
     </div>
 </div>
-<div class="row">
+<div class="row py-2">
     <div class="col">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link" id="confirm-tab" data-toggle="tab" href="#confirm" role="tab" aria-controls="confirm" aria-selected="false">Menunggu Konfirmasi</a>
+                <a class="nav-link text-dark" id="confirm-tab" data-toggle="tab" href="#confirm" role="tab" aria-controls="confirm" aria-selected="false">Menunggu Konfirmasi</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Produk Aktif</a>
+              <a class="nav-link active text-dark" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Produk Aktif</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Produk Tidak Aktif</a>
+              <a class="nav-link text-dark" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Produk Tidak Aktif</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Produk Memiliki Investor</a>
+                <a class="nav-link text-dark" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Produk Memiliki Investor</a>
             </li>
             
         </ul>

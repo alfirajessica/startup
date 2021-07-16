@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <h2 class="fs-title">Laporan</h2> 
+        <h4> <strong>Laporan</strong> </h4> 
         <div class="form-group">
             <div class="input-group input-group-alternative mb-4" id="select_project">
               <select name="pilih_cetaklap" id="pilih_cetaklap" class="form-control form-control-alternative" type="text"> 
