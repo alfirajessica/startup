@@ -734,6 +734,23 @@ class ProductController extends Controller
         }
     }
 
+    public function get_Status($id)
+    {
+        $getStatus = HeaderProduct::where('id','=',$id)->get();
+    
+        $isExist = HeaderProduct::where('id','=',$id)->first();
+
+        if (HeaderProduct::where('id','=',$id)->exists()) {
+            return response()->json($getStatus);
+        }
+
+        else if ($isExist == null)
+        {
+            return 0;
+        }
+        
+    }
+
     public function get_allReasonTdkDikonfirmasi($id)
     {
         $notConfirmProduct = NotConfirmProduct::where('id_headerproduct','=',$id)->get();

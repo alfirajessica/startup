@@ -246,6 +246,7 @@ Route::get('/dev/product/subTag/{id}', [DevController::class, 'subTag'])->name('
 Route::post('/dev/product', [ProductController::class, 'addNewProduct'])->name('dev.product.addNewProduct'); 
 Route::get('/dev/listProject/select', [ProductController::class, 'listProject_select'])->name('dev.listProject.select');
 Route::get('/dev/listProduct', [ProductController::class, 'listProduct'])->name('dev.listProduct'); //show list product in daftar product
+Route::get('/dev/listProduct/get_Status/{id}', [ProductController::class, 'get_Status'])->name('dev.listProduct.get_Status');
 Route::get('/dev/listProduct/get_allReasonTdkDikonfirmasi/{id}', [ProductController::class, 'get_allReasonTdkDikonfirmasi'])->name('dev.listProduct.get_allReasonTdkDikonfirmasi');
 
 Route::get('/dev/laporan', [DevController::class, 'laporan'])->name('dev.laporan');

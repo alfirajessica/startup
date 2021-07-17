@@ -215,14 +215,28 @@ $('body').on('click', '.detailProject', function () {
         $('#nama_product, #edit_jenis_produk, #edit_detail_kategori, #edit_startup_tag, #edit_subStartup_tag, #url_product, #rilis_product, #desc,#team, #reason, #benefit,#solution ').attr('disabled', 'disabled').css("background-color", "white");
     }
     else if(cekTabel == "table_listProductConfirmYet"){
-        $("#alert_tdkdikonfirmasi").removeClass("d-none");
         $.ajax({
             type: "get",
-            url: "/dev/listProduct/get_allReasonTdkDikonfirmasi/" + product_id,
+            url: "/dev/listProduct/get_Status/" + product_id,
             success: function (data) {
-               
-                $("#cetak_reasonTdkdikonfirmasi").text(data[0]['reason']);
-               
+                console.log(data[0]['status']);
+                if (data[0]['status'] == 0) {
+                    $("#alert_tdkdikonfirmasi").addClass("d-none");
+                }
+                else if(data[0]['status'] == 4) {
+                    $.ajax({
+                        type: "get",
+                        url: "/dev/listProduct/get_allReasonTdkDikonfirmasi/" + product_id,
+                        success: function (data) {
+                            $("#alert_tdkdikonfirmasi").removeClass("d-none");
+                            $("#cetak_reasonTdkdikonfirmasi").text(data[0]['reason']);
+                           
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+                    });  
+                }
             },
             error: function (data) {
                 console.log('Error:', data);
