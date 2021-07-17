@@ -56,8 +56,11 @@ $(function () {
             },
             columns: [
                 {
-                    data: 'id',
-                    name: 'id'
+                    data: null,
+                    name: 'id',
+                    render: data => {
+                        return "#"+data.id;
+                    }
                 },
                 {
                     data: null,
@@ -92,9 +95,9 @@ $(function () {
                 },
                 
             ],
-            order: [
-                [0, 'asc']
-            ]
+            // order: [
+            //     [0, 'asc']
+            // ]
         });
         
     });

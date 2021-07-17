@@ -136,11 +136,11 @@
                             </div>
                         
                             <div class="form-navigation">
-                                <button type="button" class="previous btn btn-warning float-left mx-2 my-0" style="text-transform: none">Sebelumnya</button>
+                                <button type="button" class="previous btn btn-warning float-left mx-2 my-0" >Sebelumnya</button>
                         
-                                <button type="button" class="next btn btn-default float-right" style="text-transform: none"> Lanjutkan isi detail </button>
+                                <button type="button" class="next btn btn-default float-right"> Lanjutkan isi detail </button>
                         
-                                <button type="submit" class="btn btn-default float-right" style="text-transform: none">Simpan Startup ini</button>
+                                <button type="submit" class="btn btn-default float-right" >Simpan Startup ini</button>
                             </div>
 
                 </div>

@@ -4,17 +4,17 @@
 <div class="container-fluid">
   <h3 style="color: white">Daftar Developer</h3>
     <div class="row">
-      {{-- <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-2 px-2"> --}}
+     
         <div class="col-md-12">
-            {{-- <div class="card"> --}}
+       
                 <div class="card shadow"> <!-- card shadow --> 
                   <div class="table-responsive px-2 py-2">
                     <table class="table table-bordered table-hover" width="100%" id="table_listDev">
                       <thead>
                           <tr>
                               <th>#ID</th>
-                              <th>Nama</th>
-                              <th>Email</th>
+                              <th>Nama Dev</th>
+                              <th>Email Dev</th>
                               <th>Aksi</th>
                           </tr>
                       </thead>
@@ -25,10 +25,9 @@
                 </div>
             {{-- </div> --}}
         </div>
-      {{-- </main> --}}
     </div>
 </div>
-{{-- 
+
 
 {{-- modal --}}
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="detailDev">
@@ -37,7 +36,7 @@
       <div class="modal-body">
         <div class="row">
           <div class="col-md-11">
-            <h5>Daftar Produk Terdaftar pada Developer</h5>
+            <h3>Daftar Semua Startup/Produk Terdaftar pada Developer</h3>
           </div>
       
           <div class="col-md-1">

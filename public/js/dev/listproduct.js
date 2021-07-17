@@ -60,7 +60,7 @@ function table_listProduct() {
                 render: data => {
                     var action="";
                     if (data.status == "4") {
-                        action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm konfirmasiUlang">Konfirmasi ulang</a>';
+                        action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm konfirmasiUlang" style="text-transform:none" >Konfirmasi ulang</a>';
                     }
                     return data.action + action;
                 }
@@ -207,17 +207,36 @@ function table_listProduct() {
 
 $('body').on('click', '.detailProject', function () {
     var cekTabel = $(this).attr("id");
+    var product_id = $(this).data('id');
+
     if (cekTabel == "table_listProductNonAktif" || cekTabel == "table_listProductInvestor" ) {
         $("#submit_updDetail").addClass("d-none");
-        $('#nama_product, #edit_jenis_produk, #edit_detail_kategori, #url_product, #rilis_product, #desc,#team, #reason, #benefit,#solution ').attr('disabled', 'disabled').css("background-color", "white");
+        $("#alert_tdkdikonfirmasi").addClass("d-none");
+        $('#nama_product, #edit_jenis_produk, #edit_detail_kategori, #edit_startup_tag, #edit_subStartup_tag, #url_product, #rilis_product, #desc,#team, #reason, #benefit,#solution ').attr('disabled', 'disabled').css("background-color", "white");
+    }
+    else if(cekTabel == "table_listProductConfirmYet"){
+        $("#alert_tdkdikonfirmasi").removeClass("d-none");
+        $.ajax({
+            type: "get",
+            url: "/dev/listProduct/get_allReasonTdkDikonfirmasi/" + product_id,
+            success: function (data) {
+               
+                $("#cetak_reasonTdkdikonfirmasi").text(data[0]['reason']);
+               
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });  
     }
     else{
-        $('#nama_product, #edit_jenis_produk, #edit_detail_kategori, #url_product, #rilis_product, #desc,#team, #reason, #benefit,#solution ').removeAttr('disabled', 'disabled');
+        $("#alert_tdkdikonfirmasi").addClass("d-none");
+        $('#nama_product, #edit_jenis_produk, #edit_detail_kategori, #edit_startup_tag, #edit_subStartup_tag, #url_product, #rilis_product, #desc,#team, #reason, #benefit,#solution ').removeAttr('disabled', 'disabled');
         $("#submit_updDetail").removeClass("d-none");
     }
     
-    console.log(cekTabel);
-    var product_id = $(this).data('id');
+    //console.log(cekTabel);
+    
     table_pemasukkan_pengeluaran(product_id);
     
     $('#id_product').val(product_id); 
@@ -230,6 +249,7 @@ $('body').on('click', '.detailProject', function () {
             $("img#previewImg").attr("src", "/uploads/event/"+data.image);
             $('#nama_product').val(data.name_product);  
             var id =data.id_detailcategory; 
+            var idHStartupTag =data.id_substartuptag; 
             
             $.ajax({
                 type: "GET",
@@ -251,6 +271,40 @@ $('body').on('click', '.detailProject', function () {
                                     $('select[name="edit_detail_kategori"]').append('<option value="'+ idnya + '">' + value["name"] + '</option>');
                                 });
                                 $('select[name="edit_detail_kategori"]').find('option[value="'+id+'"]').attr("selected",true);
+                                
+                        },
+                        error: function (data) {
+                            console.log('Error:', data);
+                        }
+            
+                    });
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+        
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "/dev/listProduct/get_substartupTagID/" + idHStartupTag,
+                contentType: 'application/json',
+                success:function(data) 
+                {
+                    $('#edit_startup_tag').val(data.startuptag_id); 
+                    $.ajax({
+                        type: "GET",
+                        url: "/dev/listProduct/detailsubstartupTag/" + data.startuptag_id,
+                        contentType: 'application/json',
+                        success:function(data) 
+                        {
+                            $('select[name="edit_subStartup_tag"]').empty();
+                                $('select[name="edit_subStartup_tag"]').append('<option value="" selected>-- pilih Sub tag --</option>');
+                                $.each(data, function (key, value) {
+                                    var idnya = value["id"];
+                                    $('select[name="edit_subStartup_tag"]').append('<option value="'+ idnya + '">' + value["name_subtag"] + '</option>');
+                                });
+                                $('select[name="edit_subStartup_tag"]').find('option[value="'+idHStartupTag+'"]').attr("selected",true);
                                 
                         },
                         error: function (data) {
@@ -648,7 +702,7 @@ function table_pemasukkan_pengeluaran(id) {
                 data: 'jumlah',
                 name: 'jumlah',
                 className: 'dt-body-right',
-                render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp')
+                render: $.fn.dataTable.render.number( '.', ',', 2, '')
               
             },
         ],
@@ -788,7 +842,7 @@ function table_pemasukkan_pengeluaran(id) {
         responsive:true,
         deferRender:true,
         language: {
-            "emptyTable": "Belum ada investor pada proyek ini"
+            "emptyTable": "Belum Ada Investor pada Startup/Produk Ini"
         },
         aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
         ajax: {
@@ -854,7 +908,7 @@ function table_pemasukkan_pengeluaran(id) {
         responsive:true,
         deferRender:true,
         language: {
-            "emptyTable": "Belum ada investor pada proyek ini"
+            "emptyTable": "Belum Ada Ulasan pada Startup/Produk Ini"
         },
         aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
         ajax: {
@@ -946,11 +1000,34 @@ function show_detail_kategori(id) {
         error: function (data) {
             console.log('Error:', data);
         }
-
    });
-
-    
 }
+
+function show_sub_startup_tag(id) { 
+    var id = $('#edit_startup_tag').val();
+    console.log(id);
+
+    $.ajax({
+        type: "GET",
+        url: "/dev/listProduct/detailsubstartupTag/" + id,
+        contentType: 'application/json',
+        success:function(data) 
+        {
+            $('select[name="edit_subStartup_tag"]').empty();
+                $('select[name="edit_subStartup_tag"]').append('<option value="" selected>-- pilih Sub tag --</option>');
+                $.each(data, function (key, value) {
+                    var idnya = value["id"];
+                    $('select[name="edit_subStartup_tag"]').append('<option value="'+ idnya + '">' + value["name_subtag"] + '</option>');
+                });
+               
+        },
+        error: function (data) {
+            console.log('Error:', data);
+        }
+
+    });
+}
+
 
 //detailproduct -- deskripsi - edit
 $("#updDetailProject").on("submit",function (e) {

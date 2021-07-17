@@ -13,6 +13,9 @@ use App\Models\HeaderProduct;
 use App\Models\CategoryProduct;
 use App\Models\detailCategoryProduct;
 use App\Models\Hkas;
+use App\Models\HStartupTag;
+use App\Models\SubStartupTag;
+use App\Models\NotConfirmProduct;
 use Validator;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
@@ -167,15 +170,14 @@ class ProductController extends Controller
             if ($req->tabel0 == "#table_listProductConfirmYet"){
                 $list_proyek0 = DB::table('header_products')
                 ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
-                ->select('header_products.id','header_products.name_product','detail_category_products.name','header_products.status','header_products.created_at')
+                ->select('header_products.id','header_products.name_product','detail_category_products.name','header_products.status')
                 ->where('header_products.user_id','=',$user->id)
-                ->where('header_products.status','=','0')
-                ->orWhere('header_products.status','=','4')
+                ->whereIn('header_products.status', [0, 4])
                 ->get();
 
                 return datatables()->of($list_proyek0)
                 ->addColumn('action', function($data){
-                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProductConfirmYet">Detail</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProductConfirmYet" style="text-transform: none">Detail</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -194,9 +196,9 @@ class ProductController extends Controller
 
                 return datatables()->of($list_proyek1)
                 ->addColumn('action', function($data){
-                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct"  data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProduct">Detail </a>';
+                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct"  data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProduct" style="text-transform: none">Detail </a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm nonAktifProject" data-tr="tr_{{$product->id}}">Nonaktifkan </a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm nonAktifProject" style="text-transform: none" data-tr="tr_{{$product->id}}">Nonaktifkan </a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -216,7 +218,7 @@ class ProductController extends Controller
                 return datatables()->of($list_proyek2)
                 ->addColumn('action', function($data){
                     
-                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProductInvestor">Detail</a>';
+                    $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProductInvestor" style="text-transform: none">Detail</a>';
 
                    // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Nonaktifkan" class="btn btn-danger btn-sm aktifProject" data-tr="tr_{{$product->id}}">Aktifkan</a>';
 
@@ -240,9 +242,9 @@ class ProductController extends Controller
                     return datatables()->of($list_proyek3)
                     ->addColumn('action', function($data){
                         
-                        $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProductNonAktif">Detail</a>';
+                        $btn = ' <a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="table_listProductNonAktif" style="text-transform: none">Detail</a>';
 
-                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject" data-tr="tr_{{$product->id}}">Hapus</a>';
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteProject" data-tr="tr_{{$product->id}}" style="text-transform: none">Hapus</a>';
 
                         return $btn;
                     })
@@ -307,17 +309,31 @@ class ProductController extends Controller
         return response()->json($list_category);
     }
 
+    public function detailKategori($id)
+    {
+        $list_detailcategory = DB::table('detail_category_products')->where('category_id','=',$id)->get();
+        return response()->json($list_detailcategory);
+    }
+
+    public function get_substartupTagID($id)
+    {
+        $list_hstartupTag = SubStartupTag::find($id);
+        return response()->json($list_hstartupTag);
+    }
+
+    public function detailsubstartupTag($id)
+    {
+        $list_detailsubstartupTag = DB::table('sub_startup_tags')->where('startuptag_id','=',$id)->get();
+        return response()->json($list_detailsubstartupTag);
+    }
+
     public function jenisProject()
     {
         $list_category = DB::table('category_products')->get();
         return response()->json($list_category);
     }
 
-    public function detailKategori($id)
-    {
-        $list_detailcategory = DB::table('detail_category_products')->where('category_id','=',$id)->get();
-        return response()->json($list_detailcategory);
-    }
+    
 
     public function detailProjectKas(Request $req, $id)
     {
@@ -332,7 +348,7 @@ class ProductController extends Controller
            
                 return datatables()->of($list_inv)
                         ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKas">Ubah</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKas" style="text-transform: none">Ubah</a>';
                         return $btn;
                         })
                         ->rawColumns(['action'])
@@ -351,7 +367,7 @@ class ProductController extends Controller
            
                 return datatables()->of($list_kas0)
                         ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKas">Ubah</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKas" style="text-transform: none">Ubah</a>';
                         return $btn;
                         })
                         ->rawColumns(['action'])
@@ -369,7 +385,7 @@ class ProductController extends Controller
            
                 return datatables()->of($list_kas)
                         ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKas">Ubah</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#ubahJumlah"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editKas" style="text-transform: none">Ubah</a>';
                         return $btn;
                         })
                         ->rawColumns(['action'])
@@ -387,6 +403,8 @@ class ProductController extends Controller
             'nama_product'=>'required',
             'edit_jenis_produk'=>'required',
             'edit_detail_kategori'=>'required',
+            'edit_startup_tag'=>'required',
+            'edit_subStartup_tag'=>'required',
             'url_product'=>'required',
             'rilis_product'=>'required',
             'desc'=>'required',
@@ -406,6 +424,7 @@ class ProductController extends Controller
             update([
                 'name_product'=>$req->nama_product,
                 'id_detailcategory'=>$req->edit_detail_kategori,
+                'id_substartuptag'=>$req->edit_subStartup_tag,
                 'url'=>$req->url_product,
                 'rilis'=>$req->rilis_product,
                 'desc'=>$req->desc,
@@ -713,5 +732,11 @@ class ProductController extends Controller
             return view('investor.detailStartup.dataStartup')->with($list_project);
            
         }
+    }
+
+    public function get_allReasonTdkDikonfirmasi($id)
+    {
+        $notConfirmProduct = NotConfirmProduct::where('id_headerproduct','=',$id)->get();
+        return response()->json($notConfirmProduct);
     }
 }

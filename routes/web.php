@@ -135,8 +135,12 @@ Route::prefix('admin')->group(function () {
         Route::get('/dev/listProductDev', [AdminController::class, 'listProductDev'])->name('admin.dev.listProductDev'); 
         Route::get('/dev/listProductDev/detailProject/{id}', [AdminController::class, 'detailProject'])->name('admin.dev.listProductDev.detailProject'); 
         Route::get('/dev/listProductDev/confirmProject/{id}', [AdminController::class, 'confirmProject'])->name('admin.dev.listProductDev.confirmProject');
-        Route::get('/dev/listProductDev/notConfirmProject/{id}', [AdminController::class, 'notConfirmProject'])->name('admin.dev.listProductDev.notConfirmProject');
+        Route::post('/dev/listProductDev/notConfirmProject', [AdminController::class, 'notConfirmProject'])->name('admin.dev.listProductDev.notConfirmProject');
+        
         Route::get('/dev/listProductDev/getDetailKategori/{id}', [AdminController::class, 'getDetailKategori'])->name('admin.dev.listProductDev.getDetailKategori');
+        Route::get('/dev/listProductDev/getDetailSubStartupTag/{id}', [AdminController::class, 'getDetailSubStartupTag'])->name('admin.dev.listProductDev.getDetailSubStartupTag');
+        Route::get('/dev/listProductDev/detailProjectKas/{id}', [AdminController::class, 'detailProjectKas'])->name('admin.dev.listProductDev.detailProjectKas');
+        Route::get('/dev/listProductDev/get_allReasonTdkDikonfirmasi/{id}', [AdminController::class, 'get_allReasonTdkDikonfirmasi'])->name('admin.dev.listProductDev.get_allReasonTdkDikonfirmasi');
 
     //tab nav- developer - produk terdata
     Route::get('/dev/allListProduct', [AdminController::class, 'allListProduct'])->name('admin.dev.allListProduct');
@@ -242,7 +246,10 @@ Route::get('/dev/product/subTag/{id}', [DevController::class, 'subTag'])->name('
 Route::post('/dev/product', [ProductController::class, 'addNewProduct'])->name('dev.product.addNewProduct'); 
 Route::get('/dev/listProject/select', [ProductController::class, 'listProject_select'])->name('dev.listProject.select');
 Route::get('/dev/listProduct', [ProductController::class, 'listProduct'])->name('dev.listProduct'); //show list product in daftar product
+Route::get('/dev/listProduct/get_allReasonTdkDikonfirmasi/{id}', [ProductController::class, 'get_allReasonTdkDikonfirmasi'])->name('dev.listProduct.get_allReasonTdkDikonfirmasi');
+
 Route::get('/dev/laporan', [DevController::class, 'laporan'])->name('dev.laporan');
+
 //ulasan di tab ulasan
 Route::get('/dev/reviews', [ReviewController::class, 'reviews'])->name('dev.reviews'); 
 Route::get('/dev/reviews/getResponse/{id}', [ReviewController::class, 'getResponse'])->name('dev.reviews.getResponse'); 
@@ -252,6 +259,8 @@ Route::post('/dev/reviews/postResponse', [ReviewController::class, 'postResponse
 Route::get('/dev/listProduct/get_categoryID/{id}', [ProductController::class, 'get_categoryID'])->name('dev.listProduct.get_categoryID'); 
 Route::get('/dev/listProduct/jenisProject', [ProductController::class, 'jenisProject'])->name('dev.listProduct.jenisProject'); 
 Route::get('/dev/listProduct/detailKategori/{id}', [ProductController::class, 'detailKategori'])->name('dev.listProduct.detailKategori'); 
+Route::get('/dev/listProduct/get_substartupTagID/{id}', [ProductController::class, 'get_substartupTagID'])->name('dev.listProduct.get_substartupTagID'); 
+Route::get('/dev/listProduct/detailsubstartupTag/{id}', [ProductController::class, 'detailsubstartupTag'])->name('dev.listProduct.detailsubstartupTag'); 
 
 Route::get('/dev/listProduct/detailProject/{id}', [ProductController::class, 'detailProject'])->name('dev.listProduct.detailProject'); 
 Route::get('/dev/listProduct/detailProjectKas/{id}', [ProductController::class, 'detailProjectKas'])->name('dev.listProduct.detailProjectKas'); 

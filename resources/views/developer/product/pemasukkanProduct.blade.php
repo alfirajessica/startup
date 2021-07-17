@@ -24,7 +24,7 @@
             </p>
         </div>
     </div>
-    <div class="card border-0 d-none" id="card_masuk">
+    <div class="card border-0 d-none text-dark" id="card_masuk">
         <div class="row px-2 py-2">
             <div class="col-md-4">
                 <div class="form-group">

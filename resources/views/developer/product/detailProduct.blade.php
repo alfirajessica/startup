@@ -8,13 +8,13 @@
                     <!-- tabs -->
                     <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Deskripsi</a>
+                            <a class="nav-link mb-sm-3 mb-md-0 active font-weight-bold" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"></i>Deskripsi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Transaksi</a>
+                            <a class="nav-link mb-sm-3 mb-md-0 font-weight-bold" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"></i>Transaksi</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Review</a>
+                            <a class="nav-link mb-sm-3 mb-md-0 font-weight-bold" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false">Ulasan</a>
                         </li>
                     </ul>
                 </div>
@@ -26,13 +26,18 @@
                 </button>
             </div>
         </div>
-        <div class="modal-body bg-secondary">
+        <div class="modal-body" style="background-color: #EFEFEF">
             <div class="row">
                 <div class="col-md-12">
                     <!-- tab content -->
                     <div class="tab-content" id="myTabContent">
                        
-                            <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+                            <div class="tab-pane fade show active text-dark" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
+
+                                <div class="alert alert-danger d-none" role="alert" id="alert_tdkdikonfirmasi">
+                                    <strong>Startup/Produk Anda Tidak Dikonfirmasi</strong> <br>
+                                    Dengan Alasan : <label for="" id="cetak_reasonTdkdikonfirmasi"></label>
+                                </div>
 
                                 <form action="{{ route('dev.listProduct.updDetailProject')}}" method="POST" id="updDetailProject">
                                     @csrf
@@ -61,14 +66,33 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="float-left">Domain Produk</label>
-                                                <input type="url" name="url_product" id="url_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
-                                                <span class="text-danger error-text url_product_error" id="url_product_error"></span>
+                                                <label class="float-left">Startup Tag</label>
+                                                <select class="form-control form-control-alternative" name="edit_startup_tag" id="edit_startup_tag" onchange="show_sub_startup_tag(this)"> 
+                                                    @foreach($list_hStartupTag as $hStartupTag)
+                                                <option value="{{$hStartupTag->id}}"> {{$hStartupTag->name_startup_tag}}</option>
+                                                @endforeach
+                                                </select>      
+                                                <span class="text-danger error-text edit_startup_tag_error" id="edit_startup_tag_error"></span>
                                             </div>
+
+                                            <div class="form-group">
+                                                <label class="float-left">Sub Tag</label>
+                                                <select class="form-control form-control-alternative" name="edit_subStartup_tag" id="edit_subStartup_tag">    
+                                                </select>
+                                                <span class="text-danger error-text edit_subStartup_tag_error" id="eedit_subStartup_tag_error"></span>
+                                            </div>
+
+                                           
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="">
+                                            <div class="form-group">
+                                                <label class="float-left">Domain Produk</label>
+                                                <input type="url" name="url_product" id="url_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
+                                                <span class="text-danger error-text url_product_error" id="url_product_error"></span>
+                                            </div>
+                                            
                                             <div class="form-group">
                                                 <label class="float-left">Tanggal Perilisan produk</label>
                                                 <input type="date" name="rilis_product" id="rilis_product" class="form-control form-control-alternative" aria-describedby="helpId" >
@@ -114,7 +138,7 @@
                                 </div>
                                 <div class="row py-2" id="submit_updDetail">
                                     <div class="col-md-12">
-                                        <button type="submit" class="btn btn-primary float-right" > Simpan Perubahan </button>
+                                        <button type="submit" class="btn btn-default float-right" > Simpan Perubahan </button>
                                     </div>
                                 </div>
                                 </form>
@@ -127,13 +151,13 @@
                                 <div class="col">
                                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="investor-tab" data-toggle="tab" href="#investor" role="tab" aria-controls="investor" aria-selected="false">Investor</a>
+                                            <a class="nav-link active text-dark" id="investor-tab" data-toggle="tab" href="#investor" role="tab" aria-controls="investor" aria-selected="false">Investor</a>
                                         </li>
                                         <li class="nav-item">
-                                          <a class="nav-link " id="pemasukkan-tab" data-toggle="tab" href="#pemasukkan" role="tab" aria-controls="pemasukkan" aria-selected="true">Pemasukkan</a>
+                                          <a class="nav-link text-dark " id="pemasukkan-tab" data-toggle="tab" href="#pemasukkan" role="tab" aria-controls="pemasukkan" aria-selected="true">Pemasukkan</a>
                                         </li>
                                         <li class="nav-item">
-                                          <a class="nav-link" id="pengeluaran-tab" data-toggle="tab" href="#pengeluaran" role="tab" aria-controls="pengeluaran" aria-selected="false">Pengeluaran</a>
+                                          <a class="nav-link text-dark" id="pengeluaran-tab" data-toggle="tab" href="#pengeluaran" role="tab" aria-controls="pengeluaran" aria-selected="false">Pengeluaran</a>
                                         </li>
                                     </ul>
     
@@ -218,7 +242,6 @@
                         <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
                             <div class="row py-2">
                                 <div class="card col-md-12">
-                                    <h5 class="fs-title">Rating & Reviews</h5>
                                     <div class="col-md-12 py-2">
                                         <div class="table-responsive">
                                             <table class="table table-bordered table-hover table-sm" width="100%" id="table_listReviews">
