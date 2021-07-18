@@ -14,6 +14,11 @@ $(function () {
       getMoreUsers(1);
     });
 
+    $(document).on('change', 'input[Id="check_SubstartupTag"]', function (e) {
+      //tipe = $(this).val();
+       getMoreUsers(1);
+     });
+
 
     $('#reset').on('click', function() {
       $('#search_input').val("");
@@ -26,9 +31,6 @@ $(function () {
         getMoreUsers(1);
     });
 
-    //financial.blade.php
-    //table_finance();
-    
     init();
 });
 let draw = false;
@@ -37,17 +39,24 @@ function getMoreUsers(page) {
     var search = $('#search_input').val();
 
     const checkboxes = document.querySelectorAll('input[name="check_detailCat"]:checked');
+    const checkboxes2 = document.querySelectorAll('input[name="check_SubstartupTag"]:checked');
+
     let values = [];
     checkboxes.forEach((checkbox) => {
         values.push(checkbox.value);
     });
-    console.log(values) ;
+    let values2 = [];
+    checkboxes2.forEach((checkbox) => {
+        values2.push(checkbox.value);
+    });
+    console.log(values2) ;
   
     $.ajax({
       type: "GET",
       data: {
         'search_query':search,
         'typecategory_query':values,
+        'typeStartuptag_query':values2,
       },
       url: url_get_more_users + page,
       success:function(data) {

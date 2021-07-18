@@ -617,16 +617,21 @@ class ProductController extends Controller
         $list_dtcategory['list_dtcategory'] = 
         DB::table('detail_category_products')->get();
 
+        $list_startupTag['list_startupTag']= DB::table('h_startup_tags')->get();
+        $list_SubstartupTag['list_SubstartupTag']= DB::table('sub_startup_tags')->get();
+
         $list_project['list_project'] = 
         DB::table('header_products')
         ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
         ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
-        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url')
+        ->join('sub_startup_tags','sub_startup_tags.id','=','header_products.id_substartuptag')
+        ->join('h_startup_tags','h_startup_tags.id','=','sub_startup_tags.startuptag_id')
+        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url','sub_startup_tags.name_subtag','h_startup_tags.name_startup_tag')
         ->where('header_products.status','=','1')
         ->paginate(4);
        
         
-        return view('investor.startup')->with($list_dtcategory)->with($list_category)->with($list_project);
+        return view('investor.startup')->with($list_dtcategory)->with($list_category)->with($list_project)->with($list_startupTag)->with($list_SubstartupTag);
     }
 
     public function detailstartup(Request $req, $id){
@@ -636,7 +641,9 @@ class ProductController extends Controller
         ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
         ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
         ->join('users','users.id','=','header_products.user_id')
-        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url', 'header_products.rilis','header_products.team','header_products.reason','header_products.benefit','header_products.solution','users.email', 'users.province_name', 'users.city_name')
+        ->join('sub_startup_tags','sub_startup_tags.id','=','header_products.id_substartuptag')
+        ->join('h_startup_tags','h_startup_tags.id','=','sub_startup_tags.startuptag_id')
+        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url', 'header_products.rilis','header_products.team','header_products.reason','header_products.benefit','header_products.solution','users.name as nama_user', 'users.email', 'users.province_name', 'users.city_name','sub_startup_tags.name_subtag','h_startup_tags.name_startup_tag')
         ->where('header_products.id','=',$id)
         ->get();
 
@@ -674,7 +681,7 @@ class ProductController extends Controller
         ->where('reviews.project_id','=',$id)
         ->get();
        
-        return view('investor.detailstartup.desc')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews)->with($reviews);
+        return view('investor.detailStartup.desc')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews)->with($reviews);
     }
 
     //search di startup investor
@@ -685,7 +692,9 @@ class ProductController extends Controller
         DB::table('header_products')
         ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
         ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
-        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc')
+        ->join('sub_startup_tags','sub_startup_tags.id','=','header_products.id_substartuptag')
+        ->join('h_startup_tags','h_startup_tags.id','=','sub_startup_tags.startuptag_id')
+        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url','sub_startup_tags.name_subtag','h_startup_tags.name_startup_tag')
         ->where('header_products.status','=','1')
         ->where('header_products.name_product','=',$req->search_input)
         ->paginate(4);
@@ -698,27 +707,27 @@ class ProductController extends Controller
         
         $search = $req->search_query;
         $type = $req->typecategory_query;
+        $startupTag = $req->typeStartuptag_query;
+
+        $query = 
+        DB::table('header_products')
+        ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
+        ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
+        ->join('sub_startup_tags','sub_startup_tags.id','=','header_products.id_substartuptag')
+        ->join('h_startup_tags','h_startup_tags.id','=','sub_startup_tags.startuptag_id')
+        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url','sub_startup_tags.name_subtag','h_startup_tags.name_startup_tag')
+        ->where('header_products.status','=','1');
 
         if($req->ajax()) {
 
-            if ($type == null) {
+            if ($search == null) {
                 $list_project['list_project'] = 
-                    DB::table('header_products')
-                    ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
-                    ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
-                    ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url')
-                    ->where('header_products.status','=','1')
-                    ->where('header_products.name_product','like',$search.'%')
-                    ->paginate(4);
-            }
-            else{
-                $list_project['list_project'] = 
-                    DB::table('header_products')
-                    ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
-                    ->Join('category_products', 'category_products.id', '=', 'detail_category_products.category_id')
-                    ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url')
-                    ->where('header_products.status','=','1')
-                    ->where('header_products.name_product','like',$search.'%')
+                $query->where('header_products.name_product','like',$search.'%')
+                ->paginate(4);
+
+                if ($type != null && $startupTag == null) {
+                    $list_project['list_project'] = 
+                    $query->where('header_products.name_product','like',$search.'%')
                     ->where(function ($query) use($type)
                     {
                         for ($i=0; $i <count($type) ; $i++) { 
@@ -726,9 +735,90 @@ class ProductController extends Controller
                         }
                     })
                     ->paginate(4);
+                }
+
+                if ($type == null && $startupTag != null) {
+                    $list_project['list_project'] = 
+                    $query->where('header_products.name_product','like',$search.'%')
+                    ->where(function ($query) use($startupTag)
+                    {
+                        for ($i=0; $i <count($startupTag) ; $i++) { 
+                            $query->orwhere('header_products.id_substartuptag','like','%'.$startupTag[$i].'%');
+                        }
+                    })
+                    ->paginate(4);
+                }
+
+                if ($type != null && $startupTag != null) {
+                    $list_project['list_project'] = 
+                    $query->where('header_products.name_product','like',$search.'%')
+                    ->where(function ($query) use($type)
+                    {
+                        for ($i=0; $i <count($type) ; $i++) { 
+                            $query->orwhere('header_products.id_detailcategory','like','%'.$type[$i].'%');
+                        }
+                    })
+                    ->where(function ($query) use($startupTag)
+                    {
+                        for ($i=0; $i <count($startupTag) ; $i++) { 
+                            $query->orwhere('header_products.id_substartuptag','like','%'.$startupTag[$i].'%');
+                        }
+                    })
+                    ->paginate(4);
+                }
+
             }
             
+            else if ($search != null) {
+                
+                if ($type == null && $startupTag == null) {
+                    $list_project['list_project'] = 
+                    $query->where('header_products.name_product','like',$search.'%')
+                    ->paginate(4);
+                }
 
+                if ($type != null && $startupTag != null) {
+                    $list_project['list_project'] = 
+                    $query->where('header_products.name_product','like',$search.'%')
+                    ->where(function ($query) use($type)
+                    {
+                        for ($i=0; $i <count($type) ; $i++) { 
+                            $query->orwhere('header_products.id_detailcategory','like','%'.$type[$i].'%');
+                        }
+                    })
+                    ->where(function ($query) use($startupTag)
+                    {
+                        for ($i=0; $i <count($startupTag) ; $i++) { 
+                            $query->orwhere('header_products.id_substartuptag','like','%'.$startupTag[$i].'%');
+                        }
+                    })
+                    ->paginate(4);
+                }
+
+                if ($type != null && $startupTag == null) {
+                    $list_project['list_project'] = 
+                    $query->where('header_products.name_product','like',$search.'%')
+                    ->where(function ($query) use($type)
+                    {
+                        for ($i=0; $i <count($type) ; $i++) { 
+                            $query->orwhere('header_products.id_detailcategory','like','%'.$type[$i].'%');
+                        }
+                    })
+                    ->paginate(4);
+                }
+
+                if ($type == null && $startupTag != null) {
+                    $list_project['list_project'] = 
+                    $query->where('header_products.name_product','like',$search.'%')
+                    ->where(function ($query) use($startupTag)
+                    {
+                        for ($i=0; $i <count($startupTag) ; $i++) { 
+                            $query->orwhere('header_products.id_substartuptag','like','%'.$startupTag[$i].'%');
+                        }
+                    })
+                    ->paginate(4);
+                }
+            }  
             return view('investor.detailStartup.dataStartup')->with($list_project);
            
         }

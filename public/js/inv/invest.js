@@ -21,7 +21,7 @@ function payButton() {
     
     //batas minimal invest 500 ribu
     if (invest < 500000) {
-       $('#notif_invest_number').html('minimal 500 ribu!');
+       $('#notif_invest_number').html('minimal 500 Ribu Rupiah (500.000)!');
     }
     else {
          $.ajax({
