@@ -7,10 +7,10 @@
                   <!-- tabs -->
                   <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                       <li class="nav-item">
-                          <a class="nav-link mb-sm-3 mb-md-0 active" id="detailInv-tab" data-toggle="tab" href="#detailInv" role="tab" aria-controls="detailInv" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Detail Investasi</a>
+                          <a class="nav-link font-weight-bold mb-sm-3 mb-md-0 active" id="detailInv-tab" data-toggle="tab" href="#detailInv" role="tab" aria-controls="detailInv" aria-selected="true">Detail Investasi</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link mb-sm-3 mb-md-0" id="lapfinance-tab" data-toggle="tab" href="#lapfinance" role="tab" aria-controls="lapfinance" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Laporan Keuangan Startup</a>
+                          <a class="nav-link font-weight-bold mb-sm-3 mb-md-0" id="lapfinance-tab" data-toggle="tab" href="#lapfinance" role="tab" aria-controls="lapfinance" aria-selected="false">Laporan Keuangan Startup</a>
                       </li>
                   </ul>
               </div>
@@ -126,16 +126,16 @@
                           <strong id="invest_awal_m"> </strong> sampai dengan <strong id="invest_exp_m"> </strong>
                         </div> --}}
 
-                        <button class="btn btn-outline-default" target="_blank" onclick="btn_d_lapFinanceInv()">Cetak Laporan Keuangan Ini</button> <br>
+                        <button class="btn btn-default" target="_blank" onclick="btn_d_lapFinanceInv()">Cetak Laporan Keuangan Ini</button> <br>
                        
                         <div class="row py-2">
                           <div class="col">
                               <ul class="nav nav-tabs" id="myTab" role="tablist">
                                   <li class="nav-item">
-                                    <a class="nav-link active" id="pemasukkan-tab" data-toggle="tab" href="#pemasukkan" role="tab" aria-controls="pemasukkan" aria-selected="true">Pemasukkan</a>
+                                    <a class="nav-link text-dark active" id="pemasukkan-tab" data-toggle="tab" href="#pemasukkan" role="tab" aria-controls="pemasukkan" aria-selected="true">Pemasukkan</a>
                                   </li>
                                   <li class="nav-item">
-                                    <a class="nav-link" id="pengeluaran-tab" data-toggle="tab" href="#pengeluaran" role="tab" aria-controls="pengeluaran" aria-selected="false">Pengeluaran</a>
+                                    <a class="nav-link text-dark" id="pengeluaran-tab" data-toggle="tab" href="#pengeluaran" role="tab" aria-controls="pengeluaran" aria-selected="false">Pengeluaran</a>
                                   </li>
                               </ul>
 

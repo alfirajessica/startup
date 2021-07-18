@@ -127,14 +127,14 @@ function listInvest() {
                 render: data => {
                     var btn;
                     if (data.status_transaction == "pending") {
-                        btn= "<a href='javascript:void(0)' data-toggle='modal' data-target='#detailTrans' data-id='"+ data.id + "' data-original-title='Detail' class='detail btn btn-warning btn-sm detailProject'>Detail</a>";
+                        btn= "<a href='javascript:void(0)' data-toggle='modal' data-target='#detailTrans' data-id='"+ data.id + "' data-original-title='Detail' class='detail btn btn-warning btn-sm detailProject' style='text-transform:none'>Detail</a>";
 
-                        btn = btn + " <a href='javascript:void(0)' data-toggle='tooltip' data-id='" + data.id + "' data-original-title='Kirim' class='btn btn-success btn-sm sudahKirim' data-tr='tr_{{$product->id}}' >Sudah Kirim</a>";
+                        btn = btn + " <a href='javascript:void(0)' data-toggle='tooltip' data-id='" + data.id + "' data-original-title='Kirim' class='btn btn-success btn-sm sudahKirim' data-tr='tr_{{$product->id}}' style='text-transform:none' >Sudah Kirim</a>";
                     
-                        btn = btn + " <a href='javascript:void(0)' data-toggle='tooltip' data-id='" + data.id + "' data-original-title='Cancel' class='btn btn-danger btn-sm cancelInvest' data-tr='tr_{{$product->id}}' >Batal Invest</a>";
+                        btn = btn + " <a href='javascript:void(0)' data-toggle='tooltip' data-id='" + data.id + "' data-original-title='Cancel' class='btn btn-danger btn-sm cancelInvest' data-tr='tr_{{$product->id}}' style='text-transform:none' >Batal Invest</a>";
                     }
                     else if (data.status_transaction == "settlement") {
-                        btn= "<a href='javascript:void(0)' data-toggle='modal' data-target='#detailTrans' data-id='"+ data.id + "' data-original-title='Detail' class='detail btn btn-warning btn-sm detailProject'>Detail</a>";
+                        btn= "<a href='javascript:void(0)' data-toggle='modal' data-target='#detailTrans' data-id='"+ data.id + "' data-original-title='Detail' class='detail btn btn-warning btn-sm detailProject' style='text-transform:none'>Detail</a>";
                     }
                     return btn;
                 }
@@ -211,6 +211,10 @@ function listInvest() {
             {
                 data: 'status_transaction',
                 name: 'status_transaction',
+            },
+            {
+                data: 'action',
+                name: 'action',
               
             },
            
@@ -260,19 +264,29 @@ function listInvest() {
 
 $('body').on('click', '.detailProject', function () {
     var id = $(this).data('id');
+    var cekTabel = $(this).attr("id");
+
+    if (cekTabel == "table_listInvestCancel") {
+        $("#detailInv-tab").addClass('active');
+        $("#lapfinance-tab").removeClass('active');
+        $("#lapfinance-tab").addClass('d-none');
+    }
+    else{
+       
+        $("#lapfinance-tab").removeClass('d-none');
+    }
+
     $("#project_id").val(id);
     projectDetails(id);
 
-   
     table_lapFinance(id);
-
 
     $.ajax({
         type: "get",
         url: '/detailInvest' + '/' + id,
         contentType: "application/json",
         success: function (data) {
-           
+           console.log(data);
             var tipe_pay = "";
 
         if (data['payment_type'] == "bank_transfer") {
@@ -286,6 +300,15 @@ $('body').on('click', '.detailProject', function () {
         }
         else if (data['payment_type'] == "echannel") {
             tipe_pay="Mandiri Bill";
+        }
+        else if (data['payment_type'] == "bca_klikpay") {
+            tipe_pay="BCA Klikpay";
+        }
+        else if (data['payment_type'] == "cstore") {
+            tipe_pay="Indomaret";
+        }
+        else if (data['payment_type'] == "akulaku") {
+            tipe_pay="Akulaku";
         }
 
         
@@ -419,6 +442,70 @@ $('body').on('click', '.detailProject', function () {
             "<tr>" +
                 "<td> <strong>QR CODE  </strong></td>" +
                 "<td><img width='200px' height='200px' class='qr' src='https://api.sandbox.veritrans.co.id/v2/qris/shopeepay/sppq_" + data['transaction_id'] + "/qr-code'> </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Status Pembayaran </strong></td>" +
+                "<td>" + detail_time_settle + "</td>" +
+            "</tr>";
+            $('#table_payDetails tbody').html(showPayDetail);
+        }
+        else if (data['payment_type'] == "bca_klikpay") {
+            showPayDetail = 
+            "<tr>" +
+                "<td> <strong>Tipe Bayar </strong></td>" +
+                "<td> BCA Klikpay </td>" +
+            "</tr>" +
+            "<tr>" +
+            "<td> <strong>Jumlah Transfer  </strong> </td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Status Pembayaran </strong></td>" +
+                "<td>" + detail_time_settle + "</td>" +
+            "</tr>";
+            $('#table_payDetails tbody').html(showPayDetail);
+        }
+        else if (data['payment_type'] == "cstore") {
+            showPayDetail = 
+            "<tr>" +
+                "<td> <strong>Tipe Bayar </strong></td>" +
+                "<td>" + data['store']+" </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Kode Pembayaran </strong></td>" +
+                "<td>" + data['payment_code']+" </td>" +
+            "</tr>" +
+            "<tr>" +
+            "<td> <strong>Jumlah Transfer  </strong> </td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Status Pembayaran </strong></td>" +
+                "<td>" + detail_time_settle + "</td>" +
+            "</tr>";
+            $('#table_payDetails tbody').html(showPayDetail);
+        }
+        else if (data['payment_type'] == "akulaku") {
+            showPayDetail = 
+            "<tr>" +
+                "<td> <strong>Tipe Bayar </strong></td>" +
+                "<td>" + data['payment_type']+" </td>" +
+            "</tr>" +
+            "<tr>" +
+            "<td> <strong>Jumlah Transfer  </strong> </td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa </strong> </td>" +

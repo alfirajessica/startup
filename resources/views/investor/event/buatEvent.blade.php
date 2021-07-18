@@ -1,7 +1,7 @@
 
 <form action="{{ route('inv.buatEvent')}}" method="POST" enctype="multipart/form-data" id="buatEvent">
 @csrf
-<div class="row">
+<div class="row text-dark">
     <div class="col md-6 ">
         <div class="form-group">
             <label for="nama_event">Nama Event</label>
@@ -78,7 +78,7 @@
         {{-- akan di set 1 hari sebelum acara akan ditutup pendaftarannya --}}
 
         <div class="input-group">
-            <label for="exampleInputFile">File input</label>
+            <label for="exampleInputFile">Poster Event</label>
             <input type="file" class="form-control-file form-control-alternative"  name="image" id="exampleInputFile" aria-describedby="fileHelp" onchange="previewFile(this)">
             <span class="text-danger error-text image_error"></span>
         </div>

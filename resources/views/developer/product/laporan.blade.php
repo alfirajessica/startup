@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div class="card border-0 d-none" id="card_laporan">
+<div class="card border-0 d-none text-dark shadow" id="card_laporan">
     <div class="row px-2 py-2">
         <div class="col-md-6">
             <div class="form-group">

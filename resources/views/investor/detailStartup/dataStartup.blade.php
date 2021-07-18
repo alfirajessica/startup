@@ -46,7 +46,7 @@
     </div>  
 </a>    
 @empty
-<p class="text-black font-weight-bold">Tidak ada project tersedia</p>
+<p class="text-black font-weight-bold">Tidak ada Startup/Produk tersedia</p>
 @endforelse
 
 <div class="">

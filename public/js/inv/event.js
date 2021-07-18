@@ -254,17 +254,17 @@ $(function () {
                         var status="";
                         var action="";
                         
-                        action += '<a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'+data.id+'" data-original-title="Edit" class="edit btn btn-warning btn-sm editEvent">Detail</a>';
+                        action += '<a href="javascript:void(0)" data-toggle="modal" data-target="#editEventModal"  data-id="'+data.id+'" data-original-title="Edit" class="edit btn btn-warning btn-sm editEvent" style="text-transform:none">Detail</a>';
 
                         //aktif
                         if (data.status == "1") {
-                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm nonaktifEvent">Nonaktifkan</a>';
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm nonaktifEvent" style="text-transform:none">Nonaktifkan</a>';
                         }
 
                         //tidak aktif
                         else if(data.status == "4")
                         {
-                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm aktifEvent">Aktifkan</a>';
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm aktifEvent" style="text-transform:none">Aktifkan</a>';
 
                         }
                         

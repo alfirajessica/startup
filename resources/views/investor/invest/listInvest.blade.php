@@ -15,14 +15,14 @@
         <!-- tab content -->
         
         <strong>Cetak Laporan dengan menekan tombol ini </strong>
-         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModalCenter">
+         <button type="button" class="btn btn-default mx-3" data-toggle="modal" data-target="#exampleModalCenter">
             Cetak Laporan Investasi
          </button>
          <br>
         <div class="tab-content" id="myTabContent">
             <!-- table_listInvestPending -->
             <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                <div class="col-md-12 py-1 px-0">
+                <div class="col-md-12 py-2 px-0">
                     <div class="alert alert-warning " role="alert">
                         Mohon refresh halaman ini jika sudah melakukan pembayaran
                     </div>
@@ -74,6 +74,7 @@
                             <th>Startup/Produk</th>
                             <th>Invest id</th>
                             <th>Status Bayar</th>
+                            <th>Aksi</th>
                           </tr>
                       </thead>
                       <tbody></tbody>
@@ -88,11 +89,10 @@
                   <table class="table table-bordered table-hover" width="100%" id="table_listInvestFinished">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Nama Event</th>
-                            <th>Diadakan Secara</th>
-                            <th>Jadwal Acara</th>
-                           
+                          <th>Startup/Produk</th>
+                          <th>Invest id</th>
+                          <th>Status Bayar</th>
+                          <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -117,7 +117,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body text-dark">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">

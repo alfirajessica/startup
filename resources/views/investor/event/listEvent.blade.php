@@ -4,12 +4,10 @@
 <div class="row py-2">
   <div class="col-md-12">
     <strong>Cetak Laporan dengan menekan tombol ini </strong>
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#exampleModalCenter">
+    <button type="button" class="btn btn-default mx-4" data-toggle="modal" data-target="#exampleModalCenter">
       Cetak Laporan Event
     </button>
   </div>
-  
-
     <div class="col">
       <div class="table-responsive">
           <table class="table table-bordered table-hover" width="100%" id="table_listEvent">
@@ -30,7 +28,6 @@
     </div>
 </div>
 
-
 <!-- Modal untuk cetak laporan event-->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -41,8 +38,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-            
+        <div class="modal-body text-dark"> 
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">

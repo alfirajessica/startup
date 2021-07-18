@@ -1,18 +1,18 @@
 
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" id="editEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content bg-secondary">
+    <div class="modal-dialog modal-lg" role="document" >
+      <div class="modal-content" style="background-color: #EFEFEF">
         <div class="modal-header">
             <div class="col-md-11">
                 <div class="nav-wrapper">
                     <!-- tabs -->
                     <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0 active" id="tab_desc-tab" data-toggle="tab" href="#tab_desc" role="tab" aria-controls="tab_desc" aria-selected="true">Detail Event</a>
+                            <a class="nav-link mb-sm-3 mb-md-0 active font-weight-bold" id="tab_desc-tab" data-toggle="tab" href="#tab_desc" role="tab" aria-controls="tab_desc" aria-selected="true">Detail Event</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0" id="tabs_participant-tab" data-toggle="tab" href="#tabs_participant" role="tab" aria-controls="tabs_participant" aria-selected="false">Peserta Event</a>
+                            <a class="nav-link mb-sm-3 mb-md-0 font-weight-bold" id="tabs_participant-tab" data-toggle="tab" href="#tabs_participant" role="tab" aria-controls="tabs_participant" aria-selected="false">Peserta Event</a>
                         </li>
                     </ul>
                 </div>
@@ -29,7 +29,7 @@
                 <div class="col-md-12">
                     <!-- tab content -->
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="tab_desc" role="tabpanel" aria-labelledby="tab_desc-tab">
+                        <div class="tab-pane fade show active text-dark" id="tab_desc" role="tabpanel" aria-labelledby="tab_desc-tab">
                             <form action="{{ route('inv.listEvent.updateEvent')}}" method="POST" enctype="multipart/form-data" id="updateEvent">
                                 @csrf
                                 <input type="hidden" id="coba_id" name="coba_id" />
@@ -127,7 +127,7 @@
                         <div class="tab-pane fade" id="tabs_participant" role="tabpanel" aria-labelledby="tabs_participant-tab">
                            
                                 <strong>Cetak Laporan dengan menekan tombol ini</strong>
-                                <button type="button" class="btn btn-outline-default" onclick="cetak_participantEvent()">
+                                <button type="button" class="btn btn-default mx-4" onclick="cetak_participantEvent()">
                                   Cetak Peserta Event Ini
                                 </button>
                             

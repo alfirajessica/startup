@@ -3,7 +3,7 @@
   
     <div class="col-md-4 mb-2 py-2">
       <a href="{{ url('dev/event/detailsEvent', $item->id) }}">
-      <div class="card card-lift--hover shadow border-0 py-1  h-100">
+      <div class="card card-lift shadow border-0 py-1  h-100">
         <a src="/uploads/event/{{$item->image}}" title="Landing Page">
           <img src="/uploads/event/{{$item->image}}" class="card-img-top">
         </a>
