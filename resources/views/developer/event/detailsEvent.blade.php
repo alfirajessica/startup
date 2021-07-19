@@ -1,7 +1,7 @@
 @extends('layouts.dev')
 <style>
     .scroll {
-    max-height: 400px;
+    max-height: 380px;
     overflow-y: auto;
   }
   </style>
@@ -12,7 +12,7 @@
         @foreach ($header_events as $item)
         <div class="col-md-12">
             <div class="card border-0">
-                <div class="card-body px-0" style="background-color: #f7f3e9">
+                <div class="card-body px-0" style="background-color: #EFEFEF">
                     <div class="row">
                         <div class="col-md-7">
                             <h4 class="card-title font-weight-bold" name="name_project" id="name_project">{{$item->name}}</h4>
@@ -27,7 +27,7 @@
                             <input type="hidden" name="id_event" value={{$item->id}}>
                     
                             
-                            <img id="previewImg2" class="d-block user-select-none shadow" width="100%" max-height="500" src="/uploads/event/{{$item->image}}" >
+                            <img id="previewImg2" class="d-block user-select-none shadow" style="width: 100%; max-height:380px;" src="/uploads/event/{{$item->image}}" >
                         </div>
 
 
