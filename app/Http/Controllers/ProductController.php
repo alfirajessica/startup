@@ -680,8 +680,14 @@ class ProductController extends Controller
         ->select('reviews.id', 'users.name', 'reviews.created_at','reviews.rating','reviews.isi_review')
         ->where('reviews.project_id','=',$id)
         ->get();
+
+        $list_response_reviews['list_response_reviews'] =
+        DB::table('reviews')
+        ->join('response_reviews','response_reviews.id_reviews','=','reviews.id')
+        ->select('response_reviews.response','response_reviews.id_reviews')
+        ->get();
        
-        return view('investor.detailStartup.desc')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews)->with($reviews);
+        return view('investor.detailStartup.desc')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews)->with($reviews)->with($list_response_reviews);
     }
 
     //search di startup investor

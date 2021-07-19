@@ -4,6 +4,7 @@
         border-color: #0a1931;
         border-width: 2px;
     }
+    
 </style>
 @forelse ($list_project as $item)
 <a href="{{ url('inv/startup/detailstartup', $item->id) }}">
@@ -14,6 +15,10 @@
                     src="/uploads/event/{{$item->image}}"
                     alt="..."
                     class="img-fluid"
+                    style="
+                        max-height: 150px;
+                        max-width: 100%;
+                    "
                 />
     
             </div>

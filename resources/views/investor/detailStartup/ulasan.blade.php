@@ -2,7 +2,7 @@
     @csrf
 
     <input type="hidden" id="project_id_ulas" name="project_id_ulas">
-    <label for=""> Beri Rating</label>
+    <label for="" class="text-dark" style="margin-top: 20px;margin-bottom: auto;"> Beri Rating</label>
     <div class='stars' data-rating='0'>
         <span class='star' data-rating='1'>&nbsp;</span>
         <span class='star' data-rating='2'>&nbsp;</span>
@@ -14,7 +14,7 @@
     <span class="text-danger error-text stars_rating_error"></span>
 
     <div class="form-group">
-        <label for="">Komentar Anda</label>
+        <label for="" class="text-dark" >Komentar Anda</label>
         <textarea class="form-control" name="isi_review" id="isi_review" rows="3"></textarea>
         <span class="text-danger error-text isi_review_error"></span>
     </div>

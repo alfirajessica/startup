@@ -15,13 +15,13 @@
                 <li id="personal"><strong>Detail</strong></li>
             </ul>
 
-        <div class="card shadow px-2 py-2 pb-0 mb-3 border-0 text-dark ">
+        <div class="card shadow px-2 py-2 pb-0 mb-3 border-0 text-dark">
             
-            <div class="row">
+            <div class="row text-dark">
                 <div class="col-md-12 mx-0">
                     <!-- fieldsets -->
                             
-                            <div class="form-section">
+                            <div class="form-section text-dark">
                                 <div class="form-group">
                                     <label class="float-left">Masukkan Nama Proyek</label>
                                     <input type="text" name="nama_produk" id="nama_produk" class="form-control form-control-alternative" aria-describedby="nama_produk_error" required data-parsley-error-message="Nama proyek belum terisi">
@@ -31,7 +31,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="float-left">Jenis Kategori</label>
-                                            <select class="form-control form-control-alternative" name="jenis_produk" id="jenis_produk" onchange="show_detail(this)" required data-parsley-error-message="pilih jenis proyek">
+                                            <select class="form-control form-control-alternative text-dark" name="jenis_produk" id="jenis_produk" onchange="show_detail(this)" required data-parsley-error-message="pilih jenis proyek">
                                                 @foreach($list_category as $category)
                                                 <option value="{{$category->id}}"> {{$category->name_category}}</option>
                                                 @endforeach
@@ -42,7 +42,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="float-left">Sub Kategori</label>
-                                            <select class="form-control form-control-alternative" name="detail_kategori" id="detail_kategori" required data-parsley-error-message="Pilih kategori proyek">    
+                                            <select class="form-control form-control-alternative text-dark" name="detail_kategori" id="detail_kategori" required data-parsley-error-message="Pilih kategori proyek">    
                                             </select>
                                             <span class="text-danger error-text detail_kategori_error"></span>
                                         </div>
@@ -52,7 +52,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="float-left">Startup Tag</label>
-                                            <select class="form-control form-control-alternative" name="hstartupTag_produk" id="hstartupTag_produk" onchange="show_subStartupTag(this)" required data-parsley-error-message="Pilih Startup Tag">
+                                            <select class="form-control form-control-alternative text-dark" name="hstartupTag_produk" id="hstartupTag_produk" onchange="show_subStartupTag(this)" required data-parsley-error-message="Pilih Startup Tag">
                                                 @foreach($list_hStartupTag as $hStartupTag)
                                                 <option value="{{$hStartupTag->id}}"> {{$hStartupTag->name_startup_tag}}</option>
                                                 @endforeach
@@ -63,7 +63,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="float-left">Sub tag</label>
-                                            <select class="form-control form-control-alternative" name="subTag_produk" id="subTag_produk" required data-parsley-error-message="Pilih Sub Tag">    
+                                            <select class="form-control form-control-alternative text-dark" name="subTag_produk" id="subTag_produk" required data-parsley-error-message="Pilih Sub Tag">    
                                             </select>
                                             <span class="text-danger error-text subTag_produk_error"></span>
                                         </div>

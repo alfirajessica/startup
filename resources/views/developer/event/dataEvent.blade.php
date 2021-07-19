@@ -29,7 +29,7 @@ object-fit: contain;
     </div>
  
   @empty
-  <p class="text-black font-weight-bold">Tidak ada event tersedia</p>
+  <p class="text-black font-weight-bold mx-2">Tidak Ada Event Tersedia</p>
   @endforelse
 </div>
 

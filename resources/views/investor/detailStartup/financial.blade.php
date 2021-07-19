@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item">
-        <a class="nav-link active" id="financial-tab" data-toggle="tab" href="#financial" role="tab" aria-controls="financial" aria-selected="true">financial</a>
+        <a class="nav-link active" id="financial-tab" data-toggle="tab" href="#financial" role="tab" aria-controls="financial" aria-selected="true">Financial</a>
     </li>
 </ul>
 <div class="tab-content" id="myTabContent">
@@ -14,7 +14,7 @@
                     <table class="table table-bordered table-hover" width="100%" id="table_finance">
                     <thead>
                         <tr>
-                            <th>Date</th>
+                            <th>Bulan/Tahun</th>
                             <th>Masuk (Rp)</th>
                             <th>Keluar (Rp)</th>
                             <th>Profit (Rp)</th>

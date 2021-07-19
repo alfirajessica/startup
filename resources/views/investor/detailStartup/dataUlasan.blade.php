@@ -1,12 +1,12 @@
 @foreach ($list_reviews as $item)
-<div class="be-comment">
+<div class="be-comment text-dark">
     <div class="be-img-comment">	
         <a href="blog-detail-2.html">
             <img src="/../images/person-color.png" alt="" class="be-ava-comment">
         </a>
     </div>
     <div class="be-comment-content">
-            <span class="be-comment-name">
+            <span class="be-comment-name text-dark" style="margin-bottom: 0px;">
                 <label>{{$item->name}}</label>
             </span>
             <span class="be-comment-time float-right">
@@ -27,12 +27,30 @@
             for ($i=0; $i <$sisa; $i++) { 
                 $coba= $coba."<span class='starUlasan' data-rating='".$i."'>&nbsp;</span>";
             }
-            $coba = $coba."</div>";
+            $coba = $coba."</div> </label> <br>";
 
             echo $coba;
         ?>
-        {{$item->isi_review}}
+        <label style="display: flex;margin-left: 20px;">{{$item->isi_review}} <br> 
+        
+        @foreach ($list_response_reviews as $item2)
+        @if ($item->id == $item2->id_reviews)
+        Tanggapan :
+       {{$item2->response}}</label>
+          
+          
+        @else
+            
+        @endif
+        
+        @endforeach
+
     </div>
+
+   
 </div>
-<hr>
+<hr style="
+margin-top: 0rem;
+margin-bottom: 1rem;
+">
 @endforeach

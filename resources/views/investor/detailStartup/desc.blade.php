@@ -35,12 +35,12 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card shadow">
-                                        <div class="card-body" style="padding: 1.0rem;height:280px;">
+                                        <div class="card-body" style="padding: 1.0rem;height:300px;">
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                             <label style="margin-bottom:0px">Tipe</label>
-                                                            <div class="font-weight-bold ng-binding">{{$item->name_category}}-{{$item->name}}</div>
+                                                            <div class="font-weight-bold ng-binding">{{$item->name_category}}/{{$item->name}}</div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
@@ -77,15 +77,15 @@
                 <div class="col-md-8" >
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                          <a class="nav-link active" id="about_product-tab" data-toggle="tab" href="#about_product" role="tab" aria-controls="about_product" aria-selected="true">Tentang Produk</a>
+                          <a class="nav-link active font-weight-bold" id="about_product-tab" data-toggle="tab" href="#about_product" role="tab" aria-controls="about_product" aria-selected="true">Tentang Produk</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="about_product" role="tabpanel" aria-labelledby="about_product-tab">
+                        <div class="tab-pane fade show active text-dark" id="about_product" role="tabpanel" aria-labelledby="about_product-tab">
                             <div class="card shadow border-0">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 font-weight-bold font-weight-bold">
                                             <p style="font-size:10pt">
                                                 <strong for="">Deskripsi</strong> <br>
                                                 {{$item->desc}}
@@ -120,7 +120,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="card shadow text-center mt-1">
-                        <div class="card-header" style="padding: 0.5rem;">
+                        <div class="card-header font-weight-bold" style="padding: 0.5rem;">
                         Tentang Developer
                         </div>
                         <div class="card-body">
@@ -166,7 +166,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12" id="financial">
+        <div class="col-md-12 font-weight-bold" id="financial">
             <div class="row py-2" >
                 <div class="col-md-8">
                     @include('investor.detailStartup.financial')
@@ -178,7 +178,7 @@
                 <div class="col-md-8">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="true">Review & Comments</a>
+                            <a class="nav-link active font-weight-bold" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="true">Review & Comments</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
