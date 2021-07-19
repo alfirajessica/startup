@@ -122,10 +122,7 @@
 
     <!-- End Navbar -->
     <div class="wrapper">
-        
-
         <main>
-            
             @yield('content')
         </main>
         

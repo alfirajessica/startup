@@ -1,387 +1,162 @@
 @include('layouts.inv')
-<style>
-  .content-wrapper {
-      display: -webkit-box;
-      display: -webkit-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-pack: center;
-      -webkit-justify-content: center;
-          -ms-flex-pack: center;
-              justify-content: center;
-      text-align: center;
-      -webkit-flex-flow: column nowrap;
-          -ms-flex-flow: column nowrap;
-              flex-flow: column nowrap;
-      color: #fff;
-      font-family: Montserrat;
-      text-transform: uppercase;
-      -webkit-transform: translateY(40vh);
-          -ms-transform: translateY(40vh);
-              transform: translateY(40vh);
-      will-change: transform;
-      -webkit-backface-visibility: hidden;
-              backface-visibility: hidden;
-      -webkit-transition: all 1.7s cubic-bezier(0.22, 0.44, 0, 1);
-              transition: all 1.7s cubic-bezier(0.22, 0.44, 0, 1);
-  }
-  
-  #accordion .card-header div[aria-expanded="true"]:before {
-  font-family: 'FontAwesome';
-  content: "\f078";
-  vertical-align: middle;  
-  }
-  #accordion .card-header div[aria-expanded="false"]:before {
-  font-family: 'FontAwesome';
-  content: "\f077";
-  vertical-align: middle;
-  }
-  .btn-link {
-      text-decoration: none !important;
-  }
 
-</style>
+<link rel="stylesheet" href="/css/front.css">
 
-<section class="bg-primary" style="min-height: 100vh; min-width: auto">
-  <div class="content-wrapper">
-      <h2>Oke</h2>
-      
-      <p class="content-subtitle">
-          <span class="scroll-btn">
-          <div class="scroll-to-next-section">
-              <button class="btn btn-info"><i class="fas fa-chevron-down fa-lg"></i></button>
-          </div>
-          </span>
-      </p>
-  </div>
+<section class="section-header pb-8 pb-lg-13 mb-4 mb-lg-6 text-white" style="
+background-color: #0a1931;padding-top: 8rem;
+">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 text-center">
+                <h1 class="display-2 mb-3">Who is Impact for?</h1>
+                <p class="lead">Whether you’re a programmer, designer, freelancer or need Impact for a whole team our pricing just makes sense.</p>
+            </div>
+        </div>
+    </div>
+    <div class="pattern bottom"></div>
+</section>
+<section class="section section-lg pt-0" style="
+padding-bottom: 0rem;
+">
+    <div class="container mt-n7 mt-lg-n13 z-2">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-4">
+                <div class="card shadow-soft border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0">
+                    <div class="card-header text-center pb-0">
+                        <div class="icon icon-shape icon-shape-primary rounded-circle mb-3">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h4 class="text-black">Marketing</h4>
+                        <p>
+                            Reveal best strategies from the market and your competitors                                
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex px-0 pt-0 pb-2">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Uncover the best SEO and content strategies</div>
+                            </li>
+                            <li class="list-group-item d-flex px-0 pb-1">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Build & grow your affiliate and media partnerships </div>
+                            </li>
+                            <li class="list-group-item d-flex px-0 pb-1">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Enhance your display and paid search strategies</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="card shadow-soft bg-white border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0">
+                    <div class="card-header text-center pb-0">
+                        <div class="icon icon-shape icon-shape-primary rounded-circle mb-3">
+                            <i class="far fa-lightbulb"></i>
+                        </div>
+                        <h4 class="text-black">Research</h4>
+                        <p>
+                            Understand your market, your competitors and your customers                                
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex px-0 pt-0 pb-2">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Benchmark your market and find ways to grow your share</div>
+                            </li>
+                            <li class="list-group-item d-flex px-0 pb-1">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Analyze trends, competitors' strategy and audience behavior</div>
+                            </li>
+                            <li class="list-group-item d-flex px-0 pb-1">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Understand the shopper’s journey for smarter decisions</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="card shadow-soft bg-white border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0">
+                    <div class="card-header text-center pb-0">
+                        <div class="icon icon-shape icon-shape-primary rounded-circle mb-3">
+                            <i class="fas fa-receipt"></i>
+                        </div>
+                        <h4 class="text-black">Sales</h4>
+                        <p>
+                            Enhance performance throughout your sales funnel                               
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex px-0 pt-0 pb-2">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Find, enrich and qualify leads to increase sales opportunities</div>
+                            </li>
+                            <li class="list-group-item d-flex px-0 pb-1">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Generate the insights you need to perfect your pitch</div>
+                            </li>
+                            <li class="list-group-item d-flex px-0 pb-1">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Monitor website traffic statistics to boost retention</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h1 class="h1 font-weight-bolder mb-4 px-lg-8">Recommended by leading experts in marketing and SEO</h1>
+                <p class="lead">Our products are loved by users worldwide</p>
+            </div>
+        </div>
+        <div class="row">
+            @foreach ($trending_startup as $item)
+               
+                <div class="col-12 col-lg-4">
+                    <div class="card shadow-soft border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0 mt-2">
+                        <div class="card-header text-center pb-0" style="padding: 1.0rem 1.0rem;">
+                            <img  src="/uploads/event/{{$item->image}}" class="card-img-top">
+                        </div>
+                        <div class="card-body">
+                            {{$item->name_product}}
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            
+        </div>
+    </div>
 </section>
 
 
-<section style="height: 100vh">
-  <div class="col-md-12 py-6"><div class="row"></div></div>
-  
-  
-
-  <form action="{{ route('valuation.addnew')}}" method="post" id="valtools" enctype="multipart/form-data">
-      @csrf
-  <div class="col-md-12" >
-      <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8">
-              <h5>Masukkan email anda</h5>
-              <div class="form-group">
-                  <div class="input-group input-group-alternative mb-4" id="select_project">
-                      <input type="email" name="email_user" id="" class="form-control" placeholder="" aria-describedby="helpemail_user">    
-                      <div class="input-group-append">
-                          <button class="btn btn-default" type="button" id="simpanEmail" onclick="simpan_email()">Simpan</button>
-                      </div>
-                  </div>
-                  <small id="helpemail_user" class="text-muted"></small>
-              </div> 
-          </div>
-          <div class="col-md-2"></div>
-      </div>
-  </div>
-
-  <div class="col-md-12 d-none" id="result_calc">
-      <div class="row">
-          <div class="col-md-2"></div>
-          <div class="col-md-8">
-              <div class="card">
-                  <div class="card-body">
-                      <h5>Business value</h5>
-                      <h4 id="result_value"></h4>
-                      <button class="btn btn-outline-default" target="_blank" onclick="btn_d_valuation()">Lihat hasil perhitungan</button> <br>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <div class="col-md-12 d-none" id="val_calc">
-      <div class="row mx-3">
-          <div class="col-md-12 px-2">
-              <button type="submit" class="btn btn-primary">Hitung</button>
-          </div>
-      </div>
-
-      <div class="row py-2">
-          <input type="hidden" name="email" id="" class="form-control" placeholder="" aria-describedby="helpId">
-
-          <div class="col-md-6">
-              <div id="accordion">
-                  <div class="card">
-                      <div class="card-header" id="headingOne">
-                          <h5 class="mb-0">
-                          <div class="btn btn-link" data-toggle="collapse" data-target="#collapseKeyInput" aria-expanded="true" aria-controls="collapseKeyInput">
-                              Key input
-                          </div>
-                          </h5>
-                      </div>
-                
-                      <div id="collapseKeyInput" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                          <div class="card-body">
-                              <div class="form-group">
-                                  <label for="">Berapa profitmu tahun lalu ({{ now()->year-1 }})</label>
-                                  <input type="text" name="net_profit" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="100,000"   class="form-control form-control-alternative">
-                              </div>
-                              
-                              <label for="">Masukkan Tingkat Pertumbuhan tahunan Anda untuk periode perkiraan 5 tahun kedepan ({{ now()->year }}-{{ now()->year+4 }})</label>
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <div class="input-group input-group-alternative mb-4">
-                                          <input type="tel" name="growth_rate" id="" class="form-control" placeholder="" data-type="number" aria-describedby="helpId" value="3.0" required>
-                                          <div class="input-group-append">
-                                              <span class="input-group-text">%</span>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="card">
-                      <div class="card-header" id="headingTwo">
-                          <h5 class="mb-0">
-                          <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFixedAssets" aria-expanded="false" aria-controls="collapseFixedAssets">
-                              Fixed Assets
-                          </div>
-                          </h5>
-                      </div>
-                      <div id="collapseFixedAssets" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                          <div class="card-body">
-                              <div class="col-md-12">
-                                  <label for="">Masukkan nilai perkiraan pembelian Aset Tetap Baru yang Anda rencanakan selama 4 tahun ke depan.</label>
-                                      <div class="row">
-                                      <div class="col-md-3">
-                                          <div class="form-group"> 
-                                              <label for="">{{ now()->year }}</label>
-                                              <input type="text" name="n_purchase_new_assets_[1]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                              <span class="text-danger error-text n_purchase_new_assets_[1]_error"></span>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-3">
-                                          <div class="form-group"> 
-                                              <label for="">{{ now()->year+1 }}</label>
-                                              <input type="text" name="n_purchase_new_assets_[2]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0"   class="form-control form-control-alternative">
-                                              <span class="text-danger error-text n_purchase_new_assets_[2]_error"></span>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-3">
-                                          <div class="form-group"> 
-                                              <label for="">{{ now()->year+2 }}</label>
-                                              <input type="text" name="n_purchase_new_assets_[3]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                              <span class="text-danger error-text n_purchase_new_assets_[3]_error"></span>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-3">
-                                          <div class="form-group"> 
-                                              <label for="">{{ now()->year+3 }}</label>
-                                              <input type="text" name="n_purchase_new_assets_[4]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                              <span class="text-danger error-text n_purchase_new_assets_[4]_error"></span>
-                                          </div>
-                                      </div>
-                                      
-                                  </div>
-                              </div>
-                              <div class="col-md-3">
-                                  <div class="form-group"> 
-                                      <label for="">{{ now()->year+4 }}</label>
-                                      <input type="text" name="n_purchase_new_assets_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                      <span class="text-danger error-text n_purchase_new_assets_[5]_error"></span>
-                                  </div>
-                              </div>
-                              <div class="col-md-12">
-                                  <div class="form-group">
-                                      <label for="">Berapa total biaya untuk Beban Penyusutan aset tetap untuk tahun buku terakhir yang Anda laporkan?</label>
-                                      <input type="text" name="depreciation_exist_assets" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="20,000" class="form-control form-control-alternative">
-                                    
-                                      <span class="text-danger error-text depreciation_exist_assets_error"></span>
-                                      </div>
-
-                                      <label for="">Berapa rata-rata Tingkat Penyusutan (%) tahunan untuk Aktiva Tetap baru selama 5 tahun ke depan?</label>
-                              </div>
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <div class="input-group input-group-alternative mb-4">
-                                          <input type="tel" name="depreciation_rate" id="" class="form-control" placeholder="" data-type="number" aria-describedby="helpId" value="20" required>
-                                          <div class="input-group-append">
-                                              <span class="input-group-text">%</span>
-                                          </div>
-                                      </div>
-                                      <span class="text-danger error-text depreciation_rate_error"></span>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="card">
-                      <div class="card-header" id="headingThree">
-                          <h5 class="mb-0">
-                          <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseWorkCap" aria-expanded="false" aria-controls="collapseWorkCap">
-                              Working Capital
-                          </div>
-                          </h5>
-                      </div>
-                      <div id="collapseWorkCap" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                          <div class="card-body">
-                              <div class="form-group">
-                                  <label for="">Current Assets</label>
-                                  <input type="text" name="current_assets" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="40,000" class="form-control form-control-alternative">
-                                  <span class="text-danger error-text current_assets_error"></span>
-                              </div>
-                              <div class="form-group">
-                                  <label for="">Current liabilities</label>
-                                  <input type="text" name="current_liabilities" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="20,000" class="form-control form-control-alternative">
-                                  <span class="text-danger error-text current_liabilities_error"></span>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div> {{-- end of accordion 1 --}}
-          </div>
-          
-          {{-- accordion 2 --}}
-          <div class="col-md-6">
-              <div id="accordion">
-                  <div class="card">
-                      <div class="card-header" id="headingOne">
-                          <h5 class="mb-0">
-                          <div class="btn btn-link" data-toggle="collapse" data-target="#collapseNonOpAs" aria-expanded="true" aria-controls="collapseNonOpAs">
-                              Non Operating Assets
-                          </div>
-                          </h5>
-                      </div>
-                
-                      <div id="collapseNonOpAs" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                          <div class="card-body">
-                              <label for="">Loans returned</label>
-                                  <div class="row">
-                                  <div class="col-md-3">
-                                      <div class="form-group"> 
-                                          <label for="">{{ now()->year }}</label>
-                                          <input type="text" name="n_loans_returned_[1]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                          <span class="text-danger error-text n_loans_returned_[1]_error"></span>
-                                          </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group"> 
-                                          <label for="">{{ now()->year+1 }}</label>
-                                          <input type="text" name="n_loans_returned_[2]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                          <span class="text-danger error-text n_loans_returned_[2]_error"></span>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group"> 
-                                          <label for="">{{ now()->year+2 }}</label>
-                                          <input type="text" name="n_loans_returned_[3]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                          <span class="text-danger error-text n_loans_returned_[3]_error"></span>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group"> 
-                                          <label for="">{{ now()->year+3 }}</label>
-                                          <input type="text" name="n_loans_returned_[4]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                          <span class="text-danger error-text n_loans_returned_[4]_error"></span>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group"> 
-                                          <label for="">{{ now()->year+4 }}</label>
-                                          <input type="text" name="n_loans_returned_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                          <span class="text-danger error-text n_loans_returned_[5]_error"></span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="card">
-                      <div class="card-header" id="headingTwo">
-                          <h5 class="mb-0">
-                          <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseBorrow" aria-expanded="false" aria-controls="collapseBorrow">
-                              Borrowing
-                          </div>
-                          </h5>
-                      </div>
-                      <div id="collapseBorrow" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                          <div class="card-body">
-                              <label for="">Pinjaman perkiraan yang akan dilakukan </label>
-                                  <div class="row">
-                                  <div class="col-md-3">
-                                      <div class="form-group"> 
-                                          <label for="">{{ now()->year }}</label>
-                                          <input type="text" name="n_new_loan_[1]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                          <span class="text-danger error-text n_new_loan_[1]_error"></span>
-                                          </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group"> 
-                                          <label for="">{{ now()->year+1 }}</label>
-                                          <input type="text" name="n_new_loan_[2]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                          <span class="text-danger error-text n_new_loan_[2]_error"></span>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group"> 
-                                          <label for="">{{ now()->year+2 }}</label>
-                                          <input type="text" name="n_new_loan_[3]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                          <span class="text-danger error-text n_new_loan_[3]_error"></span>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group"> 
-                                          <label for="">{{ now()->year+3 }}</label>
-                                          <input type="text" name="n_new_loan_[4]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                          <span class="text-danger error-text n_new_loan_[4]_error"></span>
-                                      </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                      <div class="form-group"> 
-                                          <label for="">{{ now()->year+4 }}</label>
-                                          <input type="text" name="n_new_loan_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                          <span class="text-danger error-text n_new_loan_[5]_error"></span>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="card">
-                      <div class="card-header" id="headingThree">
-                          <h5 class="mb-0">
-                          <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseCostEqu" aria-expanded="false" aria-controls="collapseCostEqu">
-                              Cost of Equity
-                          </div>
-                          </h5>
-                      </div>
-                      <div id="collapseCostEqu" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                          <div class="card-body">
-                              <div class="col-md-6">
-                                  <div class="form-group">
-                                      <label for="">Masukkan cost of equity</label>
-                                      <div class="input-group input-group-alternative mb-4">
-                                          <input type="tel" name="cost_equity" id="" class="form-control" placeholder="" data-type="number" aria-describedby="helpId" value="15" required>
-                                      <div class="input-group-append">
-                                          <span class="input-group-text">%</span>
-                                      </div>
-                                      </div>
-                                      <span class="text-danger error-text cost_equity_error"></span>
-                                  </div>
-                              </div> 
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div> {{-- end of accordion 2 --}}
-      </div>
-  </div>
-  </form>
-</section>
 
 
 
@@ -483,71 +258,6 @@ function formatCurrency(input, blur) {
 }
 
 
-// var ticking = false;
-// var isFirefox = (/Firefox/i.test(navigator.userAgent));
-
-// var scrollSensitivitySetting = 30; // Increase/decrease to change sensitivity to trackpad gestures (up = less sensitive; down = more sensitive) 
-
-// var slideDurationSetting = 600; 
-// // Amount of time for which slide is "locked"
-
-// var currentSlideNumber = 0;
-
-// var totalSlideNumber = $(".background").length;
-
-
-// function parallaxScroll(evt) {
-//   if (isFirefox) {
-//     // Set delta for Firefox
-//     delta = evt.detail * (-120);
-//   } else {
-//     // Set delta for all other browsers
-//     delta = evt.wheelDelta;
-//   }
-
-//   if (ticking != true) {
-//     if (delta <= -scrollSensitivitySetting) {
-//       //Down scroll
-//       ticking = true;
-//       if (currentSlideNumber !== totalSlideNumber - 1) {
-//         currentSlideNumber++;
-//         nextItem();
-//       }
-//       slideDurationTimeout(slideDurationSetting);
-//     }
-//     if (delta >= scrollSensitivitySetting) {
-//       //Up scroll
-//       ticking = true;
-//       if (currentSlideNumber !== 0) {
-//         currentSlideNumber--;
-//       }
-//       previousItem();
-//       slideDurationTimeout(slideDurationSetting);
-//     }
-//   }
-// }
-
-
-// function slideDurationTimeout(slideDuration) {
-//   setTimeout(function() {
-//     ticking = false;
-//   }, slideDuration);
-// }
-
-// // Event listeners
-// var mousewheelEvent = isFirefox ? "DOMMouseScroll" : "wheel";
-// window.addEventListener(mousewheelEvent, _.throttle(parallaxScroll, 60), false);
-
-// // Slide motion
-// function nextItem() {
-//   var $previousSlide = $(".background").eq(currentSlideNumber - 1);
-//   $previousSlide.removeClass("up-scroll").addClass("down-scroll");
-// }
-
-// function previousItem() {
-//   var $currentSlide = $(".background").eq(currentSlideNumber);
-//   $currentSlide.removeClass("down-scroll").addClass("up-scroll");
-// }
  const url_eventPassed = @json(route('eventPassed'));
 </script>
 <script src="js/custom.js"></script>

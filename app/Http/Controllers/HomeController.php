@@ -62,7 +62,22 @@ class HomeController extends Controller
             
              $get_id = DB::table('header_events')->select('id')->where('status','=','2')->get();
         
-            return view('investor.home'); 
+// SELECT h.name_product, round(r.rating)
+// FROM header_products h
+// JOIN reviews r
+// ON r.project_id = h.id
+// GROUP BY h.id
+// ORDER BY round(r.rating) DESC
+
+            $trending_startup['trending_startup'] = 
+            DB::table('header_products')
+            ->select('header_products.id','header_products.name_product',\DB::raw('round(avg(reviews.rating))'),'header_products.image')
+            ->join('reviews','reviews.project_id','=','header_products.id')
+            ->groupBy('header_products.id','header_products.name_product','header_products.image')
+            ->orderBy(\DB::raw('round(avg(reviews.rating))'))
+            ->get();
+
+            return view('investor.home')->with($trending_startup); 
         }
        
     }
