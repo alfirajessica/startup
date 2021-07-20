@@ -20,7 +20,7 @@
     }
     .navbar-brand-img {
     height: 80px;
-    width: 120px;
+    width: 100px;
     }
   </style>
 <body class="landing-page">

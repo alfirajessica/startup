@@ -10,7 +10,7 @@
 
     <form id="msform" action="{{ route('dev.product.addNewProduct')}}" method="POST" class="contact-form" novalidate>
             @csrf
-            <ul id="progressbar" class="d-flex justify-content-center">
+            <ul id="progressbar" class="d-flex justify-content-center" style="margin-bottom: revert;">
                 <li class="active" id="account"><strong>Singkat Produk</strong></li>
                 <li id="personal"><strong>Detail</strong></li>
             </ul>
@@ -98,7 +98,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <a href="#" id="pop">
-                                            <img id="previewImg" style="max-width: 250px; margin-top:20px" src="../images/sample-img.png">
+                                            <img id="previewImg" style="max-width: 200px; margin-top:0px" src="../images/sample-img.png">
                                             </a>  
                                         </div>
                                     </div>
