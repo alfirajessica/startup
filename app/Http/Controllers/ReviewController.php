@@ -52,8 +52,14 @@ class ReviewController extends Controller
             ->select('reviews.id', 'users.name', 'reviews.created_at','reviews.rating','reviews.isi_review')
             ->where('reviews.project_id','=',$id)
             ->get();
+    
+            $list_response_reviews['list_response_reviews'] =
+            DB::table('reviews')
+            ->join('response_reviews','response_reviews.id_reviews','=','reviews.id')
+            ->select('response_reviews.response','response_reviews.id_reviews')
+            ->get();
         }
-        return view('investor.detailStartup.dataUlasan')->with($list_reviews);
+        return view('investor.detailStartup.dataUlasan')->with($list_reviews)->with($list_response_reviews);
     }
     //end of investor - detailStartup - ulasan.blade.php
 

@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-<body class="register-page" style="background-color: #f7f3e9">
+<body class="register-page" style="background-color: #0a1931">
   <div class="container py-2" style="overflow: hidden; overflow-y: no scroll;">
     <div class="row justify-content-center">
       <div class="col-lg-8 py-2">
         <div class="card bg-secondary shadow border-0">
           
-          <div class="card-body">
+          <div class="card-body text-dark">
             <div class="text-center text-muted mb-2">
-              <h3 class="font-weight-bold">Register</h3><small> Sebagai (Pilih salah satu)</small>
+              <h3 class="font-weight-bold">Register</h3><small class="text-dark"> Sebagai (Pilih salah satu)</small>
             </div>
             <form role="form" method="POST" action="{{ route('register') }}">
               @csrf
-              <div class="form-group row">
+              <div class="form-group row text-dark">
                   <div class="col-md-12">
                       <div class="btn-group btn-group-toggle btn-block" data-toggle="buttons">
                           <label class="btn btn-outline-primary">
@@ -34,7 +34,7 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group">
+                  <div class="form-group text-dark">
                     <div class="input-group input-group-alternative mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
@@ -52,7 +52,7 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="form-group">
+                  <div class="form-group text-dark">
                     <div class="input-group input-group-alternative mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
@@ -78,7 +78,7 @@
                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                       </div>
                      
-                      <select class="form-control" name="province" onchange="show_cities(this)">
+                      <select class="form-control text-dark" name="province" onchange="show_cities(this)">
                         <option class="form-control" value="0" selected>-- Pilih provinsi --</option>
                          @foreach($provinces as $provinsi)
                             <option value="{{ $provinsi['province_id'] }}">{{ $provinsi['province'] }}</option>
@@ -144,7 +144,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <div class="text-center">
-                    <button type="submit" class="btn btn-primary mt-4">
+                    <button type="submit" class="btn btn-default mt-4">
                         {{ __('Register') }}
                     </button>
                 </div>
@@ -157,7 +157,7 @@
                   
                   <div class="col-12 text-center">
                       @if (Route::has('login'))
-                      <a class="text-dark" href="{{ route('login') }}"><small>{{ __('Sudah Punya Akun? Login Disini') }}</small></a>
+                      <a class="text-dark" href="{{ route('login') }}"><small>Sudah Punya Akun? <u>Login Disini</u></small></a>
                       @endif
                   </div>
                   

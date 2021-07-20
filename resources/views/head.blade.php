@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-  <title>{{ config('app.name', 'Startupss') }}</title>
+  <link rel = "icon" href="/../images/icon-startupinow.png" type="image/png">
+  <title>{{ config('app.name', 'StartupINow.') }}</title>
 
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -19,7 +19,7 @@
   <!-- CSS Files -->
   <link href="/argon/assets/css/argon-design-system.css?v=1.2.2" rel="stylesheet" />
 
-  <link rel="icon" href="/../assets/img/brand/favicon.png" type="image/png">
+  {{-- <link rel="icon" href="/../assets/img/brand/favicon.png" type="image/png"> --}}
   <!-- Fonts -->
   
   <!-- Icons -->

@@ -52,10 +52,14 @@ class HomeController extends Controller
 
         //developer
         if ($user_role == "1") {
+            $new_event['new_event'] =
+            DB::table('header_events')
+            ->orderBy('created_at')->paginate(6);
+
             $header_events['header_events'] = DB::table("header_events")
                    ->whereDate('created_at', '>', Carbon::now()->subDays(30))
                    ->get();
-            return view('developer.home', $header_events); 
+            return view('developer.home', $header_events)->with($new_event); 
         }
         //investor
         else if ($user_role == "2") {
@@ -75,7 +79,7 @@ class HomeController extends Controller
             ->join('reviews','reviews.project_id','=','header_products.id')
             ->groupBy('header_products.id','header_products.name_product','header_products.image')
             ->orderBy(\DB::raw('round(avg(reviews.rating))'))
-            ->get();
+            ->paginate(6);
 
             return view('investor.home')->with($trending_startup); 
         }

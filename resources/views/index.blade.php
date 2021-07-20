@@ -12,7 +12,7 @@
         background-color:#0a1931;
     }
     .landing-page{
-        background-color: #f7f3e9;
+        background-color: #EFEFEF;
     }
     .jumbotron {
         background-color: none
@@ -119,28 +119,115 @@
   </nav>
   <!-- End Navbar -->
   @if (Route::currentRouteName() != "valuation")
-  <section class="bg-primary" style="min-height: 100vh; min-width: auto">
-    <div class="content-wrapper">
-        <h2>Oke</h2>
-        
-        <p class="content-subtitle">
-            <span class="scroll-btn">
-            <div class="scroll-to-next-section">
-                <button class="btn btn-info"><i class="fas fa-chevron-down fa-lg"></i></button>
+  <link rel="stylesheet" href="/css/front.css">
+
+<section class="section-header pb-8 pb-lg-13 mb-4 mb-lg-6 text-white" style="
+background-color: #0a1931;padding-top: 8rem;
+">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 text-center">
+                <h1 class="display-2 mb-3">Apa itu StartupINow. ?</h1>
+                <p class="lead">Kumpulan-kumpulan Startup dari Developer Terbaik, dan Jadilah Angel Investor pada Startup</p>
             </div>
-            </span>
-        </p>
+        </div>
     </div>
-  </section>
+    <div class="pattern bottom"></div>
+</section>
+<section class="section section-lg pt-0" style="
+padding-bottom: 0rem;
+">
+    <div class="container mt-n7 mt-lg-n13 z-2">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-4">
+                <div class="card shadow-soft border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0">
+                    <div class="card-header text-center pb-0">
+                        <div class="icon icon-shape icon-shape-primary rounded-circle mb-3">
+                          <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h4 class="text-black">Developer</h4>
+                        
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex px-0 pt-0 pb-2">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Listing Startup atau Produk yang telah dibangun</div>
+                            </li>
+                            <li class="list-group-item d-flex px-0 pb-1">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Bangun & kembangkan afiliasi dan kemitraan dengan Investors</div>
+                            </li>
+                            <li class="list-group-item d-flex px-0 pb-1">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Hitung nilai bisnis dengan Valuation Tools</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="card shadow-soft bg-white border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0">
+                    <div class="card-header text-center pb-0">
+                        <div class="icon icon-shape icon-shape-primary rounded-circle mb-3">
+                            <i class="fas fa-donate"></i>
+                        </div>
+                        <h4 class="text-black">Investor</h4>
+                        
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex px-0 pt-0 pb-2">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Membuka event, mengumpulkan para Startup</div>
+                            </li>
+                            <li class="list-group-item d-flex px-0 pb-1">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Investasikan startup/produk pada Katalog Startup</div>
+                            </li>
+                            <li class="list-group-item d-flex px-0 pb-1">
+                                <div class="icon icon-sm icon-success mr-4">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                                <div>Hitung nilai bisnis dengan Valuation Tools</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+<section class="section section-lg pt-0 line-bottom-light" style="
+margin-top: 10%; padding-bottom:1rem;
+">
+<div class="container">
+  <div class="row justify-content-center mb-5 mb-lg-4">
+      <div class="col-12 col-md-8 text-center">
+          <h1 class="display-3 mb-4">Get started in 30 seconds</h1>
+          <p class="lead">Even if you have the most loyal customers ever, they’ll still want to know how things are going and for new users how to start.</p>
+      </div>
+  </div>
+  <div class="row">
+    @include('units.trendingStartup')
+  </div>
   
-  
-  <section style="height: 100vh">
-    <div class="col-md-12 py-6"><div class="row"></div></div>
-    
-    
-  
-    
-  </section>
+  </div>
+</div>
+</section>
+
+@include('units.newestEvent')
   @endif
 
     <!-- End Navbar -->
@@ -162,13 +249,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
 
 <script>
-   if($('.scroll-to-next-section').length>0) {
-   $(".scroll-to-next-section button").click(function () {
-      $('html, body').animate({
-         scrollTop: $(this).closest("section").next().offset().top
-      }, "slow");
-   });
-}
+  
 
 $("input[data-type='currency']").on({
     keyup: function() {

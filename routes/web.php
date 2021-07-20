@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvController;
 use App\Http\Controllers\EventController;
@@ -39,9 +39,11 @@ use App\Event\MyEvent;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
+
+Route::get('/', [UserController::class, 'index']);
 
 Auth::routes();
 

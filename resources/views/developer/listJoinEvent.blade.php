@@ -40,7 +40,7 @@
         
                         <div class="col">
                           <div class="table-responsive">
-                              <table class="table table-bordered table-hover" width="100%" id="table_listEvent">
+                              <table class="table table-bordered table-hover table-sm" width="100%" id="table_listEvent">
                                 <thead>
                                     <tr>
                                         <th>Nama Event</th>

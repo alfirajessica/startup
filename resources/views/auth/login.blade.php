@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<body class="landing-page">
+<body class="landing-page" style="background-color: #0a1931">
     <section class="section section-shaped">
         
         <div class="container">
@@ -16,10 +16,10 @@
                             @csrf
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="text-center text-muted mb-4">
-                                <small>Sign in</small>
+                                <small class="text-dark">Masuk Ke StartupINow.</small>
                             </div>
                     
-                            <div class="form-group mb-3">
+                            <div class="form-group mb-3 text-dark">
                                 <div class="input-group input-group-alternative">
                                     <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="ni ni-email-83"></i></span>
@@ -61,7 +61,7 @@
                             </div>
 
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary my-2">
+                                <button type="submit" class="btn btn-default my-2">
                                     {{ __('Login') }}
                                 </button>
                                 <br>
@@ -77,7 +77,7 @@
                             
                             @if (Route::has('register'))
                             <div class="form-group px-4">
-                                <a class="text-dark" href="{{ route('register') }}"><small> {{ __('Belum punya akun? Register Disini') }} </small></a>
+                                <a class="text-dark" href="{{ route('register') }}"><small> Belum punya akun? <u> Register Disini </u></small></a>
                             </div>
                             @endif
                            

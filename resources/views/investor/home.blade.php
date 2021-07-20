@@ -8,8 +8,8 @@ background-color: #0a1931;padding-top: 8rem;
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 text-center">
-                <h1 class="display-2 mb-3">Who is Impact for?</h1>
-                <p class="lead">Whether you’re a programmer, designer, freelancer or need Impact for a whole team our pricing just makes sense.</p>
+                <h1 class="display-2 mb-3">Apa itu StartupINow. ?</h1>
+                <p class="lead">Kumpulan-kumpulan Startup dari Developer Terbaik, dan Jadilah Angel Investor pada Startup</p>
             </div>
         </div>
     </div>
@@ -24,12 +24,10 @@ padding-bottom: 0rem;
                 <div class="card shadow-soft border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0">
                     <div class="card-header text-center pb-0">
                         <div class="icon icon-shape icon-shape-primary rounded-circle mb-3">
-                            <i class="fas fa-bullhorn"></i>
+                          <i class="fas fa-chalkboard-teacher"></i>
                         </div>
-                        <h4 class="text-black">Marketing</h4>
-                        <p>
-                            Reveal best strategies from the market and your competitors                                
-                        </p>
+                        <h4 class="text-black">Developer</h4>
+                        
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
@@ -37,19 +35,19 @@ padding-bottom: 0rem;
                                 <div class="icon icon-sm icon-success mr-4">
                                     <i class="far fa-check-circle"></i>
                                 </div>
-                                <div>Uncover the best SEO and content strategies</div>
+                                <div>Listing Startup atau Produk yang telah dibangun</div>
                             </li>
                             <li class="list-group-item d-flex px-0 pb-1">
                                 <div class="icon icon-sm icon-success mr-4">
                                     <i class="far fa-check-circle"></i>
                                 </div>
-                                <div>Build & grow your affiliate and media partnerships </div>
+                                <div>Bangun & kembangkan afiliasi dan kemitraan dengan Investors</div>
                             </li>
                             <li class="list-group-item d-flex px-0 pb-1">
                                 <div class="icon icon-sm icon-success mr-4">
                                     <i class="far fa-check-circle"></i>
                                 </div>
-                                <div>Enhance your display and paid search strategies</div>
+                                <div>Hitung nilai bisnis dengan Valuation Tools</div>
                             </li>
                         </ul>
                     </div>
@@ -59,12 +57,10 @@ padding-bottom: 0rem;
                 <div class="card shadow-soft bg-white border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0">
                     <div class="card-header text-center pb-0">
                         <div class="icon icon-shape icon-shape-primary rounded-circle mb-3">
-                            <i class="far fa-lightbulb"></i>
+                            <i class="fas fa-donate"></i>
                         </div>
-                        <h4 class="text-black">Research</h4>
-                        <p>
-                            Understand your market, your competitors and your customers                                
-                        </p>
+                        <h4 class="text-black">Investor</h4>
+                        
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
@@ -72,93 +68,45 @@ padding-bottom: 0rem;
                                 <div class="icon icon-sm icon-success mr-4">
                                     <i class="far fa-check-circle"></i>
                                 </div>
-                                <div>Benchmark your market and find ways to grow your share</div>
+                                <div>Membuka event, mengumpulkan para Startup</div>
                             </li>
                             <li class="list-group-item d-flex px-0 pb-1">
                                 <div class="icon icon-sm icon-success mr-4">
                                     <i class="far fa-check-circle"></i>
                                 </div>
-                                <div>Analyze trends, competitors' strategy and audience behavior</div>
+                                <div>Investasikan startup/produk pada Katalog Startup</div>
                             </li>
                             <li class="list-group-item d-flex px-0 pb-1">
                                 <div class="icon icon-sm icon-success mr-4">
                                     <i class="far fa-check-circle"></i>
                                 </div>
-                                <div>Understand the shopper’s journey for smarter decisions</div>
+                                <div>Hitung nilai bisnis dengan Valuation Tools</div>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-lg-4">
-                <div class="card shadow-soft bg-white border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0">
-                    <div class="card-header text-center pb-0">
-                        <div class="icon icon-shape icon-shape-primary rounded-circle mb-3">
-                            <i class="fas fa-receipt"></i>
-                        </div>
-                        <h4 class="text-black">Sales</h4>
-                        <p>
-                            Enhance performance throughout your sales funnel                               
-                        </p>
-                    </div>
-                    <div class="card-body">
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex px-0 pt-0 pb-2">
-                                <div class="icon icon-sm icon-success mr-4">
-                                    <i class="far fa-check-circle"></i>
-                                </div>
-                                <div>Find, enrich and qualify leads to increase sales opportunities</div>
-                            </li>
-                            <li class="list-group-item d-flex px-0 pb-1">
-                                <div class="icon icon-sm icon-success mr-4">
-                                    <i class="far fa-check-circle"></i>
-                                </div>
-                                <div>Generate the insights you need to perfect your pitch</div>
-                            </li>
-                            <li class="list-group-item d-flex px-0 pb-1">
-                                <div class="icon icon-sm icon-success mr-4">
-                                    <i class="far fa-check-circle"></i>
-                                </div>
-                                <div>Monitor website traffic statistics to boost retention</div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 text-center">
-                <h1 class="h1 font-weight-bolder mb-4 px-lg-8">Recommended by leading experts in marketing and SEO</h1>
-                <p class="lead">Our products are loved by users worldwide</p>
-            </div>
-        </div>
-        <div class="row">
-            @foreach ($trending_startup as $item)
-               
-                <div class="col-12 col-lg-4">
-                    <div class="card shadow-soft border-light animate-up-3 text-gray py-4 mb-5 mb-lg-0 mt-2">
-                        <div class="card-header text-center pb-0" style="padding: 1.0rem 1.0rem;">
-                            <img  src="/uploads/event/{{$item->image}}" class="card-img-top">
-                        </div>
-                        <div class="card-body">
-                            {{$item->name_product}}
-                        </div>
-                    </div>
-                </div>
-            @endforeach
             
         </div>
     </div>
 </section>
-
-
-
-
+<section class="section section-lg pt-0 line-bottom-light" style="
+margin-top: 10%; padding-bottom:1rem;
+">
+<div class="container">
+  <div class="row justify-content-center mb-5 mb-lg-4">
+      <div class="col-12 col-md-8 text-center">
+          <h1 class="display-3 mb-4">Get started in 30 seconds</h1>
+          <p class="lead">Even if you have the most loyal customers ever, they’ll still want to know how things are going and for new users how to start.</p>
+      </div>
+  </div>
+  <div class="row">
+    @include('units.trendingStartup')
+  </div>
+  
+  </div>
+</div>
+</section>
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
@@ -166,13 +114,6 @@ padding-bottom: 0rem;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
 
 <script>
-   if($('.scroll-to-next-section').length>0) {
-   $(".scroll-to-next-section button").click(function () {
-      $('html, body').animate({
-         scrollTop: $(this).closest("section").next().offset().top
-      }, "slow");
-   });
-}
 
 $("input[data-type='currency']").on({
     keyup: function() {
@@ -256,8 +197,6 @@ function formatCurrency(input, blur) {
   caret_pos = updated_len - original_len + caret_pos;
   input[0].setSelectionRange(caret_pos, caret_pos);
 }
-
-
  const url_eventPassed = @json(route('eventPassed'));
 </script>
 <script src="js/custom.js"></script>
