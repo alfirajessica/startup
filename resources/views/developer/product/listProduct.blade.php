@@ -32,18 +32,15 @@
                         <strong>Menunggu Konfirmasi</strong> adalah Startup/Produk yang statusnya belum aktif dan butuh konfirmasi Admin
                     </div>
                   
-                    <div class="alert alert-warning py-2 px-2" role="alert" id="alert_konfirmasiUlang">
-                        <strong>Info</strong> Mohon cek kembali data yang dimasukkan. <br>
-                        Kriteria dan alasan kenapa tidak dikonfirmasi Admin
-                        <ul>
-                            <li>- Data yang dimasukkan Tidak sesuai</li>
-                            <li>- Gambar Tidak Sesuai</li>
-                        </ul>
+                    <div class="alert alert-danger py-2 px-2" role="alert" id="alert_konfirmasiUlang">
+                        <strong>Info</strong><br>
+                        Baris Startup/Produk berwarna merah menunjukkan startup/produk tidak dikonfirmasi oleh admin. Silakan perbaiki detail data dan konfirmasi ulang pada tombol <strong>Konfirmasi Ulang</strong>
+                       
                     </div>
                 </div>
                 
                 <div class="table-responsive py-2 px-2">
-                    <table class="table table-bordered table-hover table_listProduct" style="width:100%" id="table_listProductConfirmYet">
+                    <table class="table table-bordered table-hover table_listProduct text-dark" style="width:100%" id="table_listProductConfirmYet">
                       <thead style="text-align:center">
                           <tr>
                               <th>#</th>
@@ -66,7 +63,7 @@
 
                 
                 <div class="table-responsive py-2 px-2">
-                    <table class="table table-bordered table-hover table_listProduct" width="100%" id="table_listProduct">
+                    <table class="table table-bordered table-hover table_listProduct text-dark" width="100%" id="table_listProduct">
                       <thead style="text-align:center">
                           <tr>
                               <th>#</th>
@@ -83,7 +80,7 @@
             
             <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                 <div class="table-responsive py-2 px-2">
-                    <table class="table table-bordered table-hover table_listProduct" width="100%" id="table_listProductNonAktif">
+                    <table class="table table-bordered table-hover table_listProduct text-dark" width="100%" id="table_listProductNonAktif">
                         <thead style="text-align:center">
                             <tr>
                                 <th>#</th>
@@ -105,7 +102,7 @@
                 </div>
 
                 <div class="table-responsive py-2 px-2">
-                    <table class="table table-bordered table-hover table_listProduct" width="100%" id="table_listProductInvestor">
+                    <table class="table table-bordered table-hover table_listProduct text-dark" width="100%" id="table_listProductInvestor">
                         <thead style="text-align:center">
                             <tr>
                                 <th>#</th>

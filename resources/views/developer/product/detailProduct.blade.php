@@ -2,7 +2,8 @@
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="detailProduct">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header" style="padding: 0.5rem">
+            
             <div class="col-md-11">
                 <div class="nav-wrapper">
                     <!-- tabs -->
@@ -26,7 +27,7 @@
                 </button>
             </div>
         </div>
-        <div class="modal-body" style="background-color: #EFEFEF">
+        <div class="modal-body" style="background-color: #EFEFEF;padding-top: 0.5rem;">
             <div class="row">
                 <div class="col-md-12">
                     <!-- tab content -->
@@ -34,7 +35,9 @@
                        
                             <div class="tab-pane fade show active text-dark" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
 
-                                <div class="alert alert-danger d-none" role="alert" id="alert_tdkdikonfirmasi">
+                                <div class="alert alert-danger d-none" role="alert" id="alert_tdkdikonfirmasi" style="
+                                padding-top: 0.5rem;
+                                padding-bottom: 0rem;">
                                     <strong>Startup/Produk Anda Tidak Dikonfirmasi</strong> <br>
                                     Dengan Alasan : <label for="" id="cetak_reasonTdkdikonfirmasi"></label>
                                 </div>
@@ -106,30 +109,30 @@
                                 <div class="row py-2">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="">Deskripsi</label>
-                                            <textarea class="form-control form-control-alternative" name="desc" id="desc" rows="3"></textarea>
+                                            <label for="">Deskripsikan Startup/Produk Anda</label>
+                                            <textarea class="form-control form-control-alternative" name="desc" id="desc" rows="2"></textarea>
                                             <span class="text-danger error-text desc_error" id="desc_error"></span>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="">Tim</label>
-                                            <textarea class="form-control form-control-alternative" name="team" id="team" rows="3"></textarea>
+                                            <label for="">Siapa saja yang ada didalam Tim Anda</label>
+                                            <textarea class="form-control form-control-alternative" name="team" id="team" rows="2"></textarea>
                                             <span class="text-danger error-text team_error" id="team_error"></span>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="">Alasan</label>
-                                            <textarea class="form-control form-control-alternative" name="reason" id="reason" rows="3"></textarea>
+                                            <label for="">Keunggulan Startup/Produk Anda</label>
+                                            <textarea class="form-control form-control-alternative" name="reason" id="reason" rows="2"></textarea>
                                             <span class="text-danger error-text reason_error" id="reason_error"></span>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="">Kegunaan</label>
-                                            <textarea class="form-control form-control-alternative" name="benefit" id="benefit" rows="3"></textarea>
+                                            <label for="">Informasi lainnya</label>
+                                            <textarea class="form-control form-control-alternative" name="benefit" id="benefit" rows="2"></textarea>
                                             <span class="text-danger error-text benefit_error" id="benefit_error"></span>
                                         </div>
                                         
-                                        <div class="form-group">
+                                        <div class="form-group d-none">
                                             <label for="">Solusi</label>
                                             <textarea class="form-control form-control-alternative" name="solution" id="solution" rows="3"></textarea>
                                             <span class="text-danger error-text solution_error" id="solution_error"></span>
@@ -165,7 +168,7 @@
                                         <div class="tab-pane fade show active" id="investor" role="tabpanel" aria-labelledby="investor-tab">
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover table-sm" width="100%" id="table_listInv">
+                                                    <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listInv">
                                                       <thead style="text-align:center">
                                                           <tr>
                                                               <th>#</th>
@@ -187,7 +190,7 @@
                                         <div class="tab-pane fade" id="pemasukkan" role="tabpanel" aria-labelledby="pemasukkan-tab">
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover table-sm" width="100%" id="table_pemasukkan">
+                                                    <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_pemasukkan">
                                                         <thead style="text-align:center">
                                                             <tr>
                                                                 <th>#</th>
@@ -211,7 +214,7 @@
                                         <div class="tab-pane fade" id="pengeluaran" role="tabpanel" aria-labelledby="pengeluaran-tab">
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover" width="100%" id="table_pengeluaran">
+                                                    <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_pengeluaran">
                                                     <thead style="text-align:center">
                                                         <tr>
                                                             <th>#</th>
@@ -244,7 +247,7 @@
                                 <div class="card col-md-12">
                                     <div class="col-md-12 py-2">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered table-hover table-sm" width="100%" id="table_listReviews">
+                                            <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listReviews">
                                               <thead style="text-align:center">
                                                   <tr>
                                                       <th>#</th>

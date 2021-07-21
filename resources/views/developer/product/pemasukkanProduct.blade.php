@@ -56,7 +56,7 @@
         </div>
         
         <div class="table-responsive px-2">
-            <table class="table table-bordered table-hover" width="100%" id="table_listPemasukkan">
+            <table class="table table-bordered table-hover text-dark" width="100%" id="table_listPemasukkan">
                 <thead>
                     <tr>
                         <th>#</th>

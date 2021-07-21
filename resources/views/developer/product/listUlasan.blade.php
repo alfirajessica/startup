@@ -17,7 +17,7 @@
             <div class="tab-pane fade show active" id="listUlasan" role="tabpanel" aria-labelledby="listUlasan-tab">
                 
                 <div class="table-responsive py-2 px-2">
-                    <table class="table table-bordered table-hover table_listProduct" style="width:100%" id="table_listUlasan">
+                    <table class="table table-bordered table-hover table_listProduct text-dark" style="width:100%" id="table_listUlasan">
                       <thead style="text-align:center">
                           <tr>
                             <th>#</th>

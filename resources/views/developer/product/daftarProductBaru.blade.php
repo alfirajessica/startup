@@ -108,22 +108,22 @@
                             <div class="form-section">
                                 <div class="form-group">
                                     <div class="form-group">
-                                        <label class="float-left">Deskripsikan produk anda</label>
+                                        <label class="float-left">Deskripsikan Startup/Produk Anda</label>
                                         <textarea class="form-control form-control-alternative" name="desc" id="" rows="3"></textarea>
                                     </div>
                                 
                                     <div class="form-group">
-                                        <label class="float-left">Siapa saja yang ada didalam Tim anda</label>
+                                        <label class="float-left">Siapa saja yang ada didalam Tim Anda</label>
                                         <textarea class="form-control form-control-alternative" name="team" id="" rows="3"></textarea>
                                     </div>
                                 
                                     <div class="form-group">
-                                        <label class="float-left">Alasan kenapa Anda membutuhkan investor</label>
+                                        <label class="float-left">Keunggulan Startup/Produk Anda</label>
                                         <textarea class="form-control form-control-alternative" name="reason" id="" rows="3"></textarea>
                                     </div>
                                 
                                     <div class="form-group">
-                                        <label class="float-left">Keuntunggan yang akan diperoleh investor</label>
+                                        <label class="float-left">Informasi lainnya</label>
                                         <textarea class="form-control form-control-alternative" name="benefit" id="" rows="3"></textarea>
                                     </div>
                                 

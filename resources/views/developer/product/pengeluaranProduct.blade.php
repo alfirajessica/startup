@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="table-responsive px-2">
-            <table class="table table-bordered table-hover" width="100%" id="table_listPengeluaran">
+            <table class="table table-bordered table-hover text-dark" width="100%" id="table_listPengeluaran">
                 <thead>
                     <tr>
                         <th>#</th>

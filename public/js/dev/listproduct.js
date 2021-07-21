@@ -215,6 +215,8 @@ $('body').on('click', '.detailProject', function () {
         $('#nama_product, #edit_jenis_produk, #edit_detail_kategori, #edit_startup_tag, #edit_subStartup_tag, #url_product, #rilis_product, #desc,#team, #reason, #benefit,#solution ').attr('disabled', 'disabled').css("background-color", "white");
     }
     else if(cekTabel == "table_listProductConfirmYet"){
+        $("#submit_updDetail").removeClass("d-none");
+        $('#nama_product, #edit_jenis_produk, #edit_detail_kategori, #edit_startup_tag, #edit_subStartup_tag, #url_product, #rilis_product, #desc,#team, #reason, #benefit,#solution ').removeAttr('disabled', 'disabled');
         $.ajax({
             type: "get",
             url: "/dev/listProduct/get_Status/" + product_id,

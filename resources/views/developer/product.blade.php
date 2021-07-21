@@ -28,6 +28,7 @@
     max-height: calc(100vh - 210px);
     overflow-y: auto;
     }
+    
 </style>
 @section('content')
 <div class="container">
