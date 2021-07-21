@@ -122,10 +122,11 @@ class InvestController extends Controller
        
         $listInvestPending = DB::table('header_invests')
                     ->leftJoin('header_products', 'header_products.id','=','header_invests.project_id')
-                    ->select('header_invests.id', 'header_products.name_product', 'header_invests.invest_id','header_invests.status_transaction', 'header_invests.invest_expire')
+                    ->select('header_invests.id', 'header_products.name_product', 'header_invests.invest_id','header_invests.status_transaction', 'header_invests.invest_expire','header_invests.user_id')
                     ->where('header_invests.user_id', '=', $user->id)
-                    ->where('header_invests.status_transaction','=','pending')
-                    ->orWhere('header_invests.status_transaction','=','settlement')
+                    ->whereIn('header_invests.status_transaction', ['pending', 'settlement'])
+                    // ->where('header_invests.status_transaction','=','pending')
+                    // ->orWhere('header_invests.status_transaction','=','settlement')
                     ->Where('header_invests.status_invest','=','0')
                     ->get();
         if($req->ajax()){
@@ -182,8 +183,9 @@ class InvestController extends Controller
         ->leftJoin('header_products', 'header_products.id','=','header_invests.project_id')
         ->select('header_invests.id', 'header_products.name_product', 'header_invests.invest_id','header_invests.status_transaction')
         ->where('header_invests.user_id', '=', $user->id)
-        ->where('header_invests.status_transaction','=','cancel')
-        ->orWhere('header_invests.status_transaction','=','expire')
+        ->whereIn('header_invests.status_transaction', ['cancel', 'expire'])
+        // ->where('header_invests.status_transaction','=','cancel')
+        // ->orWhere('header_invests.status_transaction','=','expire')
         ->orWhere('header_invests.status_invest','=','2')
         ->get();
         
