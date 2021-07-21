@@ -52,11 +52,11 @@
             <label for="">Tanggapan Anda</label>
             <textarea class="form-control form-control-alternative" name="beri_response" id="beri_response" rows="3" ></textarea>
             <span class="text-danger error-text beri_response_error"></span>
+            <br>
+            <button type="submit" class="btn btn-default float-right">Simpan Tanggapan Ini</button>
 
         </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-default">Simpan Tanggapan Ini</button>
-        </div>
+       
       </div>
     </div>
   </div>
