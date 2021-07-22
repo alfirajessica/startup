@@ -208,7 +208,8 @@ $(function () {
             columns: [
                 {
                     data: 'id',
-                    name: 'id'
+                    name: 'id',
+                    className: 'dt-body-center',
                 },
                 {
                     data: 'name',
@@ -217,6 +218,7 @@ $(function () {
                 {
                     data: 'held',
                     name: 'held',
+                    className: 'dt-body-center',
                 
                 },
                 {
@@ -232,6 +234,7 @@ $(function () {
                 {
                     data: null,
                     name: 'status',
+                    className: 'dt-body-center',
                     render: data => {
                         var status="";
                         if(data.status == "1")

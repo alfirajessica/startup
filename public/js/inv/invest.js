@@ -392,6 +392,10 @@ $('body').on('click', '.detailProject', function () {
                 "<td>Mandiri Bill</td>" +
             "</tr>" +
             "<tr>" +
+                "<td> <strong>Biller Code </strong> </td>" +
+                "<td>" + data['biller_code'] + "</td>" +
+            "</tr>" +
+            "<tr>" +
                 "<td> <strong>Bill Key </strong> </td>" +
                 "<td>" + data['bill_key'] + "</td>" +
             "</tr>" +
@@ -678,11 +682,11 @@ function projectDetails(id) {
             fee = ((total * 1)/100);
             getTotal = total - fee;
             $("#fee").html(
-                $.fn.dataTable.render.number('.','.','2','').display(fee)
+                $.fn.dataTable.render.number('.',',','2','').display(fee)
             ); 
 
             $("#totalsemua").html(
-                $.fn.dataTable.render.number('.','.','2','').display(getTotal)
+                $.fn.dataTable.render.number('.',',','2','').display(getTotal)
             );                        
         }
         
@@ -732,6 +736,7 @@ function table_lapFinance(id) {
             {
                 data: null,
                 name: 'tipe',
+                className: 'dt-body-center',
                 render: data => {
                     var tipe="";
                     if (data.tipe == "1") {
@@ -790,7 +795,7 @@ function table_lapFinance(id) {
 
             // Update footer
             $( api.column( 3 ).footer() ).html(
-                $.fn.dataTable.render.number('.','.','2','').display(total)
+                $.fn.dataTable.render.number('.',',','2','').display(total)
             );                 
         }
         
@@ -820,6 +825,7 @@ function table_lapFinance(id) {
             {
                 data: null,
                 name: 'tipe',
+                className: 'dt-body-center',
                 render: data => {
                     var tipe="";
                     if (data.tipe == "1") {
@@ -878,7 +884,7 @@ function table_lapFinance(id) {
 
             // Update footer
             $( api.column( 3 ).footer() ).html(
-                $.fn.dataTable.render.number('.','.','2','').display(total)
+                $.fn.dataTable.render.number('.',',','2','').display(total)
             );                 
         }
     });

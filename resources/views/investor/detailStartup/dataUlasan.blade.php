@@ -35,7 +35,7 @@
         
         @foreach ($list_response_reviews as $item2)
         @if ($item->id == $item2->id_reviews)
-        Tanggapan :
+         Tanggapan : 
        {{$item2->response}}</label>
           
           

@@ -175,7 +175,7 @@ function createHighcharts(data) {
         text: "DataTables to Highcharts"
       },
       subtitle: {
-        text: "Data from "
+        text: "Data from StartupINow."
       },
       xAxis: [
         {

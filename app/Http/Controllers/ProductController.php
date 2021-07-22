@@ -652,18 +652,19 @@ class ProductController extends Controller
         ->select(\DB::raw('SUM(jumlah) as total_masuk,DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
         ->where('id_headerproduct','=',$id)
         ->where('tipe','=','1')
+        ->where('status','=','1')
         ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
-        ->orderBy('created_at' )
+        ->orderBy('created_at')
         ->get();
-        
 
         $list_finance_keluar['list_finance_keluar'] = 
         DB::table('detail_product_kas')
         ->select(\DB::raw('SUM(jumlah) as total_keluar,DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
         ->where('id_headerproduct','=',$id)
         ->where('tipe','=','2')
+        ->where('status','=','1')
         ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
-        ->orderBy('detail_product_kas.created_at')
+        ->orderBy('created_at')
         ->get();
 
        $user = auth()->user();
@@ -686,7 +687,7 @@ class ProductController extends Controller
         ->join('response_reviews','response_reviews.id_reviews','=','reviews.id')
         ->select('response_reviews.response','response_reviews.id_reviews')
         ->get();
-       
+       //dd($list_finance);
         return view('investor.detailStartup.desc')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews)->with($reviews)->with($list_response_reviews);
     }
 

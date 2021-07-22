@@ -7,7 +7,7 @@
         <h1 id="id_product" name="id_product" class="d-none">{{$item->id}}</h1>
         <div class="col-md-12" id="produk">
             <div class="card border-0">
-                <div class="card-body px-0" style="background-color: #EFEFEF">
+                <div class="card-body px-0" style="background-color: #EFEFEF;padding-bottom: 0rem;">
                     <div class="row">
                         
                         <div class="col-md-8">
@@ -106,7 +106,7 @@
                                                 {{$item->benefit}}
                                             <p>
                             
-                                            <p style="font-size:10pt">
+                                            <p style="font-size:10pt" class="d-none">
                                                 <strong for="">Solusi yang ditawarkan</strong> <br>
                                                 {{$item->solution}}
                                             <p>

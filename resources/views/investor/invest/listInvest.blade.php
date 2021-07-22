@@ -23,15 +23,14 @@
             <!-- table_listInvestPending -->
             <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                 <div class="col-md-12 py-2 px-0">
-                    <div class="alert alert-warning " role="alert">
-                        Mohon refresh halaman ini jika sudah melakukan pembayaran
-                    </div>
+                  <br>
+                  <label class="text-dark">* Mohon refresh halaman ini jika sudah melakukan pembayaran</label>
                 </div>
                 
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" width="100%" id="table_listInvestPending">
+                    <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listInvestPending">
                       <thead>
-                          <tr>
+                          <tr style="text-align: center">
                               <th>Startup/Produk</th>
                               <th>Invest id</th>
                               <th>Status Bayar</th>
@@ -49,13 +48,13 @@
             <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
               
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" width="100%" id="table_listInvestSettlement">
+                    <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listInvestSettlement">
                       <thead>
-                          <tr>
+                          <tr style="text-align: center">
                               <th>Startup/Produk</th>
                               <th>Invest id</th>
                               <th>Status Bayar</th>
-                              <th>Jadwal Acara</th>
+                              <th>Aksi</th>
                           </tr>
                       </thead>
                       <tbody></tbody>
@@ -68,9 +67,9 @@
             <!-- table_listInvestCancel -->
             <div class="tab-pane fade" id="tabs-icons-text-3" role="tabpanel" aria-labelledby="tabs-icons-text-3-tab">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover" width="100%" id="table_listInvestCancel">
+                    <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listInvestCancel">
                       <thead>
-                          <tr>
+                          <tr style="text-align: center">
                             <th>Startup/Produk</th>
                             <th>Invest id</th>
                             <th>Status Bayar</th>
@@ -86,9 +85,9 @@
 
             <div class="tab-pane fade" id="tabs-icons-text-4" role="tabpanel" aria-labelledby="tabs-icons-text-4-tab">
               <div class="table-responsive">
-                  <table class="table table-bordered table-hover" width="100%" id="table_listInvestFinished">
+                  <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listInvestFinished">
                     <thead>
-                        <tr>
+                        <tr style="text-align: center">
                           <th>Startup/Produk</th>
                           <th>Invest id</th>
                           <th>Status Bayar</th>
@@ -111,7 +110,7 @@
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="padding-bottom: 0rem">
         <h5 class="modal-title" id="exampleModalLongTitle">Cetak Laporan Investasi</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>

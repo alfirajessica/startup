@@ -1,7 +1,7 @@
 <div class="modal fade bd-example-modal-lg" id="detailTrans" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content bg-secondary">
-        <div class="modal-header">
+      <div class="modal-content">
+        <div class="modal-header" style="padding: 0.5rem">
           <div class="col-md-11">
               <div class="nav-wrapper">
                   <!-- tabs -->
@@ -22,7 +22,7 @@
               </button>
           </div>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="background-color: #EFEFEF;padding-top: 0.5rem;">
           <div class="row">
             <div class="col-md-12">
               <!-- tab content -->
@@ -35,7 +35,7 @@
                                   <div class="card-body">
                                     <strong>Detail Startup/Produk</strong>
                                     <div class="table-responsive-lg">
-                                      <table class="table table-sm padding-0" width="100%" id="table_projectDetails">
+                                      <table class="table table-sm padding-0 text-dark" width="100%" id="table_projectDetails">
                                           <thead>
                                               <th>Invest_id</th>
                                               <th>Project</th>
@@ -68,7 +68,7 @@
                             <div class="card-body">
                               <strong>Detail Investasi pada Startup/Produk</strong>
                               <div class="table-responsive-lg">
-                                <table class="table table-sm padding-0" width="100%" id="table_detailOrder">
+                                <table class="table table-sm padding-0 text-dark" width="100%" id="table_detailOrder">
                                   <tbody>
                                     <tr>
                                       <td> <strong> Awal Investasi </strong></td>
@@ -108,7 +108,7 @@
                               <div class="card-body">
                                 <strong>Detail Pembayaran</strong>
                                 <div class="table-responsive-lg">
-                                  <table class="table table-sm padding-0" width="100%" id="table_payDetails">
+                                  <table class="table table-sm padding-0 text-dark" width="100%" id="table_payDetails">
                                     <tbody></tbody>
                                   </table>
                                 </div>
@@ -145,9 +145,9 @@
                                   <div class="tab-pane fade show active" id="pemasukkan" role="tabpanel" aria-labelledby="pemasukkan-tab">
                                       <div class="col-md-12">
                                           <div class="table-responsive">
-                                              <table class="table table-bordered table-hover table-sm" width="100%" id="table_pemasukkan_inv">
+                                              <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_pemasukkan_inv">
                                                   <thead>
-                                                      <tr>
+                                                      <tr style="text-align: center">
                                                           <th>#</th>
                                                           <th>Tanggal</th>
                                                           <th>Tipe Pemasukkan</th>
@@ -169,9 +169,9 @@
                                   <div class="tab-pane fade" id="pengeluaran" role="tabpanel" aria-labelledby="pengeluaran-tab">
                                       <div class="col-md-12">
                                           <div class="table-responsive">
-                                              <table class="table table-bordered table-hover" width="100%" id="table_pengeluaran_inv">
+                                              <table class="table table-bordered table-hover text-dark" width="100%" id="table_pengeluaran_inv">
                                               <thead>
-                                                  <tr>
+                                                  <tr style="text-align: center">
                                                       <th>#</th>
                                                       <th>Tanggal</th>
                                                       <th>Tipe Pengeluaran</th>

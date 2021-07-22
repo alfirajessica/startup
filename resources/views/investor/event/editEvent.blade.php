@@ -2,8 +2,8 @@
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" id="editEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document" >
-      <div class="modal-content" style="background-color: #EFEFEF">
-        <div class="modal-header">
+      <div class="modal-content">
+        <div class="modal-header" style="padding-bottom: 0.5rem">
             <div class="col-md-11">
                 <div class="nav-wrapper">
                     <!-- tabs -->
@@ -24,7 +24,7 @@
                 </button>
             </div>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="background-color: #EFEFEF;padding-top: 0.5rem;">
             <div class="row">
                 <div class="col-md-12">
                     <!-- tab content -->
@@ -135,8 +135,8 @@
                                 <div class="card col">
                                   <div class="table-responsive px-2 pt-2">
                                       
-                                      <label for="" >Jumlah Peserta Bergabung : <strong id="jumlah_join"> </strong> Peserta</label>
-                                      <table class="table table-bordered table-hover" width="100%" id="table_participant">
+                                      <label class="text-dark" >Jumlah Peserta Bergabung : <strong id="jumlah_join"> </strong> Peserta</label>
+                                      <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_participant">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
