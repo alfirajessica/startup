@@ -3,20 +3,16 @@
 @section('content')
 <div class="container">
     <div class="py-4"></div>
-     <!-- card shadow -->
-     <div class="alert alert-primary" role="alert">
-         <strong>primary</strong> ini pemberitahuan
-     </div>
-    <div class="row"> <!-- row untuk header categoryProduct -->
+    <div class="row py-5"> <!-- row untuk header categoryProduct -->
         <div class="col-md-12">
-            <a data-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseExample">+ Tambah Kategori</a>
+            <a data-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseExample" class="font-weight-bold">+ Tambah Kategori</a>
 
                 <form action="{{ route('admin.kategoriProduk.addNewCategoryProduct') }}" method="POST" id="addNewCategoryProduct">
                     @csrf
                     <div class="collapse show" id="collapseCategory">
-                        <div class="card border-0 card-body card-shadow col-md-8" style="padding:0.5rem;">
+                        <div class="col-md-8" style="padding:0.5rem;">
                             <div class="form-group">
-                                <label for="category_product" class="col-form-label">Masukkan Kategori:</label>
+                                <label for="category_product" class="col-form-label text-dark">Masukkan Kategori:</label>
                                 <div class="input-group input-group-alternative mb-4" >
                                     <input type="text" class="form-control" name="category_product" id="category_product" >
                                     <div class="input-group-append">
@@ -33,9 +29,9 @@
                 <div class="card border-0 py-4">
                     
                     <div class="table-responsive py-2 px-4">
-                        <table class="table table-bordered table-hover" width="100%" id="table_category">
+                        <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_category">
                         <thead>
-                            <tr>
+                            <tr style="text-align: center">
                                 <th>#ID</th>
                                 <th>Kategori</th>
                                 <th>Status</th>
@@ -63,5 +59,9 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 <script src="/js/admin/category.js"></script>
+<script>
+    $("#produk_kategori").addClass('active');
+</script>
+  
 @endsection
 

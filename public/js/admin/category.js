@@ -17,8 +17,12 @@ $(function () {
             },
             columns: [
                 {
-                    data: 'id',
-                    name: 'id'
+                    data: null,
+                    name: 'id',
+                    className: 'dt-body-center',
+                    render: data => {
+                        return "#"+data.id;
+                    }
                 },
                 {
                     data: 'name_category',
@@ -27,6 +31,7 @@ $(function () {
                 {
                     data: null,
                     name: 'status',
+                    className: 'dt-body-center',
                     render: data => {
                         if (data.status == "1") {
                             return "Aktif";
@@ -44,7 +49,7 @@ $(function () {
                         if (data.status == 1) {
                             action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm nonAktifKategori">Nonaktifkan</a>';
                         }else{
-                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm aktifKategori">Aktifkan</a>';
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-success btn-sm aktifKategori">Aktifkan</a>';
                         }
                         return data.action + action;
                     }
@@ -242,9 +247,14 @@ $(function () {
                 url: "/admin/kategoriProduk"+'/detailKategori' + '/' + id,
                 type: 'GET'
             },
-            columns: [{
-                    data: 'id',
-                    name: 'id'
+            columns: [
+                {
+                    data: null,
+                    name: 'id',
+                    className: 'dt-body-center',
+                    render: data => {
+                        return "#"+data.id;
+                    }
                 },
                 {
                     data: 'name',
@@ -253,6 +263,7 @@ $(function () {
                 {
                     data: null,
                     name: 'status',
+                    className: 'dt-body-center',
                     render: data => {
                         if (data.status == "1") {
                             return "Aktif";
@@ -271,7 +282,7 @@ $(function () {
                         if (data.status == 1) {
                             action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm nonaktifDetailKategori">Nonaktifkan</a>';
                         }else{
-                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm aktifDetailKategori">Aktifkan</a>';
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-success btn-sm aktifDetailKategori">Aktifkan</a>';
                         }
                         return data.action + action;
                     }

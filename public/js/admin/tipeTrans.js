@@ -14,13 +14,19 @@ $(function () {
                 url: "/admin/typeTrans",
                 type: 'GET'
             },
-            columns: [{
-                    data: 'id',
-                    name: 'id'
+            columns: [
+                {
+                    data: null,
+                    name: 'id',
+                    className: 'dt-body-center',
+                    render: data => {
+                        return "#"+data.id;
+                    }
                 },
                 {
                     data: null,
                     name: 'tipe',
+                    className: 'dt-body-center',
                     render: data => {
                         if (data.tipe == "1") {
                             return "Pemasukkan";
@@ -36,6 +42,7 @@ $(function () {
                 {
                     data: null,
                     name: 'status',
+                    className: 'dt-body-center',
                     render: data => {
                         if (data.status == "1") {
                             return "Aktif";
@@ -53,7 +60,7 @@ $(function () {
                         if (data.status == 1) {
                             action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm nonAktifTypeTrans">Nonaktifkan</a>';
                         }else{
-                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm aktifTypeTrans">Aktifkan</a>';
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-success btn-sm aktifTypeTrans">Aktifkan</a>';
                         }
                         return data.action + action;
                     }

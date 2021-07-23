@@ -12,10 +12,13 @@ use App\Models\User;
 use App\Models\CategoryProduct;
 use App\Models\detailCategoryProduct;
 use App\Models\HeaderProduct;
+use App\Models\HeaderInvest;
 use App\Models\NotConfirmProduct;
 
 class AdminController extends Controller
 {
+    public $MIDTRANS_SERVER_KEY = 'SB-Mid-server-prYkvSccGV27NceSR_YIgIQo';
+    protected $API_KEY = 'b987431dcecfd64bc6a193cdce1ff0bd';
     /**
      * Create a new controller instance.
      *
@@ -24,6 +27,15 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth:admin');
+
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = $this->MIDTRANS_SERVER_KEY;
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
     }
 
     /**
@@ -40,14 +52,6 @@ class AdminController extends Controller
     public function akun(){
         return view('admin.akun');
     }
-
-    // public function typeTrans()
-    // {
-    //     $type_trans['type_trans'] = DB::table('type_trans')->get();
-    //     return view('admin.typeTrans',$type_trans);
-    // }
-
-    
 
     //DEVELOPER
     public function listdev(Request $request){
@@ -305,9 +309,7 @@ class AdminController extends Controller
                 ->addColumn('action', function($data){
                     $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-success btn-sm confirmInvest" data-tr="tr_{{$product->id}}">Confirm</a>';
-
-                    // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="notConfirm" class="btn btn-danger btn-sm notConfirmInvest" data-tr="tr_{{$product->id}}">Tidak Dikonfirmasi</a>';
+                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-success btn-sm confirmInvest" data-tr="tr_{{$product->id}}">Konfirmasi</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -335,6 +337,58 @@ class AdminController extends Controller
             'status_invest' => '0',
         ]);
         return response()->json(['success'=>"Berhasil menonaktifkan", 'tr'=>'tr_'.$id]);
+    }
+
+    public function detailInvest($id)
+    {
+
+        $data = HeaderInvest::find($id);
+        $investID = $data->invest_id;
+        $projectID = $data->project_id;
+       
+        
+        //get status dari midtrans berdasarkan order_id nya
+        $status = \Midtrans\Transaction::status($investID);
+        $status = json_decode(json_encode($status),true);
+
+        return response()->json($status);
+
+    }
+
+    public function detailStatusInvest($id)
+    {
+        $data = HeaderInvest::find($id);
+        $statusInvest = $data->status_invest;
+
+        return response()->json($data);
+    }
+
+    public function projectdetailInvest(Request $req, $id)
+    {
+        $data = HeaderInvest::find($id);
+        $projectID = $data->project_id;
+
+        $detail = DB::table('header_products')
+                    ->leftJoin('detail_category_products', 'detail_category_products.id','=','header_products.id_detailcategory')
+                    ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+                    ->leftJoin('users','users.id','=','header_products.user_id')
+                    ->select('header_products.id','header_products.name_product','detail_category_products.name','header_invests.jumlah_invest', 'users.name as nama_dev', 'users.email','header_invests.invest_id')
+                    ->where('header_products.id', '=', $projectID)
+                    ->where('header_invests.id','=',$id)
+                    ->get();
+        if($req->ajax()){
+            return datatables()->of($detail)
+                    ->addColumn('action', function($data){
+                         $button = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-info btn-sm edit-post"><i class="far fa-edit"></i> Edit</a>';
+                         $button .= '&nbsp;&nbsp;';
+                         $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm"><i class="far fa-trash-alt"></i> Delete</button>';     
+                         return $button;
+                     })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+        }
+        
     }
 
     //Admin - laporan

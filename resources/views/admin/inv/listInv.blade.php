@@ -1,29 +1,27 @@
 @extends('layouts.adm')
 
 @section('content')
-<div class="container-fluid">
-  <h3>Daftar Investor</h3>
-    <div class="row">
-      {{-- <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-2 px-2"> --}}
+<div class="container">
+  <div class="py-4"></div>
+  <div class="row py-5">
         <div class="col-md-12">
-            {{-- <div class="card"> --}}
-                {{-- <div class="card"> <!-- card shadow -->  --}}
-                  <div class="table-responsive">
-                    <table class="table table-bordered table-hover" width="100%" id="table_listInv">
-                      <thead>
-                          <tr>
-                              <th>#ID</th>
-                              <th>Nama</th>
-                              <th>Email</th>
-                              <th>Aksi</th>
-                          </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                  <!-- AKHIR TABLE -->
-                  </div>
-                {{-- </div> --}}
-            {{-- </div> --}}
+          <div class="card shadow">
+            <div class="table-responsive px-2 py-2">
+              <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listInv">
+                <thead>
+                    <tr style="text-align: center">
+                        <th>#ID</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            <!-- AKHIR TABLE -->
+            </div>
+          </div>
+            
         </div>
       {{-- </main> --}}
     </div>
@@ -43,5 +41,7 @@
 </script>
 
 <script src="/js/admin/inv/listInv.js"></script>
-
+<script>
+  $("#list_inv").addClass('active');
+</script>
 @endsection

@@ -4,13 +4,13 @@ function sesuaikan_cetak() {
     var dateakhir = $("#date_akhir").val();
 
     if (dateawal == "") {
-        $('#help_date_awal').text("error");
+        $('#help_date_awal').text("Tentukan Periode Awal");
     }
     if (dateawal != "") {
         $('#help_date_awal').text("");
     }
     if (dateakhir == "") {
-        $('#help_date_akhir').text("error");
+        $('#help_date_akhir').text("Tentukan Periode Akhir");
     }
     if (dateakhir != "") {
         $('#help_date_akhir').text("");

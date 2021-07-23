@@ -4,21 +4,18 @@
 <div class="container">
     <div class="py-4"></div>
      <!-- card shadow -->
-    <div class="row"> <!-- row untuk header categoryProduct -->
+    <div class="row py-5"> <!-- row untuk header categoryProduct -->
         <div class="col-md-12">
-            
-            
-            {{-- data-toggle="modal" data-target="#exampleModal"  --}}
-            <a data-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseExample">+ Tambah Kategori</a>
+            <a data-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseExample" class="font-weight-bold">+ Tambah Jenis Transaksi pada Developer</a>
             <form action="{{ route('admin.typeTrans.addNewtypeTrans') }}" method="POST" id="addNewtypeTrans">
                 @csrf
                 <div class="collapse show" id="collapseCategory">
-                    <div class="card border-0 card-body card-shadow col-md-12" style="background-color: #0a1931; padding:0.5rem;">
-                        <div class="row px-2 py-2">
+                    <div class="col-md-12" style="padding:0.5rem;">
+                        <div class="row px-2 py-2 text-dark">
                             <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="float-left">Tipe Pemasukkan</label>
-                                    <select class="form-control form-control-alternative" name="tipe" id="tipe">
+                                <div class="form-group ">
+                                    <label class="float-left">Tipe</label>
+                                    <select class="form-control form-control-alternative text-dark" name="tipe" id="tipe">
                                         <option value="1">Pemasukkan</option>
                                         <option value="2">Pengeluaran</option>
                                     </select>
@@ -30,9 +27,9 @@
                                 <div class="form-group">
                                     <label class="float-left">Keterangan</label>
                                     <div class="input-group input-group-alternative mb-4">
-                                        <input type="text" class="form-control" name="keterangan" id="keterangan" >
+                                        <input type="text" class="form-control form-control-alternative text-dark" name="keterangan" id="keterangan" >
                                         <div class="input-group-append">
-                                            <button name="action" type="submit" class="btn btn-primary" id="addCategory">Tambahkan</button>
+                                            <button name="action" type="submit" class="btn btn-default" id="addCategory">Tambahkan</button>
                                         </div>
                                     </div>
                                 </div> 
@@ -46,10 +43,10 @@
                 
 
             <div class="card border-0 py-4 px-4">
-                <div class="table-responsive py-2">
-                    <table class="table table-bordered table-hover" width="100%" id="table_typeTrans">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_typeTrans">
                     <thead>
-                        <tr>
+                        <tr style="text-align: center">
                             <th>#ID</th>
                             <th>Tipe</th>
                             <th>Keterangan</th>
@@ -74,6 +71,9 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 <script src="/js/admin/tipeTrans.js"></script>
+<script>
+    $("#type_trans").addClass('active');
+</script>
 
 @endsection
 

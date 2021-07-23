@@ -2,16 +2,14 @@
 
 @section('content')
 <div class="container-fluid">
-  <h3 style="color: white">Daftar Developer</h3>
-    <div class="row">
-     
-        <div class="col-md-12">
-       
+  <div class="py-4"></div>
+    <div class="row py-5">
+        <div class="col-md-12" style="padding-left: 0rem">
                 <div class="card shadow"> <!-- card shadow --> 
                   <div class="table-responsive px-2 py-2">
-                    <table class="table table-bordered table-hover" width="100%" id="table_listDev">
+                    <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listDev">
                       <thead>
-                          <tr>
+                          <tr style="text-align: center">
                               <th>#ID</th>
                               <th>Nama Dev</th>
                               <th>Email Dev</th>
@@ -49,12 +47,12 @@
           <div class="col-md-12">
               <!-- tab content -->
               <div class="table-responsive">
-                <table class="table table-bordered table-hover" width="100%" id="table_detailProjectTerdataDev">
+                <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_detailProjectTerdataDev">
                   <thead>
-                      <tr>
-                          <th>#</th>
+                      <tr style="text-align: center">
+                          <th>#ID</th>
                           <th>Dimuat</th>
-                          <th>Produk</th>
+                          <th>Startup/Produk</th>
                           <th>Status</th>
                       </tr>
                   </thead>
@@ -74,5 +72,8 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 <script src="/js/admin/dev/listDev.js"></script>
+<script>
+  $("#list_dev").addClass('active');
+</script>
 @endsection
 

@@ -22,22 +22,28 @@ function table_listInvestConfirmYet() {
         columns: [
             {
                 data: null,
-                name: 'invest_id',
+                name: 'created_at',
                 render: data => {
-                    return "#"+data.invest_id;
-                    
+                    return moment(data.created_at).format('DD-MMM-YYYY h:m');
                 }
-              
             },
             {
-                data: 'created_at',
-                name: 'created_at',
-            },
+                data: null,
+                name: 'invest_id',
+                render: data => {
+                    return "#"+data.invest_id;                  
+                }
+            },          
             {
                 data: 'jumlah_invest',
                 name: 'jumlah_invest',
+                className: 'dt-body-right',
                 render: $.fn.dataTable.render.number( '.', ',', 2, 'Rp' )
               
+            },
+            {
+                data: 'status_transaction',
+                name: 'status_transaction',
             },
             {
                 data: 'action',
@@ -122,9 +128,10 @@ $('body').on('click', '.detailProject', function () {
     projectDetails(id);
     $.ajax({
         type: "get",
-        url: '/detailInvest' + '/' + id,
+        url: '/admin/inv/transaksiInv/detailInvest' + '/' + id,
         contentType: "application/json",
         success: function (data) {
+           console.log(data);
             var tipe_pay = "";
 
         if (data['payment_type'] == "bank_transfer") {
@@ -138,6 +145,15 @@ $('body').on('click', '.detailProject', function () {
         }
         else if (data['payment_type'] == "echannel") {
             tipe_pay="Mandiri Bill";
+        }
+        else if (data['payment_type'] == "bca_klikpay") {
+            tipe_pay="BCA Klikpay";
+        }
+        else if (data['payment_type'] == "cstore") {
+            tipe_pay="Indomaret";
+        }
+        else if (data['payment_type'] == "akulaku") {
+            tipe_pay="Akulaku";
         }
 
         
@@ -159,7 +175,7 @@ $('body').on('click', '.detailProject', function () {
         var showPayDetail ="";
         var detail_time_settle="";
         if (data['transaction_status'] == "settlement") {
-            detail_time_settle = data['transaction_status'] + "<br> " + data['settlement_time'];
+            detail_time_settle = data['transaction_status'] + "<br> " + (moment(data['settlement_time']).format('DD-MMM-YYYY h:mm:ss a'))
         }
         else{
             detail_time_settle = data['transaction_status'];
@@ -168,23 +184,23 @@ $('body').on('click', '.detailProject', function () {
         if (data['payment_type'] == "credit_card") {
             showPayDetail = 
             "<tr>" +
-                "<td>Bank</td>" +
+                "<td> <strong> Bank </strong> </td>" +
                 "<td>" + data['bank'].toUpperCase() + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Card </td>" +
+                "<td>  <strong> Card  </strong></td>" +
                 "<td>" + data['masked_card'] + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Jumlah Transfer </td>" +
+                "<td>  <strong>Jumlah Transfer </strong> </td>" +
                 "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Time </td>" +
-                "<td>" + data['transaction_time'] + "</td>" +
+                "<td> <strong>Waktu Kadaluarsa  </strong></td>" +
+                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Status</td>" +
+                "<td> <strong>Status Pembayaran </strong></td>" +
                 "<td>" + detail_time_settle + "</td>" +
             "</tr>";
             
@@ -193,23 +209,23 @@ $('body').on('click', '.detailProject', function () {
         else if (data['payment_type'] == "bank_transfer") {
             showPayDetail = 
             "<tr>" +
-                "<td>Bank</td>" +
+                "<td> <strong>Bank </strong></td>" +
                 "<td>" + data['va_numbers'][0]['bank'].toUpperCase() + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Virtual Account </td>" +
+                "<td> <strong>Virtual Account  </strong></td>" +
                 "<td>" + data['va_numbers'][0]['va_number'] + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Jumlah Transfer </td>" +
+                "<td> <strong>Jumlah Transfer  </strong> </td>" +
                 "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Time </td>" +
-                "<td>" + data['transaction_time'] + "</td>" +
+                "<td>  <strong> Waktu Kadaluarsa  </strong> </td>" +
+                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Status</td>" +
+                "<td>  <strong> Status Pembayaran  </strong></td>" +
                 "<td>" + detail_time_settle + "</td>" +
             "</tr>";
             $('#table_payDetails tbody').html(showPayDetail);
@@ -217,23 +233,27 @@ $('body').on('click', '.detailProject', function () {
         else if (data['payment_type'] == "echannel") {
             showPayDetail = 
             "<tr>" +
-                "<td>Bank</td>" +
+                "<td> <strong>Bank  </strong></td>" +
                 "<td>Mandiri Bill</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Bill Key </td>" +
+                "<td> <strong>Biller Code </strong> </td>" +
+                "<td>" + data['biller_code'] + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Bill Key </strong> </td>" +
                 "<td>" + data['bill_key'] + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Jumlah Transfer </td>" +
+                "<td> <strong>Jumlah Transfer  </strong></td>" +
                 "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Time </td>" +
-                "<td>" + data['transaction_time'] + "</td>" +
+                "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
+                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Status</td>" +
+                "<td> <strong>Status Pembayaran </strong></td>" +
                 "<td>" + detail_time_settle + "</td>" +
             "</tr>";
             $('#table_payDetails tbody').html(showPayDetail);
@@ -241,23 +261,23 @@ $('body').on('click', '.detailProject', function () {
         else if (data['payment_type'] == "gopay") {
             showPayDetail = 
             "<tr>" +
-                "<td>Tipe Bayar</td>" +
+                "<td> <strong>Tipe Bayar </strong></td>" +
                 "<td>Gopay</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>QR CODE </td>" +
+                "<td> <strong>QR CODE  </strong></td>" +
                 "<td><img width='200px' height='200px' class='qr' src='https://api.sandbox.veritrans.co.id/v2/gopay/" + data['transaction_id'] + "/qr-code'> </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Jumlah Transfer </td>" +
+                "<td> <strong>Jumlah Transfer  </strong></td>" +
                 "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Time </td>" +
-                "<td>" + data['transaction_time'] + "</td>" +
+                "<td>Waktu Kadaluarsa </td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Status</td>" +
+                "<td>  <strong> Status Pembayaran  </strong></td>" +
                 "<td>" + detail_time_settle + "</td>" +
             "</tr>";
             $('#table_payDetails tbody').html(showPayDetail);
@@ -265,19 +285,83 @@ $('body').on('click', '.detailProject', function () {
         else if (data['payment_type'] == "qris") {
             showPayDetail = 
             "<tr>" +
-                "<td>Tipe Bayar</td>" +
+                "<td> <strong>Tipe Bayar </strong></td>" +
                 "<td> " + data['acquirer'] + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>QR CODE </td>" +
+                "<td> <strong>QR CODE  </strong></td>" +
                 "<td><img width='200px' height='200px' class='qr' src='https://api.sandbox.veritrans.co.id/v2/qris/shopeepay/sppq_" + data['transaction_id'] + "/qr-code'> </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Time </td>" +
-                "<td>" + data['transaction_time'] + "</td>" +
+                "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Status</td>" +
+                "<td> <strong>Status Pembayaran </strong></td>" +
+                "<td>" + detail_time_settle + "</td>" +
+            "</tr>";
+            $('#table_payDetails tbody').html(showPayDetail);
+        }
+        else if (data['payment_type'] == "bca_klikpay") {
+            showPayDetail = 
+            "<tr>" +
+                "<td> <strong>Tipe Bayar </strong></td>" +
+                "<td> BCA Klikpay </td>" +
+            "</tr>" +
+            "<tr>" +
+            "<td> <strong>Jumlah Transfer  </strong> </td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Status Pembayaran </strong></td>" +
+                "<td>" + detail_time_settle + "</td>" +
+            "</tr>";
+            $('#table_payDetails tbody').html(showPayDetail);
+        }
+        else if (data['payment_type'] == "cstore") {
+            showPayDetail = 
+            "<tr>" +
+                "<td> <strong>Tipe Bayar </strong></td>" +
+                "<td>" + data['store']+" </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Kode Pembayaran </strong></td>" +
+                "<td>" + data['payment_code']+" </td>" +
+            "</tr>" +
+            "<tr>" +
+            "<td> <strong>Jumlah Transfer  </strong> </td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Status Pembayaran </strong></td>" +
+                "<td>" + detail_time_settle + "</td>" +
+            "</tr>";
+            $('#table_payDetails tbody').html(showPayDetail);
+        }
+        else if (data['payment_type'] == "akulaku") {
+            showPayDetail = 
+            "<tr>" +
+                "<td> <strong>Tipe Bayar </strong></td>" +
+                "<td>" + data['payment_type']+" </td>" +
+            "</tr>" +
+            "<tr>" +
+            "<td> <strong>Jumlah Transfer  </strong> </td>" +
+                "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+            "</tr>" +
+            "<tr>" +
+                "<td> <strong>Status Pembayaran </strong></td>" +
                 "<td>" + detail_time_settle + "</td>" +
             "</tr>";
             $('#table_payDetails tbody').html(showPayDetail);
@@ -289,37 +373,37 @@ $('body').on('click', '.detailProject', function () {
     });
 
    //get status_invest
-    $.ajax({
-        type: "get",
-        url: '/detailStatusInvest' + '/' + id,
-        contentType: "application/json",
-        success: function (data) {
-            $('#invest_awal').text(moment(data['created_at']).format('DD-MMM-YYYY'));
-            $('#invest_exp').text(moment(data['invest_expire']).format('DD-MMM-YYYY')); 
+   $.ajax({
+    type: "get",
+    url: '/admin/inv/transaksiInv/detailStatusInvest' + '/' + id,
+    contentType: "application/json",
+    success: function (data) {
+        $('#invest_awal').text(moment(data['created_at']).format('DD-MMM-YYYY'));
+        $('#invest_exp').text(moment(data['invest_expire']).format('DD-MMM-YYYY')); 
 
-            $('#invest_awal_m').text(moment(data['created_at']).format('MMM-YYYY'));
-            $('#invest_exp_m').text(moment(data['invest_expire']).format('MMM-YYYY')); 
-            
+        $('#invest_awal_m').text(moment(data['created_at']).format('MMM-YYYY'));
+        $('#invest_exp_m').text(moment(data['invest_expire']).format('MMM-YYYY')); 
+        
 
-            if (data['status_invest'] == "0") {
-                $('#msg_admin').text('Menunggu Konfirmasi Admin');
-            }else if (data['status_invest'] == "1") {
-                $('#msg_admin').text('Telah Dikonfirmasi Admin');
-            }
-            else if (data['status_invest'] == "2") {
-                $('#msg_admin').text('Investasi telah dinonaktifkan');
-            }
-            else if (data['status_invest'] == "4") {
-                $('#msg_admin').text('Investasi Gagal');
-            }
-            else if (data['status_invest'] == "5") {
-                $('#msg_admin').text('Selesai');
-            }
-        },
-        error: function (data) {
-            console.log('Error:', data);
+        if (data['status_invest'] == "0") {
+            $('#msg_admin').text('Menunggu Konfirmasi Admin');
+        }else if (data['status_invest'] == "1") {
+            $('#msg_admin').text('Telah Dikonfirmasi Admin');
         }
-    });
+        else if (data['status_invest'] == "2") {
+            $('#msg_admin').text('Investasi telah dinonaktifkan');
+        }
+        else if (data['status_invest'] == "4") {
+            $('#msg_admin').text('Investasi Gagal');
+        }
+        else if (data['status_invest'] == "5") {
+            $('#msg_admin').text('Selesai');
+        }
+    },
+    error: function (data) {
+        console.log('Error:', data);
+    }
+});
 });
 
 var getTotal, getUangmuka, temptotal='';
@@ -335,7 +419,7 @@ function projectDetails(id) {
         ordering:false,
         info:false,
         ajax: {
-            url: "/projectdetailInvest/"  + id,
+            url: "/admin/inv/transaksiInv/projectdetailInvest/"  + id,
             type: 'GET',
         },
         

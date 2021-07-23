@@ -10,11 +10,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
+    <img src="{{ public_path("images/Logo-Startupinow-used2.png") }}" width="180" height="50" margin-top="10px" alt="">
+    <br>
+    <a href="https://startupinow.com/">https://startupinow.com</a> <br>
+    <small>Dicetak pada : {{ now()->translatedFormat('d-F-Y h:i') }}</small> <br>
     <h2>Laporan Transaksi Investasi</h2>
     <br>
     Data yang dimuat pada laporan ini adalah data pada periode 
-        <strong>{{ Carbon\Carbon::parse($dateawal)->format('d-m-Y') }}</strong> hingga 
-        <strong>{{ Carbon\Carbon::parse($dateakhir)->format('d-m-Y') }}</strong>
+        <strong>{{ Carbon\Carbon::parse($dateawal)->translatedFormat('d-F-Y') }}</strong> hingga 
+        <strong>{{ Carbon\Carbon::parse($dateakhir)->translatedFormat('d-F-Y') }}</strong>
     <br>
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm" width="100%">
@@ -34,7 +38,7 @@
                 @foreach ($detailTransInv as $item)
                     <tr>
                         <td>#{{$item->invest_id}}</td>
-                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('d-m-Y')}} s/d {{ Carbon\Carbon::parse($item->invest_expire)->format('d-m-Y') }}</td>
+                        <td>{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('d-F-Y')}} s/d {{ Carbon\Carbon::parse($item->invest_expire)->translatedFormat('d-F-Y') }}</td>
                         <td>{{$item->name}}</td>
                         <td>{{$item->name_product}}</td>
                         <td style="text-align: right">{{ number_format($item->jumlah_invest, 2, ',', '.') }}</td>

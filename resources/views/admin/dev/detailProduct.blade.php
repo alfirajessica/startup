@@ -11,7 +11,7 @@
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="detailProduct">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header" style="padding-bottom: 0rem;">
             <div class="col-md-11">
                 <div class="nav-wrapper">
                     <!-- tabs -->
@@ -33,7 +33,7 @@
                 </button>
             </div>
         </div>
-        <div class="modal-body" style="background-color: #EFEFEF">
+        <div class="modal-body" style="background-color: #EFEFEF; padding-top:0.5rem;">
             <div class="row">
                 <div class="col-md-12">
                     <!-- tab content -->
@@ -47,29 +47,29 @@
                                 </div>
 
                               
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="row text-dark">
+                                    <div class="col-md-6 ">
                                         <div class="">
                                             <input type="hidden" id="id_product" name="id_product">
                                             <div class="form-group">
                                             <label for="">Nama Produk</label>
-                                            <input type="text" name="nama_product" id="nama_product" class="form-control form-control-alternative" disabled placeholder="" aria-describedby="helpId">
+                                            <input type="text" name="nama_product" id="nama_product" class="form-control form-control-alternative text-dark" disabled placeholder="" aria-describedby="helpId">
                                           
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Kategori</label>
-                                                <input type="text" name="kategori_product" id="kategori_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId" disabled>
+                                                <input type="text" name="kategori_product" id="kategori_product" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="helpId" disabled>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Startup Tag</label>
-                                                <input type="text" name="startup_tagProduct" id="startup_tagProduct" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId" disabled>
+                                                <input type="text" name="startup_tagProduct" id="startup_tagProduct" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="helpId" disabled>
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="">Link/Url</label>
-                                                <input type="text" name="url_product" id="url_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId" disabled>
+                                                <input type="text" name="url_product" id="url_product" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="helpId" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@
                                            
                                             <div class="form-group">
                                                 <label class="float-left">Tanggal Perilisan Startup/Produk</label>
-                                                <input type="date" name="rilis_product" id="rilis_product" class="form-control form-control-alternative" aria-describedby="helpId" disabled >
+                                                <input type="date" name="rilis_product" id="rilis_product" class="form-control form-control-alternative text-dark" aria-describedby="helpId" disabled >
                                             </div>
 
                                             <img id="previewImg" class="d-block user-select-none" width="100%" height="200" >
@@ -89,29 +89,29 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Deskripsi</label>
-                                            <textarea class="form-control form-control-alternative" name="desc" id="desc" rows="3" disabled></textarea>
+                                            <textarea class="form-control form-control-alternative text-dark" name="desc" id="desc" rows="3" disabled></textarea>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="">Tim</label>
-                                            <textarea class="form-control form-control-alternative" name="team" id="team" rows="3" disabled></textarea>
+                                            <textarea class="form-control form-control-alternative text-dark" name="team" id="team" rows="3" disabled></textarea>
                                           
                                         </div>
 
                                         <div class="form-group">
                                             <label for="">Alasan</label>
-                                            <textarea class="form-control form-control-alternative" name="reason" id="reason" rows="3" disabled></textarea>
+                                            <textarea class="form-control form-control-alternative text-dark" name="reason" id="reason" rows="3" disabled></textarea>
                                            
                                         </div>
 
                                         <div class="form-group">
                                             <label for="">Kegunaan</label>
-                                            <textarea class="form-control form-control-alternative" name="benefit" id="benefit" rows="3" disabled></textarea>
+                                            <textarea class="form-control form-control-alternative text-dark" name="benefit" id="benefit" rows="3" disabled></textarea>
                                         </div>
                                         
                                         <div class="form-group">
                                             <label for="">Solusi</label>
-                                            <textarea class="form-control form-control-alternative" name="solution" id="solution" rows="3" disabled></textarea>
+                                            <textarea class="form-control form-control-alternative text-dark" name="solution" id="solution" rows="3" disabled></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -138,9 +138,9 @@
                                         <div class="tab-pane fade show active" id="investor" role="tabpanel" aria-labelledby="investor-tab">
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover table-sm" width="100%" id="table_listInv">
-                                                      <thead style="text-align:center">
-                                                          <tr>
+                                                    <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listInv">
+                                                      <thead>
+                                                          <tr style="text-align: center">
                                                               <th>#</th>
                                                               <th>Investor</th>
                                                               <th>Masa berakhir</th>
@@ -160,9 +160,9 @@
                                         <div class="tab-pane fade" id="pemasukkan" role="tabpanel" aria-labelledby="pemasukkan-tab">
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover table-sm" width="100%" id="table_pemasukkan">
-                                                        <thead style="text-align:center">
-                                                            <tr>
+                                                    <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_pemasukkan">
+                                                        <thead>
+                                                            <tr style="text-align: center">
                                                                 <th>#</th>
                                                                 <th>Tanggal</th>
                                                                 <th>Tipe Pemasukkan</th>
@@ -184,9 +184,9 @@
                                         <div class="tab-pane fade" id="pengeluaran" role="tabpanel" aria-labelledby="pengeluaran-tab">
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-hover" width="100%" id="table_pengeluaran">
-                                                    <thead style="text-align:center">
-                                                        <tr>
+                                                    <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_pengeluaran">
+                                                    <thead>
+                                                        <tr style="text-align: center">
                                                             <th>#</th>
                                                             <th>Tanggal</th>
                                                             <th>Tipe Pengeluaran</th>

@@ -22,6 +22,7 @@ function table_listProject_ConfirmYet() {
             {
                 data: null,
                 name: 'id',
+                className: 'dt-body-center',
                 render: data => {
                     return "#"+data.id;
                 }
@@ -223,6 +224,7 @@ function table_pemasukkan_pengeluaran(id) {
             {
                 data: null,
                 name: 'tipe',
+                className: 'dt-body-center',
                 render: data => {
                     var tipe="";
                     if (data.tipe == "1") {
@@ -314,6 +316,7 @@ function table_pemasukkan_pengeluaran(id) {
             {
                 data: null,
                 name: 'tipe',
+                className: 'dt-body-center',
                 render: data => {
                     var tipe="";
                     if (data.tipe == "1") {
@@ -406,7 +409,6 @@ function table_pemasukkan_pengeluaran(id) {
             {
                 data: 'invest_id',
                 name: 'invest_id',
-                
             },
             {
                 data: 'name',

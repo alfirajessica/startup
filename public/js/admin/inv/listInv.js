@@ -12,9 +12,14 @@ function table1() {
                 url: url_table_listInv,
                 type: 'GET'
             },
-            columns: [{
-                    data: 'id',
-                    name: 'id'
+            columns: [
+                {
+                    data: null,
+                    name: 'id',
+                    className: 'dt-body-center',
+                    render: data => {
+                        return "#"+data.id;
+                    }
                 },
                 {
                     data: 'name',
@@ -22,7 +27,7 @@ function table1() {
                 },
                 {
                     data: 'email',
-                    name: 'email'
+                    name: 'email',
                 },
                 
                 {

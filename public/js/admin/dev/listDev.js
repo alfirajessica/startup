@@ -15,9 +15,14 @@ $(function () {
                 url: "/admin/dev/daftarDeveloper",
                 type: 'GET'
             },
-            columns: [{
-                    data: 'id',
-                    name: 'id'
+            columns: [
+                {
+                    data: null,
+                    name: 'id',
+                    className: 'dt-body-center',
+                    render: data => {
+                        return "#"+data.id;
+                    }
                 },
                 {
                     data: 'name',
@@ -58,6 +63,7 @@ $(function () {
                 {
                     data: null,
                     name: 'id',
+                    className: 'dt-body-center',
                     render: data => {
                         return "#"+data.id;
                     }

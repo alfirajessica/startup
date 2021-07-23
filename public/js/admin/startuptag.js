@@ -17,8 +17,12 @@ $(function () {
             },
             columns: [
                 {
-                    data: 'id',
-                    name: 'id'
+                    data: null,
+                    name: 'id',
+                    className: 'dt-body-center',
+                    render: data => {
+                        return "#"+data.id;
+                    }
                 },
                 {
                     data: 'name_startup_tag',
@@ -27,6 +31,7 @@ $(function () {
                 {
                     data: null,
                     name: 'status',
+                    className: 'dt-body-center',
                     render: data => {
                         if (data.status == "1") {
                             return "Aktif";
@@ -44,7 +49,7 @@ $(function () {
                         if (data.status == 1) {
                             action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm nonAktifHStartupTag">Nonaktifkan</a>';
                         }else{
-                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm aktifHStartupTag">Aktifkan</a>';
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-success btn-sm aktifHStartupTag">Aktifkan</a>';
                         }
                         return data.action + action;
                     }
@@ -167,9 +172,14 @@ $(function () {
                 url: "/admin/startupTags"+'/showSubStartupTag' + '/' + id,
                 type: 'GET'
             },
-            columns: [{
-                    data: 'id',
-                    name: 'id'
+            columns: [
+                {
+                    data: null,
+                    name: 'id',
+                    className: 'dt-body-center',
+                    render: data => {
+                        return "#"+data.id;
+                    }
                 },
                 {
                     data: 'name_subtag',
@@ -178,6 +188,7 @@ $(function () {
                 {
                     data: null,
                     name: 'status',
+                    className: 'dt-body-center',
                     render: data => {
                         if (data.status == "1") {
                             return "Aktif";
@@ -196,7 +207,7 @@ $(function () {
                         if (data.status == 1) {
                             action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm nonAktifSubStartupTag">Nonaktifkan</a>';
                         }else{
-                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm aktifSubStartupTag">Aktifkan</a>';
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-success btn-sm aktifSubStartupTag">Aktifkan</a>';
                         }
                         return data.action + action;
                     }
