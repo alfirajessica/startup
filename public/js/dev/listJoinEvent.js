@@ -31,8 +31,9 @@ function table_list_cancel_history() {
                      if (data.held == "Offline") {
                          return data.held+'<br><small>'+ data.province_name + '/' +data.city_name+'<br>'+data.address+"</small>";    
                      }
+
                      else if (data.held == "Online") {
-                         return data.held+'<br><small><a href="'+ data.link +'">'+data.link+'</a></small><br>';    
+                         return data.held+'<br><small style="white-space: initial;word-wrap: break-word;"><a style="word-break: break-word;" href="'+ data.link +'">'+data.link+'</a></small><br>';    
                      }
                     
                  }
@@ -43,8 +44,8 @@ function table_list_cancel_history() {
                 render: data => {
                     
                     moment.locale('id');
-                    var jadwal = moment(data.event_schedule).format('dddd, DD/MMM/YYYY');
-                    return jadwal+'<br> Jam : '+data.event_time+'<br>';
+                    var jadwal = moment(data.event_schedule).format('dddd, DD-MMM-YYYY');
+                    return 'Pada : ' + jadwal+'<br> Jam : '+ moment(data.event_time).format('hh:mm') +'<br>';
                 }
             },
             {
@@ -87,7 +88,7 @@ function table_list_cancel_history() {
                          return data.held+'<br><small>'+ data.province_name + '/' +data.city_name+'</small><br>';    
                      }
                      else if (data.held == "Online") {
-                         return data.held+'<br><small><a href="'+ data.link +'">'+data.link+'</a></small><br>';    
+                        return data.held+'<br><small style="white-space: initial;word-wrap: break-word;"><a style="word-break: break-word;" href="'+ data.link +'">'+data.link+'</a></small><br>';        
                      }
                     
                  }
@@ -98,8 +99,8 @@ function table_list_cancel_history() {
                 render: data => {
                     
                     moment.locale('id');
-                    var jadwal = moment(data.event_schedule).format('dddd, DD/MMM/YYYY');
-                    return jadwal+'<br> Jam : '+data.event_time+'<br>';
+                    var jadwal = moment(data.event_schedule).format('dddd, DD-MMM-YYYY');
+                    return 'Pada : ' + jadwal+'<br> Jam : '+ moment(data.event_time).format('hh:mm') +'<br>';
                 }
             },
         ],
@@ -133,7 +134,7 @@ function table_list_cancel_history() {
                          return data.held+'<br><small>'+ data.province_name + '/' +data.city_name+'</small><br>';    
                      }
                      else if (data.held == "Online") {
-                         return data.held+'<br><small><a href="'+ data.link +'">'+data.link+'</a></small><br>';    
+                        return data.held+'<br><small style="white-space: initial;word-wrap: break-word;"><a style="word-break: break-word;" href="'+ data.link +'">'+data.link+'</a></small><br>';     
                      }
                     
                  }
@@ -142,10 +143,9 @@ function table_list_cancel_history() {
                 data: null,
                 name: 'event_schedule',
                 render: data => {
-                    
                     moment.locale('id');
-                    var jadwal = moment(data.event_schedule).format('dddd, DD/MMM/YYYY');
-                    return jadwal+'<br> Jam : '+data.event_time+'<br>';
+                    var jadwal = moment(data.event_schedule).format('dddd, DD-MMM-YYYY');
+                    return 'Pada : ' + jadwal+'<br> Jam : '+ moment(data.event_time).format('hh:mm') +'<br>';
                 }
             },
         ],

@@ -40,7 +40,7 @@
         
                         <div class="col">
                           <div class="table-responsive">
-                              <table class="table table-bordered table-hover table-sm" width="100%" id="table_listEvent">
+                              <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listEvent">
                                 <thead>
                                     <tr>
                                         <th>Nama Event</th>
@@ -64,7 +64,7 @@
         
                         <div class="col">
                           <div class="table-responsive">
-                              <table class="table table-bordered table-hover" width="100%" id="table_listcancleEvent">
+                              <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listcancleEvent">
                                 <thead>
                                     <tr>
                                         <th>Nama Event</th>
@@ -86,7 +86,7 @@
         
                         <div class="col">
                           <div class="table-responsive">
-                              <table class="table table-bordered table-hover" width="100%" id="table_listHistoryEvent">
+                              <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listHistoryEvent">
                                 <thead>
                                     <tr>
                                         <th>Nama Event</th>
