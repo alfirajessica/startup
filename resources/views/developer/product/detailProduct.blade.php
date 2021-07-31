@@ -55,21 +55,21 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="float-left">Jenis Produk</label>
+                                                <label class="float-left">Kategori</label>
                                                 <select class="form-control form-control-alternative" name="edit_jenis_produk" id="edit_jenis_produk" onchange="show_detail_kategori(this)"> 
                                                 </select>      
                                                 <span class="text-danger error-text edit_jenis_produk_error" id="edit_jenis_produk_error"></span>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="float-left">Dalam Kategori</label>
+                                                <label class="float-left">Subkategori</label>
                                                 <select class="form-control form-control-alternative" name="edit_detail_kategori" id="edit_detail_kategori">    
                                                 </select>
                                                 <span class="text-danger error-text edit_detail_kategori_error" id="edit_detail_kategori_error"></span>
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="float-left">Startup Tag</label>
+                                                <label class="float-left">Startup Tag (Label)</label>
                                                 <select class="form-control form-control-alternative" name="edit_startup_tag" id="edit_startup_tag" onchange="show_sub_startup_tag(this)"> 
                                                     @foreach($list_hStartupTag as $hStartupTag)
                                                 <option value="{{$hStartupTag->id}}"> {{$hStartupTag->name_startup_tag}}</option>
@@ -79,7 +79,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label class="float-left">Sub Tag</label>
+                                                <label class="float-left">Sub Tag (Sublabel)</label>
                                                 <select class="form-control form-control-alternative" name="edit_subStartup_tag" id="edit_subStartup_tag">    
                                                 </select>
                                                 <span class="text-danger error-text edit_subStartup_tag_error" id="eedit_subStartup_tag_error"></span>
@@ -91,7 +91,7 @@
                                     <div class="col-md-6">
                                         <div class="">
                                             <div class="form-group">
-                                                <label class="float-left">Domain Produk</label>
+                                                <label class="float-left">Link/Url Produk</label>
                                                 <input type="url" name="url_product" id="url_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
                                                 <span class="text-danger error-text url_product_error" id="url_product_error"></span>
                                             </div>
@@ -171,7 +171,7 @@
                                                     <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listInv">
                                                       <thead style="text-align:center">
                                                           <tr>
-                                                              <th>#</th>
+                                                              <th>#Id</th>
                                                               <th>Investor</th>
                                                               <th>Masa berakhir</th>
                                                               <th>Jumlah</th>
@@ -250,7 +250,7 @@
                                             <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listReviews">
                                               <thead style="text-align:center">
                                                   <tr>
-                                                      <th>#</th>
+                                                      <th>#Id</th>
                                                       <th>Tanggal</th>
                                                       <th>Investor</th>
                                                       <th>Rating & Review</th>

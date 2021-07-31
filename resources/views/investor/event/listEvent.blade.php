@@ -13,7 +13,7 @@
           <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listEvent">
             <thead>
                 <tr style="text-align:center">
-                    <th>#</th>
+                    <th>#Id</th>
                     <th>Nama Event</th>
                     <th>Diadakan</th>
                     <th>Jadwal</th>

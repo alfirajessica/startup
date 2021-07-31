@@ -5,12 +5,12 @@
             <div class="input-group input-group-alternative mb-4" id="select_project">
               <select name="pilih_cetaklap" id="pilih_cetaklap" class="form-control form-control-alternative text-dark" type="text"> 
                 <option value="-1" disabled>-- Pilih jenis laporan yang akan di cetak -- </option>
-                <option value="0">Cetak Semua proyek terdaftar</option>
-                <option value="1">Cetak detail proyek</option>
-                <option value="2">Cetak transaksi proyek</option>
-                <option value="3">Cetak investor proyek</option>
-                <option value="4">Cetak review proyek</option>
-                <option value="5">Cetak Semua detail, investor, transaksi, review dari proyek</option>
+                <option value="0">Cetak Semua Produk Terdaftar</option>
+                <option value="1">Cetak Detail Produk</option>
+                <option value="2">Cetak Transaksi Produk</option>
+                <option value="3">Cetak Investor Produk</option>
+                <option value="4">Cetak Review Produk</option>
+                <option value="5">Cetak Lengkap Informasi Produk</option>
               </select>
               <div class="input-group-append">
                 <button class="btn btn-default" type="button" onclick="sesuaikan_cetak()">Sesuaikan</button>
@@ -41,7 +41,7 @@
     <div class="row px-2 py-2">
         <div class="col-md-6">
             <div class="form-group text-dark">
-                <label for="">Status Proyek</label>
+                <label for="">Status Produk</label>
                 <select class="form-control text-dark" name="" id="status_proyek">
                   <option value="0">Semua</option>
                   <option value="1">Aktif</option>

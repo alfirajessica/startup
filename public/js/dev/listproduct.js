@@ -37,8 +37,12 @@ function table_listProduct() {
         ],
         columns: [
             {
-                data: 'id',
-                name: 'id'
+                data: null,
+                name: 'id',
+                className: 'dt-body-center',
+                render: data => {
+                    return "#" + data.id;
+                }
             },
             {
                 data: null,
@@ -95,8 +99,12 @@ function table_listProduct() {
         ],
         columns: [
             {
-                data: 'id',
-                name: 'id'
+                data: null,
+                name: 'id',
+                className: 'dt-body-center',
+                render: data => {
+                    return "#" + data.id;
+                }
             },
             {
                 data: 'name_product',
@@ -139,8 +147,12 @@ function table_listProduct() {
         ],
         columns: [
             {
-                data: 'id',
-                name: 'id'
+                data: null,
+                name: 'id',
+                className: 'dt-body-center',
+                render: data => {
+                    return "#" + data.id;
+                }
             },
             {
                 data: 'name_product',
@@ -181,8 +193,12 @@ function table_listProduct() {
         ],
         columns: [
             {
-                data: 'id',
-                name: 'id'
+                data: null,
+                name: 'id',
+                className: 'dt-body-center',
+                render: data => {
+                    return "#" + data.id;
+                }
             },
             {
                 data: 'name_product',
@@ -527,10 +543,10 @@ function table_listUlasan() {
             {
                 data: null,
                 name: 'id',
+                className: 'dt-body-center',
                 render: data => {
                     return "#" + data.id;
                 }
-              
             },
             {
                 data: null,
@@ -692,6 +708,7 @@ function table_pemasukkan_pengeluaran(id) {
             {
                 data: null,
                 name: 'tipe',
+                className: 'dt-body-center',
                 render: data => {
                     var tipe="";
                     if (data.tipe == "1") {
@@ -783,6 +800,7 @@ function table_pemasukkan_pengeluaran(id) {
             {
                 data: null,
                 name: 'tipe',
+                className: 'dt-body-center',
                 render: data => {
                     var tipe="";
                     if (data.tipe == "1") {
@@ -938,6 +956,7 @@ function table_pemasukkan_pengeluaran(id) {
             {
                 data: null,
                 name: 'id',
+                className: 'dt-body-center',
                 render: data => {
                     return "#" + data.id;
                 }

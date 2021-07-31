@@ -19,7 +19,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <p style="color: black">Saat ini sedang memasukkan pemasukkan pada proyek : 
+            <p style="color: black">Saat Ini Sedang Memasukkan Pemasukkan Pada Startup/Produk : 
                 <label id="nama_project_dipilih_masuk" style="color:blue" class="font-weight-bold"></label>
             </p>
         </div>
@@ -27,9 +27,9 @@
     <div class="card border-0 d-none text-dark" id="card_masuk">
         <div class="row px-2 py-2">
             <div class="col-md-4">
-                <div class="form-group">
+                <div class="form-group text-dark">
                     <label class="float-left">Tipe Pemasukkan</label>
-                    <select class="form-control form-control-alternative" name="tipe_pemasukkan" id="tipe_pemasukkan">
+                    <select class="form-control form-control-alternative text-dark" name="tipe_pemasukkan" id="tipe_pemasukkan">
                         <option value="0" disabled> --Pilih Tipe --</option>
                         @foreach ($type_trans as $item)
                             @if ($item->tipe == "1")
@@ -42,7 +42,7 @@
             </div>
            
             <div class="col-md-8">
-                <div class="form-group">
+                <div class="form-group text-dark">
                     <label class="float-left">Jumlah (Rp)</label>
                     <div class="input-group input-group-alternative mb-4">
                       <input class="form-control" type="number" name="jumlah" id="jumlah">
@@ -56,8 +56,8 @@
         </div>
         
         <div class="table-responsive px-2">
-            <table class="table table-bordered table-hover text-dark" width="100%" id="table_listPemasukkan">
-                <thead>
+            <table class="table table-bordered table-hover text-dark table-sm" width="100%" id="table_listPemasukkan">
+                <thead style="text-align:center">
                     <tr>
                         <th>#</th>
                         <th>Tipe Masuk</th>

@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <p style="color: black">Saat ini sedang memasukkan pemasukkan pada proyek : 
+            <p style="color: black">SSaat Ini Sedang Memasukkan Pengeluaran Pada Startup/Produk : 
                 <label id="nama_project_dipilih_keluar" style="color:blue" class="font-weight-bold"></label>
             </p>
         </div>
@@ -26,9 +26,9 @@
     <div class="card border-0 d-none text-dark" id="card_keluar">
         <div class="row px-2 py-2">
             <div class="col-md-4">
-                <div class="form-group">
+                <div class="form-group text-dark">
                     <label class="float-left">Tipe Pengeluaran</label>
-                    <select class="form-control form-control-alternative" name="tipe_pengeluaran" id="tipe_pengeluaran">
+                    <select class="form-control form-control-alternative text-dark" name="tipe_pengeluaran" id="tipe_pengeluaran">
                         <option value="0" disabled> --Pilih Tipe --</option>
                         @foreach ($type_trans as $item)
                             @if ($item->tipe == "2")
@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="col-md-8">
-                <div class="form-group">
+                <div class="form-group text-dark">
                     <label class="float-left">Jumlah (Rp)</label>
                     <div class="input-group input-group-alternative mb-4">
                       <input class="form-control" type="number" name="jumlah_keluar" id="jumlah_keluar">
@@ -52,8 +52,8 @@
             </div>
         </div>
         <div class="table-responsive px-2">
-            <table class="table table-bordered table-hover text-dark" width="100%" id="table_listPengeluaran">
-                <thead>
+            <table class="table table-bordered table-hover text-dark table-sm" width="100%" id="table_listPengeluaran">
+                <thead style="text-align:center">
                     <tr>
                         <th>#</th>
                         <th>Tipe Keluar</th>

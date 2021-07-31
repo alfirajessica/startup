@@ -20,7 +20,7 @@
                     <table class="table table-bordered table-hover table_listProduct text-dark" style="width:100%" id="table_listUlasan">
                       <thead style="text-align:center">
                           <tr>
-                            <th>#</th>
+                            <th>#Id</th>
                             <th>Tanggal</th>
                             <th>Investor</th>
                             <th>Rating & Review</th>

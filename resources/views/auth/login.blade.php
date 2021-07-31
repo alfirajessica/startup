@@ -14,8 +14,9 @@
                     <div class="card bg-secondary shadow border-0">
                         <form role="form" method="POST" action="{{ route('login') }}">
                             @csrf
-                        <div class="card-body px-lg-5 py-lg-5">
+                        <div class="card-body px-lg-5 py-lg-4">
                             <div class="text-center text-muted mb-4">
+                                <img src="/images/Logo-Startupinow-used2.png" width="160" height="50" margin-top="10px" alt=""> <br>
                                 <small class="text-dark">Masuk Ke StartupINow.</small>
                             </div>
                     
@@ -57,7 +58,7 @@
                             </div>
                             <div class="custom-control custom-control-alternative custom-checkbox">
                                 <input class="custom-control-input" id=" customCheckLogin" type="checkbox" {{ old('remember') ? 'checked' : '' }}>
-                                <label class="custom-control-label" for=" customCheckLogin"><span>{{ __('Remember Me') }}</span></label>
+                                <label class="custom-control-label text-dark" for=" customCheckLogin"><span>{{ __('Ingat Saya') }}</span></label>
                             </div>
 
                             <div class="text-center">

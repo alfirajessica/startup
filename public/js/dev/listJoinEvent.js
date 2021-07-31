@@ -45,7 +45,7 @@ function table_list_cancel_history() {
                     
                     moment.locale('id');
                     var jadwal = moment(data.event_schedule).format('dddd, DD-MMM-YYYY');
-                    return 'Pada : ' + jadwal+'<br> Jam : '+ moment(data.event_time).format('hh:mm') +'<br>';
+                    return jadwal+"/ <br>"+ data.event_time;
                 }
             },
             {
@@ -100,9 +100,10 @@ function table_list_cancel_history() {
                     
                     moment.locale('id');
                     var jadwal = moment(data.event_schedule).format('dddd, DD-MMM-YYYY');
-                    return 'Pada : ' + jadwal+'<br> Jam : '+ moment(data.event_time).format('hh:mm') +'<br>';
+                    return jadwal+"/ <br>"+ data.event_time;
                 }
             },
+           
         ],
         
     });
@@ -143,9 +144,10 @@ function table_list_cancel_history() {
                 data: null,
                 name: 'event_schedule',
                 render: data => {
+                    
                     moment.locale('id');
                     var jadwal = moment(data.event_schedule).format('dddd, DD-MMM-YYYY');
-                    return 'Pada : ' + jadwal+'<br> Jam : '+ moment(data.event_time).format('hh:mm') +'<br>';
+                    return jadwal+"/ <br>"+ data.event_time;
                 }
             },
         ],

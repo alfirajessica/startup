@@ -28,7 +28,7 @@
                         <td>
                             @if ($item->held == "Online")
                                 {{$item->held}} <br>
-                                <a href="{{$item->link}}">{{$item->link}}</a>
+                                <small style="white-space: initial;word-wrap: break-word;"><a href="{{$item->link}}">{{$item->link}}</a></small>
                             @else
                                 {{$item->held}} <br>
                                 {{$item->province_name}}, {{$item->city_name}}, 
@@ -39,7 +39,7 @@
                     <tr>
                         <td>Pada</td>
                         <td>:</td>
-                        <td>{{ Carbon\Carbon::parse($item->event_schedule)->format('d-M-Y') }}/{{ Carbon\Carbon::parse($item->event_time)->format('h:i') }}</td>
+                        <td>{{ Carbon\Carbon::parse($item->event_schedule)->translatedFormat('d-F-Y') }}/{{ Carbon\Carbon::parse($item->event_time)->translatedFormat('h:i') }}</td>
                     </tr>
                     
                 @endforeach
@@ -57,13 +57,12 @@
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm" width="100%">
             <thead class="thead-dark" style="text-align: center;" >
-                <tr>
+                 <tr>
                     <th>#</th>
-                    <th>Nama</th>
                     <th>Email</th>
+                    <th>Nama</th>
                     <th>Asal Provinsi</th>
                     <th>Asal Kota</th>
-                    
                 </tr>
             </thead>
             <tbody>
@@ -71,8 +70,8 @@
                     
                     <tr>
                         <td>{{ $loop->iteration}}</td>
-                        <td>{{$item->name}}</td>
                         <td>{{$item->email}}</td>
+                        <td>{{$item->name}}</td>
                         <td>{{$item->province_name}}</td>
                         <td>
                             {{$item->city_name}}

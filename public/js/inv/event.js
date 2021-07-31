@@ -107,12 +107,16 @@ $(function () {
             columns: [
                 {
                     data: 'id',
-                    name: 'id'
+                    name: 'id',
+                    className: 'dt-body-center',
+                },
+                {
+                    data: 'email',
+                    name: 'email', 
                 },
                 {
                     data: 'name',
-                    name: 'name',
-                    
+                    name: 'name', 
                 },
                 
             ],
@@ -207,9 +211,12 @@ $(function () {
             ],
             columns: [
                 {
-                    data: 'id',
+                    data: null,
                     name: 'id',
                     className: 'dt-body-center',
+                    render: data => {
+                        return "#" + data.id;
+                    }
                 },
                 {
                     data: 'name',
@@ -267,7 +274,7 @@ $(function () {
                         //tidak aktif
                         else if(data.status == "4")
                         {
-                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm aktifEvent" style="text-transform:none">Aktifkan</a>';
+                            action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-success btn-sm aktifEvent" style="text-transform:none">Aktifkan</a>';
 
                         }
                         

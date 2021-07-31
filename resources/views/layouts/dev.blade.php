@@ -80,12 +80,12 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a href="{{ route('dev.product') }}" class="dropdown-item">
                             <i class="ni ni-collection"></i>
-                            <span>{{ __('Proyek Saya') }}</span>
+                            <span>{{ __('Startup/Produk Saya') }}</span>
                         </a>
 
                         <a href="{{ route('dev.listJoinEvent') }}" class="dropdown-item">
-                            <i class="ni ni-single-02"></i>
-                            <span>{{ __('Event diikuti') }}</span>
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>{{ __('Riwayat Event') }}</span>
                         </a>
 
                         <a href="{{ route('akun') }}" class="dropdown-item">

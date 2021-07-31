@@ -105,7 +105,7 @@
                                         {{-- akan di set 1 hari sebelum acara akan ditutup pendaftarannya --}}
                                 
                                         <div class="input-group">
-                                            <label for="editInputFile2">File input</label>
+                                            <label for="editInputFile2">Poster Event</label>
                                             <input type="file" class="form-control-file form-control-alternative"  name="image" id="editInputFile2" aria-describedby="fileHelp" onchange="previewFile2(this)">
                                             <span class="text-danger error-text image_error"></span>
                                         </div>
@@ -138,9 +138,10 @@
                                       <label class="text-dark" >Jumlah Peserta Bergabung : <strong id="jumlah_join"> </strong> Peserta</label>
                                       <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_participant">
                                         <thead>
-                                            <tr>
+                                            <tr style="text-align: center">
                                                 <th>#</th>
-                                                <th>Peserta</th>
+                                                <th>Email</th>
+                                                <th>Nama</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>

@@ -192,6 +192,7 @@ class EventController extends Controller
         
         //yang ditampilkan hanya yang berstatus 1 atau 2 saja //aktif dan //selesai
         $list_dev = DB::table('detail_events')
+                    ->select('detail_events.id','users.name','users.email')
                     ->leftJoin('users', 'detail_events.id_participant', '=', 'users.id')
                     ->where('detail_events.id_header_events','=',$id)
                     ->whereBetween('detail_events.status', ['1', '2'])

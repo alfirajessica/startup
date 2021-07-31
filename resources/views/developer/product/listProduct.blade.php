@@ -43,7 +43,7 @@
                     <table class="table table-bordered table-hover table_listProduct text-dark" style="width:100%" id="table_listProductConfirmYet">
                       <thead style="text-align:center">
                           <tr>
-                              <th>#</th>
+                              <th>#Id</th>
                               <th>Dimuat</th>
                               <th>Produk</th>
                               <th>Detail</th>
@@ -66,7 +66,7 @@
                     <table class="table table-bordered table-hover table_listProduct text-dark" width="100%" id="table_listProduct">
                       <thead style="text-align:center">
                           <tr>
-                              <th>#</th>
+                              <th>#Id</th>
                               <th>Produk</th>
                               <th>Kategori</th>
                               <th>Aksi</th>
@@ -83,7 +83,7 @@
                     <table class="table table-bordered table-hover table_listProduct text-dark" width="100%" id="table_listProductNonAktif">
                         <thead style="text-align:center">
                             <tr>
-                                <th>#</th>
+                                <th>#Id</th>
                                 <th>Proyek</th>
                                 <th>Kategori</th>
                                 <th>Aksi</th>
@@ -105,7 +105,7 @@
                     <table class="table table-bordered table-hover table_listProduct text-dark" width="100%" id="table_listProductInvestor">
                         <thead style="text-align:center">
                             <tr>
-                                <th>#</th>
+                                <th>#Id</th>
                                 <th>Produk</th>
                                 <th>Kategori</th>
                                 <th>Aksi</th>

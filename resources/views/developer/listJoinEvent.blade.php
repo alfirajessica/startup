@@ -46,6 +46,7 @@
                                         <th>Nama Event</th>
                                         <th>Diadakan Secara</th>
                                         <th>Jadwal Acara</th>
+                                      
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -92,6 +93,7 @@
                                         <th>Nama Event</th>
                                         <th>Diadakan Secara</th>
                                         <th>Jadwal Acara</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
