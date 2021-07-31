@@ -178,7 +178,7 @@
                 <div class="col-md-8">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active font-weight-bold" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="true">Review & Comments</a>
+                            <a class="nav-link active font-weight-bold" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="true">Ulasan</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
@@ -189,7 +189,7 @@
                                         @include('investor.detailStartup.dataUlasan')
                                     </div>
                                     
-                            
+                                    {{-- form beri ulasan --}}
                                     @include('investor.detailStartup.ulasan')
                                 </div> 
                             </div>

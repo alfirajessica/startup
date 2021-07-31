@@ -680,7 +680,7 @@ class ProductController extends Controller
         ->join('users', 'users.id','=','reviews.user_id')
         ->select('reviews.id', 'users.name', 'reviews.created_at','reviews.rating','reviews.isi_review')
         ->where('reviews.project_id','=',$id)
-        ->get();
+        ->paginate(4);
 
         $list_response_reviews['list_response_reviews'] =
         DB::table('reviews')

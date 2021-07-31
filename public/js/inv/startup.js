@@ -2,6 +2,8 @@
 // Yang termasuk : semua pada folder investor/detailStartup
 var tipe="";
 $(function () {
+    $('#table_finance').dataTable({searching: false, info: false});
+    
     //startup.blade.php
     $(document).on('click', '.pagination a', function(event) {
       event.preventDefault();
@@ -91,11 +93,14 @@ function table_finance() {
  
   $('#table_finance').DataTable({
       destroy:true,
+      searching: false,
       processing: true,
       serverSide: true, //aktifkan server-side 
       responsive:true,
-      deferRender:true,
-      aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+       deferRender:true,
+
+      paging: false, info: false,
+      //aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
       ajax: {
           url: 'financial/' + url_table_finance,
           type: 'GET',
@@ -172,7 +177,7 @@ function createHighcharts(data) {
   
     Highcharts.chart("container", {
       title: {
-        text: "DataTables to Highcharts"
+        text: "Alur Kas"
       },
       subtitle: {
         text: "Data from StartupINow."

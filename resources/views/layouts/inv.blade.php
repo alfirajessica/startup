@@ -74,18 +74,18 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('inv.event') }}">
-                            <i class="ni ni-single-02"></i>
-                            {{ __('Event') }}
+                            <i class="fas fa-calendar-alt"></i>
+                            {{ __('Event Saya') }}
                         </a>
 
                         <a class="dropdown-item" href="{{ route('inv.invest') }}">
                             <i class="ni ni-money-coins"></i>
-                            {{ __('List Investasi') }}
+                            {{ __('Investasi Saya') }}
                         </a>
 
                         <a class="dropdown-item" href="{{ route('inv.riwayatReview') }}">
                             <i class="ni ni-chat-round"></i>
-                            {{ __('Riwayat Review dan Rating') }}
+                            {{ __('Riwayat Ulasan') }}
                         </a>
                         
                         <div class="dropdown-divider"></div>
