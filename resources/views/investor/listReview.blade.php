@@ -1,21 +1,28 @@
 @extends('layouts.inv')
-
+<style>
+  .scroll {
+  max-height: 400px;
+  overflow-y: auto;
+}
+</style>
 @section('content')
 <div class="container">
     
     <div class="col-md-12 py-2">
+      <h4><strong>Riwayat Ulasan</strong></h4>
     <!-- card -->
     <div class="card">
       <div class="card shadow border-0">
-      <div class="card-body"> <!-- card body -->
+      <div class="card-body scroll"> <!-- card body -->
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" width="100%" id="table_listReviews">
-                <thead>
+            <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listReviews">
+                <thead style="text-align: center">
                     <tr>
-                        <th>ID</th>
+                        <th>#Id</th>
                         <th>Tanggal</th>
-                        <th>Project</th>
+                        <th>Produk</th>
                         <th>Rating & Review</th>
+                        <th>Tanggapan</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

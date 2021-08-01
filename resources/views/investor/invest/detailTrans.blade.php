@@ -10,7 +10,7 @@
                           <a class="nav-link font-weight-bold mb-sm-3 mb-md-0 active" id="detailInv-tab" data-toggle="tab" href="#detailInv" role="tab" aria-controls="detailInv" aria-selected="true">Detail Investasi</a>
                       </li>
                       <li class="nav-item">
-                          <a class="nav-link font-weight-bold mb-sm-3 mb-md-0" id="lapfinance-tab" data-toggle="tab" href="#lapfinance" role="tab" aria-controls="lapfinance" aria-selected="false">Laporan Keuangan Startup</a>
+                          <a class="nav-link font-weight-bold mb-sm-3 mb-md-0 d-none" id="lapfinance-tab" data-toggle="tab" href="#lapfinance" role="tab" aria-controls="lapfinance" aria-selected="false">Laporan Keuangan Startup</a>
                       </li>
                   </ul>
               </div>
@@ -119,13 +119,8 @@
                     </div>
 
                     </div>
-                    <div class="tab-pane fade show" id="lapfinance" role="tabpanel" aria-labelledby="lapfinance-tab">
-                        {{-- <div class="alert alert-info" role="alert">
-                          <strong>info</strong> Laporan Keuangan pada proyek
-                          <strong id="proyek_nama"></strong> terhitung sejak 
-                          <strong id="invest_awal_m"> </strong> sampai dengan <strong id="invest_exp_m"> </strong>
-                        </div> --}}
-
+                    <div class="tab-pane fade" id="lapfinance" role="tabpanel" aria-labelledby="lapfinance-tab">
+                        
                         <button class="btn btn-default" target="_blank" onclick="btn_d_lapFinanceInv()">Cetak Laporan Keuangan Ini</button> <br>
                        
                         <div class="row py-2">

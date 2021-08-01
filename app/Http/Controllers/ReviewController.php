@@ -76,18 +76,22 @@ class ReviewController extends Controller
         $list_reviews = 
             DB::table('reviews')
             ->join('header_products', 'header_products.id','=','reviews.project_id')
-            ->select('reviews.id','header_products.name_product','reviews.rating','reviews.isi_review', 'reviews.created_at')
+            ->leftjoin('response_reviews', 'response_reviews.id_reviews','reviews.id')
+            ->select('reviews.id','header_products.name_product','reviews.rating','reviews.isi_review', 'reviews.created_at', 'response_reviews.response', 'response_reviews.created_at as tglTanggapan' )
             ->where('reviews.user_id','=',$user->id)
             ->get();
 
         if($req->ajax()) {
             return datatables()->of($list_reviews)
                     ->addColumn('action', function($data){
-                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
-
-                        $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Sudah Kirim</a>';
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#modal_BeriTanggapan" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailResponse">Lihat Tanggapan</a>';
 
                         return $btn;
+                        // $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
+
+                        // $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Sudah Kirim</a>';
+
+                        // return $btn;
                      })
                     ->rawColumns(['action'])
                     ->addIndexColumn()

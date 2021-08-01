@@ -126,6 +126,7 @@
                         <div class="card-body">
                         <h5>{{$item->nama_user}}</h5>
                         <p class="card-text">{{$item->province_name}}, {{$item->city_name}}</p>
+                        <button type="button" class="btn btn-outline-default btn-sm" data-toggle="modal" data-target="#detail_developer">Detail Developer</button>
                         </div>  
                     </div>
                    
@@ -202,7 +203,8 @@
         @endforeach
     </div>
 </div>
-{{-- modal --}}
+
+{{-- modal utk konfirmasi investasi--}}
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -233,6 +235,49 @@
     </div>
 </div>
 {{-- end of modal --}}
+
+<!-- Modal utk lihat detail developer-->
+<div class="modal fade" id="detail_developer" tabindex="-1" role="dialog" aria-labelledby="detail_developerTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body text-dark">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          
+            @forelse ($detail_user as $detailuser)
+                <h5>{{$detailuser->name}}</h5>
+                <label>
+                    <h6>{{$detailuser->email}}</h6>
+                    <small class="card-text">{{$detailuser->province_name}}, {{$detailuser->city_name}}</small>
+                </label>
+
+                <p style="font-size:10pt">
+                    <strong for="">Tentang Developer</strong> <br>
+                    {{$detailuser->desc}}
+                <p>
+                <p style="font-size:10pt">
+                    <strong for="">Yang Bergabung Dalam Tim</strong> <br>
+                    {{$detailuser->team}}
+                <p>
+                <p style="font-size:10pt">
+                    <strong for="">Kegunaan dan Kelebihan Startup Kami</strong> <br>
+                    {{$detailuser->benefit}}
+                <p>
+                <p style="font-size:10pt">
+                    <strong for="">Target Pencapaian</strong> <br>
+                    {{$detailuser->target}}
+                <p>
+                
+                @empty
+                <small>Belum ada mengenai detail developer</small>
+            @endforelse
+        
+        </div>
+        
+      </div>
+    </div>
+  </div>
 
 <form id="payment-form" method="GET" action="Payment">
     <input type="hidden" name="result_data" id="result_data" value="" />

@@ -74,6 +74,7 @@ function listReviews() {
         serverSide: true, //aktifkan server-side 
         responsive:true,
         deferRender:true,
+        pageLength:5,
         aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
         ajax: {
             url: url_table_listReviews,
@@ -86,13 +87,13 @@ function listReviews() {
             {
                 data: null,
                 name: 'id',
+                className: 'dt-body-center',
                 render: data => {
                     return "#" + data.id;
                 }
-              
             },
             {
-                data: 'created_at',
+                data: null,
                 name: 'created_at',
                 render: data => {
                     return moment(data.created_at).format('DD/MMM/YYYY');
@@ -115,7 +116,18 @@ function listReviews() {
                     return coba;
                 }
             },
-            
+            {
+                data:null,
+                name:'response',
+                render: data => {
+                    if (data.response == null) {
+                        return "Belum ada tanggapan";
+                    }
+                    else{
+                        return moment(data.tglTanggapan).format('DD/MMM/YYYY') + "<br>" + data.response;
+                    }
+                }
+            }
            
         ],
         

@@ -636,6 +636,8 @@ class ProductController extends Controller
 
     public function detailstartup(Request $req, $id){
 
+        $user = auth()->user();
+
         $list_project['list_project'] = 
         DB::table('header_products')
         ->Join('detail_category_products', 'detail_category_products.id', '=', 'header_products.id_detailcategory')
@@ -667,8 +669,14 @@ class ProductController extends Controller
         ->orderBy('created_at')
         ->get();
 
-       $user = auth()->user();
-        $detail_user['detail_user'] = DB::table('users')->where('id','=',$user->id)->get();
+        
+        $detail_user['detail_user'] = 
+        DB::table('header_products')
+        ->select('header_products.id','users.name', 'users.email', 'users.province_name', 'users.city_name','detail_users.desc','detail_users.team','detail_users.benefit','detail_users.target')
+        ->join('users','users.id','=','header_products.user_id')
+        ->join('detail_users','detail_users.id_user','=','header_products.user_id')
+        ->where('header_products.id','=',$id)
+        ->get();
 
         $reviews['reviews'] = 
         DB::table('reviews')
@@ -687,7 +695,7 @@ class ProductController extends Controller
         ->join('response_reviews','response_reviews.id_reviews','=','reviews.id')
         ->select('response_reviews.response','response_reviews.id_reviews')
         ->get();
-       //dd($list_finance);
+
         return view('investor.detailStartup.desc')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews)->with($reviews)->with($list_response_reviews);
     }
 

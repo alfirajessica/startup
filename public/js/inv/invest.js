@@ -266,14 +266,17 @@ $('body').on('click', '.detailProject', function () {
     var id = $(this).data('id');
     var cekTabel = $(this).attr("id");
 
-    if (cekTabel == "table_listInvestCancel") {
+    if (cekTabel == "table_listInvestCancel" || cekTabel == "table_listInvestPending") {
         $("#detailInv-tab").addClass('active');
-        $("#lapfinance-tab").removeClass('active');
-        $("#lapfinance-tab").addClass('d-none');
+        $("#lapfinance-tab").removeClass('active').addClass('d-none');
+        $("#lapfinance").addClass('d-none');
+        $("#detailInv").addClass('show active');
     }
-    else{
-       
+    else if (cekTabel == "table_listInvestFinished" || cekTabel == "table_listInvestSettlement") {
+        $("#detailInv-tab").addClass('active');
         $("#lapfinance-tab").removeClass('d-none');
+        $("#lapfinance").removeClass('d-none');
+        $("#detailInv").addClass('show active');
     }
 
     $("#project_id").val(id);
