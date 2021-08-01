@@ -10,32 +10,6 @@
 @endguest
 
 <style>
-    .content-wrapper {
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-pack: center;
-        -webkit-justify-content: center;
-            -ms-flex-pack: center;
-                justify-content: center;
-        text-align: center;
-        -webkit-flex-flow: column nowrap;
-            -ms-flex-flow: column nowrap;
-                flex-flow: column nowrap;
-        color: #fff;
-        font-family: Montserrat;
-        text-transform: uppercase;
-        -webkit-transform: translateY(40vh);
-            -ms-transform: translateY(40vh);
-                transform: translateY(40vh);
-        will-change: transform;
-        -webkit-backface-visibility: hidden;
-                backface-visibility: hidden;
-        -webkit-transition: all 1.7s cubic-bezier(0.22, 0.44, 0, 1);
-                transition: all 1.7s cubic-bezier(0.22, 0.44, 0, 1);
-    }
-    
     #accordion .card div[aria-expanded="true"]:before {
     font-family: 'FontAwesome';
     content: "\f078";
@@ -46,71 +20,71 @@
     content: "\f077";
     vertical-align: middle;
     }
-    .btn-link {
-        text-decoration: none !important;
-    }
-
 </style>
 
-<section class="bg-primary" style="min-height: 100vh; min-width: auto">
-    <div class="content-wrapper">
-        <h2>Oke</h2>
-        <p class="content-subtitle">
-            <span class="scroll-btn">
-            <div class="scroll-to-next-section">
-                <button class="btn btn-info"><i class="fas fa-chevron-down fa-lg"></i></button>
+<link rel="stylesheet" href="/css/front.css">
+<section class="section-header pb-8 pb-lg-13 mb-4 mb-lg-6 text-white" style="
+background-color: #0a1931;padding-top: 6rem;
+">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 text-center">
+                <h1 class="display-2 mb-3">Apa itu Valuation Tools ?</h1>
+                <p class="lead">Bagaimana seharusnya Anda memberi harga pada bisnis Anda? Gunakan alat online ini untuk menghitung nilai bisnis Anda dan dapatkan harga permintaan yang masuk akal.</p>
             </div>
-            </span>
-        </p>
+        </div>
+    </div>
+    <div class="pattern bottom"></div>
+</section>
+<section class="section section-lg pt-0" style="
+padding-bottom: 0rem;
+">
+    <div class="container mt-n7 mt-lg-n13 z-2">
+        <form action="{{ route('valuation.addnew')}}" method="post" id="valtools" enctype="multipart/form-data">
+            @csrf
+        <div class="col-md-12" >
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <h5 class="text-white">Masukkan email anda</h5>
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative mb-4" id="select_project">
+                            <input type="email" name="email_user" id="" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="helpemail_user">    
+                            <div class="input-group-append">
+                                <button class="btn btn-default" type="button" id="simpanEmail" onclick="simpan_email()">Simpan</button>
+                            </div>
+                        </div>
+                        <small id="helpemail_user" class="text-muted"></small>
+                    </div> 
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
     </div>
 </section>
-
-
-<section style="height: 100vh">
-    <div class="col-md-12 py-6"><div class="row"></div></div>
-    
-    
-
-    <form action="{{ route('valuation.addnew')}}" method="post" id="valtools" enctype="multipart/form-data">
-        @csrf
-    <div class="col-md-12" >
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <h5>Masukkan email anda</h5>
-                <div class="form-group">
-                    <div class="input-group input-group-alternative mb-4" id="select_project">
-                        <input type="email" name="email_user" id="" class="form-control" placeholder="" aria-describedby="helpemail_user">    
-                        <div class="input-group-append">
-                            <button class="btn btn-default" type="button" id="simpanEmail" onclick="simpan_email()">Simpan</button>
+<section class="section section-lg pt-0 " style="
+margin-top: 10%; padding-bottom:1rem;
+">
+<div class="container">
+  <div class="row justify-content-center mb-5 mb-lg-4">
+      <div class="col-12 col-md-8 text-center  d-none" id="result_calc">
+        
+            
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Business value</h5>
+                            <h4 id="result_value"></h4>
+                            <button class="btn btn-outline-default" target="_blank" onclick="btn_d_valuation()">Lihat hasil perhitungan</button> <br>
                         </div>
                     </div>
-                    <small id="helpemail_user" class="text-muted"></small>
-                </div> 
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-    </div>
-
-    <div class="col-md-12 d-none" id="result_calc">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h5>Business value</h5>
-                        <h4 id="result_value"></h4>
-                        <button class="btn btn-outline-default" target="_blank" onclick="btn_d_valuation()">Lihat hasil perhitungan</button> <br>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+                
+      </div>
+  </div>
+  <div class="row">
     <div class="col-md-12 d-none" id="val_calc">
-        <div class="row mx-7">
-            <div class="col-md-12 px-2">
-                <button type="submit" class="btn btn-default">Hitung</button>
+        <div class="row mx-6">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-default">Hitung Valuasi</button>
             </div>
         </div>
 
@@ -410,18 +384,14 @@
         </div>
     </div>
     </form>
+  </div>
+  
+  </div>
+</div>
 </section>
 
- <script>
-if($('.scroll-to-next-section').length>0) {
-   $(".scroll-to-next-section button").click(function () {
-      $('html, body').animate({
-         scrollTop: $(this).closest("section").next().offset().top
-      }, "slow");
-   });
-}
-
-$("input[data-type='currency']").on({
+<script>
+    $("input[data-type='currency']").on({
     keyup: function() {
       formatCurrency($(this));
     },
@@ -503,7 +473,6 @@ function formatCurrency(input, blur) {
   caret_pos = updated_len - original_len + caret_pos;
   input[0].setSelectionRange(caret_pos, caret_pos);
 }
-
 function simpan_email() { 
   
     if ( $("input[name='email_user']").val() == "") {
