@@ -45,7 +45,7 @@ $(function () {
                     name:'action',
                     render: data => {
                         var action="";
-
+                       
                         if (data.status == 1) {
                             action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Delete" class="btn btn-danger btn-sm nonAktifKategori">Nonaktifkan</a>';
                         }else{
@@ -103,8 +103,11 @@ $(function () {
 
     $('body').on('click', '.detailKategori', function () {
         var id = $(this).data("id");
+        var title = $(this).data("text");
         table2(id);
         $('#categoryID').val(id);
+        $("#title_kategori").text("List Subkategori pada " + title);
+        
     });
 
     //nonaktifkan

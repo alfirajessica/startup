@@ -113,8 +113,10 @@ $(function () {
 
     $('body').on('click', '.detailHStartupTag', function () {
         var id = $(this).data("id");
+        var title = $(this).data("text");
         table2(id);
         $('#hStartupID').val(id);
+        $("#title_tag").text("List Sublabel (Subtag) pada " + title);
     });
 
     $("#editHStartupTag").on("submit",function (e) {

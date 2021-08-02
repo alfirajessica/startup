@@ -35,6 +35,7 @@
         <div class="row">
           <div class="col-md-11">
             <h3>Daftar Semua Startup/Produk Terdaftar pada Developer</h3>
+            <h4 id="data_dev"></h4>
           </div>
       
           <div class="col-md-1">
@@ -44,7 +45,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-12 py-1">
               <!-- tab content -->
               <div class="table-responsive">
                 <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_detailProjectTerdataDev">

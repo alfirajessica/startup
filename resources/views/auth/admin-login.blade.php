@@ -16,6 +16,7 @@
                             @csrf
                         <div class="card-body px-lg-5 py-lg-5">
                             <div class="text-center text-muted mb-4">
+                                <img src="/images/Logo-Startupinow-used2.png" width="160" height="50" margin-top="10px" alt=""> <br>
                                 <small class="text-dark">Masuk Ke StartupINow.</small>
                             </div>
                     
@@ -59,7 +60,7 @@
                                 <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                 <label class="form-check-label" for="remember">
-                                    {{ __('Remember Me') }}
+                                    {{ __('Ingat Saya') }}
                                 </label>
                             </div>
 

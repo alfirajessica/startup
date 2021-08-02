@@ -35,7 +35,7 @@ class StartupTagController extends Controller
                 ->addColumn('action', function($data){
                     $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#editHStartupTags"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editHStartupTag">Ubah</a>';
                     
-                    $btn = $btn. '<a href="javascript:void(0)" data-toggle="modal" data-target="#subStartupTag"  data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailHStartupTag">Tampilkan Sub-Tag</a>';
+                    $btn = $btn. '<a href="javascript:void(0)" data-toggle="modal" data-target="#subStartupTag"  data-id="'.$data->id.'" data-text="'.$data->name_startup_tag.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailHStartupTag">Tampilkan Sub-Tag</a>';
 
                     return $btn;
                 })

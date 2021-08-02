@@ -27,7 +27,49 @@
     </div>
 </div>
 
-@include('admin.inv.detailInv')
+{{-- modal --}}
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="detailInv">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-11">
+            <h3>Daftar Investasi pada Investor</h3>
+            <h4 id="data_inv"></h4>
+          </div>
+      
+          <div class="col-md-1">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 py-1">
+              <!-- tab content -->
+              <div class="table-responsive">
+                <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_detailInvestasiTerdataInv">
+                  <thead>
+                      <tr style="text-align: center">
+                          <th>#ID</th>
+                          <th>Dimuat</th>
+                          <th>Startup/Produk</th>
+                          <th>Jumlah Invest</th>
+                          <th>Status</th>
+                      </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              <!-- AKHIR TABLE -->
+            </div>
+          </div>
+      </div>    
+      </div>
+    </div>
+  </div>
+</div>
+
+{{-- @include('admin.inv.detailInv') --}}
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>

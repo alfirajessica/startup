@@ -6,14 +6,14 @@
     
     <div class="row py-5"> <!-- row untuk header categoryProduct -->
         <div class="col-md-12">
-            <a data-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseExample" class="font-weight-bold">+ Tambah Tag</a>
+            <a data-toggle="collapse" href="#collapseCategory" role="button" aria-expanded="false" aria-controls="collapseExample" class="font-weight-bold">+ Tambah Tag (Label)</a>
 
                 <form action="{{ route('admin.startupTags.addNewHStartupTag') }}" method="POST" id="addNewHStartupTag">
                     @csrf
                     <div class="collapse show" id="collapseCategory">
                         <div class="col-md-8" style="padding:0.5rem;">
                             <div class="form-group text-dark">
-                                <label for="h_StartupTagName" class="col-form-label">Masukkan Tag:</label>
+                                <label for="h_StartupTagName" class="col-form-label">Masukkan Tag (Label):</label>
                                 <div class="input-group input-group-alternative mb-4" >
                                     <input type="text" class="form-control form-control-alternative text-dark" name="h_StartupTagName" id="h_StartupTagName" >
                                     <div class="input-group-append">
@@ -34,7 +34,7 @@
                         <thead>
                             <tr style="text-align: center">
                                 <th>#ID</th>
-                                <th>Tag</th>
+                                <th>Tag (Label)</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>

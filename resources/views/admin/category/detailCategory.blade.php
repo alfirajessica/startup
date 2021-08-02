@@ -2,7 +2,8 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header" style="padding-bottom: 0rem;">
-          <h5 class="modal-title" id="exampleModalLabel">Detail Kategori Produk</h5>
+          <h5 class="modal-title" id="title_kategori">List Subkategori</h5>
+          
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -14,7 +15,7 @@
                     @csrf
                     <input type="hidden" id="categoryID" name="categoryID"/>
                     <div class="form-group">
-                      <label for="detailcategory_product" class="col-form-label">Masukkan Sub Kategori Produk:</label>
+                      <label for="detailcategory_product" class="col-form-label">Masukkan Subkategori Produk:</label>
                       <div class="input-group input-group-alternative mb-4" >
                           <input type="text" class="form-control" name="detailcategory_product" placeholder="masukkan sub kategori baru disini">
                           <div class="input-group-append">

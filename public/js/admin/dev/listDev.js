@@ -46,6 +46,8 @@ $(function () {
 
     $('body').on('click', '.detailDev', function () {
         var id = $(this).data('id');
+        var title = $(this).data('text');
+        $("#data_dev").text(title);
         console.log('ini id dari modal' + id);
 
         $('#table_detailProjectTerdataDev').DataTable({

@@ -151,6 +151,7 @@ Route::prefix('admin')->group(function () {
 
     //pengguna - investor
     Route::get('/inv/daftarInvestor', [AdminController::class, 'listinv'])->name('admin.inv.listInv');
+    Route::get('/inv/detailInv/{id}', [AdminController::class, 'detailInv'])->name('admin.inv.detailInv');
     Route::get('/inv/transaksiInv', [AdminController::class, 'transaksiInv'])->name('admin.inv.transaksiInv');
     Route::get('/inv/transaksiInv/confirmInvest/{id}', [AdminController::class, 'confirmInvest'])->name('admin.inv.transaksiInv.confirmInvest');
     Route::get('/inv/transaksiInv/notConfirmInvest/{id}', [AdminController::class, 'notConfirmInvest'])->name('admin.inv.transaksiInv.notConfirmInvest');

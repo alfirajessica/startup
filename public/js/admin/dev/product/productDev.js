@@ -47,6 +47,8 @@ function table_listProject_ConfirmYet() {
 
                        action += '<a href="javascript:void(0)" data-toggle="modal" data-target="#modal_alasanTdkDikonfirmasi"  data-id="'+data.id+'" data-original-title="notConfirm" class="btn btn-danger btn-sm notConfirmProject" data-tr="tr_{{$product->id}}">Tidak Dikonfirmasi</a>';
 
+                    }else{
+                        action += '<a href="javascript:void(0)" data-toggle="tooltip" class="btn btn-outline-secondary btn-sm"> Menunggu perbaikan Dev.</a>'; 
                     }
                     
                     return data.action + action;
@@ -183,11 +185,12 @@ $("#modal_alasanTdkDikonfirmasi_form").on("submit",function (e) {
             }
             else{
                 table_listProject_ConfirmYet();
-                $("#modal_alasanTdkDikonfirmasi").hide();
-                //jika sukses, call swal
-                    swal("Berhasil Tidak Konfirmasi", {
+                swal("Berhasil Tidak Konfirmasi", {
                     icon: "success",
                 });
+                $("#modal_alasanTdkDikonfirmasi").modal('hide');
+                //jika sukses, call swal
+                
             }
         }
     });

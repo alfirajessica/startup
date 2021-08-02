@@ -58,12 +58,12 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="">Kategori</label>
+                                                <label for="">Kategori/Subkategori</label>
                                                 <input type="text" name="kategori_product" id="kategori_product" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="helpId" disabled>
                                             </div>
 
                                             <div class="form-group">
-                                                <label for="">Startup Tag</label>
+                                                <label for="">Startup Tag (Label)/Subtag</label>
                                                 <input type="text" name="startup_tagProduct" id="startup_tagProduct" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="helpId" disabled>
                                             </div>
 
@@ -88,28 +88,28 @@
                                 <div class="row py-2">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="">Deskripsi</label>
+                                            <label for="">Deskripsikan Startup/Produk Anda</label>
                                             <textarea class="form-control form-control-alternative text-dark" name="desc" id="desc" rows="3" disabled></textarea>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="">Tim</label>
+                                            <label for="">Siapa saja yang ada didalam Tim Anda</label>
                                             <textarea class="form-control form-control-alternative text-dark" name="team" id="team" rows="3" disabled></textarea>
                                           
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="">Alasan</label>
+                                            <label for="">Keunggulan Startup/Produk Anda</label>
                                             <textarea class="form-control form-control-alternative text-dark" name="reason" id="reason" rows="3" disabled></textarea>
                                            
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="">Kegunaan</label>
+                                            <label for="">Informasi lainnya</label>
                                             <textarea class="form-control form-control-alternative text-dark" name="benefit" id="benefit" rows="3" disabled></textarea>
                                         </div>
                                         
-                                        <div class="form-group">
+                                        <div class="form-group d-none">
                                             <label for="">Solusi</label>
                                             <textarea class="form-control form-control-alternative text-dark" name="solution" id="solution" rows="3" disabled></textarea>
                                         </div>

@@ -33,10 +33,8 @@ class CategoryproductController extends Controller
             return datatables()->of($list_category)
                 ->addColumn('action', function($data){
                     $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#editModal"  data-id="'.$data->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm editCategory">Ubah</a>';
-
-                    // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Delete" class="btn btn-danger btn-sm deleteKategori" data-tr="tr_{{$product->id}}">Nonaktifkan</a>';
                     
-                    $btn = $btn. '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailCategorySub"  data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailKategori">Tampilkan Sub-kategori</a>';
+                    $btn = $btn. '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailCategorySub"  data-id="'.$data->id.'" data-text="'.$data->name_category.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailKategori">Tampilkan Sub-kategori</a>';
 
                     return $btn;
                 })

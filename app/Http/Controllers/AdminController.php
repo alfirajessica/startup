@@ -63,7 +63,7 @@ class AdminController extends Controller
         if($request->ajax()){
             return datatables()->of($list_dev)
                 ->addColumn('action', function($data){
-                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailDev" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailDev">Detail</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailDev" data-id="'.$data->id.'" data-text="'.$data->name.'/'.$data->email.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailDev">Detail</a>';
 
                     $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Nonaktifkan</a>';
 
@@ -284,9 +284,9 @@ class AdminController extends Controller
         if($req->ajax()){
             return datatables()->of($list_inv)
                 ->addColumn('action', function($data){
-                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailDev" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailDev">Detail</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailInv" data-id="'.$data->id.'" data-text="'.$data->name.'/'.$data->email.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailInv">Detail</a>';
 
-                    $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Nonaktifkan</a>';
+                    // $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Nonaktifkan</a>';
 
                     return $btn;
                 })
@@ -295,6 +295,29 @@ class AdminController extends Controller
                 ->make(true);
         }
         return view('admin.inv.listInv');
+    }
+
+    public function detailInv($id, Request $req)
+    {
+        if($req->ajax()){
+            
+            //semua produk terdaftar pada developer dengan id tsb
+            $list_proyek = DB::table('header_invests')
+                ->select('header_invests.id','header_invests.jumlah_invest','header_invests.status_invest','header_invests.created_at','header_products.name_product')
+                ->join('header_products','header_products.id','=','header_invests.project_id')
+                ->where('header_invests.user_id','=',$id)
+                ->get();
+
+                return datatables()->of($list_proyek)
+                ->addColumn('action', function($data){
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailProduct" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject" id="">Detail</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->addIndexColumn()
+                ->make(true);
+
+        }
     }
 
     public function transaksiInv(Request $req){
