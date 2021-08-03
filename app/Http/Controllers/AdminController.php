@@ -64,8 +64,9 @@ class AdminController extends Controller
         DB::table('header_invests')
         ->select(\DB::raw('COUNT(id) as totalinv_gagal, DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
         ->where('status_transaction','=','cancel')
+        ->orWhere('status_transaction','=','expire')
         ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
-        ->orderBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->orderBy('created_at')
         ->get();
 
         $inv_sukses['inv_sukses'] = 
@@ -73,7 +74,7 @@ class AdminController extends Controller
         ->select(\DB::raw('COUNT(id) as totalinv_sukses, DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
         ->where('status_transaction','=','settlement')
         ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
-        ->orderBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->orderBy('created_at')
         ->get();
 
         $inv_expire['inv_expire'] = 
@@ -81,7 +82,7 @@ class AdminController extends Controller
         ->select(\DB::raw('COUNT(id) as totalinv_expire, DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
         ->where('status_transaction','=','expire')
         ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
-        ->orderBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->orderBy('created_at')
         ->get();
         
         $count_inv['count_inv'] = 
@@ -416,8 +417,8 @@ class AdminController extends Controller
     public function transaksiInv(Request $req){
         $list_invest = 
         DB::table('header_invests')
-        ->where('status_transaction','=','settlement')
-        ->where('status_invest','=','0')
+        // ->where('status_transaction','=','settlement')
+        // ->where('status_invest','=','0')
         ->get();
 
         if($req->ajax()){
@@ -425,7 +426,7 @@ class AdminController extends Controller
                 ->addColumn('action', function($data){
                     $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
 
-                    $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-success btn-sm confirmInvest" data-tr="tr_{{$product->id}}">Konfirmasi</a>';
+                    // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-success btn-sm confirmInvest" data-tr="tr_{{$product->id}}">Konfirmasi</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])

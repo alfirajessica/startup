@@ -109,7 +109,7 @@
   <thead>
       <tr>
           <th>Bln/Thn</th>
-          <th>Gagal</th>
+          <th>total pendapatan</th>
           
       </tr>
   </thead>
@@ -167,7 +167,7 @@
 
 <script>
     $(function () {
-      $('#table_finance').dataTable({searching: false, info: false});
+      $('#table_finance, #table1, #table2').dataTable({searching: false, info: false, order:true});
       init();
     });
 

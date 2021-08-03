@@ -24,7 +24,7 @@ function table_listInvestConfirmYet() {
                 data: null,
                 name: 'created_at',
                 render: data => {
-                    return moment(data.created_at).format('DD-MMM-YYYY h:m');
+                    return moment(data.created_at).format('DD-MMM-YYYY');
                 }
             },
             {
@@ -46,10 +46,17 @@ function table_listInvestConfirmYet() {
                 name: 'status_transaction',
             },
             {
-                data: 'action',
+                data: null,
                 name: 'action',
+                render: data => {
+                    var action="";
+                    if (data.status_transaction == "settlement" && data.status_invest == 0) {
+                       action += '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="'+data.id+'" data-original-title="Confirm" class="btn btn-success btn-sm confirmInvest" data-tr="tr_{{$product->id}}">Konfirmasi</a>';
+
+                    }
+                    return data.action + action;
+                }
             },
-            
         ],
        
     });
