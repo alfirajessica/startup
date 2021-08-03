@@ -1,102 +1,71 @@
 @extends('layouts.adm')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-2 px-2">
+<div class="container">
+    <div class="py-4"></div>
+    <div class="row py-5"> <!-- row untuk header categoryProduct -->
         <div class="col-md-12">
-            <div class="">
-              <div class="row"> <!-- row -->
-            
-                <div class="col-md-4">
-                    <div class="card border-1"> <!-- card-body -->
-                        <div class="nav-wrapper"> <!-- nav-wrapper -->
-                            <!-- tabs -->
-                            <ul class="nav nav-pills nav-fill flex-column flex-md-column" id="tabs-icons-text" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-cloud-upload-96 mr-2"></i>Profile</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false"><i class="ni ni-bell-55 mr-2"></i>Password</a>
-                                </li>
-                            </ul>
-                            <!--end of tabs -->
-                        </div> <!-- end of nav-wrapper -->
-                    </div><!-- card-body --> 
-                </div><!--end tabs -->
-                
-                <div class="col-md-8">
-                    <div class="card shadow py-4"> 
-                        <div class="card-body"> <!-- card body -->
-                        <!-- tab content -->
-                        <div class="tab-content" id="myTabContent">
-                            <!-- profile -->
-                            <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
-                                <div class="row">
-                                    <div class="col">
-                                        <form action="">
-                                            <div class="form-group">
-                                                <label for="nama_event">Email Admin</label>
-                                                <input type="text" class="form-control" id="nama_event" aria-describedby="nama_eventHelp" disabled >
-                                            </div>
-    
-    
-                                            <div class="form-group">
-                                                <label for="nama_event">Nama Admin</label>
-                                                <input type="text" class="form-control" id="nama_event" aria-describedby="nama_eventHelp" placeholder="Nama Anda">
-                                                <small id="nama_eventHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                            </div>
-    
-                                            <button class="btn btn-primary" type="submit">Simpan</button>
-                                        </form>
-                                    </div>
-                                </div>
-                      
-                            </div>
-                            <!-- end of profile -->
-                
-                            <!-- password -->
-                            <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
-                                <div class="row">
-                                    <div class="col">
-                                        <form action="">
-                                            <div class="form-group">
-                                                <label for="nama_event">Password Anda</label>
-                                                <input type="password" class="form-control" id="nama_event" aria-describedby="nama_eventHelp" placeholder="Password Anda" disabled>
-                                            </div>
-    
-                                            <div class="dropdown-divider"></div>
-    
-                                            <div class="alert alert-warning" role="alert">
-                                                <strong>Peringatan</strong> Isi jika ingin mengubah password saja
-                                            </div>
-    
-                                            <div class="form-group">
-                                                <label for="nama_event">Password Baru</label>
-                                                <input type="password" class="form-control" id="nama_event" aria-describedby="nama_eventHelp" placeholder="Password baru">
-                                            </div>
-    
-                                            <div class="form-group">
-                                                <label for="nama_event">Konfirmasi Password Baru</label>
-                                                <input type="password" class="form-control" id="nama_event" aria-describedby="nama_eventHelp" placeholder="Konfirmasi Password Baru">
-                                            </div>
-    
-                                            <button class="btn btn-primary" type="submit">Simpan</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div> <!-- end of lihat daftar event -->
-                        </div> <!-- end of tab content -->
-                    </div> <!--end of card body -->
-            
-                </div>
-            </div> <!-- end row --> 
+            <div class="card-body text-dark">
+                <form action="{{ route('admin.akun.akunUpdate')}}" method="POST" enctype="multipart/form-data" id="updateAkun">
+                    @csrf
+                    @foreach ($detail_admin as $item)
+                        <div class="form-group">
+                            <label for="email_admin">Email</label>
+                            <input type="text" class="form-control form-control-alternative text-dark" id="email_admin" aria-describedby="email_adminHelp" disabled value="{{$item->email}}">
+                        </div>
+        
+        
+                        <div class="form-group">
+                            <label for="nama_admin">Nama</label>
+                            <input type="text" class="form-control form-control-alternative text-dark" id="nama_admin" name="nama_admin" aria-describedby="nama_adminHelp" placeholder="Nama Anda" value="{{$item->name}}">
+                        
+                        </div>
+                    @endforeach
+                    <button class="btn btn-default float-right" type="submit">Simpan Perubahan</button>
+                </form>
             </div>
+            
         </div>
-      </main>
-    </div>
-</div>
-              
+    </div><!-- end of row untuk header categoryProduct -->
 
+
+</div> 
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<script>
+    $("#pengaturan_akun").addClass('active');
+
+    $("#updateAkun").on("submit",function (e) {
+        e.preventDefault();
+       
+        $.ajax({
+            url:$(this).attr('action'),
+            method:$(this).attr('method'),
+            data:new FormData(this),
+            processData:false,
+            dataType:'json',
+            contentType:false,
+            beforeSend:function() {
+                $(document).find('span.error-text').text('');
+            },
+            success:function(data) {
+                if (data.status == 0) {
+                    $.each(data.error, function (prefix, val) {
+                        $('span.'+prefix+'_error').text(val[0]);
+                    });
+                }
+                else{
+                    swal({
+                        title: data.msg,
+                        text: "You clicked the button!",
+                        icon: "success",
+                        button: "Aww yiss!",
+                    });
+                   
+                }
+            }
+        });
+    });
+</script>
 @endsection
 

@@ -91,6 +91,7 @@ Route::prefix('admin')->group(function () {
    
     //pengaturan akun
     Route::get('/akun', [AdminController::class, 'akun'])->name('admin.akun');
+    Route::post('/akun/akunUpdate', [AdminController::class, 'akunUpdate'])->name('admin.akun.akunUpdate');
 
     //master kategori produk
     Route::get('/kategoriProduk', [CategoryproductController::class, 'kategoriProduk'])->name('admin.kategoriProduk');

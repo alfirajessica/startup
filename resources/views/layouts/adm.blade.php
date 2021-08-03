@@ -51,7 +51,7 @@
           <!-- Nav items -->
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link text-white" href="dashboard.html">
+              <a class="nav-link text-white" href="{{ route('admin.dashboard') }}">
                 <i class="ni ni-tv-2 text-primary"></i>
                 <span class="nav-link-text ">Dashboard</span>
               </a>
@@ -134,6 +134,17 @@
               </a>
             </li>
           </ul>
+
+          <hr class="my-0">
+          <ul class="navbar-nav mb-md-3">
+            <li class="nav-item">
+              <a class="nav-link text-white" id="pengaturan_akun" href="{{ route('admin.akun')}}" title="Pengaturan Akun">
+                <i class="ni ni-tv-2 text-primary"></i>
+                <span class="nav-link-text">Pengaturan Akun</span>
+              </a>
+            </li>
+          </ul>
+
         </div>
       </div>
     </div>
@@ -179,10 +190,10 @@
                   </a>
                   
                     <div class="dropdown-menu dropdown-menu-right">
-                      <a href="{{ route('admin.akun') }}" class="dropdown-item">
+                      {{-- <a href="{{ route('admin.akun') }}" class="dropdown-item" id="pengaturan_akun" title="Pengaturan Akun">
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('Pengaturan Akun') }}</span>
-                      </a>
+                      </a> --}}
                       
                       <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"

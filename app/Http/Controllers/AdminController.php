@@ -45,12 +45,105 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $try_month['try_month'] = 
+        DB::table('header_invests')
+        ->select(\DB::raw('DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
+        ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->orderBy('created_at')
+        ->get();
+
+        $get_pendapatan['get_pendapatan'] = 
+        DB::table('header_invests')
+        ->select(\DB::raw('DATE_FORMAT(created_at,"%Y-%m") as monthDate, sum(jumlah_invest-jumlah_final) as total '))
+        ->where('status_transaction','=','settlement')
+        ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->orderBy('created_at')
+        ->get();
+
+        $inv_gagal['inv_gagal'] = 
+        DB::table('header_invests')
+        ->select(\DB::raw('COUNT(id) as totalinv_gagal, DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
+        ->where('status_transaction','=','cancel')
+        ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->orderBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->get();
+
+        $inv_sukses['inv_sukses'] = 
+        DB::table('header_invests')
+        ->select(\DB::raw('COUNT(id) as totalinv_sukses, DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
+        ->where('status_transaction','=','settlement')
+        ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->orderBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->get();
+
+        $inv_expire['inv_expire'] = 
+        DB::table('header_invests')
+        ->select(\DB::raw('COUNT(id) as totalinv_expire, DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
+        ->where('status_transaction','=','expire')
+        ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->orderBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
+        ->get();
         
-        return view('admin.dashboard');
+        $count_inv['count_inv'] = 
+        DB::table('users')
+        ->select(\DB::raw('COUNT(id) as totalinv'))
+        ->where('role','=','2')
+        ->get();
+
+        $count_dev['count_dev'] = 
+        DB::table('users')
+        ->select(\DB::raw('COUNT(id) as totaldev'))
+        ->where('role','=','1')
+        ->get();
+
+        $count_startup['count_startup'] = 
+        DB::table('header_products')
+        ->select(\DB::raw('COUNT(id) as totalstartup'))
+        ->get();
+
+        $count_event['count_event'] = 
+        DB::table('header_events')
+        ->select(\DB::raw('COUNT(id) as totalevent'))
+        ->get();
+
+        return view('admin.dashboard')->with($inv_gagal)->with($inv_sukses)->with($inv_expire)->with($count_inv)->with($count_dev)->with($count_startup)->with($count_event)->with($try_month)->with($get_pendapatan);
     }
 
     public function akun(){
-        return view('admin.akun');
+
+        $user = auth()->user();
+        $detail_admin['detail_admin'] = DB::table('admins')
+                    ->where('id', '=', $user->id)
+                    ->get();
+
+        return view('admin.akun')->with($detail_admin);
+    }
+
+    public function akunUpdate(Request $req)
+    {
+        $user = auth()->user();
+
+        //validate request
+        $validator = Validator::make($req->all(),[
+            'nama_admin'=>'required',
+        ]);
+
+        //check the request is validated or not
+        if (!$validator->passes()) {
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }
+        else{
+            DB::table('admins')->
+            where('id',$user->id)->
+            update([
+                'name' => $req->nama_admin,
+            ]);
+            
+            return response()->json(['status'=>1, 'msg'=>'Berhasil mengubah profil']);
+        }
+        
+
+       
     }
 
     //DEVELOPER
