@@ -32,7 +32,7 @@
                             <thead>
                                 <th>Invest_id</th>
                                 <th>Project</th>
-                                <th>Dev</th>
+                                <th>Investor</th>
                                 <th>Tipe</th>
                                 <th>Jumlah (Rp)</th>
                             </thead>

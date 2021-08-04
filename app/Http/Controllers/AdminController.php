@@ -419,6 +419,7 @@ class AdminController extends Controller
         DB::table('header_invests')
         // ->where('status_transaction','=','settlement')
         // ->where('status_invest','=','0')
+        ->orderBy('status_invest', 'asc')
         ->get();
 
         if($req->ajax()){
@@ -426,7 +427,6 @@ class AdminController extends Controller
                 ->addColumn('action', function($data){
                     $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailTrans" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailProject">Detail</a>';
 
-                    // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Confirm" class="btn btn-success btn-sm confirmInvest" data-tr="tr_{{$product->id}}">Konfirmasi</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -488,8 +488,8 @@ class AdminController extends Controller
         $detail = DB::table('header_products')
                     ->leftJoin('detail_category_products', 'detail_category_products.id','=','header_products.id_detailcategory')
                     ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
-                    ->leftJoin('users','users.id','=','header_products.user_id')
-                    ->select('header_products.id','header_products.name_product','detail_category_products.name','header_invests.jumlah_invest', 'users.name as nama_dev', 'users.email','header_invests.invest_id')
+                    ->leftJoin('users','users.id','=','header_invests.user_id')
+                    ->select('header_invests.id','header_products.id as idproduk','header_products.name_product','detail_category_products.name','header_invests.jumlah_invest', 'users.name as nama_inv', 'users.email','header_invests.invest_id')
                     ->where('header_products.id', '=', $projectID)
                     ->where('header_invests.id','=',$id)
                     ->get();

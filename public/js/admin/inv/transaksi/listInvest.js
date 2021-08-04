@@ -17,7 +17,7 @@ function table_listInvestConfirmYet() {
             type: 'GET',
         },
         order: [
-            [0, 'asc']
+            [0, 'asc'],  [3, 'desc']
         ],
         columns: [
             {
@@ -432,8 +432,12 @@ function projectDetails(id) {
         
         columns: [
             {
-                data: 'id',
-                name: 'id'
+                data: null,
+                name: 'id',
+                className: 'dt-body-center',
+                render: data => {
+                    return "#"+data.id;
+                }
             },
             {
                 data: 'name_product',
@@ -443,7 +447,8 @@ function projectDetails(id) {
                 data: null,
                 name: 'email',
                 render: data => {
-                    return "<label>" + data.nama_dev +" <br> " + data.email + "</label>";
+                    
+                    return "<label>" + data.nama_inv +" <br> " + data.email + "</label>";
                 }
             },
             {
