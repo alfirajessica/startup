@@ -62,14 +62,14 @@ $(function () {
                 type: 'GET',
             },
             columns: [
-                {
-                    data: null,
-                    name: 'id',
-                    className: 'dt-body-center',
-                    render: data => {
-                        return "#"+data.id;
-                    }
-                },
+                // {
+                //     data: null,
+                //     name: 'id',
+                //     className: 'dt-body-center',
+                //     render: data => {
+                //         return "#"+data.id;
+                //     }
+                // },
                 {
                     data: null,
                     name: 'created_at',

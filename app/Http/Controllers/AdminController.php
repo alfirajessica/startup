@@ -397,7 +397,7 @@ class AdminController extends Controller
             
             //semua produk terdaftar pada developer dengan id tsb
             $list_proyek = DB::table('header_invests')
-                ->select('header_invests.id','header_invests.jumlah_invest','header_invests.status_invest','header_invests.created_at','header_products.name_product')
+                ->select('header_invests.id', 'header_invests.invest_id','header_invests.jumlah_invest','header_invests.status_invest','header_invests.created_at','header_products.name_product')
                 ->join('header_products','header_products.id','=','header_invests.project_id')
                 ->where('header_invests.user_id','=',$id)
                 ->get();

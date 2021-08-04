@@ -61,10 +61,9 @@ function table1() {
         columns: [
             {
                 data: null,
-                name: 'id',
-                className: 'dt-body-center',
+                name: 'invest_id',
                 render: data => {
-                    return "#"+data.id;
+                    return "#"+data.invest_id;
                 }
             },
             {

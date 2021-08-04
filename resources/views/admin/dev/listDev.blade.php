@@ -51,7 +51,7 @@
                 <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_detailProjectTerdataDev">
                   <thead>
                       <tr style="text-align: center">
-                          <th>#ID</th>
+                          <th class="d-none">#ID</th>
                           <th>Dimuat</th>
                           <th>Startup/Produk</th>
                           <th>Status</th>
