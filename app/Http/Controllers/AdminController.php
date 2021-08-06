@@ -159,7 +159,7 @@ class AdminController extends Controller
                 ->addColumn('action', function($data){
                     $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailDev" data-id="'.$data->id.'" data-text="'.$data->name.'/'.$data->email.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailDev">Detail</a>';
 
-                    $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Nonaktifkan</a>';
+                    // $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Nonaktifkan</a>';
 
                     return $btn;
 

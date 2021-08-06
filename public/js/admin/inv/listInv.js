@@ -101,7 +101,7 @@ function table1() {
                         status = "Di Nonaktifkan Inv";
                     }
                     else if (data.status_invest == 4) {
-                        status = "Tidak Aktif";
+                        status = "Gagal/Dicancel";
                     }
                     else if (data.status_invest == 5) {
                         status = "Expire";
