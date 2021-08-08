@@ -17,6 +17,7 @@ class CreateValuationsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned(); //selain guest
             $table->string('email_user'); //utk guest
+            $table->bigInteger('sales_revenue');
             $table->bigInteger('net_profit');
             $table->integer('cost_equity'); //%
             $table->integer('growth_rate'); //%

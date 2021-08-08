@@ -58,6 +58,7 @@ class ValuationToolsController extends Controller
             $values->email_user = $req->email_user;
         }
         
+        $values->sales_revenue = (int)Str::replaceArray(',', ['', ''], $req->sales_revenue);
         $values->net_profit = (int)Str::replaceArray(',', ['', ''], $req->net_profit);
         $values->cost_equity = ((double)$req->cost_equity);
         $values->growth_rate = ((double)$req->growth_rate);
@@ -80,7 +81,7 @@ class ValuationToolsController extends Controller
 
         $total_pv_fcfe=0;
         //$terminal_value=0;
-        for ($i=0; $i <6 ; $i++) { 
+        for ($i=0; $i <5 ; $i++) { 
             $val_details = new DValuation;
             $val_details->valuation_id = $getLastId->id;
             //$val_details->user_id = 0;
@@ -89,7 +90,7 @@ class ValuationToolsController extends Controller
             
             if ($i == 0) {
                 
-                $val_details->n_sales_forecast = 0; //TIDAK PAKAI SALES
+                $val_details->n_sales_forecast = 0;
                 $val_details->n_profit_forecast = $value->net_profit;
                 $val_details->n_current_assets = $value->current_assets;
                 $val_details->n_current_liabilities = $value->current_liabilities;
@@ -109,7 +110,7 @@ class ValuationToolsController extends Controller
 
             }else{
               
-                $val_details->n_sales_forecast = 0;
+                $val_details->n_sales_forecast = $value->sales_revenue + ($value->sales_revenue * $value->growth_rate/100);;
                 $val_details->n_profit_forecast = $value->net_profit + ($value->net_profit * $value->growth_rate/100);
                 $val_details->n_current_assets = $value->current_assets + ($value->current_assets * $value->growth_rate/100);
                 $val_details->n_current_liabilities = $value->current_liabilities + ($value->current_liabilities * $value->growth_rate/100);
@@ -120,12 +121,28 @@ class ValuationToolsController extends Controller
                 $profit = $value->net_profit + ($value->net_profit * $value->growth_rate/100); 
                 $changein = ($value->working_capital + ($value->working_capital * $value->growth_rate/100))-$value->working_capital;
                 $depExtAsset = $value->depreciation_exist_assets;
+                
                 $purNewAsset = (int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[$i]);
-                $depNewAsset0 = ($purNewAsset * $value->depreciation_rate);
-                $depNewAsset = $depNewAsset0 + ($purNewAsset * $value->depreciation_rate) ; //WAIT
+                
+                if($i==1){
+                    $depNewAsset = ($purNewAsset * $value->depreciation_rate/100) ;
+                }
+                if ($i==2) {
+                    $depNewAsset = ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[1])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[2]) * $value->depreciation_rate/100) ; //WAIT
+                }
+                if ($i==3) {
+                    $depNewAsset = ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[2])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[1])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[3]) * $value->depreciation_rate/100) ; //WAIT
+                }
+                if ($i==4) {
+                    $depNewAsset = ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[3])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[2])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[1])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[4]) * $value->depreciation_rate/100) ; //WAIT
+                }
+               
+                
+                
                 $loanre = (int)Str::replaceArray(',', ['', ''], $req->n_loans_returned_[$i]);
                 $newLoan = (int)Str::replaceArray(',', ['', ''], $req->n_new_loan_[$i]);
-                $sde = 0;
+                $sde = (int)Str::replaceArray(',', ['', ''], $req->n_seller_discretionary_expend_[$i]);
+              
 
                 $val_details->n_purchase_new_assets = $purNewAsset;
                 $val_details->n_depreciation_new_assets = $depNewAsset;
@@ -143,6 +160,7 @@ class ValuationToolsController extends Controller
                 $business_value = $total_pv_fcfe +$pv_terminal_value;
 
                 //temp
+                $value->sales_revenue = $value->sales_revenue + ($value->sales_revenue * $value->growth_rate/100);
                 $value->net_profit = $value->net_profit + ($value->net_profit * $value->growth_rate/100);
                 $value->current_assets = $value->current_assets + ($value->current_assets * $value->growth_rate/100);
                 $value->current_liabilities = $value->current_liabilities + ($value->current_liabilities * $value->growth_rate/100);
@@ -188,7 +206,7 @@ class ValuationToolsController extends Controller
         $getLast =  DB::table('valuations')->where('email_user','=',$email)->orderBy('id','desc')->first();
 
         $getDetailLast =  DB::table('d_valuations')
-                        ->select('d_valuations.id','d_valuations.name_year','d_valuations.n_profit_forecast','d_valuations.n_current_assets','d_valuations.n_current_liabilities','d_valuations.n_working_capital','d_valuations.n_change_working_capital','d_valuations.n_purchase_new_assets','d_valuations.n_depreciation_new_assets','d_valuations.n_loans_returned','d_valuations.n_new_loan','d_valuations.n_seller_discretionary_expend','d_valuations.n_cash_flow_fcfe','d_valuations.n_pv_fcfe','d_valuations.n_seller_discretionary_expend','valuations.depreciation_exist_assets','valuations.depreciation_rate','valuations.total_pv_fcfe')
+                        ->select('d_valuations.id','d_valuations.name_year','d_valuations.n_profit_forecast', 'd_valuations.n_sales_forecast','d_valuations.n_current_assets','d_valuations.n_current_liabilities','d_valuations.n_working_capital','d_valuations.n_change_working_capital','d_valuations.n_purchase_new_assets','d_valuations.n_depreciation_new_assets','d_valuations.n_loans_returned','d_valuations.n_new_loan','d_valuations.n_seller_discretionary_expend','d_valuations.n_cash_flow_fcfe','d_valuations.n_pv_fcfe','d_valuations.n_seller_discretionary_expend','valuations.depreciation_exist_assets','valuations.depreciation_rate','valuations.total_pv_fcfe')
                         ->join('valuations','valuations.id','=','d_valuations.valuation_id')
                         ->where('d_valuations.valuation_id','=',$getLast->id)
                         ->get();
