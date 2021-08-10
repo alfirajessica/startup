@@ -25,6 +25,8 @@ class CreateHeaderInvestsTable extends Migration
             $table->date('invest_expire');
             //masih aktif invest atau tidak -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif)
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('project_id')->references('id')->on('header_products')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

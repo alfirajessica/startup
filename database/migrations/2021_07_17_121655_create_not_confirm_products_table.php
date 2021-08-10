@@ -15,10 +15,10 @@ class CreateNotConfirmProductsTable extends Migration
     {
         Schema::create('not_confirm_products', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_headerproduct')->nullable();
+            $table->bigInteger('id_headerproduct')->unsigned();
             $table->text('reason');
             $table->timestamps();
-           
+            $table->foreign('id_headerproduct')->references('id')->on('header_products')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

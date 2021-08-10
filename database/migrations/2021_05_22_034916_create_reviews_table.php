@@ -22,6 +22,7 @@ class CreateReviewsTable extends Migration
             $table->string('status'); 
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('project_id')->references('id')->on('header_products')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

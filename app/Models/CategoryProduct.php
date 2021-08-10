@@ -15,6 +15,7 @@ class CategoryProduct extends Model
      */
     protected $fillable = [
         'name_category',
+        'status',
     ];
 
     protected $table = "category_products";

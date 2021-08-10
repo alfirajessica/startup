@@ -48,7 +48,7 @@ class ProductController extends Controller
             'team'=>'required',
             'reason'=>'required',
             'benefit'=>'required',
-            'solution'=>'required',
+            //'solution'=>'required',
         ]);
 
         if (!$validator->passes()) {

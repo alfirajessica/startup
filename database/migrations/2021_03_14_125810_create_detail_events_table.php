@@ -16,10 +16,11 @@ class CreateDetailEventsTable extends Migration
         Schema::create('detail_events', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_header_events')->unsigned();
-            $table->bigInteger('id_participant');
+            $table->bigInteger('id_participant')->unsigned();
             $table->string('status');
             $table->timestamps();
             $table->foreign('id_header_events')->references('id')->on('header_events')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_participant')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -31,7 +31,8 @@ class CreateHeaderProductsTable extends Migration
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_detailcategory')->references('id')->on('detail_category_products')->onDelete('cascade')->onUpdate('cascade');
-            
+            $table->foreign('id_substartuptag')->references('id')->on('sub_startup_tags')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 

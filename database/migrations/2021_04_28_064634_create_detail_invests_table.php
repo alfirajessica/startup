@@ -13,6 +13,7 @@ class CreateDetailInvestsTable extends Migration
      */
     public function up()
     {
+        //gak dipakai
         Schema::create('detail_invests', function (Blueprint $table) {
             $table->bigInteger('invest_id');
             $table->bigInteger('id_header_invest')->unsigned();

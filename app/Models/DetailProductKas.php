@@ -14,10 +14,22 @@ class DetailProductKas extends Model
      *
      * @var array
      */
+    protected $table = "detail_product_kas";
     protected $fillable = [
         'id_headerproduct',
         'id_typetrans',
         'jumlah',
         'status',
     ];
+
+    //punya 1 typetrans
+    public function typetrans(){
+        return $this->belongsTo(TypeTrans::class);
+    }
+
+    //dimiliki setiap product
+    public function headerproduct(){
+        return $this->belongsTo(HeaderProduct::class);
+    }
+
 }

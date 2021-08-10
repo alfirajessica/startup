@@ -14,7 +14,7 @@ class HStartupTag extends Model
      * @var array
      */
     protected $fillable = [
-        'name_startup_tag',
+        'name_startup_tag','status',
     ];
 
     protected $table = "h_startup_tags";

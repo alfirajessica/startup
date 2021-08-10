@@ -15,11 +15,12 @@ class HeaderEvent extends Model
      * @var array
      */
     protected $fillable = [
+        
         'name',
         'desc',
         'held',
         'event_schedule',
-        'event_time',
+        'event_time','status',
     ];
 
     public static function getUsers($search_keyword) {
@@ -34,4 +35,8 @@ class HeaderEvent extends Model
         }
         //return $events->paginate(PER_PAGE_LIMIT);
     }
+
+    function detailevent(){
+		return $this->hasMany(detailEvent::class);
+	}
 }

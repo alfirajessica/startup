@@ -9,4 +9,20 @@ class Review extends Model
 {
     use HasFactory;
     protected $table = "reviews";
+    protected $fillable = [
+        'user_id',
+        'project_id',
+        'rating',
+        'isi_review','status'
+    ];
+
+    public function headerproduct(){
+        return $this->belongsTo(HeaderProduct::class);
+    }
+
+    public function responsereviews(){
+        return $this->hasMany(ResponseReview::class);
+    }
+
+
 }

@@ -11,6 +11,7 @@ class DValuation extends Model
     protected $table = "d_valuations";
 
     public function valuation(){
-        return $this->belongsTo(valuation::class);
+        return $this->belongsTo(Valuation::class);
     }
+    
 }

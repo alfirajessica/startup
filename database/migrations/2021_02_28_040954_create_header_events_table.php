@@ -15,7 +15,7 @@ class CreateHeaderEventsTable extends Migration
     {
         Schema::create('header_events', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
+            $table->bigInteger('user_id')->unsigned();
             $table->string('name');
             $table->text('desc')->nullable();
             $table->string('held');
@@ -30,6 +30,8 @@ class CreateHeaderEventsTable extends Migration
             $table->mediumText('image')->nullable();
             $table->string('status');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+
         });
     }
 
