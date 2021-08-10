@@ -113,25 +113,23 @@
                 <tr>
                     <td>Total present value of FCFE</td>
                     <td></td>
-                    <td colspan="4">{{ number_format($getLast->total_pv_fcfe, 2, ',', '.')}}</td>
+                    <td colspan="5">{{ number_format($getLast->total_pv_fcfe, 2, ',', '.')}}</td>
                 </tr>
                 <tr>
                     <td>Terminal Value</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: right">{{ number_format($getLast->terminal_value, 2, ',', '.')}}</td>
+                    
+                    <td colspan="5" style="text-align: right">{{ number_format($getLast->terminal_value, 2, ',', '.')}}</td>
                 </tr>
                 <tr>
                     <td>Present value of terminal value</td>
                     <td></td>
-                    <td colspan="4">{{ number_format($getLast->pv_terminal_value, 2, ',', '.')}}</td>
+                    <td colspan="5">{{ number_format($getLast->pv_terminal_value, 2, ',', '.')}}</td>
                 </tr>
                 <tr>
                     <td>Business value</td>
                     <td></td>
-                    <td colspan="4">{{ number_format($getLast->business_value, 2, ',', '.')}}</td>
+                    <td colspan="5">{{ number_format($getLast->business_value, 2, ',', '.')}}</td>
                 </tr>
             </tbody>
             <tfoot>

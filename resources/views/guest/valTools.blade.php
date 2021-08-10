@@ -79,13 +79,13 @@ margin-top: 10%; padding-bottom:1rem;
   </div>
   <div class="row">
     <div class="col-md-12 d-none" id="val_calc">
-        <div class="row mx-6">
+        <div class="row">
             <div class="col-md-12">
                 <button type="submit" class="btn btn-default">Hitung Valuasi</button>
             </div>
         </div>
 
-        <div class="row mx-6 py-2">
+        <div class="row py-2">
             <input type="hidden" name="email" id="" class="form-control" placeholder="" aria-describedby="helpId">
 
             <div class="col-md-6">
@@ -102,11 +102,11 @@ margin-top: 10%; padding-bottom:1rem;
                         <div id="collapseKeyInput" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="">Berapa profitmu tahun lalu ({{ now()->year-1 }})</label>
+                                    <label for="">Berapa profitmu tahun lalu ({{ now()->year-1 }}) - Net Profit</label>
                                     <input type="text" name="net_profit" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="50,000"   class="form-control form-control-alternative">
                                 </div>
                                 
-                                <label for="">Masukkan Tingkat Pertumbuhan tahunan Anda untuk periode perkiraan 5 tahun kedepan ({{ now()->year }}-{{ now()->year+4 }})</label>
+                                <label for="">Masukkan Tingkat Pertumbuhan tahunan Anda untuk periode perkiraan 5 tahun kedepan ({{ now()->year }}-{{ now()->year+4 }}) - Growth Rate</label>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="input-group input-group-alternative mb-4">
@@ -119,7 +119,7 @@ margin-top: 10%; padding-bottom:1rem;
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="sales_revenue">Sales Revenue</label>
+                                    <label for="sales_revenue">Masukkan total Pendapatan Penjualan untuk tahun keuangan terakhir yang dilaporkan ({{ now()->year-1 }}) - Sales Revenue</label>
                                     <input type="text" name="sales_revenue" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="100,000"   class="form-control form-control-alternative">
                                 </div>
                             </div>
@@ -137,7 +137,7 @@ margin-top: 10%; padding-bottom:1rem;
                         <div id="collapseFixedAssets" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="col-md-12">
-                                    <label for="">Masukkan nilai perkiraan pembelian Aset Tetap Baru yang Anda rencanakan selama 4 tahun ke depan.</label>
+                                    <label for="">Masukkan nilai perkiraan pembelian Aset Tetap Baru yang Anda rencanakan selama 4 tahun ke depan (Purchases of New Fixed Assets)</label>
                                         <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group"> 
@@ -160,8 +160,6 @@ margin-top: 10%; padding-bottom:1rem;
                                                 <span class="text-danger error-text n_purchase_new_assets_[3]_error"></span>
                                             </div>
                                         </div>
-                                       
-                                        
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -173,25 +171,25 @@ margin-top: 10%; padding-bottom:1rem;
                                                 <span class="text-danger error-text n_purchase_new_assets_[4]_error"></span>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-4">
+                                        <div class="col-md-4">
                                             <div class="form-group"> 
                                                 <label for="">{{ now()->year+4 }}</label>
                                                 <input type="text" name="n_purchase_new_assets_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
                                                 <span class="text-danger error-text n_purchase_new_assets_[5]_error"></span>
                                             </div>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                     
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label for="">Berapa total biaya untuk Beban Penyusutan aset tetap untuk tahun buku terakhir yang Anda laporkan?</label>
+                                        <label for="">Berapa total biaya untuk Beban Penyusutan aset tetap untuk tahun buku terakhir yang Anda laporkan? (Depreciation on existing assets)</label>
                                         <input type="text" name="depreciation_exist_assets" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="5,000" class="form-control form-control-alternative">
                                       
                                         <span class="text-danger error-text depreciation_exist_assets_error"></span>
                                         </div>
 
-                                        <label for="">Berapa rata-rata Tingkat Penyusutan (%) tahunan untuk Aktiva Tetap baru selama 5 tahun ke depan?</label>
+                                        <label for="">Berapa rata-rata Tingkat Penyusutan (%) tahunan untuk Aktiva Tetap baru selama 5 tahun ke depan? (Depreciation Rate(%))</label>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -224,7 +222,7 @@ margin-top: 10%; padding-bottom:1rem;
                                     <span class="text-danger error-text current_assets_error"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Current liabilities</label>
+                                    <label for="">Current Liabilities</label>
                                     <input type="text" name="current_liabilities" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="20,000" class="form-control form-control-alternative">
                                     <span class="text-danger error-text current_liabilities_error"></span>
                                 </div>
@@ -233,7 +231,7 @@ margin-top: 10%; padding-bottom:1rem;
                     </div>
 
                     <div class="card">
-                        <div class="card border-0 shadow" id="headingOne">
+                        <div class="card border-0 shadow" id="headingFour">
                             <h5 class="mb-0">
                             <div class="btn btn-link" data-toggle="collapse" data-target="#collapseNonOpAs" aria-expanded="true" aria-controls="collapseNonOpAs">
                                 Non Operating Assets
@@ -241,10 +239,10 @@ margin-top: 10%; padding-bottom:1rem;
                             </h5>
                         </div>
                   
-                        <div id="collapseNonOpAs" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div id="collapseNonOpAs" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="col-md-12">
-                                    <label for="">Loans returned</label>
+                                    <label for="">Pinjaman dikembalikan (Loans returned)</label>
                                     <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group"> 
@@ -279,13 +277,13 @@ margin-top: 10%; padding-bottom:1rem;
                                                 <span class="text-danger error-text n_loans_returned_[4]_error"></span>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-4">
+                                        <div class="col-md-4">
                                             <div class="form-group"> 
                                                 <label for="">{{ now()->year+4 }}</label>
                                                 <input type="text" name="n_loans_returned_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
                                                 <span class="text-danger error-text n_loans_returned_[5]_error"></span>
                                             </div>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -298,17 +296,17 @@ margin-top: 10%; padding-bottom:1rem;
             <div class="col-md-6">
                 <div id="accordion">
                     <div class="card">
-                        <div class="card border-0 shadow" id="headingTwo">
+                        <div class="card border-0 shadow" id="headingFive">
                             <h5 class="mb-0">
                             <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseBorrow" aria-expanded="false" aria-controls="collapseBorrow">
                                 Borrowing
                             </div>
                             </h5>
                         </div>
-                        <div id="collapseBorrow" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div id="collapseBorrow" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="col-md-12">
-                                    <label for="">Pinjaman perkiraan yang akan dilakukan </label>
+                                    <label for="">Pinjaman perkiraan yang akan dilakukan (New Loans Taken) </label>
                                         <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group"> 
@@ -343,13 +341,13 @@ margin-top: 10%; padding-bottom:1rem;
                                                 <span class="text-danger error-text n_new_loan_[4]_error"></span>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-4">
+                                        <div class="col-md-4">
                                             <div class="form-group"> 
                                                 <label for="">{{ now()->year+4 }}</label>
                                                 <input type="text" name="n_new_loan_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
                                                 <span class="text-danger error-text n_new_loan_[5]_error"></span>
                                             </div>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -357,14 +355,14 @@ margin-top: 10%; padding-bottom:1rem;
                     </div>
 
                     <div class="card">
-                        <div class="card border-0 shadow" id="headingThree">
+                        <div class="card border-0 shadow" id="headingSix">
                             <h5 class="mb-0">
                             <div class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseCostEqu" aria-expanded="false" aria-controls="collapseCostEqu">
                                 Cost of Equity
                             </div>
                             </h5>
                         </div>
-                        <div id="collapseCostEqu" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div id="collapseCostEqu" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -384,13 +382,13 @@ margin-top: 10%; padding-bottom:1rem;
                     <div class="card">
                         <div class="card border-0 shadow" id="headingSeven">
                             <h5 class="mb-0">
-                            <div class="btn btn-link" data-toggle="collapse" data-target="#collapseNonOpAs" aria-expanded="true" aria-controls="collapseNonOpAs">
+                            <div class="btn btn-link" data-toggle="collapse" data-target="#collapseSDE" aria-expanded="true" aria-controls="collapseSDE">
                                 Seller's Discretionary Expenditure
                             </div>
                             </h5>
                         </div>
                   
-                        <div id="collapseNonOpAs" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
+                        <div id="collapseSDE" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
                             <div class="card-body">
                                 <div class="col-md-12">
                                     <div class="row">
@@ -427,13 +425,13 @@ margin-top: 10%; padding-bottom:1rem;
                                                 <span class="text-danger error-text n_seller_discretionary_expend_[4]_error"></span>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-4">
+                                        <div class="col-md-4">
                                             <div class="form-group"> 
                                                 <label for="">{{ now()->year+4 }}</label>
-                                                <input type="text" name="n_loans_returned_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
-                                                <span class="text-danger error-text n_loans_returned_[5]_error"></span>
+                                                <input type="text" name="n_seller_discretionary_expend_[5]" id="currency-field" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="10,000" class="form-control form-control-alternative">
+                                                <span class="text-danger error-text n_seller_discretionary_expend_[5]_error"></span>
                                             </div>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

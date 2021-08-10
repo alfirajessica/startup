@@ -81,7 +81,7 @@ class ValuationToolsController extends Controller
 
         $total_pv_fcfe=0;
         //$terminal_value=0;
-        for ($i=0; $i <5 ; $i++) { 
+        for ($i=0; $i <6 ; $i++) { 
             $val_details = new DValuation;
             $val_details->valuation_id = $getLastId->id;
             //$val_details->user_id = 0;
@@ -90,7 +90,7 @@ class ValuationToolsController extends Controller
             
             if ($i == 0) {
                 
-                $val_details->n_sales_forecast = 0;
+                $val_details->n_sales_forecast = $value->sales_revenue;
                 $val_details->n_profit_forecast = $value->net_profit;
                 $val_details->n_current_assets = $value->current_assets;
                 $val_details->n_current_liabilities = $value->current_liabilities;
@@ -135,6 +135,9 @@ class ValuationToolsController extends Controller
                 }
                 if ($i==4) {
                     $depNewAsset = ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[3])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[2])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[1])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[4]) * $value->depreciation_rate/100) ; //WAIT
+                }
+                if ($i==5) {
+                    $depNewAsset = ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[4])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[3])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[2])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[1])*$value->depreciation_rate/100) + ((int)Str::replaceArray(',', ['', ''], $req->n_purchase_new_assets_[5]) * $value->depreciation_rate/100) ; //WAIT
                 }
                
                 
