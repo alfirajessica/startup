@@ -19,6 +19,7 @@ use App\Models\NotConfirmProduct;
 use Validator;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -457,8 +458,10 @@ class ProductController extends Controller
     
     public function addNewPemasukkan(Request $req)
     {
+      
+        //dd((int)Str::replaceArray(',', ['', ''], $req->jumlah));
         $validator = Validator::make($req->all(),[
-            'jumlah'=>'required',
+            'jumlah'=>'required|min:0',
             'tipe_pemasukkan'=>'required',
         ]);
         if (!$validator->passes()) {
@@ -489,7 +492,7 @@ class ProductController extends Controller
                 $newPemasukkan->id_headerproduct = $req->pilih_project_masuk;
                 $newPemasukkan->tipe = "1";
                 $newPemasukkan->id_typetrans = $req->tipe_pemasukkan;
-                $newPemasukkan->jumlah = $req->jumlah;
+                $newPemasukkan->jumlah = (int)Str::replaceArray(',', ['', ''], $req->jumlah);
                 $newPemasukkan->status = "1";
                 $query = $newPemasukkan->save();
 
@@ -525,7 +528,7 @@ class ProductController extends Controller
     public function addNewPengeluaran(Request $req)
     {
         $validator = Validator::make($req->all(),[
-            'jumlah_keluar'=>'required',
+            'jumlah_keluar'=>'required|min:0',
             'tipe_pengeluaran'=>'required',
         ]);
         if (!$validator->passes()) {
@@ -547,7 +550,7 @@ class ProductController extends Controller
                 $newPengeluaran->id_headerproduct = $req->pilih_project_keluar;
                 $newPengeluaran->tipe = "2";
                 $newPengeluaran->id_typetrans = $req->tipe_pengeluaran;
-                $newPengeluaran->jumlah = $req->jumlah_keluar;
+                $newPengeluaran->jumlah = (int)Str::replaceArray(',', ['', ''], $req->jumlah_keluar);
                 $newPengeluaran->status = "1";
                 $query = $newPengeluaran->save();
 
@@ -581,7 +584,7 @@ class ProductController extends Controller
     public function updatePemasukkan(Request $req)
     {
         $validator = Validator::make($req->all(),[
-            'edit_jumlah'=>'required',
+            'edit_jumlah'=>'required|min:0',
         ]);
         if (!$validator->passes()) {
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
@@ -590,7 +593,7 @@ class ProductController extends Controller
             DB::table('detail_product_kas')->
             where('id',$req->id_detail_product_kas)->
             update([
-                'jumlah' => $req->edit_jumlah,
+                'jumlah' => (int)Str::replaceArray(',', ['', ''], $req->edit_jumlah),
             ]);
             return 1;
         }

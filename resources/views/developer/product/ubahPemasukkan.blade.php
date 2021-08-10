@@ -14,7 +14,10 @@
           <input type="hidden" name="status_kas" id="status_kas">
           <input type="hidden" name="id_detail_product_kas" id="id_detail_product_kas">
           <label for="">Jumlah</label>
-          <input type="number" class="form-control form-control-alternative" name="edit_jumlah" id="edit_jumlah">
+
+          <input type="text" name="edit_jumlah" id="edit_jumlah" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
+
+          {{-- <input type="number" class="form-control form-control-alternative" name="edit_jumlah" id="edit_jumlah"> --}}
           <span class="text-danger error-text edit_jumlah_error"></span>
           <br>
           <button type="submit" class="btn btn-default float-right">Simpan Perubahan</button>

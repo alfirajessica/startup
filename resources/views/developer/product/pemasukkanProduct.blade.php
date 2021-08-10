@@ -45,7 +45,9 @@
                 <div class="form-group text-dark">
                     <label class="float-left">Jumlah (Rp)</label>
                     <div class="input-group input-group-alternative mb-4">
-                      <input class="form-control" type="number" name="jumlah" id="jumlah">
+                    
+                        <input type="text" name="jumlah" id="jumlah" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="1,000" min="1,00" class="form-control form-control-alternative">
+
                       <div class="input-group-append">
                         <button type="submit" class="btn btn-default">Simpan</button>
                       </div>
@@ -105,7 +107,7 @@
                     var terpilih_before = $("#nama_project_dipilih_masuk").text();
                     $("#pilih_project_masuk").find(":selected").text(terpilih_before);
                     $('#tipe_pemasukkan').val(0);
-                    $('#jumlah').val('');
+                    $('#jumlah').val(0,00);
                     
                     
                 }
@@ -113,7 +115,7 @@
                     var terpilih_before = $("#nama_project_dipilih_masuk").text();
                     $("#pilih_project_masuk").find(":selected").text(terpilih_before);
                     $('#tipe_pemasukkan').val(0);
-                    $('#jumlah').val('');
+                    $('#jumlah').val(0,00);
                     swal({
                         title: "Sudah terdata",
                         icon: "warning",

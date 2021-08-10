@@ -450,13 +450,13 @@ margin-top: 10%; padding-bottom:1rem;
 
 <script>
     $("input[data-type='currency']").on({
-    keyup: function() {
-      formatCurrency($(this));
-    },
-    blur: function() { 
-      formatCurrency($(this), "blur");
-    }
-});
+        keyup: function() {
+        formatCurrency($(this));
+        },
+        blur: function() { 
+        formatCurrency($(this), "blur");
+        }
+    });
 
 
 function formatNumber(n) {

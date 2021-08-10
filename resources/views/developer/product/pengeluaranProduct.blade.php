@@ -42,13 +42,16 @@
                 <div class="form-group text-dark">
                     <label class="float-left">Jumlah (Rp)</label>
                     <div class="input-group input-group-alternative mb-4">
-                      <input class="form-control" type="number" name="jumlah_keluar" id="jumlah_keluar">
+
+                        <input type="text" name="jumlah_keluar" id="jumlah_keluar" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="1,000" class="form-control form-control-alternative">
+
+                      {{-- <input class="form-control" type="number" name="jumlah_keluar" id="jumlah_keluar"> --}}
                       <div class="input-group-append">
                         <button type="submit" class="btn btn-default">Simpan</button>
                       </div>
                     </div>
                 </div> 
-                <span class="text-danger error-text jumlah_error"></span>
+                <span class="text-danger error-text jumlah_keluar_error"></span>
             </div>
         </div>
         <div class="table-responsive px-2">
@@ -99,7 +102,7 @@
                     var terpilih_before = $("#nama_project_dipilih_keluar").text();
                     $("#pilih_project_keluar").find(":selected").text(terpilih_before);
                     $('#tipe_pengeluaran').val(0);
-                    $('#jumlah_keluar').val('');
+                    $('#jumlah_keluar').val(0,00);
                     swal({
                         title: data.msg,
                         icon: "warning",
@@ -115,8 +118,7 @@
                     var terpilih_before = $("#nama_project_dipilih_keluar").text();
                     $("#pilih_project_keluar").find(":selected").text(terpilih_before);
                     $('#tipe_pengeluaran').val(0);
-                    $('#jumlah_keluar').val('');
-                    
+                    $('#jumlah_keluar').val(0,00);
                     
                 }
             }
