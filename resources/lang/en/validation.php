@@ -149,6 +149,12 @@ return [
         'time_event' => [
             'required' => 'Tentukan Waktu event diadakan'
         ],
+        'jumlah' => [
+            'required' => 'Masukkan jumlah uang yang masuk'
+        ],
+        'jumlah_keluar' => [
+            'required' => 'Masukkan jumlah uang yang keluar'
+        ],
         
     ],
 

@@ -44,16 +44,17 @@
             <div class="col-md-8">
                 <div class="form-group text-dark">
                     <label class="float-left">Jumlah (Rp)</label>
-                    <div class="input-group input-group-alternative mb-4">
-                    
+                    <div class="input-group input-group-alternative mb-4"> 
                         <input type="text" name="jumlah" id="jumlah" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="1,000" min="1,00" class="form-control form-control-alternative">
-
+                       
                       <div class="input-group-append">
                         <button type="submit" class="btn btn-default">Simpan</button>
-                      </div>
+                      </div>        
                     </div>
+                    <span class="text-danger error-text jumlah_error" style="font-size: 10pt"></span>
+                    
                 </div> 
-                <span class="text-danger error-text jumlah_error"></span>
+                
             </div>
         </div>
         

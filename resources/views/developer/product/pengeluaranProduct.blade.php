@@ -51,7 +51,8 @@
                       </div>
                     </div>
                 </div> 
-                <span class="text-danger error-text jumlah_keluar_error"></span>
+              
+                <span class="text-danger error-text jumlah_keluar_error" style="font-size: 10pt"></span>
             </div>
         </div>
         <div class="table-responsive px-2">
