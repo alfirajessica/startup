@@ -64,7 +64,7 @@ Route::get('/eventPassed', [HomeController::class, 'event_haspassed'])->name('ev
 //upd global di investor dan dev -- update status transaction di header invests
 Route::get('/updStatus', [HomeController::class, 'updStatusTrans'])->name('updStatus');
 
-//upd global in inv and dev when event has passed
+//upd global in inv and dev when investasi has passed
 Route::get('/investPassed', [HomeController::class, 'invest_haspassed'])->name('investPassed');
 
 //get detail transaksi invest
@@ -163,6 +163,12 @@ Route::prefix('admin')->group(function () {
     //report
     Route::get('/report', [AdminController::class, 'report'])->name('admin.report');
     Route::get('/report/laporan/{dateawal}/{dateakhir}/{jenislap}', [ReportController::class, 'laporan'])->name('report.laporan');
+
+   
+    Route::get('/eventPassed', [AdminController::class, 'event_haspassed'])->name('admin.eventPassed');
+    Route::get('/updStatus', [AdminController::class, 'updStatusTrans'])->name('admin.updStatus');
+    Route::get('/investPassed', [AdminController::class, 'invest_haspassed'])->name('admin.investPassed');
+
 });
 
 

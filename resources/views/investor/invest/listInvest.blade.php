@@ -161,3 +161,4 @@
       data-client-key="SB-Mid-client-cOQK7kRXSSPSVE3Y"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="/js/inv/invest.js"></script>
+<script src="../js/custom.js"></script>

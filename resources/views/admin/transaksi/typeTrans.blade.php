@@ -74,6 +74,6 @@
 <script>
     $("#type_trans").addClass('active');
 </script>
-
+<script src="/js/admin/custom.js"></script>
 @endsection
 

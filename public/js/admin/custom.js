@@ -11,7 +11,7 @@ $(function () {
 function event_hasPassed() {  
     $.ajax({
         type: "get",
-        url: '/eventPassed',
+        url: '/admin/eventPassed',
         success: function (data) {
             console.log('ok');
            
@@ -28,7 +28,7 @@ function event_hasPassed() {
    // console.log('ini result : ' + $id);
     $.ajax({
         type: "get",
-        url: '/updStatus',
+        url: '/admin/updStatus',
         success: function (data) {
            // listInvestAktif();
            console.log('upd');
@@ -42,8 +42,7 @@ function event_hasPassed() {
 function investPassed() { 
     $.ajax({
         type: "get",
-        url: '/investPassed',
-        // contentType: "application/json",
+        url: '/admin/investPassed',
         success: function (data) {
             console.log(data);
         },

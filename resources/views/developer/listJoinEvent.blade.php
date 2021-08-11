@@ -127,6 +127,5 @@
     const url_table_listcancleEvent = "{{ route('dev.listCancleEvent') }}";
     const url_table_listHistoryEvent = "{{ route('dev.listHistoryEvent') }}";
 </script>
-<script src="/js/dev/listJoinEvent.js">
-    
-</script>
+<script src="/js/dev/listJoinEvent.js"></script>
+<script src="../js/custom.js"></script>

@@ -53,5 +53,6 @@
 
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="/js/inv/event.js"></script>
+<script src="../js/custom.js"></script>
 @endsection
 

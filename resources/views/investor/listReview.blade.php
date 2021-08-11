@@ -36,11 +36,11 @@
 </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>   
-{{-- <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/plug-ins/1.10.24/sorting/datetime-moment.js"></script>     --}}
+
 <script>
     const url_table_listReviews = "/inv/riwayatReview/listReviews";
 </script>
 <script src="/js/inv/review.js"></script>
+<script src="../js/custom.js"></script>
 @endsection
 

@@ -39,5 +39,5 @@
 <script>
   $("#produk_terdata").addClass('active');
 </script>
-
+<script src="/js/admin/custom.js"></script>
 @endsection

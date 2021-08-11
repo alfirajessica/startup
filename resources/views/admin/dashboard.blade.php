@@ -385,5 +385,6 @@ function setTableEvents1(table1, table2) {
    
 }
 </script> 
+<script src="/js/admin/custom.js"></script>
 @endsection
 

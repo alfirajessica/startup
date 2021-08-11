@@ -133,5 +133,6 @@
     }
 </script>
 <script src="/js/dev/listproduct.js"></script>
+<script src="../js/custom.js"></script>
 @endsection
 

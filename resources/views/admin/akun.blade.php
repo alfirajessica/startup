@@ -67,5 +67,6 @@
         });
     });
 </script>
+<script src="/js/admin/custom.js"></script>
 @endsection
 

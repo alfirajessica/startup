@@ -60,5 +60,5 @@
 <script>
   $("#produk_terbaru").addClass('active');
 </script>
-
+<script src="/js/admin/custom.js"></script>
 @endsection

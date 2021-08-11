@@ -62,6 +62,6 @@
 <script>
     $("#produk_kategori").addClass('active');
 </script>
-  
+<script src="/js/admin/custom.js"></script>
 @endsection
 

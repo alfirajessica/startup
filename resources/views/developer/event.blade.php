@@ -82,6 +82,7 @@
 
 </script>
 <script src="/js/dev/event.js"></script>
+<script src="../js/custom.js"></script>
 @endsection
 
 

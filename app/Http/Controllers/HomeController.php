@@ -89,7 +89,6 @@ class HomeController extends Controller
     //check event if has passed
     public function event_haspassed()
     {
-       
         //get date now
         $date = Carbon::now();
 
@@ -117,7 +116,16 @@ class HomeController extends Controller
 
     public function updStatusTrans()
     {
-        
+        //status_invest -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif oleh inv), 4(tdk aktif krna gagal byr/cancle/expire), 5 (investasi sudah expire)
+
+        //ngecek transaksi baru karena itu yang diambil yang statusnya bukan sama dengan 4
+
+        //cek semua yang status investnya bukan 4 (tidak aktif)
+        //jika status_transaction cancel or expire, 
+            //ubah status transaction, status invest jadi 4 (tidak aktif)
+        //jika status transaction pending or settlement
+            //ubah status transaction, status invest jadi 0
+
         $data = HeaderInvest::where('status_invest','!=','4')->get()->toArray();
         for ($i=0; $i < count($data); $i++) { 
 
@@ -132,34 +140,66 @@ class HomeController extends Controller
                     'status_invest' => '4'
                 ]);
 
-                DB::table('header_products')
-                ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
-                ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
-                ->update([
-                    'header_products.status' => '1',
-                ]);
+                 DB::table('header_products')
+                 ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+                 ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
+                 ->update([
+                     'header_products.status' => '1',
+                 ]);
             }
+            //harusnya cek status dulu status investnya dan status transaction
             else{
+                //jika pending dan settlement, masih menunggu admin konfirmasi
                 DB::table('header_invests')->
                 where('invest_id','=',$data[$i]['invest_id'])->
                 update([
                     'status_transaction' => $status['transaction_status'],
                 ]);
 
-                DB::table('header_products')
-                ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
-                ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
-                ->where('header_invests.status_transaction','=','pending')
-                ->orwhere('header_invests.status_transaction','=','settlement')
-                ->update([
-                    'header_products.status' => '2',
-                ]);
+                // DB::table('header_products')
+                // ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+                // ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
+                // ->where('header_invests.status_transaction','=','pending')
+                // ->orwhere('header_invests.status_transaction','=','settlement')
+                // ->update([
+                //     'header_products.status' => '2',
+                // ]);
             }
    
         }
     }
 
-    
+    //ubah status_invest di tabel header invest menjadi 5 --> investasi telah berakhir/finished/sesuai waktu kontrak
+    public function invest_haspassed(Request $req)
+    {
+        $date = Carbon::now();
+        
+        //cek yang status investnya 1 (aktif)
+        //ubah status invest jadi 5 kalau expire
+       
+        $data = HeaderInvest::where('status_invest','=','1')->get()->toArray();
+        
+        for ($i=0; $i < count($data); $i++) { 
+            DB::table('header_invests')
+            ->where('id','=',$data[$i]['id'])
+            ->where('invest_expire','<',$date->toDateString())
+            ->update([
+                'status_invest' =>'5',
+            ]);
+        }
+
+        //cek yang status investnya 5 (expire)
+        //ubah status product jadi 1 (Aktif)
+        $data2 = HeaderInvest::where('status_invest','=','5')->get()->toArray();
+        for ($i=0; $i < count($data2); $i++) { 
+            DB::table('header_products')
+            ->where('id','=',$data2[$i]['project_id'])
+            ->update([
+                'status' =>'1',
+            ]);
+        }
+    }
+
 
     public function detailInvest($id)
     {
@@ -229,28 +269,7 @@ class HomeController extends Controller
         
     }
 
-    //ubah status_invest di tabel header invest menjadi 5 --> investasi telah berakhir/finished/sesuai waktu kontrak
-    public function invest_haspassed(Request $req)
-    {
-        $date = Carbon::now();
-        //dd($date->toDateString());
-
-        $data = HeaderInvest::where('status_invest','=','1')->get()->toArray();
-        
-        $upd_headerInv = DB::table('header_invests')
-                        ->where(function ($query) use($data)
-                        {
-                            for ($i=0; $i <count($data) ; $i++) { 
-                                $query->orwhere('id','=', $data[$i]['id']);
-                            }
-                        })
-                        ->where('invest_expire','<',$date->toDateString())
-                        ->update([
-                            'status_invest' =>'5',
-                        ]);
-        
-    }
-
+    
     
     //akun
     public function akun()

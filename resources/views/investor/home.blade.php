@@ -197,6 +197,6 @@ function formatCurrency(input, blur) {
   caret_pos = updated_len - original_len + caret_pos;
   input[0].setSelectionRange(caret_pos, caret_pos);
 }
- const url_eventPassed = @json(route('eventPassed'));
+//  const url_eventPassed = @json(route('eventPassed'));
 </script>
-<script src="js/custom.js"></script>
+<script src="/js/custom.js"></script>
