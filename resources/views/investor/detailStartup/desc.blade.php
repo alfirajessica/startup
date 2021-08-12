@@ -178,21 +178,22 @@
                         Investor Sebelumnya
                         </div>
                         <div class="card-body text-dark">
-                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                              Daftar Investor Sebelumnya pada Startup ini diurutkan berdasarkan waktu investasi
+                            <div class="alert alert-warning" role="alert">
+                                <strong>Info Penting!</strong>
+                                Daftar Investor Sebelumnya pada Startup ini diurutkan berdasarkan waktu investasi
                             </div>
-                            
-                            {{-- <script>
-                              $(".alert").alert();
-                            </script> --}}
-                            <ul class="list-unstyled">
+                           
                             @foreach ($list_investor as $item)
-                                <li>{{$item->name}}</li>
+                            <table class="table table-borderless table-sm">
+                                <tbody>
+                                  <tr>
+                                    <td>{{ \Carbon\Carbon::parse($item->invest_expire)->format('d/M/Y')}}</td>
+                                    <td>{{$item->name}}</td>
+                                  </tr>
+                                </tbody>
+                            </table>
                             @endforeach
-                            </ul>
+                          
                         </div>  
                     </div>
                 </div>

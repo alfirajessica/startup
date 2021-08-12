@@ -16,6 +16,7 @@ class CreateDetailProductKasTable extends Migration
         Schema::create('detail_product_kas', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_headerproduct')->unsigned();
+            $table->date('tanggal');
             $table->string('tipe');
             $table->bigInteger('id_typetrans')->unsigned();
             $table->bigInteger('jumlah');

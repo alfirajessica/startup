@@ -8,7 +8,7 @@ $(function () {
 // product/desc.blade.php  --> saat user menekan tombol Investasikan pada modal
 function payButton() {
     console.log('ok');
-   
+    
     var id=$('#id_product').text();
     var nama_project = $('#name_project').text();
 
@@ -24,50 +24,65 @@ function payButton() {
        $('#notif_invest_number').html('minimal 500 Ribu Rupiah (500.000)!');
     }
     else {
-         $.ajax({
-         type: "GET",
-         url: url_pay + id + '/' + invest,
-         contentType: "application/json",
-         data:{
-             "nama_project":nama_project,
-             "invest_exp_date":invest_exp_date
-             },
-         success:function(data) {
-             console.log('ini data : ' + data);
+        swal({
+            text: "Apakah Anda Yakin untuk Investasi Startup ini Sekarang?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((WillConfirm) => {
+            if (WillConfirm) {
+                
+                $.ajax({
+                    type: "GET",
+                    url: url_pay + id + '/' + invest,
+                    contentType: "application/json",
+                    data:{
+                        "nama_project":nama_project,
+                        "invest_exp_date":invest_exp_date
+                        },
+                    success:function(data) {
+                        console.log('ini data : ' + data);
+           
+                        if (data == 0) {
+                          
+                            swal("Gagal!", "Anda belum melunaskan investasi pada project yang sama!", "fail");
+                          
+                        }else{
+                            $('#invest_number').val(0);
+                            $('#exampleModal').modal('hide');
+                            
+                            window.snap.pay(data, {
+                               onSuccess: function(result){
+                                 /* You may add your own implementation here */
+                                 alert("payment success!"); console.log(result);
+                               },
+                               onPending: function(result){
+                                 updStatusTrans();
+                                 window.location.href = "/inv/invest";
+                               },
+                               onError: function(result){
+                                 /* You may add your own implementation here */
+                                 alert("payment failed!"); console.log(result);
+                               },
+                               onClose: function(){
+                                 window.location.href = "/inv/invest";
+                               }
+                             })
+                        }
+                       
+                       },
+                       error: function (data) {
+                           console.log('Error:', data);
+                       }
+           
+                   });
+            } else {
+                
+            }
+        });
 
-             if (data == 0) {
-               
-                 swal("Gagal!", "Anda belum melunaskan investasi pada project yang sama!", "fail");
-               
-             }else{
-                 $('#invest_number').val(0);
-                 $('#exampleModal').modal('hide');
-                 
-                 window.snap.pay(data, {
-                    onSuccess: function(result){
-                      /* You may add your own implementation here */
-                      alert("payment success!"); console.log(result);
-                    },
-                    onPending: function(result){
-                      updStatusTrans();
-                      window.location.href = "/inv/invest";
-                    },
-                    onError: function(result){
-                      /* You may add your own implementation here */
-                      alert("payment failed!"); console.log(result);
-                    },
-                    onClose: function(){
-                      window.location.href = "/inv/invest";
-                    }
-                  })
-             }
-            
-         },
-         error: function (data) {
-             console.log('Error:', data);
-         }
-
-    });
+        
     }
 
 } 

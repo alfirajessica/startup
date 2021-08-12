@@ -18,12 +18,21 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <p style="color: black">SSaat Ini Sedang Memasukkan Pengeluaran Pada Startup/Produk : 
+            <p style="color: black">Saat Ini Sedang Memasukkan Pengeluaran Pada Startup/Produk : 
                 <label id="nama_project_dipilih_keluar" style="color:blue" class="font-weight-bold"></label>
             </p>
         </div>
     </div>
     <div class="card border-0 d-none text-dark" id="card_keluar">
+        <div class="row px-2 py-2 text-dark">
+            <div class="col-md-6">
+             <div class="form-group text-dark">
+                 <label for="">Pilih Tanggal</label>
+                 <input type="date" name="date_output" id="date_output" class="form-control text-dark" placeholder="" aria-describedby="help_date_output">
+                 <small id="help_date_output" class="text-muted"></small>
+             </div>
+            </div>
+         </div>
         <div class="row px-2 py-2">
             <div class="col-md-4">
                 <div class="form-group text-dark">

@@ -97,7 +97,7 @@ class ProductController extends Controller
     {
         $list_kas = DB::table('detail_product_kas')
                     ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
-                    ->select('detail_product_kas.id','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
+                    ->select('detail_product_kas.id','detail_product_kas.tanggal','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
                     ->where('detail_product_kas.id_headerproduct','=',$id)
                     ->where('detail_product_kas.tipe','=','1')
                     ->get();
@@ -122,7 +122,7 @@ class ProductController extends Controller
     {
         $list_kas = DB::table('detail_product_kas')
                     ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
-                    ->select('detail_product_kas.id','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
+                    ->select('detail_product_kas.id','detail_product_kas.tanggal','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
                     ->where('detail_product_kas.id_headerproduct','=',$id)
                     ->where('detail_product_kas.tipe','=','2')
                     ->get();
@@ -461,6 +461,7 @@ class ProductController extends Controller
       
         //dd((int)Str::replaceArray(',', ['', ''], $req->jumlah));
         $validator = Validator::make($req->all(),[
+            'date_input'=>'required',
             'jumlah'=>'required|min:0',
             'tipe_pemasukkan'=>'required',
         ]);
@@ -479,17 +480,18 @@ class ProductController extends Controller
             $isExist = 
             DetailProductKas::where('id_headerproduct','=',$req->pilih_project_masuk)
             ->where('id_typetrans', '=', $req->tipe_pemasukkan)
-            ->where('created_at', '>=', $minToday)->where('created_at', '<=', $maxToday)
-            ->orderByDesc('created_at')
+            ->where('tanggal', '>=', $minToday)->where('tanggal', '<=', $maxToday)
+            ->orderByDesc('tanggal')
             ->first();
 
             if (DetailProductKas::where('id_headerproduct','=',$req->pilih_project_masuk)
             ->where('id_typetrans', '=', $req->tipe_pemasukkan)
-            ->where('created_at', '>=', $minToday)->where('created_at', '<=', $maxToday)->doesntExist())
+            ->where('tanggal', '>=', $minToday)->where('tanggal', '<=', $maxToday)->doesntExist())
             {
                 //save to db detail_product_kas
                 $newPemasukkan = new DetailProductKas;
                 $newPemasukkan->id_headerproduct = $req->pilih_project_masuk;
+                $newPemasukkan->tanggal = $req->date_input;
                 $newPemasukkan->tipe = "1";
                 $newPemasukkan->id_typetrans = $req->tipe_pemasukkan;
                 $newPemasukkan->jumlah = (int)Str::replaceArray(',', ['', ''], $req->jumlah);
@@ -504,7 +506,7 @@ class ProductController extends Controller
             }
             if (DetailProductKas::where('id_headerproduct','=',$req->pilih_project_masuk)
             ->where('id_typetrans', '=', $req->tipe_pemasukkan)
-            ->where('created_at', '>=', $minToday)->where('created_at', '<=', $maxToday)->exists())
+            ->where('tanggal', '>=', $minToday)->where('tanggal', '<=', $maxToday)->exists())
             {
                 return -1;
             }
@@ -528,6 +530,7 @@ class ProductController extends Controller
     public function addNewPengeluaran(Request $req)
     {
         $validator = Validator::make($req->all(),[
+            'date_output'=>'required',
             'jumlah_keluar'=>'required|min:0',
             'tipe_pengeluaran'=>'required',
         ]);
@@ -535,11 +538,11 @@ class ProductController extends Controller
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
             
-            $isExist = DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_keluar)->where('id_typetrans', '=', $req->tipe_pengeluaran)->whereDate('created_at', Carbon::today())->first();
+            $isExist = DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_keluar)->where('id_typetrans', '=', $req->tipe_pengeluaran)->whereDate('tanggal', Carbon::today())->first();
 
             //dd(Carbon::today());
             //dd($date->toDateString());
-            if (DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_keluar)->where('id_typetrans', '=', $req->tipe_pengeluaran)->whereDate('created_at', Carbon::today())->exists()) {
+            if (DetailProductKas::where('id_headerproduct', '=',$req->pilih_project_keluar)->where('id_typetrans', '=', $req->tipe_pengeluaran)->whereDate('tanggal', Carbon::today())->exists()) {
                 return response()->json(['status'=>-1, 'msg'=>'sudah ada, silakan ubah']);
             }
 
@@ -548,6 +551,7 @@ class ProductController extends Controller
                 //save to db detail_product_kas
                 $newPengeluaran = new DetailProductKas;
                 $newPengeluaran->id_headerproduct = $req->pilih_project_keluar;
+                $newPengeluaran->tanggal = $req->date_output;
                 $newPengeluaran->tipe = "2";
                 $newPengeluaran->id_typetrans = $req->tipe_pengeluaran;
                 $newPengeluaran->jumlah = (int)Str::replaceArray(',', ['', ''], $req->jumlah_keluar);
@@ -654,22 +658,22 @@ class ProductController extends Controller
 
         $list_finance['list_finance'] = 
         DB::table('detail_product_kas')
-        ->select(\DB::raw('SUM(jumlah) as total_masuk,DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
+        ->select(\DB::raw('SUM(jumlah) as total_masuk,DATE_FORMAT(tanggal,"%Y-%m") as monthDate'))
         ->where('id_headerproduct','=',$id)
         ->where('tipe','=','1')
         ->where('status','=','1')
-        ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
-        ->orderBy('created_at')
+        ->groupBy(\DB::raw('DATE_FORMAT(tanggal,"%Y-%m")'))
+        ->orderBy('tanggal')
         ->get();
 
         $list_finance_keluar['list_finance_keluar'] = 
         DB::table('detail_product_kas')
-        ->select(\DB::raw('SUM(jumlah) as total_keluar,DATE_FORMAT(created_at,"%Y-%m") as monthDate'))
+        ->select(\DB::raw('SUM(jumlah) as total_keluar,DATE_FORMAT(tanggal,"%Y-%m") as monthDate'))
         ->where('id_headerproduct','=',$id)
         ->where('tipe','=','2')
         ->where('status','=','1')
-        ->groupBy(\DB::raw('DATE_FORMAT(created_at,"%Y-%m")'))
-        ->orderBy('created_at')
+        ->groupBy(\DB::raw('DATE_FORMAT(tanggal,"%Y-%m")'))
+        ->orderBy('tanggal')
         ->get();
 
         
@@ -703,7 +707,9 @@ class ProductController extends Controller
         DB::table('header_invests')
         ->join('users','header_invests.user_id','=','users.id')
         ->where('header_invests.project_id','=',$id)
-        ->select('users.name')
+        ->where('header_invests.status_transaction','=','settlement')
+        ->where('header_invests.status_invest','=','5')
+        ->select('users.name','header_invest.invest_expire')
         ->orderBy('header_invests.created_at')
         ->paginate(4);
 

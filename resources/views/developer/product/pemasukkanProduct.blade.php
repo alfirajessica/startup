@@ -25,6 +25,15 @@
         </div>
     </div>
     <div class="card border-0 d-none text-dark" id="card_masuk">
+        <div class="row px-2 py-2 text-dark">
+           <div class="col-md-6">
+            <div class="form-group text-dark">
+                <label for="">Pilih Tanggal</label>
+                <input type="date" name="date_input" id="date_input" class="form-control text-dark" placeholder="" aria-describedby="help_date_input">
+                <small id="help_date_input" class="text-muted"></small>
+            </div>
+           </div>
+        </div>
         <div class="row px-2 py-2">
             <div class="col-md-4">
                 <div class="form-group text-dark">
