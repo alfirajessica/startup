@@ -126,7 +126,7 @@ class HomeController extends Controller
         //jika status transaction pending or settlement
             //ubah status transaction, status invest jadi 0
 
-        $data = HeaderInvest::where('status_invest','!=','4')->get()->toArray();
+        $data = HeaderInvest::whereBetween('status_invest',[0,3])->get()->toArray();
         for ($i=0; $i < count($data); $i++) { 
 
             $status = \Midtrans\Transaction::status($data[$i]['invest_id']);
@@ -156,14 +156,15 @@ class HomeController extends Controller
                     'status_transaction' => $status['transaction_status'],
                 ]);
 
-                // DB::table('header_products')
-                // ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
-                // ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
-                // ->where('header_invests.status_transaction','=','pending')
-                // ->orwhere('header_invests.status_transaction','=','settlement')
-                // ->update([
-                //     'header_products.status' => '2',
-                // ]);
+                DB::table('header_products')
+                ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+                ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
+                ->where('header_invests.status_transaction','=','pending')
+                ->orwhere('header_invests.status_transaction','=','settlement')
+                ->where('header_invests.status_invest','!=','5')
+                ->update([
+                    'header_products.status' => '2',
+                ]);
             }
    
         }
@@ -186,18 +187,30 @@ class HomeController extends Controller
             ->update([
                 'status_invest' =>'5',
             ]);
+
+            DB::table('header_products')
+            ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+            ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
+            ->where('header_invests.status_transaction','=','settlement')
+            ->where('header_invests.status_invest','=','5')
+            ->update([
+                'header_products.status' => '1',
+            ]);
         }
+
+        
 
         //cek yang status investnya 5 (expire)
         //ubah status product jadi 1 (Aktif)
-        $data2 = HeaderInvest::where('status_invest','=','5')->get()->toArray();
-        for ($i=0; $i < count($data2); $i++) { 
-            DB::table('header_products')
-            ->where('id','=',$data2[$i]['project_id'])
-            ->update([
-                'status' =>'1',
-            ]);
-        }
+        // $data2 = HeaderInvest::where('status_invest','=','5')->where('status_transaction','=','settlement')->get()->toArray();
+        // for ($i=0; $i < count($data2); $i++) { 
+        //     DB::table('header_products')
+        //     ->where('id','=',$data2[$i]['project_id'])
+        //     ->where('status','=','2')
+        //     ->update([
+        //         'status' =>'1',
+        //     ]);
+        // }
     }
 
 

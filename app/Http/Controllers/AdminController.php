@@ -618,17 +618,7 @@ class AdminController extends Controller
 
     public function updStatusTrans()
     {
-        //status_invest -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif oleh inv), 4(tdk aktif krna gagal byr/cancle/expire), 5 (investasi sudah expire)
-
-        //ngecek transaksi baru karena itu yang diambil yang statusnya bukan sama dengan 4
-
-        //cek semua yang status investnya bukan 4 (tidak aktif)
-        //jika status_transaction cancel or expire, 
-            //ubah status transaction, status invest jadi 4 (tidak aktif)
-        //jika status transaction pending or settlement
-            //ubah status transaction, status invest jadi 0
-
-        $data = HeaderInvest::where('status_invest','!=','4')->get()->toArray();
+        $data = HeaderInvest::whereBetween('header_invests',[0,3])->get()->toArray();
         for ($i=0; $i < count($data); $i++) { 
 
             $status = \Midtrans\Transaction::status($data[$i]['invest_id']);
@@ -658,17 +648,20 @@ class AdminController extends Controller
                     'status_transaction' => $status['transaction_status'],
                 ]);
 
-                // DB::table('header_products')
-                // ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
-                // ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
-                // ->where('header_invests.status_transaction','=','pending')
-                // ->orwhere('header_invests.status_transaction','=','settlement')
-                // ->update([
-                //     'header_products.status' => '2',
-                // ]);
+                DB::table('header_products')
+                ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+                ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
+                ->where('header_invests.status_transaction','=','pending')
+                ->orwhere('header_invests.status_transaction','=','settlement')
+                ->where('header_invests.status_invest','!=','5')
+                ->update([
+                    'header_products.status' => '2',
+                ]);
             }
    
         }
+   
+        
     }
 
     //ubah status_invest di tabel header invest menjadi 5 --> investasi telah berakhir/finished/sesuai waktu kontrak
@@ -688,18 +681,27 @@ class AdminController extends Controller
             ->update([
                 'status_invest' =>'5',
             ]);
+
+            DB::table('header_products')
+            ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+            ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
+            ->where('header_invests.status_transaction','=','settlement')
+            ->where('header_invests.status_invest','=','5')
+            ->update([
+                'header_products.status' => '1',
+            ]);
         }
 
         //cek yang status investnya 5 (expire)
         //ubah status product jadi 1 (Aktif)
-        $data2 = HeaderInvest::where('status_invest','=','5')->get()->toArray();
-        for ($i=0; $i < count($data2); $i++) { 
-            DB::table('header_products')
-            ->where('id','=',$data2[$i]['project_id'])
-            ->update([
-                'status' =>'1',
-            ]);
-        }
+        // $data2 = HeaderInvest::where('status_invest','=','5')->where('status_transaction','=','settlement')->get()->toArray();
+        // for ($i=0; $i < count($data2); $i++) { 
+        //     DB::table('header_products')
+        //     ->where('id','=',$data2[$i]['project_id'])
+        //     ->update([
+        //         'status' =>'1',
+        //     ]);
+        // }
     }
 
 }

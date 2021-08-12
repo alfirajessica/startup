@@ -172,6 +172,30 @@
                 <div class="col-md-8">
                     @include('investor.detailStartup.financial')
                 </div>
+                <div class="col-md-4">
+                    <div class="card shadow mt-1">
+                        <div class="card-header font-weight-bold" style="padding: 0.5rem;">
+                        Investor Sebelumnya
+                        </div>
+                        <div class="card-body text-dark">
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              Daftar Investor Sebelumnya pada Startup ini diurutkan berdasarkan waktu investasi
+                            </div>
+                            
+                            {{-- <script>
+                              $(".alert").alert();
+                            </script> --}}
+                            <ul class="list-unstyled">
+                            @foreach ($list_investor as $item)
+                                <li>{{$item->name}}</li>
+                            @endforeach
+                            </ul>
+                        </div>  
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-12">
@@ -214,8 +238,23 @@
                 <span aria-hidden="true">&times;</span>
               </button>
           <form>
+              <div class="alert alert-warning" role="alert">
+                <strong>Info Penting!</strong> 
+                <ul style="padding: 1rem">
+                    <li>Minimal Investasi Rp500.000</li>
+                    <li>Akan dikenakan fee investasi sebesar 1% dari jumlah investasi anda</li>
+                    <li>Terdapat 2 durasi estimasi investasi</li>
+                    <li>Estimasi profit yang diperoleh apabila anda memilih 3 bulan yaitu 1%</li>
+                    <li>Estimasi profit yang diperoleh apabila anda memilih 6 bulan yaitu 2%</li>
+                </ul>
+              </div>
+              
+              
+              {{-- <script>
+                $(".alert").alert();
+              </script> --}}
             <div class="form-group text-dark">
-              <label for="invest-invest_number" class="col-form-label">Jumlah Yang Akan di Investasikan (Rp) :</label>
+              <label for="invest-invest_number" class="col-form-label">Jumlah Yang Akan di Investasikan (Rp) :</label> <br>
               <input type="number" inputMode='decimal' name="invest_number" id="invest_number" placeholder="min:500.000" onFocus="this.type='number'; this.value=this.lastValue" 
               onBlur="this.type=''; this.lastValue=this.value; this.value=this.value==''?'':(+this.value).toLocaleString()" class="form-control form-control-alternative"/>
               <small id="notif_invest_number"></small>

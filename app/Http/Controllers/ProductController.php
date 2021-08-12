@@ -699,7 +699,15 @@ class ProductController extends Controller
         ->select('response_reviews.response','response_reviews.id_reviews')
         ->get();
 
-        return view('investor.detailStartup.desc')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews)->with($reviews)->with($list_response_reviews);
+        $list_investor['list_investor']=
+        DB::table('header_invests')
+        ->join('users','header_invests.user_id','=','users.id')
+        ->where('header_invests.project_id','=',$id)
+        ->select('users.name')
+        ->orderBy('header_invests.created_at')
+        ->paginate(4);
+
+        return view('investor.detailStartup.desc')->with($list_project)->with($detail_user)->with($list_finance)->with($list_finance_keluar)->with($list_reviews)->with($reviews)->with($list_response_reviews)->with($list_investor);
     }
 
     //search di startup investor
