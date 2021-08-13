@@ -767,9 +767,9 @@ function table_lapFinance(id) {
             },
             {
                 data: null,
-                name: 'created_at',
+                name: 'tanggal',
                 render: data => {
-                    return moment(data.created_at).format('DD/MMM/YYYY')
+                    return moment(data.tanggal).format('DD/MMM/YYYY')
                 }
             },
             {
@@ -856,9 +856,9 @@ function table_lapFinance(id) {
             },
             {
                 data: null,
-                name: 'created_at',
+                name: 'tanggal',
                 render: data => {
-                    return moment(data.created_at).format('DD/MMM/YYYY')
+                    return moment(data.tanggal).format('DD/MMM/YYYY')
                 }
             },
             {

@@ -68,7 +68,7 @@
                             @endif
 
                         </td>
-                        <td>{{ Carbon\Carbon::parse($item->created_at)->format('d-m-Y') }}</td>
+                        <td>{{ Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
                         <td>{{$item->keterangan}}</td>
                         <td style="text-align: right">
                             @if ($item->tipe == "1")

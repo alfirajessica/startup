@@ -37,10 +37,10 @@ class ReportController extends Controller
 
         $list_kas = DB::table('detail_product_kas')
                 ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
-                ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
+                ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','detail_product_kas.tanggal','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
                 ->where('detail_product_kas.id_headerproduct','=',$projectID)
-                ->whereBetween('detail_product_kas.created_at', [$date_created, $date_inv_exp])
-                ->orderBy('detail_product_kas.created_at','asc')
+                ->whereBetween('detail_product_kas.tanggal', [$date_created, $date_inv_exp])
+                ->orderBy('detail_product_kas.tanggal','asc')
                 ->get();
 
 
@@ -48,20 +48,20 @@ class ReportController extends Controller
                 DB::table('detail_product_kas')
                 ->select(\DB::raw('SUM(detail_product_kas.jumlah) as total_masuk'))
                 ->where('detail_product_kas.id_headerproduct','=',$projectID)
-                ->whereBetween('detail_product_kas.created_at', [$date_created, $date_inv_exp])
+                ->whereBetween('detail_product_kas.tanggal', [$date_created, $date_inv_exp])
                 ->where('detail_product_kas.tipe','=','1')
                 ->groupBy(\DB::raw('detail_product_kas.tipe'))
-                ->orderBy('detail_product_kas.created_at','asc')
+                ->orderBy('detail_product_kas.tanggal','asc')
                 ->get();
 
         $table_pengeluaran_inv = 
                 DB::table('detail_product_kas')
                 ->select(\DB::raw('SUM(detail_product_kas.jumlah) as total_keluar'))
                 ->where('detail_product_kas.id_headerproduct','=',$projectID)
-                ->whereBetween('detail_product_kas.created_at', [$date_created, $date_inv_exp])
+                ->whereBetween('detail_product_kas.tanggal', [$date_created, $date_inv_exp])
                 ->where('detail_product_kas.tipe','=','2')
                 ->groupBy(\DB::raw('detail_product_kas.tipe'))
-                ->orderBy('detail_product_kas.created_at','asc')
+                ->orderBy('detail_product_kas.tanggal','asc')
                 ->get();
         
         $detail = DB::table('header_products')

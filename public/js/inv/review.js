@@ -25,7 +25,7 @@ $("#beriReview").on("submit",function (e) {
             if (data == 1) {
                 refresh_dataUlasan();
                 reset_form();
-                swal("Poof! Anda berhasil memberi ulasan!", {
+                swal("Anda berhasil memberi ulasan!", {
                     icon: "success",
                 });
             }

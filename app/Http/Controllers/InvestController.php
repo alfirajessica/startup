@@ -246,21 +246,22 @@ class InvestController extends Controller
             if ($req->getTabel == "#table_pemasukkan_inv") {
                 $list_kas0 = DB::table('detail_product_kas')
                     ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
-                    ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
+                    ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.tanggal', 'detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
                     ->where('detail_product_kas.id_headerproduct','=',$projectID)
-                    ->where('detail_product_kas.created_at','<=', $date_inv_exp)
+                    ->whereBetween('detail_product_kas.tanggal', [$date_inv_awal,$date_inv_exp])
                     ->where('detail_product_kas.tipe','=','1')
-                    ->orderBy('detail_product_kas.created_at','asc')
+                    ->orderBy('detail_product_kas.tanggal','asc')
                     ->get();
             }
             
             if ($req->getTabel == "#table_pengeluaran_inv") {
                 $list_kas0 = DB::table('detail_product_kas')
                     ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
-                    ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
+                    ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.tanggal', 'detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
                     ->where('detail_product_kas.id_headerproduct','=',$projectID)
                     ->where('detail_product_kas.tipe','=','2')
-                    ->where('detail_product_kas.created_at','<=', $date_inv_exp)
+                    ->whereBetween('detail_product_kas.tanggal', [$date_inv_awal,$date_inv_exp])
+                    ->orderBy('detail_product_kas.tanggal','asc')
                     ->get();
             }
 

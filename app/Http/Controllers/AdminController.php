@@ -550,7 +550,7 @@ class AdminController extends Controller
             if ($req->getTabel == "#table_pemasukkan") {
                 $list_kas0 = DB::table('detail_product_kas')
                         ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
-                        ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
+                        ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','detail_product_kas.tanggal','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
                         ->where('detail_product_kas.id_headerproduct','=',$id)
                         ->where('detail_product_kas.tipe','=','1')
                         ->get();
@@ -568,7 +568,7 @@ class AdminController extends Controller
             if ($req->getTabel == "#table_pengeluaran") {
                 $list_kas = DB::table('detail_product_kas')
                         ->leftJoin('type_trans', 'detail_product_kas.id_typetrans', '=', 'type_trans.id')
-                        ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
+                        ->select('detail_product_kas.id','detail_product_kas.tipe','detail_product_kas.created_at','detail_product_kas.tanggal','type_trans.keterangan','detail_product_kas.jumlah','detail_product_kas.status')
                         ->where('detail_product_kas.id_headerproduct','=',$id)
                         ->where('detail_product_kas.tipe','!=','1')
                         ->get();

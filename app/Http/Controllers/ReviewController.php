@@ -46,7 +46,7 @@ class ReviewController extends Controller
     public function refreshUlasan(Request $req, $id)
     {
         if($req->ajax()) {
-            $list_reviews ['list_reviews']  = 
+            $list_reviews['list_reviews']  = 
             DB::table('reviews')
             ->join('users', 'users.id','=','reviews.user_id')
             ->select('reviews.id', 'users.name', 'reviews.created_at','reviews.rating','reviews.isi_review')
