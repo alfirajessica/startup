@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'name_company',
         'email',
         'password',
         'role',
@@ -26,6 +27,7 @@ class User extends Authenticatable
         'province_name',
         'id_city',
         'city_name',
+        'no_telp',
     ];
 
     /**
@@ -58,6 +60,4 @@ class User extends Authenticatable
     public function headerevents(){
         return $this->hasMany(HeaderEvent::class);
     }
-
-
 }

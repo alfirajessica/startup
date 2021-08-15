@@ -27,7 +27,7 @@ use App\Http\Controllers\Auth\AdminForgotPasswordController;
 use App\Http\Controllers\Auth\AdminResetPasswordController;
 
 use App\Event\MyEvent;
-
+use App\Events\InvestorInvest;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,7 +49,14 @@ Auth::routes();
 
 Route::get('reg/cities/{province_id}', [RegisterController::class, 'getCities']); //get all cities in buat event
 
+
+Route::get('/getMessage', function () {
+    InvestorInvest::dispatch();
+   
+});
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 Route::post('/users/logout', [LoginController::class, 'userLogout'])->name('users.logout');
 
 //akun
@@ -198,6 +205,11 @@ Route::get('/inv/listEvent/listParticipant/{id}', [EventController::class, 'list
 Route::get('/inv/startup', [ProductController::class, 'startup'])->name('inv.startup');
 Route::get('/inv/startup/detailstartup/{id}', [ProductController::class, 'detailstartup'])->name('inv.startup.detailstartup');
 
+Route::get('/inv/startup/detailstartup/downloadfile1/{pathfile}', [ReportController::class, 'downloadfile1'])->name('inv.startup.detailstartup.downloadfile1'); 
+Route::get('/inv/startup/detailstartup/downloadfile2/{pathfile}', [ReportController::class, 'downloadfile2'])->name('inv.startup.detailstartup.downloadfile2'); 
+
+
+
 //Route::get('/inv/startup/{id}', [InvController::class, 'detail_category_filter'])->name('inv.startup.detail_category_filter');
 //Route::get('/inv/startup/desc/financial/{id}', [InvController::class, 'listFinance'])->name('inv.detailstartup.financial');
 
@@ -215,6 +227,7 @@ Route::get('/inv/invest/listInvestPending', [InvestController::class, 'listInves
 Route::get('/inv/invest/listInvestSettlement', [InvestController::class, 'listInvestSettlement'])->name('inv.invest.listInvestSettlement');
 Route::get('/inv/invest/listInvestCancel', [InvestController::class, 'listInvestCancel'])->name('inv.invest.listInvestCancel');
 Route::get('/inv/invest/listInvestFinished', [InvestController::class, 'listInvestFinished'])->name('inv.invest.listInvestFinished');
+Route::post('/inv/invest/review', [InvestController::class, 'beriReview'])->name('inv.invest.beriReview'); //buat event
 
 //detailLaporan Keuangan Startup
 Route::get('/detailFinance/{id}', [InvestController::class, 'detailFinance'])->name('detailFinance');
@@ -224,6 +237,8 @@ Route::get('/totalpengeluaran/{id}', [InvestController::class, 'totalpengeluaran
 //reviews - ulasan
 Route::post('/inv/review', [ReviewController::class, 'beriReview'])->name('inv.beriReview'); //buat event
 Route::get('/inv/review/refreshUlasan/{id}', [ReviewController::class, 'refreshUlasan'])->name('inv.review.refreshUlasan');
+
+
 
 //history review
 Route::get('/inv/riwayatReview', [ReviewController::class, 'riwayatReview'])->name('inv.riwayatReview');
@@ -279,6 +294,9 @@ Route::get('/dev/listProduct/detailsubstartupTag/{id}', [ProductController::clas
 Route::get('/dev/listProduct/detailProject/{id}', [ProductController::class, 'detailProject'])->name('dev.listProduct.detailProject'); 
 Route::get('/dev/listProduct/detailProjectKas/{id}', [ProductController::class, 'detailProjectKas'])->name('dev.listProduct.detailProjectKas'); 
 Route::get('/dev/listProduct/detailProjectReview/{id}', [ReviewController::class, 'detailProjectReview'])->name('dev.listProduct.detailProjectReview'); 
+
+Route::get('/dev/listProduct/detailProject/downloadfile1/{pathfile}', [ReportController::class, 'downloadfile1'])->name('dev.listProduct.detailProject.downloadfile1'); 
+Route::get('/dev/listProduct/detailProject/downloadfile2/{pathfile}', [ReportController::class, 'downloadfile2'])->name('dev.listProduct.detailProject.downloadfile2'); 
 
 Route::post('/dev/listProduct/updDetailProject', [ProductController::class, 'updDetailProject'])->name('dev.listProduct.updDetailProject'); 
 

@@ -23,6 +23,7 @@ class CreateHeaderInvestsTable extends Migration
             $table->string('status_transaction'); //status berdasarkan midtrans
             $table->string('status_invest');  
             $table->date('invest_expire');
+            $table->string('status_review');
             //masih aktif invest atau tidak -- 0(Menunggu konfirmasi admin), (1-aktif invst/dikonfirmasi), (2-tdk aktif)
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

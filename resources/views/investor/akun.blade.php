@@ -4,6 +4,9 @@
   max-height: 400px;
   overflow-y: auto;
 }
+.text-danger{
+  font-size: 8pt;
+}
 </style>
 @section('content')
   @foreach ($akun_user as $item)
@@ -25,21 +28,31 @@
                           <form action="{{ route('akun.updateAkun')}}" method="POST" enctype="multipart/form-data" id="updateAkun">
                               @csrf
                               <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                   <div class="form-group text-dark">
                                     <label class="float-left">Email</label>
                                     <input type="email" placeholder="Regular" class="form-control form-control-alternative" name="email_akunUser" id="email_akunUser" disabled value="{{$item->email}}"/>
                                 </div>
                                 </div>
+                               
+                              </div>
+                          
+                              <div class="row">
                                 <div class="col-md-6">
                                   <div class="form-group text-dark">
-                                    <label for="">Nama</label>
+                                    <label for="">Nama Perusahaan</label>
+                                    <input type="text" class="form-control form-control-alternative text-dark" name="nama_CompanyUser" id="nama_CompanyUser" placeholder="Nama Perusahaan" value="{{$item->name_company}}"> 
+                                    <span class="text-danger error-text nama_CompanyUser_error"></span>
+                                  </div>
+                                </div>
+                                <div class="col-md-6">
+                                  <div class="form-group text-dark">
+                                    <label for="">Nama Akun </label>
                                     <input type="text" class="form-control form-control-alternative text-dark" name="nama_akunUser" id="nama_akunUser" placeholder="Nama" value="{{$item->name}}"> 
                                     <span class="text-danger error-text nama_akunUser_error"></span>
                                   </div>
                                 </div>
                               </div>
-                          
                             
                           <div class="row">
                               <div class="col-md-6">
@@ -67,6 +80,15 @@
                                   </div>
                               </div>
                               <input type="hidden" id="hidden_city_name" name="hidden_city_name">
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group text-dark">
+                                <label for="">No Telepon/Hp</label>
+                                <input type="number" class="form-control form-control-alternative text-dark" name="no_telpUser" id="no_telpUser" placeholder="Isikan nommor telepon/hp" value="{{$item->no_telp}}"> 
+                                <span class="text-danger error-text no_telpUser_error"></span>
+                              </div>
+                            </div>
                           </div>
                           <button type="submit" class="btn btn-default float-right">Simpan Perubahan</button>
                       </form>
@@ -119,5 +141,6 @@
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>      
   <script src="/js/dev/akun.js"></script>
   <script src="../js/custom.js"></script>
+  <script type="text/javascript" src="../js/tawk.js"></script>
 @endsection
 

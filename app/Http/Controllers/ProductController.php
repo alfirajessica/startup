@@ -49,6 +49,9 @@ class ProductController extends Controller
             'reason'=>'required',
             'benefit'=>'required',
             //'solution'=>'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'proposal_startup' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048',
+            'kontrak_startup' => 'required|mimes:csv,txt,xlx,xls,pdf|max:2048'
         ]);
 
         if (!$validator->passes()) {
@@ -75,12 +78,37 @@ class ProductController extends Controller
                 return $req;
                 $highligts->image = '';
             }
+
+            //$fileModel = new File;
+
+            if($req->hasfile('proposal_startup')) {
+                $fileName1 = time().'_'.$req->file('proposal_startup')->getClientOriginalName();
+                $filePath = $req->file('proposal_startup')->move('uploads/files/proposal', $fileName1, 'public');
+                $newProduct->file_proposal = $fileName1;
+            }
+            else if ($req->file('proposal_startup') == null)
+            {
+                $newProduct->file_proposal = '';
+            }
+
+            if($req->hasfile('kontrak_startup')) {
+                $fileName2 = time().'_'.$req->file('kontrak_startup')->getClientOriginalName();
+                $filePath = $req->file('kontrak_startup')->move('uploads/files/contracts', $fileName2, 'public');
+                $newProduct->file_contract = $fileName2;
+            }
+            else if ($req->file('kontrak_startup') == null)
+            {
+                $newProduct->file_contract = '';
+            }
+
+            
             $newProduct->image = $filename;
             $newProduct->desc = ucfirst($req->desc);
             $newProduct->team = ucfirst($req->team);
             $newProduct->reason = ucfirst($req->reason);
             $newProduct->benefit = ucfirst($req->benefit);
             $newProduct->solution = ucfirst($req->solution);
+           
             //0- blm dikonfirmasi, 1-aktif/sdh dikonfirmasi, 2-project memiliki investor, 3-dinonaktifkan, 4-project tidk dikonfirmasi
 
             $newProduct->status = "0";  
@@ -343,7 +371,7 @@ class ProductController extends Controller
             if ($req->getTabel == "#table_listInv") {
                 $list_inv = DB::table('header_invests')
                         ->leftJoin('users', 'users.id', '=', 'header_invests.user_id')
-                        ->select('header_invests.id','users.name','header_invests.invest_id','header_invests.jumlah_final','header_invests.status_invest','header_invests.invest_expire')
+                        ->select('header_invests.id','users.name','header_invests.invest_id','header_invests.jumlah_final','header_invests.status_invest','header_invests.invest_expire','users.name_company')
                         ->where('header_invests.project_id','=',$id)
                         ->get();
            
@@ -412,14 +440,36 @@ class ProductController extends Controller
             'team'=>'required',
             'reason'=>'required',
             'benefit'=>'required',
-            'solution'=>'required',
+            //'solution'=>'required',
+            'proposal_startup2' => 'mimes:csv,txt,xlx,xls,pdf|max:2048',
+            'kontrak_startup2' => 'mimes:csv,txt,xlx,xls,pdf|max:2048'
         ]);
 
         if (!$validator->passes()) {
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
-            
+        
+            if ($req->file('proposal_startup2') != null) {
+                $fileName1 = time().'_'.$req->file('proposal_startup2')->getClientOriginalName();
+                $filePath = $req->file('proposal_startup2')->move('uploads/files/proposal', $fileName1, 'public');
+                DB::table('header_products')->
+                where('id',$req->id_product)->
+                update([
+                   
+                    'file_proposal'=>$fileName1,
+                ]);
+            }
 
+            if ($req->file('kontrak_startup2') != null) {
+                $fileName1 = time().'_'.$req->file('kontrak_startup2')->getClientOriginalName();
+                $filePath = $req->file('kontrak_startup2')->move('uploads/files/contracts', $fileName1, 'public');
+                DB::table('header_products')->
+                where('id',$req->id_product)->
+                update([
+                    'file_contract'=>$fileName1,
+                ]);
+            }
+            
             DB::table('header_products')->
             where('id',$req->id_product)->
             update([
@@ -433,6 +483,7 @@ class ProductController extends Controller
                 'reason'=>$req->reason,
                 'benefit'=>$req->benefit,
                 'solution'=>$req->solution,
+                
             ]);
 
             return response()->json(['status'=>1, 'msg'=>'Berhasil mengubah detail product']);
@@ -652,7 +703,7 @@ class ProductController extends Controller
         ->join('users','users.id','=','header_products.user_id')
         ->join('sub_startup_tags','sub_startup_tags.id','=','header_products.id_substartuptag')
         ->join('h_startup_tags','h_startup_tags.id','=','sub_startup_tags.startuptag_id')
-        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url', 'header_products.rilis','header_products.team','header_products.reason','header_products.benefit','header_products.solution','users.name as nama_user', 'users.email', 'users.province_name', 'users.city_name','sub_startup_tags.name_subtag','h_startup_tags.name_startup_tag')
+        ->select('header_products.id','header_products.name_product','category_products.name_category','detail_category_products.name','header_products.image','header_products.desc','header_products.url', 'header_products.rilis','header_products.team','header_products.reason','header_products.benefit','header_products.solution','users.name as nama_user', 'users.email', 'users.province_name', 'users.city_name','sub_startup_tags.name_subtag','h_startup_tags.name_startup_tag','header_products.file_proposal')
         ->where('header_products.id','=',$id)
         ->get();
 
@@ -706,10 +757,11 @@ class ProductController extends Controller
         $list_investor['list_investor']=
         DB::table('header_invests')
         ->join('users','header_invests.user_id','=','users.id')
+        ->join('rating_invests','rating_invests.id_headerinvest','=','header_invests.id')
         ->where('header_invests.project_id','=',$id)
         ->where('header_invests.status_transaction','=','settlement')
         ->where('header_invests.status_invest','=','5')
-        ->select('users.name','header_invest.invest_expire')
+        ->select('users.name','header_invests.invest_expire','rating_invests.rating')
         ->orderBy('header_invests.created_at')
         ->paginate(4);
 

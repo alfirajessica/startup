@@ -83,6 +83,7 @@
 </script>
 <script src="/js/dev/event.js"></script>
 <script src="../js/custom.js"></script>
+<script type="text/javascript" src="../js/tawk.js"></script>
 @endsection
 
 

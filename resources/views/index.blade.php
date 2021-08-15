@@ -338,5 +338,6 @@ function formatCurrency(input, blur) {
 
     @else 
     <script>window.location = "/home";</script>   
+    <script type="text/javascript" src="../js/tawk.js"></script>
 @endguest
 

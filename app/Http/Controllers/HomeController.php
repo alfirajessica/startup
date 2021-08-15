@@ -247,7 +247,7 @@ class HomeController extends Controller
                     ->leftJoin('detail_category_products', 'detail_category_products.id','=','header_products.id_detailcategory')
                     ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
                     ->leftJoin('users','users.id','=','header_products.user_id')
-                    ->select('header_products.id','header_products.name_product','detail_category_products.name','header_invests.jumlah_invest', 'users.name as nama_dev', 'users.email','header_invests.invest_id')
+                    ->select('header_products.id','header_products.name_product','detail_category_products.name','header_invests.jumlah_invest', 'users.name_company as nama_dev', 'users.email', 'users.no_telp','header_invests.invest_id','header_products.file_proposal','header_products.file_contract')
                     ->where('header_products.id', '=', $projectID)
                     ->where('header_invests.id','=',$id)
                     ->get();
@@ -266,8 +266,6 @@ class HomeController extends Controller
         
     }
 
-    
-    
     //jika investor meng-cancle investasi/Batal Invest pada saat transaksi investasi masih berstatus "Pending"
     //status product dikembalikan menjadi 0
     public function cancleInvest($id)
@@ -331,6 +329,8 @@ class HomeController extends Controller
             'nama_akunUser'=>'required',
             'edit_provinsi_user'=>'required',
             'edit_kota_user'=>'required',
+            'nama_CompanyUser'=>'required',
+            'no_telpUser' =>'required|digits_between:1,12'
         ]);
 
         //check the request is validated or not
@@ -342,10 +342,12 @@ class HomeController extends Controller
                 where('id',$user->id)->
                 update([
                     'name' =>$req->nama_akunUser,
+                    'name_company' => $req->nama_CompanyUser,
                     'id_province' => $req->edit_provinsi_user,
                     'id_city' => $req->edit_kota_user,
                     'province_name' => $req->hidden_province_name,
                     'city_name' => $req->hidden_city_name,
+                    'no_telp'=>$req->no_telpUser,
                 ]);
 
                 //return back()->with('status', 'Berhasil join Event kembali');
@@ -358,10 +360,10 @@ class HomeController extends Controller
     {
         $user = auth()->user();
         $validator = Validator::make($req->all(),[
-            'desc'=>'required',
-            'team'=>'required',
-            'benefit'=>'required',
-            'target'=>'required',
+            'desc'=>'required|max:255',
+            'team'=>'required|max:255',
+            'benefit'=>'required|max:255',
+            'target'=>'required|max:255',
         ]);
 
         if (!$validator->passes()) {

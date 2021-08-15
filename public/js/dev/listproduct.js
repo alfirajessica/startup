@@ -279,6 +279,31 @@ $('body').on('click', '.detailProject', function () {
         success:function(data) 
         {
             $("img#previewImg").attr("src", "/uploads/event/"+data.image);
+
+            if (data.file_proposal == "") {
+                $("label#proposal_before").text("Proposal : Tidak Ada file");
+                $("a#proposal_before2").addClass('d-none')
+
+            } else {
+                $("label#proposal_before").text("Proposal : "+data.file_proposal);
+                $("a#proposal_before2").removeClass('d-none')
+            }
+
+            if (data.file_contract == "") {
+                $("label#kontrak_before").text("Kontrak : Tidak Ada File");
+                $("a#kontrak_before2").addClass('d-none')
+            } else {
+                $("label#kontrak_before").text("Kontrak : " + data.file_contract);
+                $("a#kontrak_before2").removeClass('d-none')
+            }
+            
+            
+            
+            $("a#proposal_before2").attr("href", "/dev/listProduct/detailProject/downloadfile1/"+ data.file_proposal);
+          
+            $("a#kontrak_before2").attr("href", "/dev/listProduct/detailProject/downloadfile2/"+ data.file_contract);
+          
+           
             $('#nama_product').val(data.name_product);  
             var id =data.id_detailcategory; 
             var idHStartupTag =data.id_substartuptag; 
@@ -357,6 +382,7 @@ $('body').on('click', '.detailProject', function () {
             $('#reason').val(data.reason); 
             $('#benefit').val(data.benefit);
             $('#solution').val(data.solution);
+            
         },
         error: function (data) {
             console.log('Error:', data);
@@ -372,7 +398,7 @@ $('body').on('click', '.konfirmasiUlang', function () {
     
     var txt;
     swal({
-        title: "Apakah anda yakin ingin mengkonfirmasi ulang?",
+        text: "Apakah anda yakin ingin mengkonfirmasi ulang?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -386,7 +412,7 @@ $('body').on('click', '.konfirmasiUlang', function () {
                     if (data == 1) {
                         table_listProduct();
                         //jika sukses, call swal
-                        swal("Poof! Anda berhasil mengkonfirmasi ulang!", {
+                        swal("Anda berhasil mengkonfirmasi ulang!", {
                             icon: "success",
                         });
                     }
@@ -535,6 +561,9 @@ function table_listUlasan() {
         ajax: {
             url: "/dev/reviews",
             type: 'GET',
+            data:{
+                "tabel0":"#table_listUlasan",
+            },
         },
         order: [
             [0, 'asc']
@@ -543,7 +572,7 @@ function table_listUlasan() {
             {
                 data: null,
                 name: 'id',
-                className: 'dt-body-center',
+                className: 'dt-body-center d-none',
                 render: data => {
                     return "#" + data.id;
                 }
@@ -556,8 +585,15 @@ function table_listUlasan() {
                 }
             },
             {
-                data: 'name',
+                data: null,
                 name: 'name',
+                render: data => {
+                    return "<label>" + data.name_company + "<br> " + data.name + "</label>"
+                }
+            },
+            {
+                data: 'name_product',
+                name: 'name_product',
             },
             {
                 data: null,
@@ -601,7 +637,74 @@ function table_listUlasan() {
         ],
         
     });
+
+
+    $('#table_listUlasanInvestasi').DataTable({
+        destroy:true,
+        processing: true,
+        serverSide: true, //aktifkan server-side 
+        responsive:true,
+        deferRender:true,
+        language: {
+            "emptyTable": "Belum ada Ulasan Investasi"
+        },
+        aLengthMenu:[[10,20,50],[10,20,50]], //combobox limit
+        ajax: {
+            url: "/dev/reviews",
+            type: 'GET',
+            data:{
+                "tabel1":"#table_listUlasanInvestasi",
+            },
+        },
+        order: [
+            [0, 'asc']
+        ],
+        columns: [
+            {
+                data: null,
+                name: 'id',
+                className: 'dt-body-center d-none',
+                render: data => {
+                    return "#" + data.id;
+                }
+            },
+            {
+                data: null,
+                name: 'created_at',
+                render: data => {
+                    return moment(data.created_at).format('DD/MMM/YYYY');
+                }
+            },
+            {
+                data: null,
+                name: 'name',
+                render: data => {
+                    return "<label>" + data.name_company + "<br> " + data.name + "</label>"
+                }
+            },
+            {
+                data: 'name_product',
+                name: 'name_product',
+            },
+            {
+                data: null,
+                name: 'rating',
+                render: data => {
+                    var coba="<label> <div class='stars' data-rating='0'>";
+                    for (let index = 0; index < data.rating; index++) {
+                        coba = coba + "<span class='star rated' data-rating='" + index + "'>&nbsp;</span>";
+                    }
+                    coba = coba + "</div>" + data.review + "</label>" ;
+                    return coba;
+                }
+            },
+            
+        ],
+        
+    });
  }
+
+ 
 
  $('body').on('click', '.detailResponse', function () {
     var id = $(this).data("id");
@@ -896,9 +999,11 @@ function table_pemasukkan_pengeluaran(id) {
                 
             },
             {
-                data: 'name',
+                data: null,
                 name: 'name',
-              
+                render: data => {
+                    return "<label>"+data.name_company + "<br>" + data.name + "</label>";
+                }
             },
             {
                 data: null,
@@ -924,7 +1029,7 @@ function table_pemasukkan_pengeluaran(id) {
                         return "Aktif";
                     }
                     else if (data.status_invest == "4") {
-                        return "Di cancle";
+                        return "Di cancel";
                     }else{
                         return "Menunggu Konfirmasi";
                     }
@@ -970,8 +1075,11 @@ function table_pemasukkan_pengeluaran(id) {
                 }
             },
             {
-                data: 'name',
+                data: null,
                 name: 'name',
+                render: data => {
+                    return "<label>"+data.name_company + "<br>" + data.name + "</label>";
+                }
             },
             {
                 data: null,
@@ -1068,32 +1176,41 @@ function show_sub_startup_tag(id) {
 $("#updDetailProject").on("submit",function (e) {
    
     e.preventDefault();
-   
-    $.ajax({
-        url:$(this).attr('action'),
-        method:$(this).attr('method'),
-        data:new FormData(this),
-        processData:false,
-        dataType:'json',
-        contentType:false,
-        beforeSend:function() {
-            $(document).find('span.error-text').text('');
-        },
-        success:function(data) {
-            if (data.status == 0) {
-                $.each(data.error, function (prefix, val) {
-                    $('span.'+prefix+'_error').text(val[0]);
-                });
-            }
-            else{
-                table_listProduct();
-                swal({
-                    title: "Berhasil ubah detail",
-                    icon: "success",
-                    button: "Aww yiss!",
-                });
-               
-            }
+
+    swal({
+        text: "Yakin ingin Mengubah Detail Startup/Produk Anda?",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url:$(this).attr('action'),
+                method:$(this).attr('method'),
+                data:new FormData(this),
+                processData:false,
+                dataType:'json',
+                contentType:false,
+                beforeSend:function() {
+                    $(document).find('span.error-text').text('');
+                },
+                success:function(data) {
+                    if (data.status == 0) {
+                        $.each(data.error, function (prefix, val) {
+                            $('span.'+prefix+'_error').text(val[0]);
+                        });
+                    }
+                    else{
+                        table_listProduct();
+                        $('#detailProduct').modal('hide');
+                        swal("Berhasil Mengubah Detail Startup/Produk Anda", {
+                            icon: "success",
+                        });
+                    }
+                }
+            });
+        } else {
         }
     });
 });

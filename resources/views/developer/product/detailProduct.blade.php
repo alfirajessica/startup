@@ -102,7 +102,17 @@
                                                 <span class="text-danger error-text rilis_product_error" id="rilis_product_error"></span>
                                             </div>
 
-                                            <img id="previewImg" class="d-block user-select-none" width="100%" height="200" >
+                                            <div class="form-group">
+                                              
+                                                    <label for="exampleInputFile2">Banner/Gambar Pendukung Startup</label>
+                                                    <input type="file" class="form-control-file form-control-alternative"  name="image" id="exampleInputFile2" aria-describedby="fileHelp" onchange="previewFile2(this)">
+                                                    <span class="text-danger error-text image_error"></span>
+                                                
+                                            </div>
+
+                                            <img id="previewImg" class="d-block user-select-none" width="100%" height="200">
+
+                                            {{-- <img id="previewImg" class="d-block user-select-none" width="100%" height="200" > --}}
                                         </div>
                                     </div>
                                 </div>
@@ -137,6 +147,38 @@
                                             <textarea class="form-control form-control-alternative" name="solution" id="solution" rows="3"></textarea>
                                             <span class="text-danger error-text solution_error" id="solution_error"></span>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" >
+                                            <div class="input-group">
+                                                <label>Proposal Startup Anda (Apabila ada)</label>
+                                                <input type="file" class="form-control-file form-control-alternative"  name="proposal_startup2" id="proposal_startup2" aria-describedby="fileHelp">
+                                                <span class="text-danger error-text proposal_startup2_error"></span>
+                                            </div>
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label id="proposal_before"></label> <br>
+                                        <a type="button" id="proposal_before2" class="btn btn-outline-primary btn-sm" style="text-transform: capitalize;" href="" target="_blank">Unduh</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" >
+                                            <div class="input-group">
+                                                <label>Kontak Kerjasama Startup Anda (Apabila ada)</label>
+                                                <input type="file" class="form-control-file form-control-alternative"  name="kontrak_startup2" id="kontrak_startup2"  aria-describedby="fileHelp">
+                                                <span class="text-danger error-text kontrak_startup2_error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label id="kontrak_before"></label> <br>
+                                        <a type="button" id="kontrak_before2" class="btn btn-outline-primary btn-sm" href="" style="text-transform: capitalize;" target="_blank">Unduh</a>
                                     </div>
                                 </div>
                                 <div class="row py-2" id="submit_updDetail">
@@ -273,3 +315,18 @@
       </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script> 
+<script>
+    function previewFile2() {
+        var file = $("#exampleInputFile2").get(0).files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(){
+                $("img#previewImg").attr("src", reader.result);
+                console.log(file);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+</script>

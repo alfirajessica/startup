@@ -91,13 +91,9 @@ $(function () {
                    //update yang di page akun depan
                    $('[name="location_user"]').text($('#hidden_province_name').val()+", " + $('#hidden_city_name').val());
                    $('[name="name_user"]').text($('#nama_akunUser').val());
-                    swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
-                        icon: "success",
-                        button: "Aww yiss!",
+                   swal("Berhasil mengubah detail akun", {
+                    icon: "success",
                     });
-                   
                 }
             }
         });
@@ -126,14 +122,9 @@ $("#ubahTentang").on("submit",function (e) {
                 });
             }
             else{
-               //update yang di page akun depan
-                swal({
-                    title: data.msg,
-                    text: "You clicked the button!",
+                swal("Berhasil mengubah tentang anda", {
                     icon: "success",
-                    button: "Aww yiss!",
-                });
-               
+                    });
             }
         }
     });

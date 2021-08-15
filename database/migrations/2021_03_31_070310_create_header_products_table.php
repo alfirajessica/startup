@@ -28,6 +28,8 @@ class CreateHeaderProductsTable extends Migration
             $table->longText('benefit');
             $table->longText('solution');
             $table->string('status');
+            $table->string('file_proposal')->nullable();
+            $table->string('file_contract')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_detailcategory')->references('id')->on('detail_category_products')->onDelete('cascade')->onUpdate('cascade');

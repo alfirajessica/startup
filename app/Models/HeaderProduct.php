@@ -49,10 +49,4 @@ class HeaderProduct extends Model
   function headerinvest(){
 		return $this->hasMany(HeaderInvest::class);
 	}
-
-  
-  
-
-
-
 }

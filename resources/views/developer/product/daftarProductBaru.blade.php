@@ -12,7 +12,8 @@
             @csrf
             <ul id="progressbar" class="d-flex justify-content-center" style="margin-bottom: revert;">
                 <li class="active" id="account"><strong>Singkat Produk</strong></li>
-                <li id="personal"><strong>Detail</strong></li>
+                <li id="personal"><strong>Deskripsikan</strong></li>
+                <li id="proposal"><strong>Unggah File</strong></li>
             </ul>
 
         <div class="card shadow px-2 py-2 pb-0 mb-3 border-0 text-dark">
@@ -85,24 +86,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <label for="exampleInputFile">File input</label>
-                                                <input type="file" class="form-control-file form-control-alternative"  name="image" id="exampleInputFile" aria-describedby="fileHelp" onchange="previewFile(this)">
-                                                <span class="text-danger error-text image_error"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <a href="#" id="pop">
-                                            <img id="previewImg" style="max-width: 200px; margin-top:0px" src="../images/sample-img.png">
-                                            </a>  
-                                        </div>
-                                    </div>
-                                </div>
+                                
                             </div>
                         
                             <div class="form-section">
@@ -133,6 +117,49 @@
                                     </div>
                                 
                                 </div> 
+                            </div>
+
+                            <div class="form-section">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <label for="exampleInputFile">Banner/Gambar Pendukung Startup</label>
+                                                <input type="file" class="form-control-file form-control-alternative"  name="image" id="exampleInputFile" aria-describedby="fileHelp" onchange="previewFile(this)">
+                                                <span class="text-danger error-text image_error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <a href="#" id="pop">
+                                            <img id="previewImg" style="max-width: 200px; margin-top:0px" src="">
+                                            </a>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" >
+                                            <div class="input-group">
+                                                <label>Unggah Proposal Startup Anda (Apabila ada)</label>
+                                                <input type="file" class="form-control-file form-control-alternative"  name="proposal_startup" id="proposal_startup" aria-describedby="fileHelp">
+                                                <span class="text-danger error-text proposal_startup_error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group" >
+                                            <div class="input-group">
+                                                <label>Unggah Kontak Kerjasama Startup Anda (Apabila ada)</label>
+                                                <input type="file" class="form-control-file form-control-alternative"  name="kontrak_startup" id="kontrak_startup"  aria-describedby="fileHelp">
+                                                <span class="text-danger error-text kontrak_startup_error"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         
                             <div class="form-navigation">
@@ -203,41 +230,51 @@
 
         $('#msform').submit(function (e) { 
             e.preventDefault();
-            console.log(e);
-            $.ajax({
-            url:$(this).attr('action'),
-            method:$(this).attr('method'),
-            data:new FormData(this),
-            processData:false,
-            dataType:'json',
-            contentType:false,
-            beforeSend:function() {
-                $(document).find('span.error-text').text('');
-            },
-            success:function(data) {
-                if (data.status == 0) {
-                    $.each(data.error, function (prefix, val) {
-                        $('span.'+prefix+'_error').text(val[0]);
-                       // $(".parsley-required").html('ok');
+            
+            swal({
+                text: "Yakin ingin Menyimpan Startup/Produk Ini?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url:$(this).attr('action'),
+                        method:$(this).attr('method'),
+                        data:new FormData(this),
+                        processData:false,
+                        dataType:'json',
+                        contentType:false,
+                        beforeSend:function() {
+                            $(document).find('span.error-text').text('');
+                        },
+                        success:function(data) {
+                            if (data.status == 0) {
+                                $.each(data.error, function (prefix, val) {
+                                    $('span.'+prefix+'_error').text(val[0]);
+                                // $(".parsley-required").html('ok');
+                                });
+                            }
+                            else{
+                            //update yang di page akun depan
+                                $('#msform')[0].reset();
+                                $("#previewImg").attr("src", '{{asset('images')}}');
+                                table_listProduct();
+                                show_listProject_select();
+                                navigateTo(0);
+                                swal("Berhasil Menyimpan Startup/Produk Anda, Silakan Atur Kas Masuk dan Keluar Pada Tab yang Disediakan", {
+                                    icon: "success",
+                                });
+                            
+                            }
+                        }
                     });
+                } else {
                 }
-                else{
-                //update yang di page akun depan
-                    $('#msform')[0].reset();
-                    $("#previewImg").attr("src", '{{asset('images')}}');
-                    table_listProduct();
-                    show_listProject_select();
-                    navigateTo(0);
-                    swal({
-                        title: data.msg,
-                        text: "Silakan masukkan detail informasi terkai pemasukkan dan pengeluaran proyek pada tab Pemasukkan dan Pengeluaran!",
-                        icon: "success",
-                        button: "OK!",
-                    });
-                
-                }
-            }
-        });
+            });
+           
+            
         });
 
     });

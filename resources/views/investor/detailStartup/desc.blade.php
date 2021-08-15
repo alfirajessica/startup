@@ -105,6 +105,14 @@
                                                 <strong for="">Manfaat yang didapatkan</strong> <br>
                                                 {{$item->benefit}}
                                             <p>
+
+                                            <p style="font-size:10pt">
+                                                <strong for="">File Penting</strong> <br>
+                                                <a class="btn btn-icon btn-3 btn-default text-white" type="button" href="/inv/startup/detailstartup/downloadfile1/{{$item->file_proposal}}">
+                                                    <span class="btn-inner--text">Proposal Startup</span>
+                                                    <span class="btn-inner--icon"><i class="fas fa-download"></i></span>
+                                                </a>
+                                            <p>
                             
                                             <p style="font-size:10pt" class="d-none">
                                                 <strong for="">Solusi yang ditawarkan</strong> <br>
@@ -175,7 +183,7 @@
                 <div class="col-md-4">
                     <div class="card shadow mt-1">
                         <div class="card-header font-weight-bold" style="padding: 0.5rem;">
-                        Investor Sebelumnya
+                        Penilaian Investasi Pada Investor Sebelumnya
                         </div>
                         <div class="card-body text-dark">
                             <div class="alert alert-warning" role="alert">
@@ -184,11 +192,28 @@
                             </div>
                            
                             @foreach ($list_investor as $item)
-                            <table class="table table-borderless table-sm">
+                            <table class="table table-borderless table-sm text-dark">
                                 <tbody>
                                   <tr>
-                                    <td>{{ \Carbon\Carbon::parse($item->invest_expire)->format('d/M/Y')}}</td>
-                                    <td>{{$item->name}}</td>
+                                    <td style="vertical-align: middle">{{$item->name}}</td>
+                                    <td style="text-align: right">
+                                        <?php
+                                            $coba="<div class='starsUlasan' data-rating='0'>";
+                                            $data = $item->rating;
+                                            $sisa = 5 - $data;
+
+                                            for ($i=0; $i <$data; $i++) { 
+                                                $coba= $coba."<span class='starUlasan rated' data-rating='".$i."'>&nbsp;</span>";
+                                            }
+                                            for ($i=0; $i <$sisa; $i++) { 
+                                                $coba= $coba."<span class='starUlasan' data-rating='".$i."'>&nbsp;</span>";
+                                            }
+                                            $coba = $coba."</div>";
+
+                                            echo $coba;
+                                        ?>
+                                    </td>
+                                    
                                   </tr>
                                 </tbody>
                             </table>
@@ -366,7 +391,6 @@
     const url_pay = '/inv/investTo/';
 
 </script>
-
+<script type="text/javascript" src="../js/tawk.js"></script>
 <script src="/js/inv/invest.js"></script>
-
 @endsection

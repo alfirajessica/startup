@@ -6,6 +6,7 @@
               <div class="nav-wrapper">
                   <!-- tabs -->
                   <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                   
                       <li class="nav-item">
                           <a class="nav-link font-weight-bold mb-sm-3 mb-md-0 active" id="detailInv-tab" data-toggle="tab" href="#detailInv" role="tab" aria-controls="detailInv" aria-selected="true">Detail Investasi</a>
                       </li>
@@ -31,14 +32,15 @@
                         <div class="row">
                           <div class="col-md-12">
                             <input type="hidden" id="project_id">
-                              <div class="card">
+
+                              <div class="card my-2">
                                   <div class="card-body">
                                     <strong>Detail Startup/Produk</strong>
                                     <div class="table-responsive-lg">
                                       <table class="table table-sm padding-0 text-dark" width="100%" id="table_projectDetails">
                                           <thead>
                                               <th>Invest_id</th>
-                                              <th>Project</th>
+                                              <th>Startup/Produk</th>
                                               <th>Dev</th>
                                               <th>Tipe</th>
                                               <th>Jumlah (Rp)</th>
@@ -46,7 +48,7 @@
                                           <tbody></tbody>
                                           <tfoot>
                                             <tr>
-                                              <th colspan="4" style="text-align:right; font-weight:bold">Fee Investasi (Rp) : </th>
+                                              <th colspan="4" style="text-align:right; font-weight:bold">Fee Investasi 1% (Rp) : </th>
                                               <th style="text-align:right; font-weight:bold" id="fee"></th>
                                             </tr>
                                             <tr>

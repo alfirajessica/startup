@@ -7,8 +7,11 @@
     <div class="col">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="listUlasan-tab" data-toggle="tab" href="#listUlasan" role="tab" aria-controls="listUlasan" aria-selected="false">Ulasan</a>
+                <a class="nav-link active" id="listUlasan-tab" data-toggle="tab" href="#listUlasan" role="tab" aria-controls="listUlasan" aria-selected="false">Ulasan Startup/Produk</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" id="listUlasanInvestasi-tab" data-toggle="tab" href="#listUlasanInvestasi" role="tab" aria-controls="listUlasanInvestasi" aria-selected="false">Ulasan Investasi</a>
+          </li>
         </ul>
         <div class="card">
             
@@ -20,9 +23,10 @@
                     <table class="table table-bordered table-hover table_listProduct text-dark" style="width:100%" id="table_listUlasan">
                       <thead style="text-align:center">
                           <tr>
-                            <th>#Id</th>
+                            <th class="d-none">#Id</th>
                             <th>Tanggal</th>
                             <th>Investor</th>
+                            <th>Startup</th>
                             <th>Rating & Review</th>
                             <th>Tanggapan</th>
                             <th>Aksi</th>
@@ -33,7 +37,27 @@
                   <!-- AKHIR TABLE -->
                 </div>
             </div>
+
+            <div class="tab-pane fade" id="listUlasanInvestasi" role="tabpanel" aria-labelledby="listUlasanInvestasi-tab">
+              
+              <div class="table-responsive py-2 px-2">
+                  <table class="table table-bordered table-hover table_listProduct text-dark" style="width:100%" id="table_listUlasanInvestasi">
+                    <thead style="text-align:center">
+                        <tr>
+                          <th class="d-none">#IdInvestasi</th>
+                          <th>Tanggal</th>
+                          <th>Investor</th>
+                          <th>Startup</th>
+                          <th>Rating & Review</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                <!-- AKHIR TABLE -->
+              </div>
+          </div>
         </div>
+        
     </div>
 </div>
 

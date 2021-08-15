@@ -170,3 +170,4 @@ function formatCurrency(input, blur) {
  //const url_eventPassed = @json(route('eventPassed'));
 </script>
 <script src="../js/custom.js"></script>
+<script type="text/javascript" src="../js/tawk.js"></script>

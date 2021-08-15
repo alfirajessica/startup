@@ -155,6 +155,28 @@ return [
         'jumlah_keluar' => [
             'required' => 'Masukkan jumlah uang yang keluar'
         ],
+        //akun
+        'no_telpUser'=> [
+            'required' => 'Masukkan No Telepon/Hp yang dapat dihubungi'
+        ],
+        'nama_akunUser'=> [
+            'required' => 'Masukkan Nama User yang bertanggung jawab'
+        ],
+        'nama_CompanyUser'=> [
+            'required' => 'Masukkan Nama Perusahaan Anda'
+        ],
+        'desc'=> [
+            'required' => 'Isi deskripsi diatas!'
+        ],
+        'team'=> [
+            'required' => 'Isi deskripsi diatas!'
+        ],
+        'benefit'=> [
+            'required' => 'Isi deskripsi diatas!'
+        ],
+        'target'=> [
+            'required' => 'Isi deskripsi diatas!'
+        ],
         
     ],
 

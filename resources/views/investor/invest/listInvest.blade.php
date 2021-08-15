@@ -156,9 +156,80 @@
   </div>
 </div>
 
+
+<!-- Modal beri rating invest-->
+<div class="modal fade" id="beri_ratingInvest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <form action="{{ route('inv.invest.beriReview')}}" method="POST" enctype="multipart/form-data" id="beriReviewInvestasi">
+          @csrf
+          <input type="hidden" id="id_headerinvest" name="id_headerinvest">
+          <label for="" class="text-dark" style="margin-top: 20px;margin-bottom: auto;"> Beri Penilaian Anda</label>
+          <div class='stars' data-rating='0'>
+              <span class='star' data-rating='1'>&nbsp;</span>
+              <span class='star' data-rating='2'>&nbsp;</span>
+              <span class='star' data-rating='3'>&nbsp;</span>
+              <span class='star' data-rating='4'>&nbsp;</span>
+              <span class='star' data-rating='5'>&nbsp;</span>
+          </div>
+          <input type="hidden" id="stars_rating" name="stars_rating">
+          <span class="text-danger error-text stars_rating_error"></span>
+      
+          <div class="form-group">
+              <label for="" class="text-dark" >Komentar Anda</label>
+              <textarea class="form-control" name="isi_review" id="isi_review" rows="3"></textarea>
+              <span class="text-danger error-text isi_review_error"></span>
+          </div>
+          <button type="submit" class="btn btn-default float-right">Beri Penilaian</button>
+      </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript"
       src="https://app.sandbox.midtrans.com/snap/snap.js"
       data-client-key="SB-Mid-client-cOQK7kRXSSPSVE3Y"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script type="text/javascript">
+  //----------------stars rating ----------------------------------//
+          //initial setup
+          document.addEventListener('DOMContentLoaded', function(){
+              let stars = document.querySelectorAll('.star');
+              stars.forEach(function(star){
+                  star.addEventListener('click', setRating); 
+              });
+              
+              let rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
+              let target = stars[rating - 1];
+              //target.dispatchEvent(new MouseEvent('click'));
+          });
+  
+          function setRating(ev){
+              let span = ev.currentTarget;
+              let stars = document.querySelectorAll('.star');
+              let match = false;
+              let num = 0;
+              stars.forEach(function(star, index){
+                  if(match){
+                      star.classList.remove('rated');
+                  }else{
+                      star.classList.add('rated');
+                  }
+                  //are we currently looking at the span that was clicked
+                  if(star === span){
+                      match = true;
+                      num = index + 1;
+                  }
+              });
+              document.querySelector('.stars').setAttribute('data-rating', num);
+          }
+          //----------------end of stars rating ----------------------------------//
+  </script>
 <script src="/js/inv/invest.js"></script>
 <script src="../js/custom.js"></script>

@@ -15,7 +15,7 @@ class HeaderInvest extends Model
         'project_id',
         'invest_id',
         'jumlah_invest',
-        'jumlah_final','status_transaction','status_invest','invest_expire'
+        'jumlah_final','status_transaction','status_invest','invest_expire','status_review'
     ];
 
     public function users(){
@@ -24,5 +24,9 @@ class HeaderInvest extends Model
 
     public function headerproduct(){
         return $this->belongsTo(HeaderProduct::class);
+    }
+
+    public function ratinginvest(){
+        return $this->hasOne(RatingInvest::class);
     }
 }

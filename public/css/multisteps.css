@@ -167,6 +167,11 @@ select.list-dt:focus {
     content: "\f007"
 }
 
+#progressbar #proposal:before {
+    font-family: FontAwesome;
+    content: "\f093"
+}
+
 #progressbar #pemasukkan:before {
     font-family: FontAwesome;
     content: "\f09d"

@@ -16,6 +16,10 @@ class Review extends Model
         'isi_review','status'
     ];
 
+    public function users(){
+        return $this->belongsTo(Users::class);
+    }
+
     public function headerproduct(){
         return $this->belongsTo(HeaderProduct::class);
     }

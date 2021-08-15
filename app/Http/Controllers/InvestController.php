@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
 use App\Models\DetailUser;
+use App\Models\RatingInvest;
 use App\Models\DetailProductKas;
 use App\Models\HeaderProduct;
 use App\Models\HeaderInvest;
@@ -98,6 +99,7 @@ class InvestController extends Controller
             $newHeader->status_transaction = '-';  //status yang didapat dari midtrans  
             $newHeader->status_invest = '0';    //(0-menunggu konfirmasi), (1-aktif/sdh dikonfirmasi), (2-tdk invest lagi)
             $newHeader->invest_expire = $req->invest_exp_date; 
+            $newHeader->status_review = '0'; //0-belum ada penilaian //1-sudah dinilai
             $query = $newHeader->save();
 
             DB::table('header_products')
@@ -209,7 +211,7 @@ class InvestController extends Controller
        
         $listInvestFinished = DB::table('header_invests')
         ->leftJoin('header_products', 'header_products.id','=','header_invests.project_id')
-        ->select('header_invests.id', 'header_products.name_product', 'header_invests.invest_id','header_invests.status_transaction')
+        ->select('header_invests.id', 'header_products.name_product', 'header_invests.invest_id','header_invests.status_transaction','header_invests.status_review')
         ->where('header_invests.user_id', '=', $user->id)
         ->where('header_invests.status_transaction','=','settlement')
         ->where('header_invests.status_invest','=','5')
@@ -316,6 +318,38 @@ class InvestController extends Controller
         ->get();
 
         return $table_pengeluaran_inv;
+    }
+
+    public function beriReview(Request $req)
+    {
+        $user = auth()->user();
+        $validator = Validator::make($req->all(),[
+            'isi_review'=>'required',
+            'stars_rating'=>'required|not in:0',
+        ]);
+
+        if (!$validator->passes()) {
+            return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
+        }else{
+            
+            //save to db RatingInvest
+            $newReview = new RatingInvest;
+            $newReview->id_headerinvest = $req->id_headerinvest;
+            $newReview->rating = $req->stars_rating;
+            $newReview->review = $req->isi_review;
+            $query = $newReview->save();
+
+            //update status rating invest di header invest
+            DB::table('header_invests')
+            ->where('id','=',$req->id_headerinvest)
+            ->update([
+                'status_review' => '1',
+            ]);
+
+            if ($query) {
+                return 1;
+            }
+        }
     }
     
 }

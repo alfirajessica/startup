@@ -568,5 +568,26 @@ class ReportController extends Controller
         
         return $pdf->stream();
     }
+
+
+    public function downloadfile1($pathfile)
+    {
+        $filePath = public_path('/uploads/files/proposal/'.$pathfile);
+        $headers = ['Content-Type: application/pdf'];
+        $fileName = time().'.pdf';
+
+        return response()->download($filePath, $fileName, $headers);
+
+    }
+
+    public function downloadfile2($pathfile)
+    {
+        $filePath = public_path('/uploads/files/contracts/'.$pathfile);
+        $headers = ['Content-Type: application/pdf'];
+        $fileName = time().'.pdf';
+
+        return response()->download($filePath, $fileName, $headers);
+
+    }
     
 }

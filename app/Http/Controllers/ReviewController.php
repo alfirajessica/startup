@@ -109,7 +109,7 @@ class ReviewController extends Controller
         $list_reviews = 
             DB::table('reviews')
             ->join('users', 'users.id','=','reviews.user_id')
-            ->select('reviews.id','users.name','reviews.rating','reviews.isi_review', 'reviews.created_at')
+            ->select('reviews.id','users.name','users.name_company','reviews.rating','reviews.isi_review', 'reviews.created_at')
             ->where('reviews.project_id','=',$id)
             ->get();
 
@@ -133,26 +133,54 @@ class ReviewController extends Controller
     public function reviews(Request $req)
     {
         $user = auth()->user();
-        $list_reviews = 
-            DB::table('reviews')
-            ->join('users', 'users.id','=','reviews.user_id')
-            ->join('header_products', 'header_products.id','=','reviews.project_id')
-            ->leftjoin('response_reviews','reviews.id','=','response_reviews.id_reviews')
-            ->select('reviews.id','users.name','reviews.rating','reviews.isi_review', 'reviews.created_at', 'response_reviews.created_at as tgltanggapan','response_reviews.id as idresponse')
-            ->where('header_products.user_id','=',$user->id)
-            ->get();
+        if($req->ajax()){
+            
+            //status 0 -- belum dikonfirmasi dan tdk dikonfirmasi admin
+            if ($req->tabel0 == "#table_listUlasan")
+            {
+                $list_reviews = 
+                    DB::table('reviews')
+                    ->join('users', 'users.id','=','reviews.user_id')
+                    ->join('header_products', 'header_products.id','=','reviews.project_id')
+                    ->leftjoin('response_reviews','reviews.id','=','response_reviews.id_reviews')
+                    ->select('reviews.id','users.name','users.name_company','reviews.rating','reviews.isi_review', 'reviews.created_at', 'response_reviews.created_at as tgltanggapan','response_reviews.id as idresponse', 'header_products.name_product')
+                    ->where('header_products.user_id','=',$user->id)
+                    ->get();
 
-        if($req->ajax()) {
-            return datatables()->of($list_reviews)
+                    return datatables()->of($list_reviews)
                     ->addColumn('action', function($data){
                         $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#modal_BeriTanggapan" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailResponse">Lihat Tanggapan</a>';
 
                         return $btn;
-                     })
+                    })
                     ->rawColumns(['action'])
                     ->addIndexColumn()
                     ->make(true);
+            }
+
+            if ($req->tabel1 == "#table_listUlasanInvestasi")
+            {
+                $list_reviewsInvestasi = 
+                DB::table('rating_invests')
+                ->join('header_invests','rating_invests.id_headerinvest','=','header_invests.id')
+                ->join('users', 'users.id','=','header_invests.user_id')
+                ->join('header_products', 'header_products.id','=','header_invests.project_id')
+                ->select('rating_invests.id','users.name','users.name_company','rating_invests.rating','rating_invests.review', 'rating_invests.created_at', 'header_products.name_product')
+                ->where('header_products.user_id','=',$user->id)
+                ->get();
+
+                    return datatables()->of($list_reviewsInvestasi)
+                    ->addColumn('action', function($data){
+                        $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#modal_BeriTanggapan" data-id="'.$data->id.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailResponse">Lihat Tanggapan</a>';
+
+                        return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->addIndexColumn()
+                    ->make(true);
+            }
         }
+        
     }
 
     public function getResponse($id)
@@ -196,6 +224,6 @@ class ReviewController extends Controller
             }
         }
     }
-    
+
     //end of developer -- tab ulasan 
 }

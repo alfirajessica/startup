@@ -142,7 +142,7 @@ function listInvest() {
                 render: data => {
                     var btn;
                     if (data.status_transaction == "pending") {
-                        btn= "<a href='javascript:void(0)' data-toggle='modal' data-target='#detailTrans' data-id='"+ data.id + "' data-original-title='Detail' class='detail btn btn-warning btn-sm detailProject' style='text-transform:none'>Detail</a>";
+                        btn= "<a href='javascript:void(0)' data-toggle='modal' data-target='#detailTrans' data-id='"+ data.id + "' data-original-title='Detail' class='detail btn btn-warning btn-sm detailProject' id='table_listInvestPending' style='text-transform:none'>Detail</a>";
 
                         btn = btn + " <a href='javascript:void(0)' data-toggle='tooltip' data-id='" + data.id + "' data-original-title='Kirim' class='btn btn-success btn-sm sudahKirim' data-tr='tr_{{$product->id}}' style='text-transform:none' >Sudah Kirim</a>";
                     
@@ -268,8 +268,19 @@ function listInvest() {
               
             },
             {
-                data: 'action',
+                data: null,
                 name: 'action', 
+                render: data => {
+
+                    if (data.status_review == "0") {
+                        $("#id_headerinvest").val(data.id);
+                        return data.action + ' <a href="javascript:void(0)" data-toggle="modal" data-target="#beri_ratingInvest"  data-id="'+data.id+'" data-original-title="rating" class="edit btn btn-primary btn-sm beriRatingInvest" style="text-transform:none">Beri Penilaian</a>';
+                    }else{
+                        return data.action;
+                    }
+                    
+                }
+                
             },
         ],
         
@@ -281,17 +292,25 @@ $('body').on('click', '.detailProject', function () {
     var id = $(this).data('id');
     var cekTabel = $(this).attr("id");
 
+    $("#detailInv-tab").addClass('active');
+    $("#lapfinance-tab").addClass('d-none');
+
     if (cekTabel == "table_listInvestCancel" || cekTabel == "table_listInvestPending") {
+       
         $("#detailInv-tab").addClass('active');
-        $("#lapfinance-tab").removeClass('active').addClass('d-none');
+        $("#detailInv").addClass('show active');
+
+        $("#lapfinance-tab").removeClass('active');
         $("#lapfinance").addClass('d-none');
-        $("#detailInv").addClass('show active');
+        
     }
-    else if (cekTabel == "table_listInvestFinished" || cekTabel == "table_listInvestSettlement") {
+    if (cekTabel == "table_listInvestFinished" || cekTabel == "table_listInvestSettlement") {
         $("#detailInv-tab").addClass('active');
-        $("#lapfinance-tab").removeClass('d-none');
-        $("#lapfinance").removeClass('d-none');
         $("#detailInv").addClass('show active');
+
+        $("#lapfinance-tab").removeClass('d-none');
+        $("#lapfinance").removeClass('d-none').removeClass('show active');
+        
     }
 
     $("#project_id").val(id);
@@ -645,7 +664,23 @@ function projectDetails(id) {
                 name: 'name_product',
                 render: data => {
                     $("#proyek_nama, #proyek").text(data.name_product);
-                    return data.name_product;
+                    var btndownload_proposal="";
+                    var btndownload_contract="";
+                    
+                    if (data.file_proposal != "" || data.file_proposal != null) {
+                        btndownload_proposal = "<a target='_blank' class='btn btn-icon btn-3 btn-default text-white btn-sm my-2' type='button' id='file_proposal' href='/inv/startup/detailstartup/downloadfile1/"+data.file_proposal+"'><span class='btn-inner--text'>Proposal</span><span class='btn-inner--icon'><i class='fas fa-download'></i></span></a>";
+                    }else if (data.file_proposal == null || data.file_proposal == "") {
+                        btndownload_proposal="-";
+                    }
+
+                    if (data.file_contract != "" || data.file_contract != null) {
+                        btndownload_contract = "<a target='_blank' class='btn btn-icon btn-3 btn-default text-white btn-sm my-2' type='button' id='file_kontrak' href='/inv/startup/detailstartup/downloadfile2/" + data.file_contract+"'><span class='btn-inner--text'>Kontrak </span><span class='btn-inner--icon'><i class='fas fa-download'></i></span></a> <br>";
+                    }
+                    else if (data.file_contract == null || data.file_contract == "") {
+                        btndownload_contract="-";
+                    }
+
+                    return data.name_product + "<br>" + btndownload_proposal + btndownload_contract;
                     
                 }
             },
@@ -653,7 +688,7 @@ function projectDetails(id) {
                 data: null,
                 name: 'email',
                 render: data => {
-                    return "<label>" + data.nama_dev +" <br> " + data.email + "</label>";
+                    return "<label>" + data.nama_dev +" <br> " + data.email + "<br> " + data.no_telp + "</label>";
                 }
             },
             {
@@ -937,5 +972,48 @@ function table_lapFinance(id) {
         if (dateawal != "" && dateakhir != "") {
             window.open("/inv/report/cetak_riwayatInv/"+dateawal+"/"+dateakhir+"/"+piljenisLap);
         } 
+    }
+
+    $("#beriReviewInvestasi").on("submit",function (e) {
+        var rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
+        $("#stars_rating").val(rating);
+       
+        e.preventDefault();
+       
+        $.ajax({
+            url:$(this).attr('action'),
+            method:$(this).attr('method'),
+            data:new FormData(this),
+            processData:false,
+            dataType:'json',
+            contentType:false,
+            beforeSend:function() {
+                $(document).find('span.error-text').text('');
+            },
+            success:function(data) {
+                if (data == 1) {
+                    listInvest();
+                    reset_form();
+                    $("#beri_ratingInvest").modal('hide');
+                    swal("Terima Kasih atas Penilaian Anda", {
+                        icon: "success",
+                    });
+                }
+                else{
+                    
+                    $.each(data.error, function (prefix, val) {
+                        $('span.'+prefix+'_error').text(val[0]);
+                    });
+                    
+                }
+            }
+        });
+    });
+
+    function reset_form() { 
+        $("#isi_review").val('');
+        
+        $(".stars").removeAttr('rated');
+       document.querySelector('.stars').getAttribute('data-rating').value = '0';
     }
 // end of invest/listinvest.blade.php

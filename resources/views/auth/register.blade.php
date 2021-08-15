@@ -7,7 +7,7 @@
       <div class="col-lg-8 py-2">
         <div class="card bg-secondary shadow border-0">
           
-          <div class="card-body text-dark">
+          <div class="card-body text-dark" style="padding-top: inherit;padding-bottom: inherit; ">
             <div class="text-center text-muted mb-2">
               <h3 class="font-weight-bold">Register</h3><small class="text-dark"> Sebagai (Pilih salah satu)</small>
             </div>
@@ -39,7 +39,22 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                       </div>
-                      <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Nama">
+                      <input id="name_company" type="text" class="form-control @error('name_company') is-invalid @enderror" name="name_company" value="{{ old('name_company') }}" required autocomplete="name_company" autofocus placeholder="Nama Perusahaan Anda">
+                          @error('name_company')
+                              <span class="invalid-feedback" role="alert">
+                                  <strong>{{ $message }}</strong>
+                              </span>
+                          @enderror
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group text-dark">
+                    <div class="input-group input-group-alternative mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                      </div>
+                      <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Nama Akun">
                       
           
                           @error('name')
@@ -51,7 +66,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-6">
+
+              </div>
+              <div class="row">
+                <div class="col-md-12">
                   <div class="form-group text-dark">
                     <div class="input-group input-group-alternative mb-3">
                       <div class="input-group-prepend">

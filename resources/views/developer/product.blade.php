@@ -92,6 +92,8 @@
         }
     }
 
+    
+
     function show_detail() { 
         var id = $('#jenis_produk').val();
         console.log(id);
@@ -134,5 +136,6 @@
 </script>
 <script src="/js/dev/listproduct.js"></script>
 <script src="../js/custom.js"></script>
+<script type="text/javascript" src="../js/tawk.js"></script>
 @endsection
 

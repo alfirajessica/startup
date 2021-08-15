@@ -71,7 +71,7 @@
                           </h5>
                       </div>
                 
-                      <div id="collapseKeyInput2" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordion">
+                      <div id="collapseKeyInput2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                           <div class="card-body" style="padding:1.0rem;">
                             <div class="form-group">
                               @foreach($list_startupTag as $startupTag)
@@ -124,4 +124,5 @@
 </script>
 <script src="/js/inv/startup.js"></script>
 <script src="../js/custom.js"></script>
+<script type="text/javascript" src="../js/tawk.js"></script>
 
