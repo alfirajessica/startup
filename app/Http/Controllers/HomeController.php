@@ -225,8 +225,9 @@ class HomeController extends Controller
         //get status dari midtrans berdasarkan order_id nya
         $status = \Midtrans\Transaction::status($investID);
         $status = json_decode(json_encode($status),true);
-
+       
         return response()->json($status);
+        
 
     }
 

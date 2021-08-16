@@ -347,6 +347,9 @@ $('body').on('click', '.detailProject', function () {
         else if (data['payment_type'] == "akulaku") {
             tipe_pay="Akulaku";
         }
+        else if (data['payment_type'] == "qris") {
+            tipe_pay="ShopeePay";
+        }
 
         
         
@@ -465,7 +468,7 @@ $('body').on('click', '.detailProject', function () {
                 "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
             "</tr>" +
             "<tr>" +
-                "<td>Waktu Kadaluarsa </td>" +
+                "<td> <strong> Waktu Kadaluarsa </strong></td>" +
                 "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
             "</tr>" +
             "<tr>" +

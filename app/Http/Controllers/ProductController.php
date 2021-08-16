@@ -673,10 +673,13 @@ class ProductController extends Controller
         ->where('status','=','1')->get();
 
         $list_dtcategory['list_dtcategory'] = 
-        DB::table('detail_category_products')->get();
+        DB::table('detail_category_products')
+        ->where('status','=','1')->get();
 
-        $list_startupTag['list_startupTag']= DB::table('h_startup_tags')->get();
-        $list_SubstartupTag['list_SubstartupTag']= DB::table('sub_startup_tags')->get();
+        $list_startupTag['list_startupTag']= 
+        DB::table('h_startup_tags')
+        ->where('status','=','1')->get();
+        $list_SubstartupTag['list_SubstartupTag']= DB::table('sub_startup_tags')->where('status','=','1')->get();
 
         $list_project['list_project'] = 
         DB::table('header_products')
@@ -745,8 +748,8 @@ class ProductController extends Controller
         DB::table('reviews')
         ->join('users', 'users.id','=','reviews.user_id')
         ->select('reviews.id', 'users.name', 'reviews.created_at','reviews.rating','reviews.isi_review')
-        ->where('reviews.project_id','=',$id)
-        ->paginate(4);
+        ->where('reviews.project_id','=',$id)->get();
+        //->paginate(4);
 
         $list_response_reviews['list_response_reviews'] =
         DB::table('reviews')

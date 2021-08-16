@@ -46,20 +46,24 @@ class ReviewController extends Controller
     public function refreshUlasan(Request $req, $id)
     {
         if($req->ajax()) {
-            $list_reviews['list_reviews']  = 
+            $list_reviews ['list_reviews']  = 
             DB::table('reviews')
             ->join('users', 'users.id','=','reviews.user_id')
             ->select('reviews.id', 'users.name', 'reviews.created_at','reviews.rating','reviews.isi_review')
             ->where('reviews.project_id','=',$id)
             ->get();
-    
+            //->paginate(4);
+
             $list_response_reviews['list_response_reviews'] =
             DB::table('reviews')
             ->join('response_reviews','response_reviews.id_reviews','=','reviews.id')
             ->select('response_reviews.response','response_reviews.id_reviews')
             ->get();
+
+            return view('investor.detailStartup.dataUlasan')->with($list_reviews)->with($list_response_reviews);
         }
-        return view('investor.detailStartup.dataUlasan')->with($list_reviews)->with($list_response_reviews);
+
+       
     }
     //end of investor - detailStartup - ulasan.blade.php
 
