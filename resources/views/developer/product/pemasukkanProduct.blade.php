@@ -17,44 +17,44 @@
             </div>     
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p style="color: black">Saat Ini Sedang Memasukkan Pemasukkan Pada Startup/Produk : 
-                <label id="nama_project_dipilih_masuk" style="color:blue" class="font-weight-bold"></label>
-            </p>
-        </div>
-    </div>
+    
     <div class="card border-0 d-none text-dark" id="card_masuk">
-        <div class="row px-2 py-2 text-dark">
+        <div class="row px-2 pt-2 text-dark">
+            <div class="col-md-12">
+                <label style="color: black">*Saat ini Anda sedang memasukkan data alur kas masuk Pada Startup/Produk : 
+                    <label id="nama_project_dipilih_masuk" style="color:blue" class="font-weight-bold"></label>
+                </label>
+            </div>
+        </div>
+        <div class="row px-2 pt-2 text-dark">
            <div class="col-md-6">
             <div class="form-group text-dark">
                 <label for="">Pilih Tanggal</label>
-                <input type="date" name="date_input" id="date_input" class="form-control text-dark" placeholder="" aria-describedby="help_date_input">
-                <small id="help_date_input" class="text-muted"></small>
+                <input type="date" name="date_input" id="date_input" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="help_date_input">
+                <span class="text-danger error-text date_input_error"></span>
             </div>
            </div>
-        </div>
-        <div class="row px-2 py-2">
-            <div class="col-md-4">
-                <div class="form-group text-dark">
-                    <label class="float-left">Tipe Pemasukkan</label>
-                    <select class="form-control form-control-alternative text-dark" name="tipe_pemasukkan" id="tipe_pemasukkan">
-                        <option value="0" disabled> --Pilih Tipe --</option>
-                        @foreach ($type_trans as $item)
-                            @if ($item->tipe == "1")
-                                <option value="{{$item->id}}"> {{$item->keterangan}}</option>
-                            @endif
-                        @endforeach
-                    </select>
-                    <span class="text-danger error-text tipe_pemasukkan_error"></span>
-                </div>
+           <div class="col-md-6">
+            <div class="form-group text-dark">
+                <label class="float-left">Tipe Pemasukkan</label>
+                <select class="form-control form-control-alternative text-dark" name="tipe_pemasukkan" id="tipe_pemasukkan">
+                    <option value="0" disabled> --Pilih Tipe --</option>
+                    @foreach ($type_trans as $item)
+                        @if ($item->tipe == "1")
+                            <option value="{{$item->id}}"> {{$item->keterangan}}</option>
+                        @endif
+                    @endforeach
+                </select>
+                <span class="text-danger error-text tipe_pemasukkan_error"></span>
             </div>
-           
-            <div class="col-md-8">
+        </div>
+        </div>
+        <div class="row px-2 pt-2">
+            <div class="col-md-12">
                 <div class="form-group text-dark">
                     <label class="float-left">Jumlah (Rp)</label>
                     <div class="input-group input-group-alternative mb-4"> 
-                        <input type="text" name="jumlah" id="jumlah" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="1,000" min="1,00" class="form-control form-control-alternative">
+                        <input type="text" name="jumlah" id="jumlah" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" min="1,00" class="form-control form-control-alternative">
                        
                       <div class="input-group-append">
                         <button type="submit" class="btn btn-default">Simpan</button>

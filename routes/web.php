@@ -341,3 +341,4 @@ Route::get('/dev/report/cetak_allDetailProyek/{idproyek}', [ReportController::cl
 Route::get('/dev/report/cetak_invProyek/{dateawal}/{dateakhir}/{idproyek}', [ReportController::class, 'cetak_invProyek'])->name('dev.report.cetak_invProyek');
 Route::get('/dev/report/cetak_transProyek/{dateawal}/{dateakhir}/{idproyek}', [ReportController::class, 'cetak_transProyek'])->name('dev.report.cetak_transProyek');
 Route::get('/dev/report/cetak_reviewProyek/{dateawal}/{dateakhir}/{idproyek}', [ReportController::class, 'cetak_reviewProyek'])->name('dev.report.cetak_reviewProyek');
+Route::get('/dev/report/cetak_penilaianInv/{dateawal}/{dateakhir}/{idproyek}', [ReportController::class, 'cetak_penilaianInv'])->name('dev.report.cetak_penilaianInv');

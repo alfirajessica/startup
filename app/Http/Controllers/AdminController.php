@@ -421,7 +421,8 @@ class AdminController extends Controller
         DB::table('header_invests')
         // ->where('status_transaction','=','settlement')
         // ->where('status_invest','=','0')
-        ->orderBy('status_invest', 'asc')
+        ->orderBy('created_at', 'desc')
+
         ->get();
 
         if($req->ajax()){

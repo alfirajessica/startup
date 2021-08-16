@@ -16,25 +16,24 @@
               </div>     
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p style="color: black">Saat Ini Sedang Memasukkan Pengeluaran Pada Startup/Produk : 
-                <label id="nama_project_dipilih_keluar" style="color:blue" class="font-weight-bold"></label>
-            </p>
-        </div>
-    </div>
+   
     <div class="card border-0 d-none text-dark" id="card_keluar">
-        <div class="row px-2 py-2 text-dark">
+        <div class="row px-2 pt-2 text-dark">
+            <div class="col-md-12">
+                <label style="color: black">*Saat ini Anda sedang memasukkan data alur kas keluar Pada Startup/Produk : 
+                    <label id="nama_project_dipilih_keluar" style="color:blue" class="font-weight-bold"></label>
+                </label>
+            </div>
+        </div>
+        <div class="row px-2 pt-2 text-dark">
             <div class="col-md-6">
              <div class="form-group text-dark">
                  <label for="">Pilih Tanggal</label>
-                 <input type="date" name="date_output" id="date_output" class="form-control text-dark" placeholder="" aria-describedby="help_date_output">
-                 <small id="help_date_output" class="text-muted"></small>
+                 <input type="date" name="date_output" id="date_output" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="help_date_output">
+                 <span class="text-danger error-text date_output_error"></span>
              </div>
             </div>
-         </div>
-        <div class="row px-2 py-2">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group text-dark">
                     <label class="float-left">Tipe Pengeluaran</label>
                     <select class="form-control form-control-alternative text-dark" name="tipe_pengeluaran" id="tipe_pengeluaran">
@@ -47,14 +46,14 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-8">
+         </div>
+        <div class="row px-2 py-2">
+            
+            <div class="col-md-12">
                 <div class="form-group text-dark">
                     <label class="float-left">Jumlah (Rp)</label>
                     <div class="input-group input-group-alternative mb-4">
-
-                        <input type="text" name="jumlah_keluar" id="jumlah_keluar" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="1,000" class="form-control form-control-alternative">
-
-                      {{-- <input class="form-control" type="number" name="jumlah_keluar" id="jumlah_keluar"> --}}
+                        <input type="text" name="jumlah_keluar" id="jumlah_keluar" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" class="form-control form-control-alternative">
                       <div class="input-group-append">
                         <button type="submit" class="btn btn-default">Simpan</button>
                       </div>

@@ -10,7 +10,7 @@ function sesuaikan_cetak() {
         $("#date_awal , #date_akhir, #status_proyek").attr('disabled','disabled');
         $("#pilih_project_cetak").removeAttr('disabled');
     }
-    else if (idcetak == 2 || idcetak == 3 || idcetak == 4) {
+    else if (idcetak == 2 || idcetak == 3 || idcetak == 4 || idcetak == 6) {
         $("#date_awal , #date_akhir, #pilih_project_cetak").removeAttr('disabled'); 
         $("#status_proyek").attr('disabled','disabled');
         
@@ -109,6 +109,25 @@ function cetak_laporanProyek() {
     else if (idcetak == 5)  {
         //cetak semua detail, transaksi, investor dan review     
         window.open("/dev/report/cetak_allDetailProyek/"+idproyek);
+    }
+    else if (idcetak == 6) {
+        //cetak Penilaian Investasi
+        if (dateawal == "") {
+            $('#help_date_awal').text("Tentukan Periode Awal");
+        }
+        if (dateawal != "") {
+            $('#help_date_awal').text("");
+        }
+        if (dateakhir == "") {
+            $('#help_date_akhir').text("Tentukan Periode Akhir");
+        }
+        if (dateakhir != "") {
+            $('#help_date_akhir').text("");
+        }
+        if (dateawal != "" && dateakhir != "") {
+            window.open("/dev/report/cetak_penilaianInv/"+dateawal+"/"+dateakhir+"/"+idproyek);
+        }
+        
     }
     
 }

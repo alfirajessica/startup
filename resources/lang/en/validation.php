@@ -166,17 +166,24 @@ return [
             'required' => 'Masukkan Nama Perusahaan Anda'
         ],
         'desc'=> [
-            'required' => 'Isi deskripsi diatas!'
+            'required' => 'Isi deskripsi diatas! (Apabila kosong maka isi dengan dash/-) '
         ],
         'team'=> [
-            'required' => 'Isi deskripsi diatas!'
+            'required' => 'Isi deskripsi diatas! (Apabila kosong maka isi dengan dash/-)'
         ],
         'benefit'=> [
-            'required' => 'Isi deskripsi diatas!'
+            'required' => 'Isi deskripsi diatas! (Apabila kosong maka isi dengan dash/-)'
         ],
         'target'=> [
-            'required' => 'Isi deskripsi diatas!'
+            'required' => 'Isi deskripsi diatas! (Apabila kosong maka isi dengan dash/-)'
         ],
+        'date_input'=> [
+            'required' => 'Masukkan tanggal transaksi'
+        ],
+        'date_output'=> [
+            'required' => 'Masukkan tanggal transaksi'
+        ],
+
         
     ],
 

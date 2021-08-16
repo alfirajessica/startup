@@ -17,7 +17,7 @@ function table_listInvestConfirmYet() {
             type: 'GET',
         },
         order: [
-            [0, 'asc'],  [3, 'desc']
+            [0, 'desc']
         ],
         columns: [
             {

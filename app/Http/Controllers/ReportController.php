@@ -500,7 +500,6 @@ class ReportController extends Controller
         ->whereBetween('reviews.created_at', [$date_awal, $date_akhir])
         ->get();
 
-
         $detailproyek =
                 DB::table('header_products')
                 ->select('header_products.id','header_products.name_product','category_products.name_category', 'detail_category_products.name', 'header_products.url', 'header_products.rilis', 'header_products.image', 'header_products.created_at', 'header_products.status', 'header_products.desc', 'header_products.team', 'header_products.benefit', 'header_products.reason', 'header_products.solution')
@@ -510,6 +509,35 @@ class ReportController extends Controller
                 ->get();
 
         $pdf = PDF::loadview('developer.report.cetak_reviewProyek', ['detailproyek'=>$detailproyek, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir, 'listreviews'=>$listreviews]);
+        return $pdf->stream();
+    }
+
+    public function cetak_penilaianInv($dateawal, $dateakhir, $idproyek)
+    {
+        $user = auth()->user();
+        $date_awal = \Carbon\Carbon::parse($dateawal)->format('Y-m-d'). " 00:00:00";
+        $date_akhir = \Carbon\Carbon::parse($dateakhir)->format('Y-m-d'). " 23:59:59";
+
+        $listreviews = 
+        DB::table('rating_invests')
+        ->join('header_invests','rating_invests.id_headerinvest','=','header_invests.id')
+        ->join('users', 'users.id','=','header_invests.user_id')
+        ->join('header_products', 'header_products.id','=','header_invests.project_id')
+        ->select('header_invests.id as id_Hinvest','rating_invests.id','users.name','users.name_company','rating_invests.rating','rating_invests.review', 'rating_invests.created_at', 'header_products.name_product')
+        ->whereBetween('header_invests.created_at', [$date_awal, $date_akhir])
+        ->where('header_invests.project_id','=',$idproyek)
+        ->orderBy('rating_invests.rating')
+        ->get();
+
+        $detailproyek =
+                DB::table('header_products')
+                ->select('header_products.id','header_products.name_product','category_products.name_category', 'detail_category_products.name', 'header_products.url', 'header_products.rilis', 'header_products.image', 'header_products.created_at', 'header_products.status', 'header_products.desc', 'header_products.team', 'header_products.benefit', 'header_products.reason', 'header_products.solution')
+                ->join('detail_category_products','detail_category_products.id','=','header_products.id_detailcategory')
+                ->join('category_products','category_products.id','=','detail_category_products.category_id')
+                ->where('header_products.id','=',$idproyek)
+                ->get();
+
+        $pdf = PDF::loadview('developer.report.cetak_penilaianInv', ['detailproyek'=>$detailproyek, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir, 'listreviews'=>$listreviews]);
         return $pdf->stream();
     }
 
@@ -560,9 +588,26 @@ class ReportController extends Controller
                 DB::table('header_events')
                 ->select('users.email','header_events.id','header_events.name','header_events.event_schedule','header_events.event_time','header_events.held','header_events.link','header_events.province_name','header_events.city_name','header_events.status')
                 ->join('users','users.id','=','header_events.user_id')
+                ->whereBetween('header_events.created_at', [$date_awal, $date_akhir])
                 ->get();
                 $pdf = PDF::loadview('admin.report.lap_Event',['detaiListEvent'=>$detaiListEvent, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir]);
                 $pdf->setPaper('A4', 'landscape');
+        }
+
+        else if ($jenislap == 4) {
+                //laporan Penilaian Investasi
+                $detaiListRatingInv = 
+                DB::table('rating_invests')
+                ->join('header_invests','rating_invests.id_headerinvest','=','header_invests.id')
+                ->join('users', 'users.id','=','header_invests.user_id')
+                ->join('header_products', 'header_products.id','=','header_invests.project_id')
+                ->select('header_invests.id as id_Hinvest','rating_invests.id','users.name','users.name_company','rating_invests.rating','rating_invests.review', 'rating_invests.created_at', 'header_products.name_product')
+                ->whereBetween('header_invests.created_at', [$date_awal, $date_akhir])
+                ->orderBy('rating_invests.rating')
+                ->get();
+
+                $pdf = PDF::loadview('admin.report.lap_ReviewInv',['detaiListRatingInv'=>$detaiListRatingInv, 'dateawal'=>$dateawal, 'dateakhir'=>$dateakhir]);
+                $pdf->setPaper('A4', 'potrait');
         }
         
         

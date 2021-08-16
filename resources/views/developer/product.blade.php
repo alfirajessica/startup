@@ -28,6 +28,9 @@
     max-height: calc(100vh - 210px);
     overflow-y: auto;
     }
+    .text-danger{
+        font-size: 8pt;
+    }
     
 </style>
 @section('content')
