@@ -107,7 +107,7 @@ $(function () {
             success:function(data) {
                 if (data == 1) {
                     swal({
-                        title: "Tipe Berhasil ditambahkan",
+                        text: "Tipe Berhasil ditambahkan",
                         icon: "success",
                     });
                     $('#addNewtypeTrans')[0].reset();
@@ -117,7 +117,7 @@ $(function () {
                 else if (data == -1) {
                     $('#addNewtypeTrans')[0].reset();
                     swal({
-                        title: "Tipe Telah tersedia",
+                        text: "Tipe Telah tersedia",
                         icon: "warning",
                     });
                 }
@@ -147,7 +147,7 @@ $(function () {
             success:function(data) {
                 if (data == 1) {
                     swal({
-                        title: "Berhasil mengubah tipe",
+                        text: "Berhasil mengubah tipe",
                         icon: "success",
                     });
                      $('#editTypeTrans')[0].reset();
@@ -156,7 +156,7 @@ $(function () {
                 }
                 else if (data == -1) {
                     swal({
-                        title: "Tipe Telah tersedia",
+                        text: "Tipe Telah tersedia",
                         icon: "warning",
                     });
                 }
@@ -174,7 +174,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah anda yakin ingin menonaktifkan tipe ini?",
+            text: "Apakah anda yakin ingin menonaktifkan tipe ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -186,7 +186,7 @@ $(function () {
                     url: "/admin/typeTrans/nonAktifTypeTrans" + '/' + id,
                     success: function (data) {
                         if (data == 0) {
-                            swal("Poof! tipe sedang digunakan!", {
+                            swal("Tipe sedang digunakan!", {
                                 icon: "warning",
                             });
                         }else{
@@ -212,7 +212,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah anda yakin mengaktifkan kembali?",
+            text: "Apakah anda yakin mengaktifkan kembali?",
             icon: "warning",
             buttons: true,
             dangerMode: true,

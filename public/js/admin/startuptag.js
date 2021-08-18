@@ -78,7 +78,7 @@ $(function () {
                 
                 if (data == 1) {
                     swal({
-                        title: "Kategori baru berhasil ditambahkan",
+                        text: "Kategori baru berhasil ditambahkan",
                         icon: "success",
                     });
                      $('#addNewHStartupTag')[0].reset();
@@ -87,7 +87,7 @@ $(function () {
                 else if (data == -1) {
                     $('#addNewHStartupTag')[0].reset();
                     swal({
-                        title: "Kategori telah tersedia",
+                        text: "Kategori telah tersedia",
                         icon: "warning",
                     });
                 }
@@ -141,8 +141,7 @@ $(function () {
                 else if (data.status == -1) { 
                     $('#editHStartupTag')[0].reset();
                     swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
+                        text: data.msg,
                         icon: "warning",
                     });
     
@@ -152,8 +151,7 @@ $(function () {
                     $('#editHStartupTag')[0].reset();
                     table1();
                     swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
+                        text: data.msg,
                         icon: "success",
                     });
                 }
@@ -242,7 +240,7 @@ $(function () {
                 }
                 if (data.status == -1) { 
                     swal({
-                        title: data.msg,
+                        text: data.msg,
                         icon: "warning",
                     });
                     $('#addNewSubStartupTag')[0].reset();
@@ -253,7 +251,7 @@ $(function () {
                     var id = $("#hStartupID").val();
                     table2(id);
                     swal({
-                        title: data.msg,
+                        text: data.msg,
                         icon: "success",
                     });
                 }
@@ -266,7 +264,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah anda yakin ingin menonaktifkan tag ini?",
+            text: "Apakah anda yakin ingin menonaktifkan tag ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -278,11 +276,11 @@ $(function () {
                     url: "/admin/startupTags/nonAktifHStartupTag" + '/' + id,
                     success: function (data) {
                         if (data == 0) {
-                            swal("Poof! tag sedang digunakan!", {
+                            swal("Poof! Label (tag) sedang digunakan!", {
                                 icon: "warning",
                             });
                         }else{
-                            swal("Poof! Your imaginary file has been deleted!", {
+                            swal("Label berhasil dinonaktifkan", {
                                 icon: "success",
                             });
                         }
@@ -304,7 +302,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah anda yakin mengaktifkan kembali?",
+            text: "Apakah anda yakin mengaktifkan kembali?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -338,7 +336,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah anda yakin menonaktifkan sub tag ini?",
+            text: "Apakah anda yakin menonaktifkan sub tag ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -350,13 +348,13 @@ $(function () {
                     url: "/admin/startupTags"+'/nonAktifSubStartupTag' + '/' + id,
                     success: function (data) {
                         if (data == 0) {
-                            swal("Poof! sub tag sedang digunakan!", {
+                            swal("Sublabel (subtag) sedang digunakan!", {
                                 icon: "warning",
                             });
                         }else{
                             var idkategori = $("#hStartupID").val();
                             table2(idkategori);
-                            swal("Poof! Berhasil menonaktifkan sub tag!", {
+                            swal("Berhasil menonaktifkan Sublabel (subtag)!", {
                                 icon: "success",
                             });
                         }
@@ -376,7 +374,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah anda yakin mengaktifkan sub-tag ini kembali?",
+            text: "Apakah anda yakin mengaktifkan sub-tag ini kembali?",
             icon: "warning",
             buttons: true,
             dangerMode: true,

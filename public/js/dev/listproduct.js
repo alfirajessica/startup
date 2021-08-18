@@ -434,7 +434,7 @@ $('body').on('click', '.deleteProject', function () {
     
     var txt;
     swal({
-        title: "Apakah anda yakin ingin menghapus ini?",
+        text: "Apakah anda yakin ingin menghapus ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -466,7 +466,7 @@ $('body').on('click', '.aktifProject', function () {
     
     var txt;
     swal({
-        title: "Apakah anda yakin ingin mengaktifkan ini?",
+        text: "Apakah anda yakin ingin mengaktifkan ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -497,7 +497,7 @@ $('body').on('click', '.nonAktifProject', function () {
    
     var txt;
     swal({
-        title: "Apakah anda yakin ingin menonaktifkan ini?",
+        text: "Apakah anda yakin ingin menonaktifkan ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,

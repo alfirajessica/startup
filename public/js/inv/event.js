@@ -359,7 +359,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah Anda yakin ingin menonaktifkan event ini?",
+            text: "Apakah Anda yakin ingin menonaktifkan event ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -396,7 +396,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah Anda yakin ingin menonaktifkan event ini?",
+            text: "Apakah Anda yakin ingin menonaktifkan event ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,

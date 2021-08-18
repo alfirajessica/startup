@@ -160,7 +160,7 @@ function cancle_join(id) {
     console.log(id);
     var txt;
     swal({
-        title: "Apakah Anda yakin untuk batal ikut event ini?",
+        text: "Apakah Anda yakin untuk batal ikut event ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,

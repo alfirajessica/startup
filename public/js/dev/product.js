@@ -93,7 +93,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah anda yakin ingin menghapus ini?",
+            text: "Apakah anda yakin ingin menghapus ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -192,7 +192,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah anda yakin ingin menghapus ini?",
+            text: "Apakah anda yakin ingin menghapus ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,

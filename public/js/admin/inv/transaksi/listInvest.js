@@ -69,7 +69,7 @@ function table_listInvestConfirmYet() {
     console.log(id);
     var txt;
     swal({
-        title: "Yakin ingin mengkonfirmasi transaksi ini?",
+        text: "Yakin Untuk Konfirmasi Transaksi Investasi Ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -81,7 +81,7 @@ function table_listInvestConfirmYet() {
                 url: "/admin/inv/transaksiInv/confirmInvest/" + id,
                 success: function (data) {
                     table_listInvestConfirmYet();
-                    swal("Poof! Transaksi berhasil dikonfirmasi!", {
+                    swal("Transaksi Investasi Berhasil Dikonfirmasi!", {
                         icon: "success",
                     });
                 },
@@ -101,7 +101,7 @@ $('body').on('click', '.notConfirmInvest', function () {
     console.log(id);
     var txt;
     swal({
-        title: "Yakin ingin TIDAK MENGKONFIRMASI transaksi ini?",
+        text: "Yakin ingin TIDAK MENGKONFIRMASI transaksi ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -114,7 +114,7 @@ $('body').on('click', '.notConfirmInvest', function () {
                 success: function (data) {
                     table_listInvestConfirmYet();
                     //jika sukses, call swal
-                    swal("Poof! Transaksi tidak dikonfirmasi!", {
+                    swal("Transaksi tidak dikonfirmasi!", {
                         icon: "success",
                     });
                 },

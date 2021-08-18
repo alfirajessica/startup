@@ -78,7 +78,7 @@ $(function () {
                 
                 if (data == 1) {
                     swal({
-                        title: "Kategori baru berhasil ditambahkan",
+                        text: "Kategori baru berhasil ditambahkan",
                         icon: "success",
                     });
                      $('#addNewCategoryProduct')[0].reset();
@@ -87,7 +87,7 @@ $(function () {
                 else if (data == -1) {
                     $('#addNewCategoryProduct')[0].reset();
                     swal({
-                        title: "Kategori telah tersedia",
+                        text: "Kategori telah tersedia",
                         icon: "warning",
                     });
                 }
@@ -115,7 +115,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah anda yakin ingin menonaktifkan kategori ini?",
+            text: "Apakah anda yakin ingin menonaktifkan kategori ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -131,7 +131,7 @@ $(function () {
                                 icon: "warning",
                             });
                         }else{
-                            swal("Poof! Your imaginary file has been deleted!", {
+                            swal("Anda berhasil menonaktifkan kategori ini", {
                                 icon: "success",
                             });
                         }
@@ -153,7 +153,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah anda yakin mengaktifkan kembali?",
+            text: "Apakah anda yakin mengaktifkan kembali?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -216,8 +216,7 @@ $(function () {
                 else if (data.status == -1) { 
                     $('#editCategoryProduct')[0].reset();
                     swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
+                        text: data.msg,
                         icon: "warning",
                     });
     
@@ -227,8 +226,7 @@ $(function () {
                     $('#editCategoryProduct')[0].reset();
                     table1();
                     swal({
-                        title: data.msg,
-                        text: "You clicked the button!",
+                        text: data.msg,
                         icon: "success",
                     });
                 }
@@ -318,7 +316,7 @@ $(function () {
                 }
                 if (data.status == -1) { 
                     swal({
-                        title: data.msg,
+                        text: data.msg,
                         icon: "warning",
                     });
                     $('#addNewDetailCategoryProduct')[0].reset();
@@ -329,7 +327,7 @@ $(function () {
                     var id = $("#categoryID").val();
                     table2(id);
                     swal({
-                        title: data.msg,
+                        text: data.msg,
                         icon: "success",
                     });
                 }
@@ -342,7 +340,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah anda yakin menonaktifkan sub kategori ini?",
+            text: "Apakah anda yakin menonaktifkan sub kategori ini?",
             icon: "warning",
             buttons: true,
             dangerMode: true,
@@ -354,13 +352,13 @@ $(function () {
                     url: "/admin/kategoriProduk"+'/nonaktifDetailKategori' + '/' + id,
                     success: function (data) {
                         if (data == 0) {
-                            swal("Poof! sub kategori sedang digunakan!", {
+                            swal("Subkategori sedang digunakan!", {
                                 icon: "warning",
                             });
                         }else{
                             var idkategori = $("#categoryID").val();
                             table2(idkategori);
-                            swal("Poof! Berhasil menonaktifkan sub kategori!", {
+                            swal("Berhasil menonaktifkan subkategori!", {
                                 icon: "success",
                             });
                         }
@@ -380,7 +378,7 @@ $(function () {
         var id = $(this).data("id");
         var txt;
         swal({
-            title: "Apakah anda yakin mengaktifkan sub-kategori ini kembali?",
+            text: "Apakah anda yakin mengaktifkan sub-kategori ini kembali?",
             icon: "warning",
             buttons: true,
             dangerMode: true,

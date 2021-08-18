@@ -611,7 +611,7 @@ $('body').on('click', '.cancelInvest', function () {
     var id = $(this).data('id');
     //console.log(id);
     swal({
-        title: "Apakah yakin ingin membatalkan investasi?",
+        text: "Apakah yakin ingin membatalkan investasi?",
         icon: "warning",
         buttons: true,
         dangerMode: true,

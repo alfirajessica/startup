@@ -128,7 +128,7 @@ $('body').on('click', '.confirmProject', function () {
     console.log(id);
     var txt;
     swal({
-        title: "Yakin Ingin mengkonfirmasi proyek ini?",
+        text: "Yakin Ingin mengkonfirmasi proyek ini?",
         icon: "warning",
         buttons: true,
         dangerMode: true,
