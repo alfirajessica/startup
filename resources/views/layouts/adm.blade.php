@@ -31,6 +31,10 @@
      .landing-page{
         background-color: #EFEFEF;
     }
+    a.list-group-item{
+        padding-top: 0rem;
+        padding-bottom: 0rem;
+    }
    </style>
 
 </head>
@@ -185,6 +189,24 @@
                     </li>
                 @endif
             @else
+                <li class="nav-item dropdown dropdown-notifications">
+                  <a id="NotificationDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                      
+                      <i data-count="0" class="fa fa-bell" aria-hidden="true"><span class="notif-count badge badge-danger">0</span></i> 
+                  </a>
+
+                  <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right" aria-labelledby="NotificationDropdown">
+                      <div class="px-3 py-3">
+                          <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">(<span class="notif-count">0</span>)</strong> notifications.</h6>
+                      </div>
+
+                      <div class="list-group list-group-flush">
+
+                      </div>
+                      <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
+                  </div>
+              </li>
+
                 <li class="nav-item dropdown" >
                   <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre=""> {{ Auth::user()->name }}
                   </a>
@@ -282,3 +304,169 @@
 </body>
 
 </html>
+
+
+
+<script src="https://js.pusher.com/4.2/pusher.min.js"></script>
+
+<script>
+    var notificationsWrapper   = $('.dropdown-notifications');
+      var notificationsToggle    = notificationsWrapper.find('a[data-toggle]');
+      var notificationsCountElem = notificationsToggle.find('i[data-count]');
+      var notificationsCount     = parseInt(notificationsCountElem.data('count'));
+      var notifications          = $('.list-group');
+  
+      var existingNotifications = notifications.html();
+      var newNotificationHtml = "";
+      var msg=-"";
+  
+      if (notificationsCount <= 0) {
+          notificationsWrapper.hide();
+      }
+  
+  
+      //get notif from database 
+      $.ajax({
+          type: "get",
+          url: '/adminNotification',
+          success: function (data) {
+            for (let i = 0; i < data.notif.length; i++) {
+
+                var a = moment(); // today
+                var b = moment(data.notif[i]['created_at']); // target date
+                var diffInDays = a.diff(b, 'days') + ' hari lalu'; // 36d;
+               
+
+                if (diffInDays == '0 hari lalu') {
+                    diffInDays = "Hari ini";
+                }
+              
+                if (data.notif[i]['id_notif_type'] == 1) {
+                    $("list-group").prop("href", "{{ route('dev.product') }}");
+                    msg = "Menerima Ulasan Startup dari " + data.notif[i]['name_user_fired_event'];
+                }
+
+                if (data.notif[i]['id_notif_type'] == 2) {
+                    $("list-group").prop("href", "{{ route('dev.product') }}");
+                    msg = "Sedang dalam tahap diinvestasikan oleh " + data.notif[i]['name_user_fired_event'];
+                }
+
+                if (data.notif[i]['id_notif_type'] == 3) {
+                    $("list-group").prop("href", "{{ route('dev.product') }}");
+                    msg = "Investasi dibatalkan oleh Investor " + data.notif[i]['name_user_fired_event'];
+                }
+
+                if (data.notif[i]['id_notif_type'] == 4) {
+                    $("list-group").prop("href", "{{ route('dev.product') }}");
+                    msg = "Menerima Ulasan Investasi dari " + data.notif[i]['name_user_fired_event'];
+                }
+
+                if (data.notif[i]['id_notif_type'] == 8) {
+                    $("list-group").prop("href", "{{ route('dev.product') }}");
+                    msg = "Menerima Investasi dari Investor " + data.notif[i]['data'];
+                }
+
+                newNotificationHtml = `
+                <a href="{{ route('dev.product') }}" class="list-group-item list-group-item-action">
+                <div class="row align-items-center">
+                    
+                    <div class="col">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                        <h6 class="mb-0 text-sm">`+ data.notif[i]['name_product'] + `</h6>
+                        <label>` + msg + `</label>
+                        </div>
+                        <div class="text-right text-muted">
+                            <small>`+ diffInDays  + `</small>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </a>`;
+                
+                notifications.append(newNotificationHtml);
+                notificationsCount += 1;
+                notificationsCountElem.attr('data-count', notificationsCount);
+                notificationsWrapper.find('.notif-count').text(notificationsCount);
+                notificationsWrapper.show();
+            }
+            
+          },
+          error: function (data) {
+              console.log('Error:', data);
+          }
+      });
+  
+      //Remember to replace key and cluster with your credentials.
+      var pusher = new Pusher('7ccfa9bcb981ff489c7a', {
+          cluster: 'ap1',
+          encrypted: false
+      });
+  
+      //Also remember to change channel and event name if your's are different.
+      var userID = "{{ Auth::user()->id }}";
+      var channel = pusher.subscribe('investor-review.' + userID);
+      
+      channel.bind('App\\Events\\InvestorReview', function(data) {
+      console.log(data.newNotif['id_notif_type']);
+      
+            var a = moment(); // today
+            var b = moment(data.newNotif['created_at']); // target date
+            var diffInDays = a.diff(b, 'days') + ' hari lalu'; // 36d;
+            
+            if (diffInDays == '0 hari lalu') {
+                diffInDays = "Hari ini";
+            }
+
+          //investor memberikan review
+            if (data.newNotif['id_notif_type'] == 1) {
+                $("list-group").prop("href", "{{ route('dev.product') }}");
+                msg = "Menerima Ulasan Startup dari " + data.newNotif['name_user_fired_event'];
+            }
+
+            if (data.newNotif['id_notif_type'] == 2) {
+                $("list-group").prop("href", "{{ route('dev.product') }}");
+                msg = "Sedang dalam tahap diinvestasikan oleh " + data.newNotif['name_user_fired_event'];
+            }
+
+            if (data.newNotif['id_notif_type'] == 3) {
+                $("list-group").prop("href", "{{ route('dev.product') }}");
+                msg = "Investasi dibatalkan oleh Investor " + data.newNotif['name_user_fired_event'];
+            }
+
+            if (data.newNotif['id_notif_type'] == 4) {
+                $("list-group").prop("href", "{{ route('dev.product') }}");
+                msg = "Menerima Ulasan Investasi dari " + data.newNotif['name_user_fired_event'];
+            }
+
+            if (data.newNotif['id_notif_type'] == 8) {
+                $("list-group").prop("href", "{{ route('dev.product') }}");
+                msg = "Menerima Investasi dari Investor " + data.newNotif['data'];
+            }
+  
+          newNotificationHtml = `
+              <a href="" class="list-group-item list-group-item-action">
+              <div class="row align-items-center">
+                  
+                  <div class="col">
+                  <div class="d-flex justify-content-between align-items-center">
+                      <div>
+                      <h6 class="mb-0 text-sm">`+ data.startupName + `</h6>
+                      <label>`+ msg + `</label>
+                      </div>
+                      <div class="text-right text-muted">
+                      <small>`+ diffInDays  + `</small>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+              </a>`;
+          
+            notifications.append(newNotificationHtml);
+            notificationsCount += 1;
+            notificationsCountElem.attr('data-count', notificationsCount);
+            notificationsWrapper.find('.notif-count').text(notificationsCount);
+            notificationsWrapper.show();
+      });
+</script>
+  

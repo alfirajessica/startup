@@ -39,6 +39,16 @@
 
 <script>
     const url_table_listReviews = "/inv/riwayatReview/listReviews";
+
+    var userID = "{{ Auth::user()->id }}";
+    var notifTypeID = 7;
+    $.ajax({
+      type: "get",
+      url: '/markReadReviewIinv/'+userID+'/'+notifTypeID,
+      success: function (data) {
+        console.log("ok");
+      }
+    });
 </script>
 <script src="/js/inv/review.js"></script>
 <script src="../js/custom.js"></script>
