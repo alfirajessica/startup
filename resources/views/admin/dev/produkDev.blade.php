@@ -43,7 +43,7 @@
           <input type="hidden" id="productID" name="productID">
           <div class="form-group">
             <label for="">Berikan alasan kenapa Startup/produk tidak dikonfirmasi</label>
-            <input type="text" name="reason_tdkdikonfirmasi" id="reason_tdkdikonfirmasi" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="helpId">
+            <textarea name="reason_tdkdikonfirmasi" id="reason_tdkdikonfirmasi" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="reason_tdkdikonfirmasi_error" cols="2" rows="2"></textarea>
             <span class="text-danger error-text reason_tdkdikonfirmasi_error"></span>
           </div>
           <button type="submit" class="btn btn-default float-right">Simpan Alasan Ini</button>

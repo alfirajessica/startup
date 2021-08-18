@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<link rel = "icon" href="/../images/icon-startupinow.png" type="image/png">
 @section('content')
 <body class="register-page" style="background-color: #0a1931">
   <div class="container py-2" style="overflow: hidden; overflow-y: no scroll;">

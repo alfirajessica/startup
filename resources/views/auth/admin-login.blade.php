@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<link rel = "icon" href="/../images/icon-startupinow.png" type="image/png">
 @section('content')
 <body class="landing-page" style="background-color: #0a1931">
     <section class="section section-shaped">

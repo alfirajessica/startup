@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<link rel = "icon" href="/../images/icon-startupinow.png" type="image/png">
 @section('content')
 <div class="container">
     <div class="row justify-content-center py-4 text-dark">
