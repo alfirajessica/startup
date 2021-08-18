@@ -5,6 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InvController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\NotificationController;
 
 use App\Http\Controllers\DevController;
 use App\Http\Controllers\AdminController;
@@ -28,6 +29,7 @@ use App\Http\Controllers\Auth\AdminResetPasswordController;
 
 use App\Event\MyEvent;
 use App\Events\InvestorInvest;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,9 +52,14 @@ Auth::routes();
 Route::get('reg/cities/{province_id}', [RegisterController::class, 'getCities']); //get all cities in buat event
 
 
-Route::get('/getMessage', function () {
-    InvestorInvest::dispatch();
+// Route::get('/getMessage', function () {
+//     InvestorInvest::dispatch();
    
+// });
+
+Route::get('test', function () {
+    event(new App\Events\InvestorInvest('Someone'));
+    return "Event has been sent!";
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -82,7 +89,12 @@ Route::get('/projectdetailInvest/{id}', [HomeController::class, 'projectdetailIn
 //cancle invest
 Route::get('/cancleInvest/{id}', [HomeController::class, 'cancleInvest'])->name('cancleInvest');
 
-
+Route::get('/devNotification', [NotificationController::class, 'devNotification'])->name('devNotification');
+Route::get('/adminNotification', [NotificationController::class, 'adminNotification'])->name('adminNotification');
+Route::get('/invNotification', [NotificationController::class, 'invNotification'])->name('invNotification');
+Route::get('/markReadReviewIinv/{id}/{notifTypeID}', [NotificationController::class, 'markReadReviewIinv'])->name('markReadReviewIinv');
+Route::get('/markReadReviewDev/{id}/{notifTypeID}', [NotificationController::class, 'markReadReviewDev'])->name('markReadReviewDev');
+Route::get('/markReadReviewDev2/{id}/{notifTypeID}', [NotificationController::class, 'markReadReviewDev2'])->name('markReadReviewDev2');
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminLoginController::class, 'showLoginForm'])->name('admin.login');
