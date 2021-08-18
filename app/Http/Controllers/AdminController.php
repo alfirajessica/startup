@@ -15,6 +15,11 @@ use App\Models\HeaderProduct;
 use App\Models\HeaderInvest;
 use App\Models\HeaderEvent;
 use App\Models\NotConfirmProduct;
+use App\Models\Notification;
+use App\Events\AdminNotif;
+use App\Events\DevNotif;
+use App\Events\InvestorNotif;
+use App\Events\InvestorReview;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -258,6 +263,30 @@ class AdminController extends Controller
         update([
             'status' => '1',
         ]);
+
+        //get data dari project yang diulas
+        $dataHProduct = HeaderProduct::find($id);
+        $startupName = $dataHProduct->name_product;
+
+        $dataUser2 = User::find($dataHProduct->user_id); //id developernya
+        $userName = $dataUser2->name;
+        
+        //notification type -- 6
+        $newNotif = new Notification;
+        $newNotif->id_notif_type = 6;
+        $newNotif->user_to_notify1 = $dataHProduct->user_id; //id dev
+        $newNotif->name_user_to_notify1 = $userName; //nama dev
+        $newNotif->read_to_notify1=0;
+        $newNotif->user_to_notify2 = 0; 
+        $newNotif->user_fired_event=0; 
+        $newNotif->name_user_fired_event='admin';
+        $newNotif->name_product=$startupName;
+        $newNotif->data = '-'; 
+        $newNotif->read_to_notify2=0;
+        $query = $newNotif->save();
+
+        DevNotif::dispatch($newNotif, $userName, $startupName);
+
         return response()->json(['success'=>"Berhasil mengaktifkan", 'tr'=>'tr_'.$id]);
     }
 
@@ -294,6 +323,29 @@ class AdminController extends Controller
             update([
                 'status' => '4',
             ]);
+
+             //get data dari project yang diulas
+                $dataHProduct = HeaderProduct::find($req->productID);
+                $startupName = $dataHProduct->name_product;
+
+                $dataUser2 = User::find($dataHProduct->user_id); //id developernya
+                $userName = $dataUser2->name;
+                
+                //notification type -- 9
+                $newNotif = new Notification;
+                $newNotif->id_notif_type = 9;
+                $newNotif->user_to_notify1 = $dataHProduct->user_id; //id dev
+                $newNotif->name_user_to_notify1 = $userName; //nama dev
+                $newNotif->read_to_notify1=0;
+                $newNotif->user_to_notify2 = 0; 
+                $newNotif->user_fired_event=0; 
+                $newNotif->name_user_fired_event='admin';
+                $newNotif->name_product=$startupName;
+                $newNotif->data = '-'; 
+                $newNotif->read_to_notify2=0;
+                $query = $newNotif->save();
+
+                DevNotif::dispatch($newNotif, $userName, $startupName);
             return 1;
         }
     }
@@ -447,6 +499,34 @@ class AdminController extends Controller
             'status_invest' => '1',
         ]);
 
+        //get data dari project yang diulas
+        $dataHInvest = HeaderInvest::find($id);
+
+        $dataHProduct = HeaderProduct::find($dataHInvest->project_id);
+        $startupName = $dataHProduct->name_product;
+
+        $dataUser1 = User::find($dataHInvest->user_id); //id investorny
+        $userName = $dataUser1->name;
+
+        $dataUser2 = User::find($dataHProduct->user_id); //id developernya
+        $userNameHasProduct = $dataUser2->name;
+        
+        //notification type -- 8
+        $newNotif = new Notification;
+        $newNotif->id_notif_type = 8;
+        $newNotif->user_to_notify1 = $dataHProduct->user_id; //id dev
+        $newNotif->name_user_to_notify1 = $userNameHasProduct; //nama dev
+        $newNotif->user_to_notify2 = $dataHInvest->user_id; //id inv
+        $newNotif->user_fired_event=0; //default admin
+        $newNotif->name_user_fired_event='admin';
+        $newNotif->name_product=$startupName;
+        $newNotif->data = $userName; //nama inv
+        $newNotif->read_to_notify1=0;
+        $newNotif->read_to_notify2=0;
+        $query = $newNotif->save();
+
+        InvestorNotif::dispatch($newNotif, $userName, $startupName);
+        DevNotif::dispatch($newNotif, $userName, $startupName);
         
         return response()->json(['success'=>"Berhasil mengaktifkan", 'tr'=>'tr_'.$id]);
     }
@@ -619,7 +699,7 @@ class AdminController extends Controller
 
     public function updStatusTrans()
     {
-        $data = HeaderInvest::whereBetween('header_invests',[0,3])->get()->toArray();
+        $data = HeaderInvest::whereBetween('status_invest',[0,3])->get()->toArray();
         for ($i=0; $i < count($data); $i++) { 
 
             $status = \Midtrans\Transaction::status($data[$i]['invest_id']);

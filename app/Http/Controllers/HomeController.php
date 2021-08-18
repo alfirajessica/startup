@@ -11,6 +11,12 @@ use App\Models\HeaderEvent;
 use App\Models\HeaderInvest;
 use App\Models\User;
 use App\Models\DetailUser;
+use App\Models\HeaderProduct;
+use App\Models\DetailInvest;
+use App\Models\Notification;
+use App\Events\AdminNotif;
+use App\Events\InvestorReview;
+use App\Events\DevNotif;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -165,6 +171,8 @@ class HomeController extends Controller
                 ->update([
                     'header_products.status' => '2',
                 ]);
+
+                
             }
    
         }
@@ -271,9 +279,37 @@ class HomeController extends Controller
     //status product dikembalikan menjadi 0
     public function cancleInvest($id)
     {
-         //get invest idnya
+        $user = auth()->user();
+
+        //get invest idnya
         $data = HeaderInvest::find($id);
         $investID = $data->invest_id;
+
+        //get data dari project yang diulas
+        $dataHProduct = HeaderProduct::find($data->project_id);
+        $startupName = $dataHProduct->name_product;
+
+        $dataUser1 = User::find($user->id); //yg lagi auth investor
+        $userName = $dataUser1->name;
+
+        $dataUser2 = User::find($dataHProduct->user_id);
+        $userNameHasProduct = $dataUser2->name;
+        
+        //notification type -- 3 
+        $newNotif = new Notification;
+        $newNotif->id_notif_type = 3;
+        $newNotif->user_to_notify1 = $dataHProduct->user_id; //yang punya startup-- dev
+        $newNotif->name_user_to_notify1 = $userNameHasProduct;
+        $newNotif->user_to_notify2 = 0; //default admin
+        $newNotif->user_fired_event=$user->id; //user investor skrg yg lagi review
+        $newNotif->name_user_fired_event=$userName;
+        $newNotif->name_product=$startupName;
+        $newNotif->data = '-';
+        $newNotif->read_to_notify1=0;
+        $newNotif->read_to_notify2=0;
+        $query = $newNotif->save();
+
+        DevNotif::dispatch($newNotif, $userName, $startupName);
         
         $cancel = \Midtrans\Transaction::cancel($investID);
 

@@ -10,6 +10,11 @@ use Validator;
 use App\Models\Review;
 use App\Models\User;
 use App\Models\ResponseReview;
+use App\Models\HeaderProduct;
+use App\Models\Notification;
+use App\Events\InvestorReview;
+use App\Events\InvestorNotif;
+use App\Events\DevNotif;
 use Carbon\Carbon;
 
 class ReviewController extends Controller
@@ -27,7 +32,7 @@ class ReviewController extends Controller
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
             
-            //save to db header_products
+            //save to db review
             $newReview = new Review;
             $newReview->user_id = $user->id;
             $newReview->project_id = $req->project_id_ulas;
@@ -35,6 +40,32 @@ class ReviewController extends Controller
             $newReview->isi_review = $req->isi_review;
             $newReview->status = "1";  
             $query = $newReview->save();
+
+            //get data dari project yang diulas
+            $dataHProduct = HeaderProduct::find($req->project_id_ulas);
+            $startupName = $dataHProduct->name_product;
+
+            $dataUser1 = User::find($user->id);
+            $userName = $dataUser1->name;
+
+            $dataUser2 = User::find($dataHProduct->user_id);
+            $userNameHasProduct = $dataUser2->name;
+            
+            //notification type -- 1
+            $newNotif = new Notification;
+            $newNotif->id_notif_type = 1;
+            $newNotif->user_to_notify1 = $dataHProduct->user_id; //yang punya startup-- dev
+            $newNotif->name_user_to_notify1 = $userNameHasProduct;
+            $newNotif->user_to_notify2 = 0;
+            $newNotif->user_fired_event=$user->id; //user investor skrg yg lagi review
+            $newNotif->name_user_fired_event=$userName;
+            $newNotif->name_product=$startupName;
+            $newNotif->data = '-';
+            $newNotif->read_to_notify1=0;
+            $newNotif->read_to_notify2=0;
+            $query = $newNotif->save();
+
+            DevNotif::dispatch($newNotif, $userName, $startupName);
 
             if ($query) {
                 return 1;
@@ -213,6 +244,34 @@ class ReviewController extends Controller
                 $newResponse->status = "1";
                 $query = $newResponse->save();
     
+                //get data dari project yang diulas
+                $dataReview = Review::find($req->id_reviews);
+
+                $dataHProduct = HeaderProduct::find($dataReview->project_id);
+                $startupName = $dataHProduct->name_product;
+
+                $dataUser1 = User::find($dataReview->user_id);
+                $userName = $dataUser1->name;
+
+                $dataUser2 = User::find($dataHProduct->user_id);
+                $userNameHasProduct = $dataUser2->name;
+                
+                //notification type -- 1
+                $newNotif = new Notification;
+                $newNotif->id_notif_type = 7;
+                $newNotif->user_to_notify1 = 0; 
+                $newNotif->name_user_to_notify1 = 0; 
+                $newNotif->user_to_notify2 = $dataReview->user_id; //inv 
+                $newNotif->user_fired_event=$dataHProduct->user_id;  //developer yg menanggapi
+                $newNotif->name_user_fired_event=$userNameHasProduct;
+                $newNotif->name_product=$startupName;
+                $newNotif->data = $userName; //inv nama
+                $newNotif->read_to_notify1=0;
+                $newNotif->read_to_notify2=0;
+                $query = $newNotif->save();
+
+                InvestorNotif::dispatch($newNotif, $userName, $startupName);
+
                 if ($query) {
                     return 1;
                 }

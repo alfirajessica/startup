@@ -13,6 +13,10 @@ use App\Models\DetailProductKas;
 use App\Models\HeaderProduct;
 use App\Models\HeaderInvest;
 use App\Models\DetailInvest;
+use App\Models\Notification;
+use App\Events\InvestorReview;
+use App\Events\AdminNotif;
+use App\Events\DevNotif;
 use Validator;
 use Illuminate\Support\Facades\Http;
 use Carbon\Carbon;
@@ -107,7 +111,33 @@ class InvestController extends Controller
              ->update([
                  'status' => '2',
              ]);
+
+            //get data dari project yang diulas
+            $dataHProduct = HeaderProduct::find($id);
+            $startupName = $dataHProduct->name_product;
+
+            $dataUser1 = User::find($user->id); //yg lagi auth
+            $userName = $dataUser1->name;
+
+            $dataUser2 = User::find($dataHProduct->user_id);
+            $userNameHasProduct = $dataUser2->name;
             
+            //notification type -- 2
+            $newNotif = new Notification;
+            $newNotif->id_notif_type = 2;
+            $newNotif->user_to_notify1 = $dataHProduct->user_id; //yang punya startup-- dev
+            $newNotif->name_user_to_notify1 = $userNameHasProduct;
+            $newNotif->user_to_notify2 = 0; //default admin
+            $newNotif->user_fired_event=$user->id; //user investor skrg yg lagi review
+            $newNotif->name_user_fired_event=$userName;
+            $newNotif->name_product=$startupName;
+            $newNotif->data = '-';
+            $newNotif->read_to_notify1=0;
+            $newNotif->read_to_notify2=0;
+            $query = $newNotif->save();
+
+            DevNotif::dispatch($newNotif, $userName, $startupName);
+
             $this->snapToken = \Midtrans\Snap::getSnapToken($params);
             return $this->snapToken;
         }
@@ -345,6 +375,37 @@ class InvestController extends Controller
             ->update([
                 'status_review' => '1',
             ]);
+
+             //get data dari project yang diulas
+
+             $dataHInvest = HeaderInvest::find($req->id_headerinvest);
+             //$UserdataHInvest = $dataHInvest->user_id;
+
+             $dataHProduct = HeaderProduct::find($dataHInvest->project_id);
+             $startupName = $dataHProduct->name_product;
+ 
+             $dataUser1 = User::find($user->id); //yg auth skrg
+             $userName = $dataUser1->name;
+ 
+             $dataUser2 = User::find($dataHProduct->user_id);
+             $userNameHasProduct = $dataUser2->name;
+             
+             //notification type -- 4
+             $newNotif = new Notification;
+             $newNotif->id_notif_type = 4;
+             $newNotif->user_to_notify1 = $dataHProduct->user_id; //yang punya startup-- dev
+             $newNotif->name_user_to_notify1 = $userNameHasProduct;
+             $newNotif->user_to_notify2 = 0; //set 0 karena admin
+             $newNotif->user_fired_event=$user->id; //user investor skrg yg lagi review
+             $newNotif->name_user_fired_event=$userName;
+             $newNotif->name_product=$startupName;
+             $newNotif->data = '-';
+             $newNotif->read_to_notify1=0;
+             $newNotif->read_to_notify2=0;
+             $query = $newNotif->save();
+ 
+             //notif untuk developer
+             DevNotif::dispatch($newNotif, $userName, $startupName);
 
             if ($query) {
                 return 1;
