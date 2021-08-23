@@ -28,6 +28,8 @@ $("#beriReview").on("submit",function (e) {
                 swal("Anda berhasil memberi ulasan!", {
                     icon: "success",
                 });
+
+                
             }
             else{
                 
@@ -45,7 +47,7 @@ function refresh_dataUlasan()
     var id = $("#project_id_ulas").val();
     $.ajax({
         type: "GET",
-        url: '/inv/review/refreshUlasan/' + id,
+        url: '/inv/startup/detailstartup/refreshUlasan/' + id,
         success:function(data) {
           console.log(data);
           if (data == null) {
