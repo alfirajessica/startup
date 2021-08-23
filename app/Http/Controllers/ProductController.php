@@ -445,6 +445,7 @@ class ProductController extends Controller
             'reason'=>'required',
             'benefit'=>'required',
             //'solution'=>'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'proposal_startup2' => 'mimes:csv,txt,xlx,xls,pdf|max:2048',
             'kontrak_startup2' => 'mimes:csv,txt,xlx,xls,pdf|max:2048'
         ]);
@@ -452,6 +453,21 @@ class ProductController extends Controller
         if (!$validator->passes()) {
             return response()->json(['status'=>0, 'error'=>$validator->errors()->toArray()]);
         }else{
+
+            //store image
+            if ($req->hasfile('image')) {
+                $file = $req->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $filename = $req->nama_produk.$req->detail_kategori.'.'.$extension;
+                $file->move('uploads/event/', $filename);
+               // $newProduct->image = $filename;
+
+                DB::table('header_products')->
+                where('id',$req->id_product)->
+                update([
+                    'image'=>$filename,
+                ]);
+            }
         
             if ($req->file('proposal_startup2') != null) {
                 $fileName1 = time().'_'.$req->file('proposal_startup2')->getClientOriginalName();
@@ -721,7 +737,7 @@ class ProductController extends Controller
         ->where('tipe','=','1')
         ->where('status','=','1')
         ->groupBy(\DB::raw('DATE_FORMAT(tanggal,"%Y-%m")'))
-        ->orderBy('tanggal')
+        ->orderBy(\DB::raw('DATE_FORMAT(tanggal,"%Y-%m")'))
         ->get();
 
         $list_finance_keluar['list_finance_keluar'] = 
@@ -731,7 +747,7 @@ class ProductController extends Controller
         ->where('tipe','=','2')
         ->where('status','=','1')
         ->groupBy(\DB::raw('DATE_FORMAT(tanggal,"%Y-%m")'))
-        ->orderBy('tanggal')
+        ->orderBy(\DB::raw('DATE_FORMAT(tanggal,"%Y-%m")'))
         ->get();
 
         
@@ -768,7 +784,7 @@ class ProductController extends Controller
         ->where('header_invests.project_id','=',$id)
         ->where('header_invests.status_transaction','=','settlement')
         ->where('header_invests.status_invest','=','5')
-        ->select('users.name','header_invests.invest_expire','rating_invests.rating')
+        ->select('users.name', 'users.name_company','header_invests.invest_expire','rating_invests.rating')
         ->orderBy('header_invests.created_at')
         ->paginate(4);
 

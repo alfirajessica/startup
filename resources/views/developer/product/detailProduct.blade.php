@@ -50,27 +50,27 @@
                                             <input type="hidden" id="id_product" name="id_product">
                                             <div class="form-group">
                                             <label for="">Nama Produk</label>
-                                            <input type="text" name="nama_product" id="nama_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
+                                            <input type="text" name="nama_product" id="nama_product" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="helpId">
                                             <span class="text-danger error-text nama_product_error" id="nama_product_error"></span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="float-left">Kategori</label>
-                                                <select class="form-control form-control-alternative" name="edit_jenis_produk" id="edit_jenis_produk" onchange="show_detail_kategori(this)"> 
+                                                <select class="form-control form-control-alternative text-dark" name="edit_jenis_produk" id="edit_jenis_produk" onchange="show_detail_kategori(this)"> 
                                                 </select>      
                                                 <span class="text-danger error-text edit_jenis_produk_error" id="edit_jenis_produk_error"></span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="float-left">Subkategori</label>
-                                                <select class="form-control form-control-alternative" name="edit_detail_kategori" id="edit_detail_kategori">    
+                                                <select class="form-control form-control-alternative text-dark" name="edit_detail_kategori" id="edit_detail_kategori">    
                                                 </select>
                                                 <span class="text-danger error-text edit_detail_kategori_error" id="edit_detail_kategori_error"></span>
                                             </div>
 
                                             <div class="form-group">
                                                 <label class="float-left">Startup Tag (Label)</label>
-                                                <select class="form-control form-control-alternative" name="edit_startup_tag" id="edit_startup_tag" onchange="show_sub_startup_tag(this)"> 
+                                                <select class="form-control form-control-alternative text-dark" name="edit_startup_tag" id="edit_startup_tag" onchange="show_sub_startup_tag(this)"> 
                                                     @foreach($list_hStartupTag as $hStartupTag)
                                                 <option value="{{$hStartupTag->id}}"> {{$hStartupTag->name_startup_tag}}</option>
                                                 @endforeach
@@ -80,7 +80,7 @@
 
                                             <div class="form-group">
                                                 <label class="float-left">Sub Tag (Sublabel)</label>
-                                                <select class="form-control form-control-alternative" name="edit_subStartup_tag" id="edit_subStartup_tag">    
+                                                <select class="form-control form-control-alternative text-dark" name="edit_subStartup_tag" id="edit_subStartup_tag">    
                                                 </select>
                                                 <span class="text-danger error-text edit_subStartup_tag_error" id="eedit_subStartup_tag_error"></span>
                                             </div>
@@ -92,20 +92,20 @@
                                         <div class="">
                                             <div class="form-group">
                                                 <label class="float-left">Link/Url Produk</label>
-                                                <input type="url" name="url_product" id="url_product" class="form-control form-control-alternative" placeholder="" aria-describedby="helpId">
+                                                <input type="url" name="url_product" id="url_product" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="helpId">
                                                 <span class="text-danger error-text url_product_error" id="url_product_error"></span>
                                             </div>
                                             
                                             <div class="form-group">
                                                 <label class="float-left">Tanggal Perilisan produk</label>
-                                                <input type="date" name="rilis_product" id="rilis_product" class="form-control form-control-alternative" aria-describedby="helpId" >
+                                                <input type="date" name="rilis_product" id="rilis_product" class="form-control form-control-alternative text-dark" aria-describedby="helpId" >
                                                 <span class="text-danger error-text rilis_product_error" id="rilis_product_error"></span>
                                             </div>
 
                                             <div class="form-group">
                                               
                                                     <label for="exampleInputFile2">Banner/Gambar Pendukung Startup</label>
-                                                    <input type="file" class="form-control-file form-control-alternative"  name="image" id="exampleInputFile2" aria-describedby="fileHelp" onchange="previewFile2(this)">
+                                                    <input type="file" class="form-control-file form-control-alternative text-dark"  name="image" id="exampleInputFile2" aria-describedby="fileHelp" onchange="previewFile2(this)">
                                                     <span class="text-danger error-text image_error"></span>
                                                 
                                             </div>
@@ -120,31 +120,31 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="">Deskripsikan Startup/Produk Anda</label>
-                                            <textarea class="form-control form-control-alternative" name="desc" id="desc" rows="2"></textarea>
+                                            <textarea class="form-control form-control-alternative text-dark" name="desc" id="desc" rows="2"></textarea>
                                             <span class="text-danger error-text desc_error" id="desc_error"></span>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="">Siapa saja yang ada didalam Tim Anda</label>
-                                            <textarea class="form-control form-control-alternative" name="team" id="team" rows="2"></textarea>
+                                            <textarea class="form-control form-control-alternative text-dark" name="team" id="team" rows="2"></textarea>
                                             <span class="text-danger error-text team_error" id="team_error"></span>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="">Keunggulan Startup/Produk Anda</label>
-                                            <textarea class="form-control form-control-alternative" name="reason" id="reason" rows="2"></textarea>
+                                            <textarea class="form-control form-control-alternative text-dark" name="reason" id="reason" rows="2"></textarea>
                                             <span class="text-danger error-text reason_error" id="reason_error"></span>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="">Informasi lainnya</label>
-                                            <textarea class="form-control form-control-alternative" name="benefit" id="benefit" rows="2"></textarea>
+                                            <textarea class="form-control form-control-alternative text-dark" name="benefit" id="benefit" rows="2"></textarea>
                                             <span class="text-danger error-text benefit_error" id="benefit_error"></span>
                                         </div>
                                         
                                         <div class="form-group d-none">
                                             <label for="">Solusi</label>
-                                            <textarea class="form-control form-control-alternative" name="solution" id="solution" rows="3"></textarea>
+                                            <textarea class="form-control form-control-alternative text-dark" name="solution" id="solution" rows="3"></textarea>
                                             <span class="text-danger error-text solution_error" id="solution_error"></span>
                                         </div>
                                     </div>
@@ -155,7 +155,7 @@
                                         <div class="form-group" >
                                             <div class="input-group">
                                                 <label>Proposal Startup Anda (Apabila ada)</label>
-                                                <input type="file" class="form-control-file form-control-alternative"  name="proposal_startup2" id="proposal_startup2" aria-describedby="fileHelp">
+                                                <input type="file" class="form-control-file form-control-alternative text-dark"  name="proposal_startup2" id="proposal_startup2" aria-describedby="fileHelp">
                                                 <span class="text-danger error-text proposal_startup2_error"></span>
                                             </div>
                                            

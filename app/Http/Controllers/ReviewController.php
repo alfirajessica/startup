@@ -56,12 +56,12 @@ class ReviewController extends Controller
             $newNotif->id_notif_type = 1;
             $newNotif->user_to_notify1 = $dataHProduct->user_id; //yang punya startup-- dev
             $newNotif->name_user_to_notify1 = $userNameHasProduct;
+            $newNotif->read_to_notify1=0;
             $newNotif->user_to_notify2 = 0;
             $newNotif->user_fired_event=$user->id; //user investor skrg yg lagi review
             $newNotif->name_user_fired_event=$userName;
             $newNotif->name_product=$startupName;
             $newNotif->data = '-';
-            $newNotif->read_to_notify1=0;
             $newNotif->read_to_notify2=0;
             $query = $newNotif->save();
 

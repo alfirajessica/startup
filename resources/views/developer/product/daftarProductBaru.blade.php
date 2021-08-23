@@ -93,22 +93,22 @@
                                 <div class="form-group">
                                     <div class="form-group">
                                         <label class="float-left">Deskripsikan Startup/Produk Anda</label>
-                                        <textarea class="form-control form-control-alternative" name="desc" id="" rows="3"></textarea>
+                                        <textarea class="form-control form-control-alternative" name="desc" id="" rows="3" required data-parsley-error-message="Deskripsikan Startup/produk anda"></textarea>
                                     </div>
                                 
                                     <div class="form-group">
                                         <label class="float-left">Siapa saja yang ada didalam Tim Anda</label>
-                                        <textarea class="form-control form-control-alternative" name="team" id="" rows="3"></textarea>
+                                        <textarea class="form-control form-control-alternative" name="team" id="" rows="3" required data-parsley-error-message="Siapa saja yang ada pada tim Anda"></textarea>
                                     </div>
                                 
                                     <div class="form-group">
-                                        <label class="float-left">Keunggulan Startup/Produk Anda</label>
-                                        <textarea class="form-control form-control-alternative" name="reason" id="" rows="3"></textarea>
+                                        <label class="float-left">Alasan Anda membuat Startup/produk ini</label>
+                                        <textarea class="form-control form-control-alternative" name="reason" id="" rows="3" required data-parsley-error-message="Sebutkan Alasan Anda membuat Startup/produk ini"></textarea>
                                     </div>
                                 
                                     <div class="form-group">
-                                        <label class="float-left">Informasi lainnya</label>
-                                        <textarea class="form-control form-control-alternative" name="benefit" id="" rows="3"></textarea>
+                                        <label class="float-left">Manfaat yang akan diperoleh pengguna maupun investor</label>
+                                        <textarea class="form-control form-control-alternative" name="benefit" id="" rows="3" required data-parsley-error-message="Manfaat yang akan diperoleh pengguna maupun investor"></textarea>
                                     </div>
                                 
                                     <div class="form-group d-none" >
@@ -266,7 +266,11 @@
                                 swal("Berhasil Menyimpan Startup/Produk Anda, Silakan Atur Kas Masuk dan Keluar Pada Tab yang Disediakan", {
                                     icon: "success",
                                 });
-                            
+                                $("a#v-pills-home-tab").removeClass('active');
+                                $("div#v-pills-home").removeClass('show active');
+
+                                $("a#v-pills-profile-tab").addClass('active');
+                                $("div#v-pills-profile").addClass('show active');
                             }
                         }
                     });

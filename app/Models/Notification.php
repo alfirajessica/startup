@@ -11,8 +11,15 @@ class Notification extends Model
     protected $table = "notifications";
     protected $fillable = [
         'id_notif_type',
-        'user_to_notify1','user_to_notify2','user_fired_event','data','read',
-        'name_user_to_notify1','name_user_fired_event','name_product'
+        'user_to_notify1',
+        'name_user_to_notify1',
+        'read_to_notify1',
+        'user_to_notify2',
+        'user_fired_event',
+        'name_user_fired_event',
+        'name_product',
+        'data',
+        'read_to_notify2',
     ];
     
     public function notificationtypes(){

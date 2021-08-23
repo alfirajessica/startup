@@ -7,10 +7,10 @@
     <div class="col">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="listUlasan-tab" data-toggle="tab" href="#listUlasan" role="tab" aria-controls="listUlasan" aria-selected="false">Ulasan Startup/Produk</a>
+                <a class="nav-link active text-dark" id="listUlasan-tab" data-toggle="tab" href="#listUlasan" role="tab" aria-controls="listUlasan" aria-selected="false">Ulasan Startup/Produk</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="listUlasanInvestasi-tab" data-toggle="tab" href="#listUlasanInvestasi" role="tab" aria-controls="listUlasanInvestasi" aria-selected="false">Ulasan Investasi</a>
+              <a class="nav-link text-dark" id="listUlasanInvestasi-tab" data-toggle="tab" href="#listUlasanInvestasi" role="tab" aria-controls="listUlasanInvestasi" aria-selected="false">Ulasan Investasi</a>
           </li>
         </ul>
         <div class="card">

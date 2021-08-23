@@ -113,14 +113,14 @@
                     $('#tipe_pengeluaran').val(0);
                     $('#jumlah_keluar').val(0,00);
                     swal({
-                        title: data.msg,
+                        text: data.msg,
                         icon: "warning",
                     });
 
                 }
                 else{
                     swal({
-                        title: data.msg,
+                        text: "Berhasil menambah data",
                         icon: "success",
                     });
                     table_listPengeluaran();

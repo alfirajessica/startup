@@ -24,7 +24,9 @@
             <div class="tab-pane fade show active" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                 <div class="col-md-12 py-2 px-0">
                   <br>
-                  <label class="text-dark">* Mohon refresh halaman ini jika sudah melakukan pembayaran</label>
+                  <label class="text-dark">* Tombol <b>Sudah Kirim</b> untuk mengkonfirmasi pengiriman</label> <br>
+                  <label class="text-dark">** Tombol <b>Batal Invest</b> untuk membatalkan investasi</label><br>
+                  <label class="text-dark">*** Mohon refresh halaman ini jika sudah melakukan pembayaran</label>
                 </div>
                 
                 <div class="table-responsive">
@@ -231,5 +233,3 @@
           }
           //----------------end of stars rating ----------------------------------//
   </script>
-<script src="/js/inv/invest.js"></script>
-<script src="../js/custom.js"></script>

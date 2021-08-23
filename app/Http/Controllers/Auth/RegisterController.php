@@ -112,6 +112,7 @@ class RegisterController extends Controller
             'city_name'=> $data['hidden_city_name'],
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
+            'no_telp' => 0,
         ]);
 
     }

@@ -30,6 +30,8 @@
         
       </div>
 </div>
+<script src="../js/custom.js"></script>
+<script src="/js/inv/invest.js"></script>
 <script type="text/javascript" src="../js/tawk.js"></script>
 @endsection
 

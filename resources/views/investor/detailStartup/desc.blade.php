@@ -195,7 +195,7 @@
                             <table class="table table-borderless table-sm text-dark">
                                 <tbody>
                                   <tr>
-                                    <td style="vertical-align: middle">{{$item->name}}</td>
+                                    <td style="vertical-align: middle">{{$item->name_company}}</td>
                                     <td style="text-align: right">
                                         <?php
                                             $coba="<div class='starsUlasan' data-rating='0'>";
@@ -264,14 +264,11 @@
                 <span aria-hidden="true">&times;</span>
               </button>
           <form>
-              <div class="alert alert-warning" role="alert">
+              <div class="alert alert-warning mb-0" role="alert">
                 <strong>Info Penting!</strong> 
-                <ul style="padding: 1rem">
+                <ul style="padding: 0.5rem;padding-bottom: 0rem;">
                     <li>Minimal Investasi Rp500.000</li>
                     <li>Akan dikenakan fee investasi sebesar 1% dari jumlah investasi anda</li>
-                    <li>Terdapat 2 durasi estimasi investasi</li>
-                    <li>Estimasi profit yang diperoleh apabila anda memilih 3 bulan yaitu 1%</li>
-                    <li>Estimasi profit yang diperoleh apabila anda memilih 6 bulan yaitu 2%</li>
                 </ul>
               </div>
               
@@ -279,15 +276,15 @@
               {{-- <script>
                 $(".alert").alert();
               </script> --}}
-            <div class="form-group text-dark">
+            <div class="form-group text-dark mb-0">
               <label for="invest-invest_number" class="col-form-label">Jumlah Yang Akan di Investasikan (Rp) :</label> <br>
               <input type="number" inputMode='decimal' name="invest_number" id="invest_number" placeholder="min:500.000" onFocus="this.type='number'; this.value=this.lastValue" 
-              onBlur="this.type=''; this.lastValue=this.value; this.value=this.value==''?'':(+this.value).toLocaleString()" class="form-control form-control-alternative"/>
+              onBlur="this.type=''; this.lastValue=this.value; this.value=this.value==''?'':(+this.value).toLocaleString()" class="form-control form-control-alternative text-dark"/>
               <small id="notif_invest_number"></small>
             </div>
             <div class="form-group text-dark">
                 <label for="" class="col-form-label">Durasi Anda Investasi :</label>
-                <select name="durasi_inv" id="durasi_inv" class="form-control">
+                <select name="durasi_inv" id="durasi_inv" class="form-control form-control-alternative text-dark">
                     <option value="3">3 Bulan</option>
                     <option value="6">6 Bulan</option>
                 </select>

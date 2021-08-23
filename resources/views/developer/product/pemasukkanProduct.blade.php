@@ -110,7 +110,7 @@
                 console.log(data)
                 if (data == 1) {
                     swal({
-                        title: "Berhasil menambah data",
+                        text: "Berhasil menambah data",
                         icon: "success",
                     });
                     table_listPemasukkan();
@@ -127,7 +127,7 @@
                     $('#tipe_pemasukkan').val(0);
                     $('#jumlah').val(0,00);
                     swal({
-                        title: "Sudah terdata",
+                        text: "Sudah terdata",
                         icon: "warning",
                     });
                     

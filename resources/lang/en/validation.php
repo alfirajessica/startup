@@ -184,6 +184,13 @@ return [
             'required' => 'Masukkan tanggal transaksi'
         ],
 
+        //pemasukkan
+        'tipe_pemasukkan'=> [
+            'required' => 'Silakan Pilih Tipe Pemasukkan'
+        ],
+        'tipe_pengeluaran'=> [
+            'required' => 'Silakan Pilih Tipe Pengeluaran'
+        ],
         
     ],
 
