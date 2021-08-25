@@ -178,6 +178,8 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         App\Providers\BroadcastServiceProvider::class,
         NotificationChannels\WebPush\WebPushServiceProvider::class,
+        // Ladumor\OneSignal\OneSignalServiceProvider::class,
+        Berkayk\OneSignal\OneSignalServiceProvider::class
 
     ],
 
@@ -233,6 +235,9 @@ return [
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'Clockwork' => Clockwork\Support\Laravel\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        // 'OneSignal' => \Ladumor\OneSignal\OneSignal::class,
+        'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class
+
         
     ],
 
