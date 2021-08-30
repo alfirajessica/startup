@@ -131,13 +131,13 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="">Keunggulan Startup/Produk Anda</label>
+                                            <label for="">Alasan Anda membuat Startup/produk ini</label>
                                             <textarea class="form-control form-control-alternative text-dark" name="reason" id="reason" rows="2"></textarea>
                                             <span class="text-danger error-text reason_error" id="reason_error"></span>
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="">Informasi lainnya</label>
+                                            <label for="">Manfaat yang akan diperoleh pengguna maupun investor</label>
                                             <textarea class="form-control form-control-alternative text-dark" name="benefit" id="benefit" rows="2"></textarea>
                                             <span class="text-danger error-text benefit_error" id="benefit_error"></span>
                                         </div>

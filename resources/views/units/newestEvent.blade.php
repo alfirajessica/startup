@@ -12,8 +12,8 @@ padding-top: 0rem; padding-bottom:0rem;
                
                 <div class="col-12 col-lg-4">
                     <a href="{{ url('dev/event/detailsEvent', $item->id) }}">
-                        <div class="card shadow-soft border-light animate-up-3 text-gray py-4 mb-2 mb-lg-0 mt-2">
-                            <div class="card-header text-center pb-0" style="padding: 1.0rem 1.0rem;">
+                        <div class="card shadow-soft border-light animate-up-3 text-gray py-0 mb-2 mb-lg-0 mt-2">
+                            <div class="card-header text-center pb-0" style="padding: 0rem 0rem;">
                                 <img  src="/uploads/event/{{$item->image}}" class="card-img-top" style="min-height: 150px;">
                             </div>
                             <div class="card-body">

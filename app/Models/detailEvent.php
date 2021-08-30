@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class detailEvent extends Model
 {
     use HasFactory;
+    protected $table = "detail_events";
     protected $fillable = [
         'id_header_events',
         'id_participant',
@@ -16,5 +17,9 @@ class detailEvent extends Model
     
     function headerevent(){
 		return $this->belongsTo(HeaderEvent::class);
+	}
+
+    function users(){
+		return $this->belongsTo(User::class);
 	}
 }

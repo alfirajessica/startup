@@ -12,8 +12,8 @@
             @csrf
             <ul id="progressbar" class="d-flex justify-content-center" style="margin-bottom: revert;">
                 <li class="active" id="account"><strong>Singkat Produk</strong></li>
-                <li id="personal"><strong>Deskripsikan</strong></li>
-                <li id="proposal"><strong>Unggah File</strong></li>
+                <li class="" id="personal"><strong>Deskripsikan</strong></li>
+                <li class="" id="proposal"><strong>Unggah File</strong></li>
             </ul>
 
         <div class="card shadow px-2 py-2 pb-0 mb-3 border-0 text-dark">
@@ -142,7 +142,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group" >
                                             <div class="input-group">
-                                                <label>Unggah Proposal Startup Anda (Apabila ada)</label>
+                                                <label>Unggah Proposal Startup</label>
                                                 <input type="file" class="form-control-file form-control-alternative"  name="proposal_startup" id="proposal_startup" aria-describedby="fileHelp">
                                                 <span class="text-danger error-text proposal_startup_error"></span>
                                             </div>
@@ -153,7 +153,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group" >
                                             <div class="input-group">
-                                                <label>Unggah Kontak Kerjasama Startup Anda (Apabila ada)</label>
+                                                <label>Unggah Kontak Kerjasama</label>
                                                 <input type="file" class="form-control-file form-control-alternative"  name="kontrak_startup" id="kontrak_startup"  aria-describedby="fileHelp">
                                                 <span class="text-danger error-text kontrak_startup_error"></span>
                                             </div>

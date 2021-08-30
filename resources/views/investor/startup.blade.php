@@ -40,7 +40,7 @@
                   
                         <div id="collapseKeyInput" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body mb-0" style="padding:1.0rem;">
-                              <div class="form-group">
+                              <div class="form-group text-dark">
                                 @foreach($list_category as $category)
                                 <label class="form-check-label" for="exampleCheck1">{{$category->name_category}}
                                   <div class="form-group ">                  
@@ -73,7 +73,7 @@
                 
                       <div id="collapseKeyInput2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                           <div class="card-body" style="padding:1.0rem;">
-                            <div class="form-group">
+                            <div class="form-group text-dark">
                               @foreach($list_startupTag as $startupTag)
                               <label class="form-check-label" for="exampleCheck2">{{$startupTag->name_startup_tag}}
                                 <div class="form-group ">                  

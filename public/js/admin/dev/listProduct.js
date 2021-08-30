@@ -41,11 +41,14 @@ function table_allListProductDev() {
                         if (data.status == "0") {
                             statusnya = "Menunggu Konfirmasi";
                         }
+                        else if (data.status == "1") {
+                            statusnya = "Aktif";
+                        }
                         else if (data.status == "3") {
                             statusnya = "Dinonaktifkan Dev";
                         }
-                        else{
-                            statusnya = "Aktif";
+                        else if (data.status == "2") {
+                            statusnya = "Memiliki Investor";
                         }
                         return statusnya;
                     }

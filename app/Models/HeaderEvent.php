@@ -14,8 +14,8 @@ class HeaderEvent extends Model
      *
      * @var array
      */
+    protected $table = "header_events";
     protected $fillable = [
-        
         'name',
         'desc',
         'held',
@@ -26,7 +26,6 @@ class HeaderEvent extends Model
     public static function getUsers($search_keyword) {
         $events = DB::table('header_events');
 
-
         if($search_keyword && !empty($search_keyword)) {
             $events->where(function($q) use ($search_keyword) {
                 $q->where('header_events.name', 'like', "%{$search_keyword}%")
@@ -36,7 +35,11 @@ class HeaderEvent extends Model
         //return $events->paginate(PER_PAGE_LIMIT);
     }
 
-    function detailevent(){
+    public function detailevent(){
 		return $this->hasMany(detailEvent::class);
+	}
+
+    public function users(){
+		return $this->belongsTo(User::class);
 	}
 }

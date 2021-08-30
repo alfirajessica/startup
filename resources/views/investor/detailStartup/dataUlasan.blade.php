@@ -54,3 +54,7 @@ margin-top: 0rem;
 margin-bottom: 1rem;
 ">
 @endforeach
+
+{{-- <div class="">
+    {!! $list_reviews->links() !!}
+</div> --}}

@@ -585,11 +585,9 @@ function table_listUlasan() {
                 }
             },
             {
-                data: null,
-                name: 'name',
-                render: data => {
-                    return "<label>" + data.name_company + "<br> " + data.name + "</label>"
-                }
+                data: 'name_company',
+                name: 'name_company',
+                
             },
             {
                 data: 'name_product',
@@ -676,11 +674,9 @@ function table_listUlasan() {
                 }
             },
             {
-                data: null,
-                name: 'name',
-                render: data => {
-                    return "<label>" + data.name_company + "<br> " + data.name + "</label>"
-                }
+                data: 'name_company',
+                name: 'name_company',
+               
             },
             {
                 data: 'name_product',
@@ -999,11 +995,11 @@ function table_pemasukkan_pengeluaran(id) {
                 
             },
             {
-                data: null,
-                name: 'name',
-                render: data => {
-                    return "<label>"+data.name_company + "<br>" + data.name + "</label>";
-                }
+                data: 'name_company',
+                name: 'name_company',
+                // render: data => {
+                //     return "<label>"+data.name_company + "<br>" + data.name + "</label>";
+                // }
             },
             {
                 data: null,
@@ -1075,11 +1071,11 @@ function table_pemasukkan_pengeluaran(id) {
                 }
             },
             {
-                data: null,
-                name: 'name',
-                render: data => {
-                    return "<label>"+data.name_company + "<br>" + data.name + "</label>";
-                }
+                data: 'name_company',
+                name: 'name_company',
+                // render: data => {
+                //     return "<label>"+data.name_company + "<br>" + data.name + "</label>";
+                // }
             },
             {
                 data: null,

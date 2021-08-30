@@ -84,6 +84,7 @@ class HomeController extends Controller
             ->select('header_products.id','header_products.name_product',\DB::raw('round(avg(reviews.rating))'),'header_products.image')
             ->join('reviews','reviews.project_id','=','header_products.id')
             ->groupBy('header_products.id','header_products.name_product','header_products.image')
+            ->where('header_products.status','=',1)
             ->orderBy(\DB::raw('round(avg(reviews.rating))'))
             ->paginate(6);
 

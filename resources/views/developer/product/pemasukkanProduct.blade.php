@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <div class="input-group input-group-alternative mb-4" id="select_project">
-                  <select name="pilih_project_masuk" id="pilih_project_masuk" class="form-control form-control-alternative" type="text"> 
+                  <select name="pilih_project_masuk" id="pilih_project_masuk" class="form-control form-control-alternative text-dark" type="text"> 
                   </select>
                   <div class="input-group-append">
                     <button class="btn btn-default" type="button" onclick="pilih_proyek()">Sesuaikan</button>
@@ -54,7 +54,7 @@
                 <div class="form-group text-dark">
                     <label class="float-left">Jumlah (Rp)</label>
                     <div class="input-group input-group-alternative mb-4"> 
-                        <input type="text" name="jumlah" id="jumlah" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" min="1,00" class="form-control form-control-alternative">
+                        <input type="text" name="jumlah" id="jumlah" pattern="^\d{1,3}(,\d{3})*(\.\d+)?" data-type="currency" value="0" min="1,00" class="form-control form-control-alternative text-dark">
                        
                       <div class="input-group-append">
                         <button type="submit" class="btn btn-default">Simpan</button>
