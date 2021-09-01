@@ -85,7 +85,7 @@
                                       <td id='invest_id'></td>
                                     </tr>
                                     <tr>
-                                        <td> <strong>Transaksi ID</strong></td>
+                                        <td style="d-none"> <strong>Transaksi ID</strong></td>
                                         <td id='transaction_id'></td>
                                     </tr>
                                     <tr>

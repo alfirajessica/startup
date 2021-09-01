@@ -196,7 +196,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
     <script src="https://js.pusher.com/4.2/pusher.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script> 
-    <script>
+    {{-- <script> 
         var notificationsWrapper   = $('.dropdown-notifications');
           var notificationsToggle    = notificationsWrapper.find('a[data-toggle]');
           var notificationsCountElem = notificationsToggle.find('i[data-count]');
@@ -323,7 +323,11 @@
                 notificationsWrapper.show();
           });
 
-    </script>
+    </script>--}}
+
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+<script src="/js/firebase.js"></script>
+
 </body>
 </html>
 

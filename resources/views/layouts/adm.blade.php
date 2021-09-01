@@ -23,6 +23,9 @@
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css">
  
+   {{-- notif with firebase --}}
+   <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+   <link rel="manifest" href="manifest.json">
 
    <style>
      .navbar-vertical.navbar-expand-xs .navbar-nav > .nav-item > .nav-link.active{
@@ -301,6 +304,9 @@
     console.log(getID);
     $("#now_path").text(getID);
   </script>
+
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+  <script src="/js/firebase.js"></script>
 </body>
 
 </html>
@@ -309,7 +315,7 @@
 
 <script src="https://js.pusher.com/4.2/pusher.min.js"></script>
 
-<script>
+{{-- <script>
     var notificationsWrapper   = $('.dropdown-notifications');
       var notificationsToggle    = notificationsWrapper.find('a[data-toggle]');
       var notificationsCountElem = notificationsToggle.find('i[data-count]');
@@ -468,5 +474,5 @@
             notificationsWrapper.find('.notif-count').text(notificationsCount);
             notificationsWrapper.show();
       });
-</script>
+</script> --}}
   

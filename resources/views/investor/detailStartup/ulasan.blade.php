@@ -1,4 +1,4 @@
-<form action="{{ route('inv.startup.detailstartup.beriReview')}}" method="POST" enctype="multipart/form-data" id="beriReview">
+<form action="{{ route('inv.beriReview')}}" method="POST" enctype="multipart/form-data" id="beriReview">
     @csrf
 
     <input type="hidden" id="project_id_ulas" name="project_id_ulas">

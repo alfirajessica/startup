@@ -1,5 +1,6 @@
 $(function () {
     $('#invest_number').val(0);
+    updStatusTrans();
     listInvest();
     investPassed();
     
@@ -66,7 +67,7 @@ function payButton() {
                                  alert("payment failed!"); console.log(result);
                                },
                                onClose: function(){
-                                 window.location.href = "/inv/invest";
+                                 //window.location.href = "/inv/invest";
                                }
                              })
                         }
@@ -326,30 +327,70 @@ $('body').on('click', '.detailProject', function () {
            console.log(data);
             var tipe_pay = "";
 
-        if (data['payment_type'] == "bank_transfer") {
-            tipe_pay="Bank Transfer";
-        }
-        else if (data['payment_type'] == "credit_card") {
-            tipe_pay="Credit card";
-        }
-        else if (data['payment_type'] == "gopay") {
-            tipe_pay="Gopay";
-        }
-        else if (data['payment_type'] == "echannel") {
-            tipe_pay="Mandiri Bill";
-        }
-        else if (data['payment_type'] == "bca_klikpay") {
-            tipe_pay="BCA Klikpay";
-        }
-        else if (data['payment_type'] == "cstore") {
-            tipe_pay="Indomaret";
-        }
-        else if (data['payment_type'] == "akulaku") {
-            tipe_pay="Akulaku";
-        }
-        else if (data['payment_type'] == "qris") {
-            tipe_pay="ShopeePay";
-        }
+            if(data == 0){
+                $.ajax({
+                    type: "get",
+                    url: '/detailInvest/midtransdata/' + id ,
+                    contentType: "application/json",
+                    success: function (data) {
+                        console.log('midtransdata');
+                        $('#invest_id').text(data['id']); 
+                        $('#pay_type').text('Bank Transfer');
+                         
+                        showPayDetail = 
+                        "<tr>" +
+                            "<td> <strong>Bank </strong></td>" +
+                            "<td>" + data['bank'] + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td> <strong>Virtual Account  </strong></td>" +
+                            "<td>" + data['va_numbers']+ "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td> <strong>Jumlah Transfer  </strong> </td>" +
+                            "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>  <strong> Waktu Kadaluarsa  </strong> </td>" +
+                            "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>  <strong> Status Pembayaran  </strong></td>" +
+                            "<td>" + data['transaction_status'] + "<br> " + (moment(data['settlement_time']).format('DD-MMM-YYYY h:mm:ss a'))+ "</td>" +
+                        "</tr>";
+                        $('#table_payDetails tbody').html(showPayDetail);
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+                
+            }else{
+                if (data['payment_type'] == "bank_transfer") {
+                    tipe_pay="Bank Transfer";
+                }
+                else if (data['payment_type'] == "credit_card") {
+                    tipe_pay="Credit card";
+                }
+                else if (data['payment_type'] == "gopay") {
+                    tipe_pay="Gopay";
+                }
+                else if (data['payment_type'] == "echannel") {
+                    tipe_pay="Mandiri Bill";
+                }
+                else if (data['payment_type'] == "bca_klikpay") {
+                    tipe_pay="BCA Klikpay";
+                }
+                else if (data['payment_type'] == "cstore") {
+                    tipe_pay="Indomaret";
+                }
+                else if (data['payment_type'] == "akulaku") {
+                    tipe_pay="Akulaku";
+                }
+                else if (data['payment_type'] == "qris") {
+                    tipe_pay="ShopeePay";
+                }
+            }
 
         
         
@@ -624,14 +665,15 @@ $('body').on('click', '.cancelInvest', function () {
                 contentType: "application/json",
                 success: function (data) {
                     listInvest();
+                    swal("Investasi berhasil dibatalkan", {
+                        icon: "success",
+                    });
                 },
                 error: function (data) {
                     console.log('Error:', data);
                 }
             });
-            swal("Investasi berhasil dibatalkan", {
-            icon: "success",
-        });
+            
         } else {
             swal("Your imaginary file is safe!");
         }

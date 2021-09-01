@@ -229,15 +229,29 @@ class HomeController extends Controller
         $data = HeaderInvest::find($id);
         $investID = $data->invest_id;
         $projectID = $data->project_id;
-       
         
-        //get status dari midtrans berdasarkan order_id nya
-        $status = \Midtrans\Transaction::status($investID);
-        $status = json_decode(json_encode($status),true);
-       
-        return response()->json($status);
+        $lennum = strlen((string)$investID);
         
+        if($lennum == 4){
+            return 0;
+            //$datamidtrans = MidtransData::find($investID);
+            //return response()->json(['code'=>0, 'data'=>json_encode($datamidtrans)]); 
+            //dd(json_encode($datamidtrans));
+        }else{
+            $status = \Midtrans\Transaction::status($investID);
+            $status = json_decode(json_encode($status),true);
+            return response()->json($status);
+        }
 
+    }
+
+    public function midtransdata($id)
+    {
+        $data = HeaderInvest::find($id);
+        $investID = $data->invest_id;
+
+        $datamidtrans = MidtransData::find($investID);
+        return response()->json($datamidtrans);
     }
 
     public function detailStatusInvest($id)

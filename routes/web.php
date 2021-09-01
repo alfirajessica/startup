@@ -83,6 +83,7 @@ Route::get('/investPassed', [HomeController::class, 'invest_haspassed'])->name('
 
 //get detail transaksi invest
 Route::get('/detailInvest/{id}', [HomeController::class, 'detailInvest'])->name('detailInvest');
+Route::get('/detailInvest/midtransdata/{id}', [HomeController::class, 'midtransdata'])->name('detailInvest.midtransdata');
 Route::get('/detailStatusInvest/{id}', [HomeController::class, 'detailStatusInvest'])->name('detailStatusInvest');
 Route::get('/projectdetailInvest/{id}', [HomeController::class, 'projectdetailInvest'])->name('projectdetailInvest');
 

@@ -50,5 +50,10 @@
   <!-- Sweet alert -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.js" integrity="sha512-Fq/wHuMI7AraoOK+juE5oYILKvSPe6GC5ZWZnvpOO/ZPdtyA29n+a5kVLP4XaLyDy9D1IBPYzdFycO33Ijd0Pg==" crossorigin="anonymous"></script>
+
+  {{-- notif with firebase --}}
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+  <link rel="manifest" href="manifest.json">
+
 </head>
 

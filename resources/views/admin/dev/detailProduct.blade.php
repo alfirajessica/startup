@@ -51,23 +51,23 @@
                                     <div class="col-md-6 ">
                                         <div class="">
                                             <input type="hidden" id="id_product" name="id_product">
-                                            <div class="form-group">
+                                            <div class="form-group mb-2">
                                             <label for="">Nama Produk</label>
                                             <input type="text" name="nama_product" id="nama_product" class="form-control form-control-alternative text-dark" disabled placeholder="" aria-describedby="helpId">
                                           
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group mb-2">
                                                 <label for="">Kategori/Subkategori</label>
                                                 <input type="text" name="kategori_product" id="kategori_product" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="helpId" disabled>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group mb-2">
                                                 <label for="">Startup Tag (Label)/Subtag</label>
                                                 <input type="text" name="startup_tagProduct" id="startup_tagProduct" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="helpId" disabled>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group mb-2">
                                                 <label for="">Link/Url</label>
                                                 <input type="text" name="url_product" id="url_product" class="form-control form-control-alternative text-dark" placeholder="" aria-describedby="helpId" disabled>
                                             </div>
@@ -76,7 +76,7 @@
                                     <div class="col-md-6">
                                         <div class="">
                                            
-                                            <div class="form-group">
+                                            <div class="form-group mb-2">
                                                 <label class="float-left">Tanggal Perilisan Startup/Produk</label>
                                                 <input type="date" name="rilis_product" id="rilis_product" class="form-control form-control-alternative text-dark" aria-describedby="helpId" disabled >
                                             </div>
