@@ -25,6 +25,10 @@ $(function () {
                     }
                 },
                 {
+                    data: 'name_company',
+                    name: 'name_company'
+                },
+                {
                     data: 'name',
                     name: 'name'
                 },

@@ -12,10 +12,10 @@
                 <!-- tabs -->
                     <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0 active font-weight-bold" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true">Event diikuti</a>
+                            <a class="nav-link mb-sm-3 mb-md-0 active font-weight-bold" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-icons-text-1" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true">Event Sedang Diikuti</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link mb-sm-3 mb-md-0 font-weight-bold" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false">Event dibatalkan</a>
+                            <a class="nav-link mb-sm-3 mb-md-0 font-weight-bold" id="tabs-icons-text-2-tab" data-toggle="tab" href="#tabs-icons-text-2" role="tab" aria-controls="tabs-icons-text-2" aria-selected="false">Event Batal Diikuti</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link mb-sm-3 mb-md-0 font-weight-bold" id="tabs-icons-text-3-tab" data-toggle="tab" href="#tabs-icons-text-3" role="tab" aria-controls="tabs-icons-text-3" aria-selected="false">Riwayat Event</a>
@@ -41,12 +41,11 @@
                         <div class="col">
                           <div class="table-responsive">
                               <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listEvent">
-                                <thead>
+                                <thead style="text-align: center">
                                     <tr>
                                         <th>Nama Event</th>
-                                        <th>Diadakan Secara</th>
-                                        <th>Jadwal Acara</th>
-                                      
+                                        <th>Tipe Event</th>
+                                        <th>Jadwal Event</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>

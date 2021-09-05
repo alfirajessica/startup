@@ -28,7 +28,7 @@
           <!-- card -->
           <div class="card">
             <div class="card shadow">
-            <div class="card-body border-0 scroll"> <!-- card body -->
+            <div class="card-body border-0"> <!-- card body -->
               <!-- tab content -->
               <div class="tab-content" id="myTabContent">
                   <!-- profile -->

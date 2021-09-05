@@ -100,7 +100,7 @@
                 <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                   <div class="col">
                     <div class="card shadow border-0 text-dark">
-                      <div class="card-body scroll">
+                      <div class="card-body">
                         <form action="{{ route('akun.updateTentang')}}" method="POST" enctype="multipart/form-data" id="ubahTentang">
                           @csrf
                           <div class="form-group">

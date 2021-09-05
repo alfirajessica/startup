@@ -177,6 +177,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/inv/transaksiInv/confirmInvest/{id}', [AdminController::class, 'confirmInvest'])->name('admin.inv.transaksiInv.confirmInvest');
     Route::get('/inv/transaksiInv/notConfirmInvest/{id}', [AdminController::class, 'notConfirmInvest'])->name('admin.inv.transaksiInv.notConfirmInvest');
     Route::get('/inv/transaksiInv/detailInvest/{id}', [AdminController::class, 'detailInvest'])->name('admin.inv.transaksiInv.detailInvest');
+    Route::get('/inv/transaksiInv/detailInvest/midtransdata/{id}', [AdminController::class, 'midtransdata'])->name('admin.inv.transaksiInv.detailInvest.midtransdata');
     Route::get('/inv/transaksiInv/detailStatusInvest/{id}', [AdminController::class, 'detailStatusInvest'])->name('admin.inv.transaksiInv.detailStatusInvest');
     Route::get('/inv/transaksiInv/projectdetailInvest/{id}', [AdminController::class, 'projectdetailInvest'])->name('admin.inv.transaksiInv.projectdetailInvest');
 

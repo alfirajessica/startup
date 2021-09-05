@@ -131,6 +131,35 @@ return [
     */
 
     'custom' => [
+        //register
+        'email' => [
+            'required' => 'Masukkan Email Anda',
+            'unique' => 'Email Telah Digunakan',
+        ],
+        'password' => [
+            'required' =>'Masukkan Password Anda',
+            'string' => 'Tentukan Password Anda', 
+            'min:8' => 'Minimal Panjang Password 8 Karakter', 
+            'confirmed' => 'Password dan Konfirmasi Password Harus Sama'
+        ],
+        'password_confirmation' => [
+            'required' =>'Masukkan Password Anda',
+            'string' => 'Tentukan Password Anda', 
+            'min:8' => 'Minimal Panjang Password 8 Karakter', 
+            'confirmed' => 'Password dan Konfirmasi Password Harus Sama'
+        ],
+        'province' => [
+            'required' => 'Pilih Provinsi Asal Anda',
+        ],
+        'city' => [
+            'required' => 'Pilih Kota Asal Anda',
+        ],
+        'name' => [
+            'required' => 'Masukkan Nama Akun Anda',
+        ],
+        'name_company' => [
+            'required' => 'Masukkan Nama Perusahaan Anda',
+        ],
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],

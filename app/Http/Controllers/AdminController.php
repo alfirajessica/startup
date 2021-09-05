@@ -164,7 +164,7 @@ class AdminController extends Controller
         if($request->ajax()){
             return datatables()->of($list_dev)
                 ->addColumn('action', function($data){
-                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailDev" data-id="'.$data->id.'" data-text="'.$data->name.'/'.$data->email.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailDev">Detail</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="modal" data-target="#detailDev" data-id="'.$data->id.'" data-text="'.$data->name_company.'/'.$data->name.'" data-original-title="Detail" class="detail btn btn-warning btn-sm detailDev">Detail</a>';
 
                     // $btn = $btn. ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$data->id.'" data-original-title="Kirim" class="btn btn-danger btn-sm sudahKirim" data-tr="tr_{{$product->id}}" >Nonaktifkan</a>';
 
@@ -189,7 +189,7 @@ class AdminController extends Controller
         DB::table('header_products')
         ->Join('detail_category_products', 'header_products.id_detailcategory', '=', 'detail_category_products.id')
         ->join('users', 'users.id','=','header_products.user_id')
-        ->select('header_products.id','header_products.name_product','detail_category_products.name', 'users.email', 'header_products.status')
+        ->select('header_products.id','header_products.name_product','detail_category_products.name', 'users.email', 'header_products.status','users.name_company')
         ->where('header_products.status','=','0')
         ->orwhere('header_products.status','=','4')
         ->get();
@@ -354,7 +354,7 @@ class AdminController extends Controller
     {
         $list_project = 
         DB::table('header_products')
-        ->select('header_products.id','header_products.user_id','header_products.name_product','header_products.status','users.name','users.email')
+        ->select('header_products.id','header_products.user_id','header_products.name_product','header_products.status','users.name','users.email','users.name_company')
         ->join('users','users.id','=','header_products.user_id')
         ->where('status','!=','0')
         ->where('status','!=','4')
@@ -547,15 +547,31 @@ class AdminController extends Controller
         $data = HeaderInvest::find($id);
         $investID = $data->invest_id;
         $projectID = $data->project_id;
-       
         
-        //get status dari midtrans berdasarkan order_id nya
-        $status = \Midtrans\Transaction::status($investID);
-        $status = json_decode(json_encode($status),true);
-
-        return response()->json($status);
+        $lennum = strlen((string)$investID);
+        
+        if($lennum == 4){
+            return 0;
+            //$datamidtrans = MidtransData::find($investID);
+            //return response()->json(['code'=>0, 'data'=>json_encode($datamidtrans)]); 
+            //dd(json_encode($datamidtrans));
+        }else{
+            $status = \Midtrans\Transaction::status($investID);
+            $status = json_decode(json_encode($status),true);
+            return response()->json($status);
+        }
 
     }
+
+    public function midtransdata($id)
+    {
+        $data = HeaderInvest::find($id);
+        $investID = $data->invest_id;
+
+        $datamidtrans = MidtransData::find($investID);
+        return response()->json($datamidtrans);
+    }
+
 
     public function detailStatusInvest($id)
     {

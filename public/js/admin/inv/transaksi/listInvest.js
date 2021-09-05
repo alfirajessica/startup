@@ -131,6 +131,7 @@ $('body').on('click', '.notConfirmInvest', function () {
 
 
 $('body').on('click', '.detailProject', function () {
+    moment.locale('id');
     var id = $(this).data('id');
     projectDetails(id);
     $.ajax({
@@ -141,33 +142,77 @@ $('body').on('click', '.detailProject', function () {
            console.log(data);
             var tipe_pay = "";
 
-        if (data['payment_type'] == "bank_transfer") {
-            tipe_pay="Bank Transfer";
-        }
-        else if (data['payment_type'] == "credit_card") {
-            tipe_pay="Credit card";
-        }
-        else if (data['payment_type'] == "gopay") {
-            tipe_pay="Gopay";
-        }
-        else if (data['payment_type'] == "echannel") {
-            tipe_pay="Mandiri Bill";
-        }
-        else if (data['payment_type'] == "bca_klikpay") {
-            tipe_pay="BCA Klikpay";
-        }
-        else if (data['payment_type'] == "cstore") {
-            tipe_pay="Indomaret";
-        }
-        else if (data['payment_type'] == "akulaku") {
-            tipe_pay="Akulaku";
-        }
+            if(data == 0){
+                $.ajax({
+                    type: "get",
+                    url: '/detailInvest/midtransdata/' + id ,
+                    contentType: "application/json",
+                    success: function (data) {
+                        console.log('midtransdata');
+                        $('#invest_id').text(data['id']); 
+                        $('#pay_type').text('Bank Transfer');
+                         
+                        showPayDetail = 
+                        "<tr>" +
+                            "<td> <strong>Bank </strong></td>" +
+                            "<td>" + data['bank'] + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td> <strong>Virtual Account  </strong></td>" +
+                            "<td>" + data['va_numbers']+ "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td> <strong>Jumlah Transfer  </strong> </td>" +
+                            "<td> Rp" + Number(data['gross_amount']).toLocaleString(['ban', 'id']) + ",00 </td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>  <strong> Waktu Kadaluarsa  </strong> </td>" +
+                            "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm')) + "</td>" +
+                        "</tr>" +
+                        "<tr>" +
+                            "<td>  <strong> Status Pembayaran  </strong></td>" +
+                            "<td>" + data['transaction_status'] + "<br> " + (moment(data['settlement_time']).format('DD-MMM-YYYY h:mm'))+ "</td>" +
+                        "</tr>";
+                        $('#table_payDetails tbody').html(showPayDetail);
+                    },
+                    error: function (data) {
+                        console.log('Error:', data);
+                    }
+                });
+                
+            }else{
+                if (data['payment_type'] == "bank_transfer") {
+                    tipe_pay="Bank Transfer";
+                }
+                else if (data['payment_type'] == "credit_card") {
+                    tipe_pay="Credit card";
+                }
+                else if (data['payment_type'] == "gopay") {
+                    tipe_pay="Gopay";
+                }
+                else if (data['payment_type'] == "echannel") {
+                    tipe_pay="Mandiri Bill";
+                }
+                else if (data['payment_type'] == "bca_klikpay") {
+                    tipe_pay="BCA Klikpay";
+                }
+                else if (data['payment_type'] == "cstore") {
+                    tipe_pay="Indomaret";
+                }
+                else if (data['payment_type'] == "akulaku") {
+                    tipe_pay="Akulaku";
+                }
+                else if (data['payment_type'] == "qris") {
+                    tipe_pay="ShopeePay";
+                }
+            }
+
 
         
         
         $('#invest_id').text(data['order_id']);    
         $('#pay_type').text(tipe_pay);
-        $('#transaction_id').text(data['transaction_id']);
+        //$('#transaction_id').text(data['transaction_id']);
         
         //Card   --> payment_type:credit_card , masked-card
         //Go-pay --> payment_type:gopay, 
@@ -182,7 +227,7 @@ $('body').on('click', '.detailProject', function () {
         var showPayDetail ="";
         var detail_time_settle="";
         if (data['transaction_status'] == "settlement") {
-            detail_time_settle = data['transaction_status'] + "<br> " + (moment(data['settlement_time']).format('DD-MMM-YYYY h:mm:ss a'))
+            detail_time_settle = data['transaction_status'] + "<br> " + (moment(data['settlement_time']).format('DD-MMM-YYYY h:mm'))
         }
         else{
             detail_time_settle = data['transaction_status'];
@@ -204,7 +249,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa  </strong></td>" +
-                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Status Pembayaran </strong></td>" +
@@ -229,7 +274,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td>  <strong> Waktu Kadaluarsa  </strong> </td>" +
-                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td>  <strong> Status Pembayaran  </strong></td>" +
@@ -257,7 +302,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
-                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Status Pembayaran </strong></td>" +
@@ -281,7 +326,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td>Waktu Kadaluarsa </td>" +
-                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td>  <strong> Status Pembayaran  </strong></td>" +
@@ -301,7 +346,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
-                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Status Pembayaran </strong></td>" +
@@ -321,7 +366,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
-                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Status Pembayaran </strong></td>" +
@@ -345,7 +390,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
-                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Status Pembayaran </strong></td>" +
@@ -365,7 +410,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
-                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Status Pembayaran </strong></td>" +

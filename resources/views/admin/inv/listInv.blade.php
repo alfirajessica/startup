@@ -11,7 +11,8 @@
                 <thead>
                     <tr style="text-align: center">
                         <th>#ID</th>
-                        <th>Nama</th>
+                        <th>Nama Perusahaan</th>
+                        <th>Nama Akun</th>
                         <th>Email</th>
                         <th>Aksi</th>
                     </tr>

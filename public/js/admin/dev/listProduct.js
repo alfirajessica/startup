@@ -23,11 +23,9 @@ function table_allListProductDev() {
                     }
                 },
                 {
-                    data: null,
-                    name: 'user_id',
-                    render: data => {
-                        return "#"+data.user_id+" - "+data.name;
-                    }
+                    data: 'name_company',
+                    name: 'name_company',
+                  
                 },
                 {
                     data: 'name_product',

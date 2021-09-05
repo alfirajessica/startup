@@ -11,7 +11,7 @@
                       <thead>
                           <tr style="text-align: center">
                               <th>#ID</th>
-                              <th>Email Dev</th>
+                              <th>Developer</th>
                               <th>Startup/Produk</th>
                               <th>Aksi</th>
                           </tr>

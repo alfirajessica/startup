@@ -123,6 +123,6 @@
   const url_show_detail = "{{ route('inv.startup') }}" + '/';
 </script>
 <script src="/js/inv/startup.js"></script>
-<script src="../js/custom.js"></script>
+{{-- <script src="../js/custom.js"></script> --}}
 <script type="text/javascript" src="../js/tawk.js"></script>
 

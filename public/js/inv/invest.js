@@ -1,6 +1,7 @@
+
 $(function () {
     $('#invest_number').val(0);
-    updStatusTrans();
+   // updStatusTrans();
     listInvest();
     investPassed();
     
@@ -59,7 +60,7 @@ function payButton() {
                                  alert("payment success!"); console.log(result);
                                },
                                onPending: function(result){
-                                 updStatusTrans();
+                                 //updStatusTrans();
                                  window.location.href = "/inv/invest";
                                },
                                onError: function(result){
@@ -106,7 +107,7 @@ function updStatusTrans() {
 
 // invest/listinvest.blade.php
 function listInvest() { 
-    updStatusTrans();
+    //updStatusTrans();
     $('#table_listInvestPending').DataTable({
         destroy:true,
         processing: true,
@@ -290,6 +291,7 @@ function listInvest() {
 
 
 $('body').on('click', '.detailProject', function () {
+    moment.locale('id');
     var id = $(this).data('id');
     var cekTabel = $(this).attr("id");
 
@@ -352,11 +354,11 @@ $('body').on('click', '.detailProject', function () {
                         "</tr>" +
                         "<tr>" +
                             "<td>  <strong> Waktu Kadaluarsa  </strong> </td>" +
-                            "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                            "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm')) + "</td>" +
                         "</tr>" +
                         "<tr>" +
                             "<td>  <strong> Status Pembayaran  </strong></td>" +
-                            "<td>" + data['transaction_status'] + "<br> " + (moment(data['settlement_time']).format('DD-MMM-YYYY h:mm:ss a'))+ "</td>" +
+                            "<td>" + data['transaction_status'] + "<br> " + (moment(data['settlement_time']).format('DD-MMM-YYYY h:mm'))+ "</td>" +
                         "</tr>";
                         $('#table_payDetails tbody').html(showPayDetail);
                     },
@@ -396,7 +398,7 @@ $('body').on('click', '.detailProject', function () {
         
         $('#invest_id').text(data['order_id']);    
         $('#pay_type').text(tipe_pay);
-        $('#transaction_id').text(data['transaction_id']);
+        //$('#transaction_id').text(data['transaction_id']);
         
         //Card   --> payment_type:credit_card , masked-card
         //Go-pay --> payment_type:gopay, 
@@ -411,7 +413,7 @@ $('body').on('click', '.detailProject', function () {
         var showPayDetail ="";
         var detail_time_settle="";
         if (data['transaction_status'] == "settlement") {
-            detail_time_settle = data['transaction_status'] + "<br> " + (moment(data['settlement_time']).format('DD-MMM-YYYY h:mm:ss a'))
+            detail_time_settle = data['transaction_status'] + "<br> " + (moment(data['settlement_time']).format('DD-MMM-YYYY h:mm'))
         }
         else{
             detail_time_settle = data['transaction_status'];
@@ -433,7 +435,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa  </strong></td>" +
-                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Status Pembayaran </strong></td>" +
@@ -458,7 +460,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td>  <strong> Waktu Kadaluarsa  </strong> </td>" +
-                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).add(1, 'days').zone('+0100').format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td>  <strong> Status Pembayaran  </strong></td>" +
@@ -486,7 +488,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
-                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).add(1, 'days').format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Status Pembayaran </strong></td>" +
@@ -510,7 +512,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong> Waktu Kadaluarsa </strong></td>" +
-                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td>  <strong> Status Pembayaran  </strong></td>" +
@@ -530,7 +532,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
-                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Status Pembayaran </strong></td>" +
@@ -550,7 +552,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
-                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Status Pembayaran </strong></td>" +
@@ -574,7 +576,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
-                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Status Pembayaran </strong></td>" +
@@ -594,7 +596,7 @@ $('body').on('click', '.detailProject', function () {
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Waktu Kadaluarsa </strong> </td>" +
-                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm:ss a')) + "</td>" +
+                "<td>" + (moment(data['transaction_time']).format('DD-MMM-YYYY h:mm')) + "</td>" +
             "</tr>" +
             "<tr>" +
                 "<td> <strong>Status Pembayaran </strong></td>" +

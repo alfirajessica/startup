@@ -13,7 +13,7 @@
     <!-- card -->
     <div class="card">
       <div class="card shadow border-0">
-      <div class="card-body scroll"> <!-- card body -->
+      <div class="card-body"> <!-- card body -->
         <div class="table-responsive">
             <table class="table table-bordered table-hover table-sm text-dark" width="100%" id="table_listReviews">
                 <thead style="text-align: center">

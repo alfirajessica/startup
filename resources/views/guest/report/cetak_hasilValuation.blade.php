@@ -9,6 +9,7 @@
 </head>
 <body>
     <h6>Business Valuation Report</h6>
+    <small>*Mata uang yang digunakan adalah Rupiah</small>
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm" width="100%">
             <thead class="thead-dark" style="text-align: center;font-size: 10pt" >

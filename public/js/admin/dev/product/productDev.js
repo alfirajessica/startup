@@ -28,8 +28,8 @@ function table_listProject_ConfirmYet() {
                 }
             },
             {
-                data: 'email',
-                name: 'email',
+                data: 'name_company',
+                name: 'name_company',
               
             },
             {

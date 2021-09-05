@@ -1,3 +1,4 @@
+<script type="text/javascript" src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
 <div class="modal fade bd-example-modal-lg" id="detailTrans" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">

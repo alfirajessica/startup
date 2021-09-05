@@ -31,7 +31,7 @@
                         <table class="table table-sm padding-0 text-dark" width="100%" id="table_projectDetails">
                             <thead>
                                 <th>Invest_id</th>
-                                <th>Project</th>
+                                <th>Startup</th>
                                 <th>Investor</th>
                                 <th>Tipe</th>
                                 <th>Jumlah (Rp)</th>
@@ -39,7 +39,7 @@
                             <tbody></tbody>
                             <tfoot>
                               <tr>
-                                <th colspan="4" style="text-align:right; font-weight:bold">Fee Investasi (Rp) : </th>
+                                <th colspan="4" style="text-align:right; font-weight:bold">Fee Investasi 1% (Rp) : </th>
                                 <th style="text-align:right; font-weight:bold" id="fee"></th>
                               </tr>
                               <tr>
@@ -75,7 +75,7 @@
                         <td style="padding-left: 0.5rem;" ><strong> Invest Id</strong></td>
                         <td style="padding-left: 0rem;"    id='invest_id'></td>
                       </tr>
-                      <tr>
+                      <tr class="d-none">
                           <td style="padding-left: 0.5rem;" > <strong>Transaksi ID</strong></td>
                           <td style="padding-left: 0rem;"    id='transaction_id'></td>
                       </tr>
