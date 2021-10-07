@@ -113,6 +113,7 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'role' => $data['role'],
             'no_telp' => 0,
+            'device_token'=>0
         ]);
 
     }

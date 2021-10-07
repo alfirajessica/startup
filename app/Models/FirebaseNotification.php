@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use LaravelFCM\Message\OptionsBuilder;
 use LaravelFCM\Message\PayloadDataBuilder;
 use LaravelFCM\Message\PayloadNotificationBuilder;
@@ -12,6 +13,23 @@ use FCM;
 
 class FirebaseNotification extends Model
 {
+    use SoftDeletes;
+
+    protected $fillable = [
+        'id_notif_type',
+        'user_to_notify1',
+        'name_user_to_notify1',
+       
+        'user_to_notify2',
+        'user_fired_event',
+        'name_user_fired_event',
+        'name_product',
+        'data',
+        
+    ];
+
+    protected $read=[ 'read_to_notify1','read_to_notify2'];
+
     public static function toSingleDevice($token=null, $title=null,$body=null,$icon,$click_action)
     {
         $optionBuilder = new OptionsBuilder();
@@ -51,7 +69,7 @@ class FirebaseNotification extends Model
 
     }
 
-    public static function toMultiDevice($model,$token=null, $title=null,$body=null,$icon,$click_action)
+    public static function toMultiDevice($model, $title=null,$body=null,$icon,$click_action)
     {
         $optionBuilder = new OptionsBuilder();
         $optionBuilder->setTimeToLive(60*20);
@@ -69,7 +87,7 @@ class FirebaseNotification extends Model
         $data = $dataBuilder->build();
 
         // You must change it to get your tokens
-        $tokens = $model::pluck('device_token')->toArray();
+        $tokens = $model->pluck('device_token')->toArray();
 
         $downstreamResponse = FCM::sendTo($tokens, $option, $notification, $data);
 

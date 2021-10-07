@@ -12,7 +12,7 @@
             
                 <div class="col-lg-5">
                     <div class="card bg-secondary shadow border-0">
-                        <form role="form" method="POST" action="{{ route('login') }}">
+                        <form role="form" method="POST" action="{{ route('login') }}" id="login_form">
                             @csrf
                         <div class="card-body px-lg-5 py-lg-4">
                             <div class="text-center text-muted mb-4">
@@ -62,6 +62,7 @@
                             </div>
 
                             <div class="text-center">
+                               
                                 <button type="submit" class="btn btn-default my-2">
                                     {{ __('Login') }}
                                 </button>
@@ -95,7 +96,9 @@
  @include('units.scripts')
 </body>
 
+<script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
 <script>
+    console.log($("#device_token").val());
     function show() {
         $("#password").attr("type", "text");
         $("#i_eye").attr("style", "display:block");
@@ -107,6 +110,9 @@
         $("#i_eye").attr("style", "display:none");
         $("#i_slash").attr("style", "display:block");
       }
+
+   
+       
 </script>
 </html>
 

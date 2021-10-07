@@ -1,6 +1,12 @@
+@if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 <form action="{{ route('inv.beriReview')}}" method="POST" enctype="multipart/form-data" id="beriReview">
     @csrf
 
+    <input type="hidden" name="device_token" id="device_token">
     <input type="hidden" id="project_id_ulas" name="project_id_ulas">
     <label for="" class="text-dark" style="margin-top: 20px;margin-bottom: auto;"> Beri Rating</label>
     <div class='stars' data-rating='0'>

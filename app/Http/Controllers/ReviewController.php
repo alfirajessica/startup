@@ -16,6 +16,7 @@ use App\Events\InvestorReview;
 use App\Events\InvestorNotif;
 use App\Events\DevNotif;
 use Carbon\Carbon;
+use App\Models\FirebaseNotification;
 
 class ReviewController extends Controller
 {
@@ -64,13 +65,50 @@ class ReviewController extends Controller
             $newNotif->data = '-';
             $newNotif->read_to_notify2=0;
             $query = $newNotif->save();
+            
 
-            DevNotif::dispatch($newNotif, $userName, $startupName);
+            //send notification firebase 
+            $url = 'https://fcm.googleapis.com/fcm/send';
+            $FcmToken = User::where('id','=',$dataHProduct->user_id)->pluck('device_token')->all();
+          
+            $SERVER_API_KEY = 'AAAAtaUzK4s:APA91bGteyBO-IrpK_C68hqgS1hYU300LUA1qnPyZrwLYX0-0FzmqqbQXMaGaV6VKH8Lu-x-efArcxlp4-mT8wFwMVvoilml1j4kOL-gI0Uq3WeYjZevNDs1nsk6xBQ-1opKQsH5mck4';
+      
+            $data = [
+                'to'=> $FcmToken[0],
+                'notification' => [
+                    "title" => $startupName,
+                    "body" => "Menerima Ulasan Startup dari ".$userName,  
+                ],
+                'priority'      =>'high',
+                'content_available'=>true,
+            ];
+            $encodedData = json_encode($data);
+        
+            $headers = [
+                'Authorization:key=' . $SERVER_API_KEY,
+                'Content-Type: application/json',
+            ];
+        
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);        
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $encodedData);
+          
+            // Execute post
+            $result = curl_exec($ch);
+            if ($result === FALSE) {
+                die('Curl failed: ' . curl_error($ch));
+            }        
+            // Close connection
+            curl_close($ch);
+            //echo $result;
 
             if ($query) {
                 return 1;
-                //return response()->json(['status'=>1, 'msg'=>'Berhasil beri review']);
-            }
+          } 
         }
     }
 
@@ -270,7 +308,7 @@ class ReviewController extends Controller
                 $newNotif->read_to_notify2=0;
                 $query = $newNotif->save();
 
-                InvestorNotif::dispatch($newNotif, $userName, $startupName);
+                
 
                 if ($query) {
                     return 1;

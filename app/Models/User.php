@@ -28,6 +28,7 @@ class User extends Authenticatable
         'id_city',
         'city_name',
         'no_telp',
+        'device_token'
     ];
 
     /**

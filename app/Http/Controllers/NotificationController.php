@@ -35,14 +35,45 @@ class NotificationController extends Controller
         return response()->json($notif);
     }
 
+    public function adminNotificationlistProduct(Request $req)
+    {
+        //count byk produk/startup yang blm dikonfirmasi atau produk baru
+        $list_project = 
+        DB::table('header_products')
+        ->select(\DB::raw('count(id) as idlist_project'))
+        ->where('status','=','0')
+        ->groupBy('id')
+        ->get();
+
+        if ($list_project->isEmpty()) {
+            return 0;
+         }
+       else{
+            return $list_project;
+        }
+        
+    }
+
     public function adminNotification(Request $req)
     {
-        //whereBetween('status_invest',[0,3]
-        $user = auth()->user();
-        // $newNotif->read_to_notify1=0;
-        // $newNotif->read_to_notify2=0;
-        $notif['notif'] = Notification::where('read_to_notify1','=','0')->where('id_notif_type','=',5)->get();
-        return response()->json($notif);
+    
+        //count byk transaksi investasi blm dikonfirmasi
+        $list_invest = 
+        DB::table('header_invests')
+        ->select(\DB::raw('count(id) as idlist_invest'))
+        ->where('status_transaction','=','settlement')
+        ->where('status_invest','=','0')
+        ->groupBy('id')
+        ->get();
+
+        if ($list_invest->isEmpty()) {
+            return 0;
+         }
+       else{
+            return $list_invest;
+        }
+
+        
     }
 
     public function invNotification(Request $req)
@@ -88,5 +119,15 @@ class NotificationController extends Controller
                 ->update([
                     'read_to_notify2' =>'1',
                 ]);
+    }
+
+    public function mark_all_inv($id)
+    {
+        DB::table('notifications')
+           // ->where('id_notif_type','=',$notifTypeID)
+            ->where('user_to_notify2','=',$id)
+            ->update([
+                'read_to_notify2' =>'1',
+        ]);
     }
 }

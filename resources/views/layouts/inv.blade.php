@@ -325,9 +325,164 @@
 
     </script>--}}
 
-<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-<script src="/js/firebase.js"></script>
 
+{{-- <script src="/js/firebase.js"></script> --}}
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+
+<script>
+    var notificationsWrapper   = $('.dropdown-notifications');
+    var notificationsToggle    = notificationsWrapper.find('a[data-toggle]');
+    var notificationsCountElem = notificationsToggle.find('i[data-count]');
+    var notificationsCount     = parseInt(notificationsCountElem.data('count'));
+    var notifications          = $('.list-group');
+
+    console.log(notificationsCount);
+    var existingNotifications = notifications.html();
+    var newNotificationHtml = "";
+    var msg="";
+    var page="";
+            
+    if (notificationsCount <= 0) {
+        notificationsWrapper.hide();
+    }
+
+    call_notif();
+
+    function call_notif() { 
+        $.ajax({
+            type: "get",
+            url: '/invNotification',
+            success: function (data) {
+            for (let i = 0; i < data.notif.length; i++) {
+
+                var a = moment(); // today
+                var b = moment(data.notif[i]['created_at']); // target date
+                var diffInDays = a.diff(b, 'days') + ' hari lalu'; // 36d;
+                
+                var dataID = data.notif[i]['id'];
+
+                if (diffInDays == '0 hari lalu') {
+                    diffInDays = "Hari ini";
+                }
+                
+                if (data.notif[i]['id_notif_type'] == 7) {
+                        page = "<a  class='list-group-item list-group-item-action devNotif' href='{{ route('inv.riwayatReview') }}' data-id='" + dataID +"'";
+                        msg = "Ulasan anda pada <b>" + data.notif[i]['name_product'] + "</b> </br> telah ditanggapi Developer " + data.notif[i]['name_user_fired_event'];
+                }
+
+                if (data.notif[i]['id_notif_type'] == 8) {
+                    page = "<a  class='list-group-item list-group-item-action devNotif' href='{{ route('inv.invest') }}' data-id='" + dataID +"'";
+                    msg = "Transaksi investasi pada <b>" + data.notif[i]['name_product'] + "</b> </br> telah dikonfirmasi " + data.notif[i]['name_user_fired_event'];
+                }
+
+                newNotificationHtml = page + `
+                <div class="row align-items-center">          
+                    <div class="col">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0 text-sm">`+ data.notif[i]['name_product'] + `</h6>
+                        <label>` + msg + `</label>
+                        </div>
+                        <div class="text-right text-muted">
+                            <small>`+ diffInDays  + `</small>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </a>`;
+
+                
+                notifications.append(newNotificationHtml);
+                notificationsCount = data.notif.length;
+                
+            }
+
+            notificationsCount = notificationsCount;
+            notificationsCountElem.attr('data-count', notificationsCount);
+            notificationsWrapper.find('.notif-count').text(notificationsCount);
+            notificationsWrapper.show();
+            
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+     }
+
+                
+          
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyBwc8NSTx3jM8dLItdPj3se5UCjFIDUzdU",
+        authDomain: "startupinow.firebaseapp.com",
+        projectId: "startupinow",
+        storageBucket: "startupinow.appspot.com",
+        messagingSenderId: "780160674699",
+        appId: "1:780160674699:web:456282866792841d649d8e",
+        measurementId: "G-HB571HD822"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+        messaging
+            .requestPermission()
+            .then(function () { 
+                console.log('notification permission granted.');
+                return messaging.getToken();
+            }).then(function (token) { 
+                $('#device_token').val(token);
+                $.ajax({
+                    type: "get",
+                    url: '/home/saveToken' + '/' + token,
+                    contentType: "application/json",
+                    success: function (response) {
+                        console.log('Token saved successfully.');
+                    },
+                    error: function (err) {
+                        console.log('User Chat Token Error'+ err);
+                    },
+                });
+                console.log(token);
+            }).
+            catch(function (err) { 
+                console.log('unable to get permission to notify.',err);
+            });
+
+    
+
+    messaging.onMessage(function(payload) {
+        const noteTitle = payload.notification.title;
+        const noteOptions = {
+            body: payload.notification.body,
+            
+        };
+        console.log('notification firebasejs');
+        notifications.empty();
+        call_notif();
+        new Notification(noteTitle, noteOptions);
+    });
+
+    document.addEventListener("visibilitychange", function() {
+        console.log( document.visibilityState );
+        notifications.empty();
+        call_notif();
+    });
+
+    function mark_all() { 
+        var userID = "{{ Auth::user()->id }}";
+        $.ajax({
+            type: "get",
+            url: '/mark_all_inv/'+userID,
+            success: function (data) {
+            console.log("ok");
+            notificationsCount = 0;
+            notifications.empty();
+            call_notif();
+            }
+        });
+     }
+
+</script>
 </body>
 </html>
 

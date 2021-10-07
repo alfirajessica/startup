@@ -19,6 +19,7 @@
         "itsgoingd/clockwork": "^5.0",
         "kavist/rajaongkir": "1.1",
         "ladumor/one-signal": "^0.4.0",
+        "laravel-notification-channels/fcm": "~2.0",
         "laravel-notification-channels/pusher-push-notifications": "^2.3",
         "laravel-notification-channels/webpush": "^5.1",
         "laravel/framework": "^8.12",

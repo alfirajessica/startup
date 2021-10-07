@@ -171,3 +171,5 @@ function formatCurrency(input, blur) {
 </script>
 <script src="../js/custom.js"></script>
 <script type="text/javascript" src="../js/tawk.js"></script>
+<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+

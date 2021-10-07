@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -47,5 +48,22 @@ class LoginController extends Controller
         return redirect('/');
 
         
+    }
+
+    public function saveToken(Request $request, $token)
+    {
+        $user = auth()->user();
+        DB::table('users')->
+                where('id',$user->id)->
+                update([
+                    'device_token' =>$req->device_token,
+                  
+                ]);
+
+                //return back()->with('status', 'Berhasil join Event kembali');
+                return response()->json(['token saved successfully.']);
+
+        // auth()->user()->update(['device_token'=>$request->token]);
+        // return response()->json(['token saved successfully.']);
     }
 }

@@ -32,7 +32,7 @@ class DevController extends Controller
     {
         $user = auth()->user();
         $list_category['list_category'] = DB::table('category_products')->where('status','=','1')->get();
-        $type_trans['type_trans'] = DB::table('type_trans')->get();
+        $type_trans['type_trans'] = DB::table('type_trans')->where('status','=','1')->get();
         $list_project['list_project'] = DB::table('header_products')->where('user_id','=',$user->id)->get();
         $list_hStartupTag['list_hStartupTag'] = 
         DB::table('h_startup_tags')

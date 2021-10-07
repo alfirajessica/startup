@@ -20,13 +20,16 @@ class UserController extends Controller
             DB::table('header_products')
             ->select('header_products.id','header_products.name_product',\DB::raw('round(avg(reviews.rating))'),'header_products.image')
             ->join('reviews','reviews.project_id','=','header_products.id')
+            ->where('header_products.status','=',1)
             ->groupBy('header_products.id','header_products.name_product','header_products.image')
             ->orderBy(\DB::raw('round(avg(reviews.rating))'))
             ->paginate(6);
         
         $new_event['new_event'] =
         DB::table('header_events')
-        ->orderBy('created_at')->paginate(6);
+        ->orderBy('created_at')
+        ->where('status','=',1)
+        ->paginate(6);
         return view('/index')->with($trending_startup)->with($new_event);
     }
 }

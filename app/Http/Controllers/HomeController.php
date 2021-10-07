@@ -71,13 +71,7 @@ class HomeController extends Controller
         else if ($user_role == "2") {
             
              $get_id = DB::table('header_events')->select('id')->where('status','=','2')->get();
-        
-// SELECT h.name_product, round(r.rating)
-// FROM header_products h
-// JOIN reviews r
-// ON r.project_id = h.id
-// GROUP BY h.id
-// ORDER BY round(r.rating) DESC
+    
 
             $trending_startup['trending_startup'] = 
             DB::table('header_products')
@@ -91,6 +85,23 @@ class HomeController extends Controller
             return view('investor.home')->with($trending_startup); 
         }
        
+    }
+
+    public function saveToken(Request $req, $token)
+    {
+        $user = auth()->user();
+        DB::table('users')->
+                where('id',$user->id)->
+                update([
+                    'device_token' =>$token,
+                  
+                ]);
+
+                //return back()->with('status', 'Berhasil join Event kembali');
+                return response()->json(['token saved successfully.']);
+
+        // auth()->user()->update(['device_token'=>$request->token]);
+        // return response()->json(['token saved successfully.']);
     }
 
     //check event if has passed
@@ -133,50 +144,60 @@ class HomeController extends Controller
         //jika status transaction pending or settlement
             //ubah status transaction, status invest jadi 0
 
+       
+
         $data = HeaderInvest::whereBetween('status_invest',[0,3])->get()->toArray();
+             
         for ($i=0; $i < count($data); $i++) { 
 
-            $status = \Midtrans\Transaction::status($data[$i]['invest_id']);
-            $status = json_decode(json_encode($status),true);
-
-            if ($status['transaction_status'] == "cancel" || $status['transaction_status'] == "expire") {
-                DB::table('header_invests')->
-                where('invest_id','=',$data[$i]['invest_id'])->
-                update([
-                    'status_transaction' => $status['transaction_status'],
-                    'status_invest' => '4'
-                ]);
-
-                 DB::table('header_products')
-                 ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
-                 ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
-                 ->update([
-                     'header_products.status' => '1',
-                 ]);
+            $investID = $data[$i]['invest_id'];
+            $lennum = strlen((string)$investID);
+            if ($lennum == 4) {
+                dd("ok");
+            }else{
+                $status = \Midtrans\Transaction::status($data[$i]['invest_id']);
+                $status = json_decode(json_encode($status),true);
+    
+                if ($status['transaction_status'] == "cancel" || $status['transaction_status'] == "expire") {
+                    DB::table('header_invests')->
+                    where('invest_id','=',$data[$i]['invest_id'])->
+                    update([
+                        'status_transaction' => $status['transaction_status'],
+                        'status_invest' => '4'
+                    ]);
+    
+                        DB::table('header_products')
+                        ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+                        ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
+                        ->update([
+                            'header_products.status' => '1',
+                        ]);
+                }
+                //harusnya cek status dulu status investnya dan status transaction
+                else{
+                    //jika pending dan settlement, masih menunggu admin konfirmasi
+                    DB::table('header_invests')->
+                    where('invest_id','=',$data[$i]['invest_id'])->
+                    update([
+                        'status_transaction' => $status['transaction_status'],
+                    ]);
+    
+                    DB::table('header_products')
+                    ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
+                    ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
+                    ->where('header_invests.status_transaction','=','pending')
+                    ->orwhere('header_invests.status_transaction','=','settlement')
+                    ->where('header_invests.status_invest','!=','5')
+                    ->update([
+                        'header_products.status' => '2',
+                    ]);
+    
+                    
+                }
             }
-            //harusnya cek status dulu status investnya dan status transaction
-            else{
-                //jika pending dan settlement, masih menunggu admin konfirmasi
-                DB::table('header_invests')->
-                where('invest_id','=',$data[$i]['invest_id'])->
-                update([
-                    'status_transaction' => $status['transaction_status'],
-                ]);
-
-                DB::table('header_products')
-                ->leftJoin('header_invests','header_invests.project_id','=','header_products.id')
-                ->where('header_invests.invest_id','=',$data[$i]['invest_id'])
-                ->where('header_invests.status_transaction','=','pending')
-                ->orwhere('header_invests.status_transaction','=','settlement')
-                ->where('header_invests.status_invest','!=','5')
-                ->update([
-                    'header_products.status' => '2',
-                ]);
-
-                
-            }
-   
         }
+
+        
     }
 
     //ubah status_invest di tabel header invest menjadi 5 --> investasi telah berakhir/finished/sesuai waktu kontrak
@@ -300,6 +321,8 @@ class HomeController extends Controller
         $data = HeaderInvest::find($id);
         $investID = $data->invest_id;
 
+        //$lennum = strlen((string)$investID);
+
         //get data dari project yang diulas
         $dataHProduct = HeaderProduct::find($data->project_id);
         $startupName = $dataHProduct->name_product;
@@ -324,12 +347,47 @@ class HomeController extends Controller
         $newNotif->read_to_notify2=0;
         $query = $newNotif->save();
 
-        DevNotif::dispatch($newNotif, $userName, $startupName);
-        
-        $cancel = \Midtrans\Transaction::cancel($investID);
+        //send notification firebase 
+        $url = 'https://fcm.googleapis.com/fcm/send';
+        $FcmToken = User::where('id','=',$dataHProduct->user_id)->pluck('device_token')->all();
+      
+        $SERVER_API_KEY = 'AAAAtaUzK4s:APA91bGteyBO-IrpK_C68hqgS1hYU300LUA1qnPyZrwLYX0-0FzmqqbQXMaGaV6VKH8Lu-x-efArcxlp4-mT8wFwMVvoilml1j4kOL-gI0Uq3WeYjZevNDs1nsk6xBQ-1opKQsH5mck4';
+  
+        $data = [
+            'to'=> $FcmToken[0],
+            'notification' => [
+                "title" => $startupName,
+                "body" => "Sedang dalam tahap diinvestasikan oleh ".$userName,  
+            ],
+            'priority'      =>'high',
+            'content_available'=>true,
+        ];
+        $encodedData = json_encode($data);
+    
+        $headers = [
+            'Authorization:key=' . $SERVER_API_KEY,
+            'Content-Type: application/json',
+        ];
+    
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);        
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $encodedData);
+      
+        // Execute post
+        $result = curl_exec($ch);
+        if ($result === FALSE) {
+            die('Curl failed: ' . curl_error($ch));
+        }        
+        // Close connection
+        curl_close($ch);
 
+       
+        $cancel = \Midtrans\Transaction::cancel($investID);
         return $cancel;
-        
     }
 
     

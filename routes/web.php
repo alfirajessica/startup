@@ -63,6 +63,7 @@ Route::get('test', function () {
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home/saveToken/{token}', [HomeController::class, 'saveToken'])->name('home.saveToken');
 
 Route::post('/users/logout', [LoginController::class, 'userLogout'])->name('users.logout');
 
@@ -91,8 +92,13 @@ Route::get('/projectdetailInvest/{id}', [HomeController::class, 'projectdetailIn
 Route::get('/cancleInvest/{id}', [HomeController::class, 'cancleInvest'])->name('cancleInvest');
 
 Route::get('/devNotification', [NotificationController::class, 'devNotification'])->name('devNotification');
+
 Route::get('/adminNotification', [NotificationController::class, 'adminNotification'])->name('adminNotification');
+Route::get('/adminNotificationlistProduct', [NotificationController::class, 'adminNotificationlistProduct'])->name('adminNotificationlistProduct');
+
 Route::get('/invNotification', [NotificationController::class, 'invNotification'])->name('invNotification');
+Route::get('/mark_all_inv/{id}', [NotificationController::class, 'mark_all_inv'])->name('mark_all_inv');
+
 Route::get('/markReadReviewIinv/{id}/{notifTypeID}', [NotificationController::class, 'markReadReviewIinv'])->name('markReadReviewIinv');
 Route::get('/markReadReviewDev/{id}/{notifTypeID}', [NotificationController::class, 'markReadReviewDev'])->name('markReadReviewDev');
 Route::get('/markReadReviewDev2/{id}/{notifTypeID}', [NotificationController::class, 'markReadReviewDev2'])->name('markReadReviewDev2');

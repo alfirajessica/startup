@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notification;
 class InvestorGiveReview extends Notification implements ShouldQueue
 {
     use Queueable;
+    public $user;
     public function __construct($user)
     {
         $this->user = $user;
@@ -23,15 +24,8 @@ class InvestorGiveReview extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'id_notif_type' => $this->id,
-            'user_to_notify1' =>$this->user->id,
-            'user_to_notify2'=>$this->user->id,
-            'user_fired_event' =>$this->user->id,
-            'data' => [
-                'follower_id' => $this->user->id,
-                'follower_name' => $this->user->name,
-            ],
-            'read_at' => 0,
+            'name' => '$this->user->name',
+            
         ];
     }
 }

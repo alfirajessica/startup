@@ -10,22 +10,43 @@ const firebaseConfig = {
   };
 
 firebase.initializeApp(firebaseConfig);
-
 const messaging = firebase.messaging();
-
     messaging
         .requestPermission()
         .then(function () { 
-            console.log('notifiation permission granted.');
+            console.log('notification permission granted.');
             return messaging.getToken();
          }).then(function (token) { 
              $('#device_token').val(token);
+             $.ajax({
+                type: "get",
+                url: '/home/saveToken' + '/' + token,
+                contentType: "application/json",
+                success: function (response) {
+                    console.log('Token saved successfully.');
+                },
+                error: function (err) {
+                    console.log('User Chat Token Error'+ err);
+                },
+            });
              console.log(token);
           }).
           catch(function (err) { 
               console.log('unable to get permission to notify.',err);
            });
 
-messaging.onMessage((payload)=>{
-    console.log(payload);
-})
+   
+
+   messaging.onMessage(function(payload) {
+    const noteTitle = "hello " + payload.notification.title;
+    const noteOptions = {
+        body: payload.notification.body,
+        
+    };
+    console.log('notification firebasejs');
+    
+
+    new Notification(noteTitle, noteOptions);
+    });
+
+    

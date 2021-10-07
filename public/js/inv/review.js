@@ -28,8 +28,7 @@ $("#beriReview").on("submit",function (e) {
                 swal("Anda berhasil memberi ulasan!", {
                     icon: "success",
                 });
-
-                
+               
             }
             else{
                 
@@ -66,6 +65,12 @@ function reset_form() {
     $(".stars").removeAttr('rated');
    document.querySelector('.stars').getAttribute('data-rating').value = '0';
 }
+
+function send_notif() { 
+
+}
+
+
 //end of investor - detailStartup - ulasan.blade.php
 
 //investor - listReview.blade.php --> history review 

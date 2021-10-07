@@ -195,18 +195,16 @@
                 <li class="nav-item dropdown dropdown-notifications">
                   <a id="NotificationDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                       
-                      <i data-count="0" class="fa fa-bell" aria-hidden="true"><span class="notif-count badge badge-danger">0</span></i> 
+                      <i data-count="0" class="fa fa-bell" aria-hidden="true"><span class="notif-count badge badge-danger"></span></i> 
                   </a>
 
                   <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right" aria-labelledby="NotificationDropdown">
-                      <div class="px-3 py-3">
-                          <h6 class="text-sm text-muted m-0">You have <strong class="text-primary">(<span class="notif-count">0</span>)</strong> notifications.</h6>
-                      </div>
+                    
 
-                      <div class="list-group list-group-flush">
+                      <div class="px-3 py-3 list-group list-group-flush">
 
                       </div>
-                      <a href="#!" class="dropdown-item text-center text-primary font-weight-bold py-3">View all</a>
+                     
                   </div>
               </li>
 
@@ -305,15 +303,111 @@
     $("#now_path").text(getID);
   </script>
 
-  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-  <script src="/js/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+
+<script>
+    var notificationsWrapper   = $('.dropdown-notifications');
+    var notificationsToggle    = notificationsWrapper.find('a[data-toggle]');
+    var notificationsCountElem = notificationsToggle.find('i[data-count]');
+    var notificationsCount     = parseInt(notificationsCountElem.data('count'));
+    var notifications          = $('.list-group');
+
+    console.log(notificationsCount);
+    var existingNotifications = notifications.html();
+    var newNotificationHtml = "";
+    var msg="";
+    var page="";
+   
+    call_notif();
+   
+    function call_notif() { 
+        $.ajax({
+            type: "get",
+            url: '/adminNotification',
+            success: function (data) {
+              if (data == 0) {
+                console.log('kosong');
+              }
+              else{
+                console.log(data[0]);
+                newNotificationHtml = page + `
+                  <div class="row align-items-center">          
+                      <div class="col">
+                      <div class="d-flex justify-content-between align-items-center">
+                          <div>
+                              <h6 class="mb-0 text-sm"> Terdapat `+ data[0]['idlist_invest'] + ` Transaksi Investasi Startup butuh dikonfirmasi </h6>
+                          
+                          </div>
+                          <div class="text-right text-muted">
+                              <small>`+ ''  + `</small>
+                          </div>
+                      </div>
+                      </div>
+                    </div>
+                    </a>`;
+              
+                  notifications.append(newNotificationHtml);
+                  notificationsCount = notificationsCount;
+                  notificationsCountElem.attr('data-count', notificationsCount);
+                  notificationsWrapper.find('.notif-count').text(notificationsCount);
+                  notificationsWrapper.show();
+              }
+            },
+            
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+
+        $.ajax({
+            type: "get",
+            url: '/adminNotificationlistProduct',
+            success: function (data) {
+
+              if (data == 0) {
+                console.log('kosong2');
+              }else{
+                console.log(data[0]['idlist_project']);
+              newNotificationHtml = page + `
+                <div class="row align-items-center">          
+                    <div class="col">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="mb-0 text-sm"> Terdapat `+ data[0]['idlist_project'] + ` Startup butuh dikonfirmasi</h6>
+                      
+                        </div>
+                        <div class="text-right text-muted">
+                            <small>`+ ''  + `</small>
+                        </div>
+                    </div>
+                    </div>
+                  </div>
+                </a>`;
+            
+                notifications.append(newNotificationHtml);
+                notificationsCount = notificationsCount;
+                notificationsCountElem.attr('data-count', notificationsCount);
+                notificationsWrapper.find('.notif-count').text(notificationsCount);
+                notificationsWrapper.show();
+              }
+
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+     }
+  
+    document.addEventListener("visibilitychange", function() {
+        console.log( document.visibilityState );
+        notifications.empty();
+        call_notif();
+    });
+
+</script>
 </body>
 
 </html>
-
-
-
-<script src="https://js.pusher.com/4.2/pusher.min.js"></script>
 
 {{-- <script>
     var notificationsWrapper   = $('.dropdown-notifications');

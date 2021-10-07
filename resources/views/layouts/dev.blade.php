@@ -102,6 +102,7 @@
                 </li>
 
                 <li class="nav-item dropdown">
+                    <input type="hidden" name="device_token" id="device_token">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle text-white" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }}
                     </a>
@@ -223,38 +224,45 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous"></script>
 <script src="https://js.pusher.com/4.2/pusher.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script> 
-{{-- <script> 
+
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+
+<script>
     var notificationsWrapper   = $('.dropdown-notifications');
-      var notificationsToggle    = notificationsWrapper.find('a[data-toggle]');
-      var notificationsCountElem = notificationsToggle.find('i[data-count]');
-      var notificationsCount     = parseInt(notificationsCountElem.data('count'));
-      var notifications          = $('.list-group');
-  
-      var existingNotifications = notifications.html();
-      var newNotificationHtml = "";
-      var msg="";
-      var page="";
-  
-      if (notificationsCount <= 0) {
-          notificationsWrapper.hide();
-      }
-  
-      //get notif from database 
-      $.ajax({
-          type: "get",
-          url: '/devNotification',
-          success: function (data) {
+    var notificationsToggle    = notificationsWrapper.find('a[data-toggle]');
+    var notificationsCountElem = notificationsToggle.find('i[data-count]');
+    var notificationsCount     = parseInt(notificationsCountElem.data('count'));
+    var notifications          = $('.list-group');
+
+    console.log(notificationsCount);
+    var existingNotifications = notifications.html();
+    var newNotificationHtml = "";
+    var msg="";
+    var page="";
+            
+    if (notificationsCount <= 0) {
+        notificationsWrapper.hide();
+    }
+
+    call_notif();
+
+    function call_notif() { 
+        $.ajax({
+            type: "get",
+            url: '/devNotification',
+            success: function (data) {
             for (let i = 0; i < data.notif.length; i++) {
 
                 var a = moment(); // today
                 var b = moment(data.notif[i]['created_at']); // target date
                 var diffInDays = a.diff(b, 'days') + ' hari lalu'; // 36d;
-               
+                
+                var dataID = data.notif[i]['id'];
 
                 if (diffInDays == '0 hari lalu') {
                     diffInDays = "Hari ini";
                 }
-                page = "<a href='{{ route('dev.product') }}' class='list-group-item list-group-item-action devNotif'>";
+                
                 if (data.notif[i]['id_notif_type'] == 1) {
                     msg = "Menerima Ulasan Startup dari " + data.notif[i]['name_user_fired_event'];
                 }
@@ -283,13 +291,13 @@
                     msg = "Startup Tidak Dikonfirmasi oleh " + data.notif[i]['name_user_fired_event'];
                 }
 
-                newNotificationHtml = page +`
-                <div class="row align-items-center">
-                    
+
+                newNotificationHtml = page + `
+                <div class="row align-items-center">          
                     <div class="col">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                        <h6 class="mb-0 text-sm">`+ data.notif[i]['name_product'] + `</h6>
+                            <h6 class="mb-0 text-sm">`+ data.notif[i]['name_product'] + `</h6>
                         <label>` + msg + `</label>
                         </div>
                         <div class="text-right text-muted">
@@ -299,97 +307,100 @@
                     </div>
                 </div>
                 </a>`;
+
                 
                 notifications.append(newNotificationHtml);
-                notificationsCount += 1;
-                notificationsCountElem.attr('data-count', notificationsCount);
-                notificationsWrapper.find('.notif-count').text(notificationsCount);
-                notificationsWrapper.show();
-            }
-            
-          },
-          error: function (data) {
-              console.log('Error:', data);
-          }
-      });
-  
-      //Remember to replace key and cluster with your credentials.
-      var pusher = new Pusher('7ccfa9bcb981ff489c7a', {
-          cluster: 'ap1',
-          encrypted: false
-      });
-  
-      //Also remember to change channel and event name if your's are different.
-      var userID = "{{ Auth::user()->id }}";
-      var channel = pusher.subscribe('dev-notif.' + userID);
-      
-      channel.bind('App\\Events\\DevNotif', function(data) {
-      console.log(data.newNotif['id_notif_type']);
-      
-            var a = moment(); // today
-            var b = moment(data.newNotif['created_at']); // target date
-            var diffInDays = a.diff(b, 'days') + ' hari lalu'; // 36d;
-            
-            if (diffInDays == '0 hari lalu') {
-                diffInDays = "Hari ini";
+                notificationsCount = data.notif.length;
+                
             }
 
-            page = "<a href='{{ route('dev.product') }}' class='list-group-item list-group-item-action devNotif'>";
-
-          //investor memberikan review
-            if (data.newNotif['id_notif_type'] == 1) {
-                msg = "Menerima Ulasan Startup dari " + data.newNotif['name_user_fired_event'];
-            }
-
-            if (data.newNotif['id_notif_type'] == 2) {
-                msg = "Sedang dalam tahap diinvestasikan oleh " + data.newNotif['name_user_fired_event'];
-            }
-
-            if (data.newNotif['id_notif_type'] == 3) {
-                msg = "Investasi dibatalkan oleh Investor " + data.newNotif['name_user_fired_event'];
-            }
-
-            if (data.newNotif['id_notif_type'] == 4) {
-                msg = "Menerima Ulasan Investasi dari " + data.newNotif['name_user_fired_event'];
-            }
-
-            if (data.newNotif['id_notif_type'] == 6) {
-                msg = "Startup telah dikonfirmasi oleh " + data.newNotif['name_user_fired_event'];
-            }
-
-            if (data.newNotif['id_notif_type'] == 8) {
-                msg = "Menerima Investasi dari Investor " + data.newNotif['data'];
-            }
-
-            if (data.newNotif['id_notif_type'] == 9) {
-                msg = "Startup Tidak Dikonfirmasi oleh " + data.newNotif['name_user_fired_event'];
-            }
-  
-          newNotificationHtml = page + `
-              <div class="row align-items-center">
-                  <div class="col">
-                  <div class="d-flex justify-content-between align-items-center">
-                      <div>
-                      <h6 class="mb-0 text-sm">`+ data.startupName + `</h6>
-                      <label>`+ msg + `</label>
-                      </div>
-                      <div class="text-right text-muted">
-                      <small>`+ diffInDays  + `</small>
-                      </div>
-                  </div>
-                  </div>
-              </div>
-              </a>`;
-          
-            notifications.append(newNotificationHtml);
-            notificationsCount += 1;
+            notificationsCount = notificationsCount;
             notificationsCountElem.attr('data-count', notificationsCount);
             notificationsWrapper.find('.notif-count').text(notificationsCount);
             notificationsWrapper.show();
-      });
-</script>--}}
-<script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-<script src="/js/firebase.js"></script>
+            
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+     }
+
+                
+          
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+        apiKey: "AIzaSyBwc8NSTx3jM8dLItdPj3se5UCjFIDUzdU",
+        authDomain: "startupinow.firebaseapp.com",
+        projectId: "startupinow",
+        storageBucket: "startupinow.appspot.com",
+        messagingSenderId: "780160674699",
+        appId: "1:780160674699:web:456282866792841d649d8e",
+        measurementId: "G-HB571HD822"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+        messaging
+            .requestPermission()
+            .then(function () { 
+                console.log('notification permission granted.');
+                return messaging.getToken();
+            }).then(function (token) { 
+                $('#device_token').val(token);
+                $.ajax({
+                    type: "get",
+                    url: '/home/saveToken' + '/' + token,
+                    contentType: "application/json",
+                    success: function (response) {
+                        console.log('Token saved successfully.');
+                    },
+                    error: function (err) {
+                        console.log('User Chat Token Error'+ err);
+                    },
+                });
+                console.log(token);
+            }).
+            catch(function (err) { 
+                console.log('unable to get permission to notify.',err);
+            });
+
+    
+
+    messaging.onMessage(function(payload) {
+        const noteTitle = payload.notification.title;
+        const noteOptions = {
+            body: payload.notification.body,
+            
+        };
+        console.log('notification firebasejs');
+        notifications.empty();
+        call_notif();
+        new Notification(noteTitle, noteOptions);
+    });
+
+    document.addEventListener("visibilitychange", function() {
+        console.log( document.visibilityState );
+        notifications.empty();
+        call_notif();
+    });
+
+    function mark_all() { 
+        var userID = "{{ Auth::user()->id }}";
+        $.ajax({
+            type: "get",
+            url: '/mark_all_dev/'+userID,
+            success: function (data) {
+            console.log("ok");
+            notificationsCount = 0;
+            notifications.empty();
+            call_notif();
+            }
+        });
+     }
+
+
+</script>
 
 </body>
  

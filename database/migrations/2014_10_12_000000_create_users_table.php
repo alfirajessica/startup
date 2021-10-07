@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('id_city')->nullable();
             $table->text('city_name')->nullable();
             $table->integer('no_telp')->nullable();
+            $table->string('device_token');
             $table->rememberToken();
             $table->timestamps();
         });

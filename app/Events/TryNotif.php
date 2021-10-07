@@ -10,34 +10,27 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class InvestorInvest implements ShouldBroadcast
+class TryNotif
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $username;
-
-    public $message;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($username)
+    public function __construct()
     {
-        $this->username = $username;
-        $this->message  = "{$username} menginvestasi startup anda";
+        //
     }
 
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return Channel|array
+     * @return \Illuminate\Broadcasting\Channel|array
      */
     public function broadcastOn()
     {
-        return new Channel('invest-startup');
-
-        //return ['invest-startup'];
+        return new PrivateChannel('channel-name');
     }
 }
