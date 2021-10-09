@@ -15,7 +15,7 @@
     <small>Dicetak pada : {{ now()->translatedFormat('d-F-Y h:i') }}</small> <br>
     <h2>Laporan Transaksi Startup/Produk</h2>
 
-    Laporan ini mencetak data pada
+    Laporan ini mencetak data pada:
     <div class="row">
         <div class="col-md-4">
             

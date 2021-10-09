@@ -17,7 +17,7 @@
     <h2>Laporan Startup/Produk</h2>
 
     <br>
-    Detail Produk
+    <b>Detail Produk<b>
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm" width="100%">
             <thead class="thead-dark" style="text-align: center;" >
@@ -77,11 +77,7 @@
                         <td>:</td>
                         <td>{{$item->benefit}}</td>
                     </tr>
-                    <tr>
-                        <td>Solusi</td>
-                        <td>:</td>
-                        <td>{{$item->solution}}</td>
-                    </tr>
+                   
                     @empty
                     <tr><td>Tidak ada data</td></tr>
                 @endforelse
@@ -93,7 +89,7 @@
     </div>
     <br>
     <br>
-    Transaksi Startup/Produk
+    <b>Transaksi Startup/Produk</b>
 
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm" width="100%">
@@ -174,7 +170,7 @@
     </div>
 
     <br>
-    Investor Startup/Produk
+    <b>Investor Startup/Produk</b>
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm" width="100%">
             <thead class="thead-dark" style="text-align: center">
@@ -213,7 +209,7 @@
     </div>
 
     <br>
-    Rating dan Review (Ulasan) Startup/Produk
+    <b>Rating dan Review (Ulasan) Startup/Produk</b>
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm" width="100%">
             <thead class="thead-dark" style="text-align: center">

@@ -25,11 +25,12 @@
         Laporan ini mencetak semua proyek Anda dengan status proyek <strong> Tidak aktif </strong> <br>
     @endif
     
-    Data yang dimuat pada laporan ini adalah data pada periode 
-        <strong>{{ Carbon\Carbon::parse($dateawal)->format('d-m-Y') }}</strong> hingga 
+    <div class="alert alert-primary" role="alert">
+        
+        *Data pada laporan ini ditampilkan dari <strong>{{ Carbon\Carbon::parse($dateawal)->format('d-m-Y') }}</strong> hingga  
         <strong>{{ Carbon\Carbon::parse($dateakhir)->format('d-m-Y') }}</strong>
-
-    <br>
+       
+    </div>
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm" width="100%">
             <thead class="thead-dark" style="text-align: center;" >

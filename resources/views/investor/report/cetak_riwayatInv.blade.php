@@ -26,13 +26,10 @@
         Dengan ketentuan investasi telah dinyatakan selesai/berakhir sesuai dengan masa/durasi investasi
     @endif
     <br>
-    Data yang dimuat pada laporan ini adalah data pada periode 
-        <strong>{{ Carbon\Carbon::parse($dateawal)->format('d-M-Y') }}</strong> hingga 
+    <div class="alert alert-primary" role="alert">
+        *Data pada laporan ini ditampilkan dari <strong>{{ Carbon\Carbon::parse($dateawal)->format('d-M-Y') }}</strong> hingga  
         <strong>{{ Carbon\Carbon::parse($dateakhir)->format('d-M-Y') }}</strong>
-
-    <br>
-    
-    <br>
+    </div>
     @foreach ($countdata as $item)
         Total Data : {{$item->total}}
     @endforeach
