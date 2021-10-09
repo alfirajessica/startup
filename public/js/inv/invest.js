@@ -294,6 +294,7 @@ $('body').on('click', '.detailProject', function () {
     moment.locale('id');
     var id = $(this).data('id');
     var cekTabel = $(this).attr("id");
+    console.log(cekTabel);
 
     $("#detailInv-tab").addClass('active');
     $("#lapfinance-tab").addClass('d-none');
@@ -303,8 +304,8 @@ $('body').on('click', '.detailProject', function () {
         $("#detailInv-tab").addClass('active');
         $("#detailInv").addClass('show active');
 
-        $("#lapfinance-tab").removeClass('active');
-        $("#lapfinance").addClass('d-none');
+        $("#lapfinance-tab").removeClass('show active');
+        $("#lapfinance").removeClass('show active').addClass('d-none');
         
     }
     if (cekTabel == "table_listInvestFinished" || cekTabel == "table_listInvestSettlement") {

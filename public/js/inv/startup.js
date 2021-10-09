@@ -2,10 +2,7 @@
 // Yang termasuk : semua pada folder investor/detailStartup
 var tipe="";
 $(function () {
-    $('#table_finance').dataTable({searching: false, info: false,order: [
-      [0, 'desc']
-  ]});
-    
+  $('#table_finance').dataTable({searching: false, info: false, order:true});
     
     //startup.blade.php
     $(document).on('click', '.pagination a', function(event) {

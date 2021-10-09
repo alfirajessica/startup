@@ -737,7 +737,7 @@ class ProductController extends Controller
         ->where('tipe','=','1')
         ->where('status','=','1')
         ->groupBy(\DB::raw('DATE_FORMAT(tanggal,"%Y-%m")'))
-        ->orderBy(\DB::raw('DATE_FORMAT(tanggal,"%Y-%m")'))
+        ->orderBy(\DB::raw('DATE_FORMAT(tanggal,"%Y-%m")','asc'))
         ->get();
 
         $list_finance_keluar['list_finance_keluar'] = 
@@ -747,7 +747,7 @@ class ProductController extends Controller
         ->where('tipe','=','2')
         ->where('status','=','1')
         ->groupBy(\DB::raw('DATE_FORMAT(tanggal,"%Y-%m")'))
-        ->orderBy(\DB::raw('DATE_FORMAT(tanggal,"%Y-%m")'))
+        ->orderBy(\DB::raw('DATE_FORMAT(tanggal,"%Y-%m")','asc'))
         ->get();
 
         
