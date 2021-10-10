@@ -19,13 +19,35 @@
     <div class="table-responsive">
         <table class="table table-bordered table-hover table-sm" width="100%">
             <thead class="thead-dark" style="text-align: center;" >
-                
+                <tr>
+                    <th>#Id</th>
+                    <th>Investor</th>
+                    <th>Produk</th>
+                    <th>Jumlah Masuk (Rp)</th>
+                </tr>
             </thead>
             <tbody>
-                
+                @foreach ($detailTransInv as $item)
+                    <tr>
+                        <td>#{{$item->invest_id}}</td>
+                        <td>{{$item->name}}</td>
+                        <td>{{$item->name_product}}</td>
+                        <td style="text-align: right">{{ number_format($item->jumlah_invest-$item->jumlah_final, 2, ',', '.') }}</td>
+                    </tr>
+                @endforeach
             </tbody>
             <tfoot>
-                
+                <tr>
+                    <th colspan="3" style="text-align: right">Total Pemasukkan</th>
+                @foreach ($getPendapatan as $item)
+                    
+                        <th style="text-align: right">
+                            {{ number_format($item->total_masuk, 2, ',', '.') }}
+                        
+                        </th>
+                        
+                @endforeach
+                </tr>
             </tfoot>
         </table>
     </div>
